@@ -1,0 +1,39 @@
+--- Starting Clean V13 Baseline on NVIDIA GeForce RTX 3070 Ti Laptop GPU ---
+Loss Function: Focal Loss
+--- Starting Clean V13 Baseline on NVIDIA GeForce RTX 3070 Ti Laptop GPU ---
+Loss Function: Focal Loss
+Epoch 1: Loss=0.4908 | Prec=0.0109 | Rec=0.4211 | F1=0.0212 | TP=8 FN=11 [SAVED BEST]
+Epoch 2: Loss=0.2219 | Prec=0.0241 | Rec=0.5789 | F1=0.0462 | TP=11 FN=8 [SAVED BEST]
+Epoch 3: Loss=0.1141 | Prec=0.0736 | Rec=0.6316 | F1=0.1319 | TP=12 FN=7 [SAVED BEST]
+Epoch 4: Loss=0.0587 | Prec=0.1364 | Rec=0.4737 | F1=0.2118 | TP=9 FN=10 [SAVED BEST]
+Epoch 5: Loss=0.0532 | Prec=0.1467 | Rec=0.5789 | F1=0.2340 | TP=11 FN=8 [SAVED BEST]
+Epoch 6: Loss=0.0269 | Prec=0.2571 | Rec=0.4737 | F1=0.3333 | TP=9 FN=10 [SAVED BEST]
+Epoch 7: Loss=0.0278 | Prec=0.1957 | Rec=0.4737 | F1=0.2769 | TP=9 FN=10
+Epoch 8: Loss=0.0165 | Prec=0.2812 | Rec=0.4737 | F1=0.3529 | TP=9 FN=10 [SAVED BEST]
+Epoch 9: Loss=0.0145 | Prec=0.3600 | Rec=0.4737 | F1=0.4091 | TP=9 FN=10 [SAVED BEST]
+Epoch 10: Loss=0.0147 | Prec=0.3600 | Rec=0.4737 | F1=0.4091 | TP=9 FN=10
+Epoch 11: Loss=0.0155 | Prec=0.3214 | Rec=0.4737 | F1=0.3830 | TP=9 FN=10
+Epoch 12: Loss=0.0142 | Prec=0.3600 | Rec=0.4737 | F1=0.4091 | TP=9 FN=10
+Epoch 13: Loss=0.0163 | Prec=0.3462 | Rec=0.4737 | F1=0.4000 | TP=9 FN=10
+Epoch 14: Loss=0.0144 | Prec=0.3333 | Rec=0.4737 | F1=0.3913 | TP=9 FN=10
+Epoch 15: Loss=0.0148 | Prec=0.3103 | Rec=0.4737 | F1=0.3750 | TP=9 FN=10
+Epoch 16: Loss=0.0147 | Prec=0.3333 | Rec=0.4737 | F1=0.3913 | TP=9 FN=10
+Epoch 17: Loss=0.0140 | Prec=0.3600 | Rec=0.4737 | F1=0.4091 | TP=9 FN=10
+Epoch 18: Loss=0.0151 | Prec=0.3103 | Rec=0.4737 | F1=0.3750 | TP=9 FN=10
+Epoch 19: Loss=0.0158 | Prec=0.2903 | Rec=0.4737 | F1=0.3600 | TP=9 FN=10
+Epoch 20: Loss=0.0145 | Prec=0.3600 | Rec=0.4737 | F1=0.4091 | TP=9 FN=10
+Epoch 21: Loss=0.0148 | Prec=0.3600 | Rec=0.4737 | F1=0.4091 | TP=9 FN=10
+Epoch 22: Loss=0.0144 | Prec=0.3750 | Rec=0.4737 | F1=0.4186 | TP=9 FN=10 [SAVED BEST]
+Epoch 23: Loss=0.0151 | Prec=0.3333 | Rec=0.4737 | F1=0.3913 | TP=9 FN=10
+Epoch 24: Loss=0.0146 | Prec=0.3913 | Rec=0.4737 | F1=0.4286 | TP=9 FN=10 [SAVED BEST]
+Epoch 25: Loss=0.0157 | Prec=0.3333 | Rec=0.4737 | F1=0.3913 | TP=9 FN=10
+Epoch 26: Loss=0.0151 | Prec=0.3750 | Rec=0.4737 | F1=0.4186 | TP=9 FN=10
+Epoch 27: Loss=0.0158 | Prec=0.3103 | Rec=0.4737 | F1=0.3750 | TP=9 FN=10
+Epoch 28: Loss=0.0159 | Prec=0.3333 | Rec=0.4737 | F1=0.3913 | TP=9 FN=10
+Epoch 29: Loss=0.0151 | Prec=0.3750 | Rec=0.4737 | F1=0.4186 | TP=9 FN=10
+Epoch 30: Loss=0.0150 | Prec=0.3600 | Rec=0.4737 | F1=0.4091 | TP=9 FN=10
+Epoch 31: Loss=0.0157 | Prec=0.3462 | Rec=0.4737 | F1=0.4000 | TP=9 FN=10
+Epoch 32: Loss=0.0159 | Prec=0.3600 | Rec=0.4737 | F1=0.4091 | TP=9 FN=10
+Epoch 33: Loss=0.0150 | Prec=0.3462 | Rec=0.4737 | F1=0.4000 | TP=9 FN=10
+Epoch 34: Loss=0.0169 | Prec=0.3462 | Rec=0.4737 | F1=0.4000 | TP=9 FN=10
+Epoch 35: Loss=0.0164 | Prec=0.3462 | Rec=0.4737 | F1=0.4000 | TP=9 FN=10

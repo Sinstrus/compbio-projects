@@ -1,0 +1,17 @@
+name: project_name_placeholder
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pytorch>=2.1
+  - torchvision
+  - pytorch-cuda=12.1
+  - pandas
+  - numpy
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - jupyterlab
+  - pip

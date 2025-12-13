@@ -1,0 +1,62 @@
+DeepRisdiplam Training Log - v5
+Starting V5 Training (Healed Data). Device: cuda
+Epoch 1: Loss=0.6866 | Acc=0.5547 | AvgPred=0.55
+   Saved new best model.
+Epoch 2: Loss=0.6823 | Acc=0.5599 | AvgPred=0.51
+   Saved new best model.
+Epoch 3: Loss=0.6808 | Acc=0.5573 | AvgPred=0.54
+Epoch 4: Loss=0.7126 | Acc=0.5120 | AvgPred=0.63
+Epoch 5: Loss=0.6626 | Acc=0.6000 | AvgPred=0.54
+   Saved new best model.
+Epoch 6: Loss=0.6607 | Acc=0.5990 | AvgPred=0.55
+Epoch 7: Loss=0.6705 | Acc=0.5958 | AvgPred=0.57
+Epoch 8: Loss=0.6703 | Acc=0.5938 | AvgPred=0.40
+Epoch 9: Loss=0.7001 | Acc=0.6411 | AvgPred=0.38
+   Saved new best model.
+Epoch 10: Loss=0.6728 | Acc=0.6047 | AvgPred=0.52
+Epoch 11: Loss=0.7873 | Acc=0.5594 | AvgPred=0.28
+Epoch 12: Loss=0.6629 | Acc=0.6297 | AvgPred=0.50
+Epoch 13: Loss=0.6606 | Acc=0.6328 | AvgPred=0.54
+Epoch 14: Loss=0.8064 | Acc=0.5995 | AvgPred=0.28
+Epoch 15: Loss=0.8666 | Acc=0.5792 | AvgPred=0.25
+Epoch 16: Loss=0.7990 | Acc=0.6276 | AvgPred=0.29
+Epoch 17: Loss=0.7197 | Acc=0.6427 | AvgPred=0.43
+   Saved new best model.
+Epoch 18: Loss=0.7698 | Acc=0.6781 | AvgPred=0.36
+   Saved new best model.
+Epoch 19: Loss=0.6595 | Acc=0.6557 | AvgPred=0.51
+Epoch 20: Loss=0.7038 | Acc=0.6510 | AvgPred=0.57
+Epoch 21: Loss=0.6762 | Acc=0.6443 | AvgPred=0.47
+Epoch 22: Loss=0.8216 | Acc=0.6354 | AvgPred=0.33
+Epoch 23: Loss=0.7922 | Acc=0.6448 | AvgPred=0.38
+Epoch 24: Loss=1.0303 | Acc=0.5380 | AvgPred=0.19
+Epoch 25: Loss=0.7329 | Acc=0.6599 | AvgPred=0.42
+Epoch 26: Loss=1.4345 | Acc=0.5000 | AvgPred=0.09
+Epoch 27: Loss=0.9261 | Acc=0.6141 | AvgPred=0.23
+Epoch 28: Loss=0.7933 | Acc=0.6375 | AvgPred=0.46
+Epoch 29: Loss=0.7790 | Acc=0.6583 | AvgPred=0.37
+Epoch 30: Loss=0.8735 | Acc=0.6698 | AvgPred=0.31
+Epoch 31: Loss=0.7722 | Acc=0.6391 | AvgPred=0.45
+Epoch 32: Loss=0.7823 | Acc=0.6807 | AvgPred=0.38
+   Saved new best model.
+Epoch 33: Loss=0.9764 | Acc=0.6625 | AvgPred=0.24
+Epoch 34: Loss=0.8204 | Acc=0.7083 | AvgPred=0.31
+   Saved new best model.
+Epoch 35: Loss=0.7843 | Acc=0.6740 | AvgPred=0.36
+Epoch 36: Loss=1.0389 | Acc=0.6245 | AvgPred=0.22
+Epoch 37: Loss=0.7729 | Acc=0.6630 | AvgPred=0.40
+Epoch 38: Loss=0.7772 | Acc=0.6406 | AvgPred=0.41
+Epoch 39: Loss=0.8740 | Acc=0.6604 | AvgPred=0.33
+Epoch 40: Loss=0.7612 | Acc=0.6458 | AvgPred=0.48
+Epoch 41: Loss=0.7790 | Acc=0.6464 | AvgPred=0.41
+Epoch 42: Loss=0.8761 | Acc=0.6615 | AvgPred=0.33
+Epoch 43: Loss=0.9163 | Acc=0.6839 | AvgPred=0.30
+Epoch 44: Loss=0.9464 | Acc=0.6724 | AvgPred=0.30
+Epoch 45: Loss=0.8316 | Acc=0.6797 | AvgPred=0.32
+Epoch 46: Loss=0.9694 | Acc=0.6677 | AvgPred=0.26
+Epoch 47: Loss=0.9430 | Acc=0.6625 | AvgPred=0.27
+Epoch 48: Loss=0.8769 | Acc=0.6469 | AvgPred=0.35
+Epoch 49: Loss=0.8519 | Acc=0.6427 | AvgPred=0.39
+Epoch 50: Loss=0.7984 | Acc=0.6526 | AvgPred=0.40
+
+Done!

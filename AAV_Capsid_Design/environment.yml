@@ -1,0 +1,13 @@
+name: aav_capsid          # Keep names short and lowercase
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10           # Pin your python version
+  - numpy
+  - pandas
+  - pytorch               # Add core libraries here
+  - pip                   # Always include pip
+  - pip:
+    - biopython           # Add pip-only packages here

@@ -1,0 +1,44 @@
+name: titanblock
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  # Core Python (3.10 is stable for BindCraft/RFdiffusion pipelines)
+  - python=3.10
+
+  # Jupyter Ecosystem
+  - jupyter
+  - notebook
+  - ipykernel
+  - ipywidgets
+
+  # Structural Biology & Biophysics
+  - pymol-open-source
+  - biopython
+  - openmm
+  - pdbfixer
+  - mdtraj
+
+  # Data Science
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - polars
+
+  # Machine Learning (Explicit CUDA 12.1 for RTX 3070 Ti)
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+
+  # Pip-only fallback
+  # CRITICAL: py3dmol is installed via pip to resolve VS Code kernel discovery issues
+  # detected in Phase 1 (The "Nuclear Reset" Protocol).
+  - pip:
+    - biolib
+    - py3Dmol

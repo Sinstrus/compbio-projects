@@ -1,0 +1,188 @@
+# Computational Biology .gitignore
+
+# ============================================
+# Large Bioinformatics Data Files
+# ============================================
+# Sequence alignment files
+*.bam
+*.sam
+*.cram
+*.bai
+*.sai
+
+# Sequencing data
+*.fastq
+*.fq
+*.fastq.gz
+*.fq.gz
+
+# Sequence files (reference genomes can be very large)
+*.fasta
+*.fa
+*.fna
+*.faa
+
+# Variant files
+*.vcf
+*.vcf.gz
+*.bcf
+
+# Genomic annotation files
+*.bed
+*.gtf
+*.gff
+*.gff3
+*.wig
+*.bigWig
+*.bw
+*.bigBed
+
+# Large tabular data files
+*.tsv
+*.csv
+*.tsv.gz
+*.csv.gz
+
+# ============================================
+# Machine Learning / Deep Learning
+# ============================================
+# Model checkpoints and weights
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.hdf5
+*.pb
+*.pkl
+*.pickle
+*.joblib
+*.safetensors
+
+# Model directories
+models/
+checkpoints/
+weights/
+saved_models/
+
+# Training logs
+lightning_logs/
+runs/
+wandb/
+mlruns/
+
+# ============================================
+# Data Directories
+# ============================================
+data/
+datasets/
+raw_data/
+processed_data/
+results/
+outputs/
+output/
+figures/
+plots/
+
+# ============================================
+# Python
+# ============================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Environment variables
+.env
+.env.local
+
+# ============================================
+# R (if using R for analysis)
+# ============================================
+.Rhistory
+.RData
+.Rproj.user
+*.Rproj
+
+# ============================================
+# Compressed files (large archives)
+# ============================================
+*.tar.gz
+*.zip
+*.7z
+*.rar
+# Keep vscode_cli.tar.gz as exception if needed
+# !vscode_cli.tar.gz
+
+# ============================================
+# Logs and temporary files
+# ============================================
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# ============================================
+# OS specific
+# ============================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.directory
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*:Zone.Identifier
+
+# ============================================
+# IDE specific
+# ============================================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ============================================
+# Custom exclusions
+# ============================================
+# Add project-specific files here
+.claude/
+
+# Binary executables
+code

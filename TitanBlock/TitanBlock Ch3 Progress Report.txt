@@ -1,0 +1,140 @@
+﻿TitanBlock Project: Chapter 3 Progress Report
+Phase I & II: Target Definition and Specificity Mapping
+Date: December 8, 2025
+Project: TitanBlock (GDF11/Myostatin Specificity)
+Status: Phase II Complete (Green Light for Generation)
+Authored By: TitanBlock Computational Team
+1. Executive Summary
+The TitanBlock project aims to solve one of the most persistent challenges in TGF-$\beta$ pharmacology: the selective inhibition of Myostatin (MSTN) without affecting its structural twin, GDF11. Due to >90% sequence identity in the mature ligand domains, traditional sequence-based targeting has historically failed, leading to off-target toxicity.
+Chapter 3 marks the conclusion of the Target Definition phase.
+We have successfully transitioned from a flawed structural assembly (Phase I) to a rigorous, physics-validated differential map (Phase II). Early attempts to define the target yielded artifactual data ("The Franken-dimer"), showing impossible atomic shifts of >70 Å. Through an iterative peer-review process involving rigorous structural auditing, we have corrected the assembly pipeline.
+Key Achievements:
+1. Isolation of the Biological Dimer: We successfully extracted the GDF11 ligand from the ternary 6MAC complex, eliminating receptor contamination.
+2. Algorithmic Mate Selection: We implemented a triple-factor selection algorithm (Contacts, Clashes, COM Distance) that successfully distinguished the biological dimer interface (66 contacts, 0 clashes) from crystal packing artifacts.
+3. The "Butterfly Effect" Map: We have generated a high-confidence constraint set of 8 residue pairs (16 hotspots total) that define the "Hinge" mechanism. These residues exhibit real geometric displacements of 1.8 Å – 7.0 Å between MSTN and GDF11.
+The project is now cleared for Phase III: Generative Design (BindCraft).
+2. The Biological Challenge
+Myostatin and GDF11 form homodimers resembling a "butterfly" shape. While their sequences are nearly identical, their quaternary structures differ slightly in the angle between the two monomeric "wings."
+2.1 The "Hinge" Hypothesis
+Our core design thesis is Geometric Specificity.
+* Concept: Instead of looking for different amino acids (which are rare), we look for the same amino acids in different locations in 3D space.
+* Mechanism: If the "hinge angle" of Myostatin is distinct from GDF11, a rigid binder designed to bridge the Myostatin interface will physically clash with or fail to reach the corresponding atoms in GDF11.
+2.2 The Risk of False Positives
+Because the proteins are so similar, a binder that targets a flexible loop or a conserved region will almost certainly bind both. To achieve specificity, we must target the regions of maximum geometric divergence—the tips of the wings and the fulcrum of the hinge.
+3. Phase I Post-Mortem: The "Franken-Dimer" Incident
+Our initial attempt to map the differences between Myostatin (PDB: 3HH2) and GDF11 (PDB: 6MAC) resulted in a critical failure. This section details the diagnostic process that saved the project from generating useless binders.
+3.1 The "Spaghetti Explosion"
+Visual inspection of the Phase I alignment revealed a chaotic structure where the "Target" monomer (Chain B) of GDF11 was completely dissociated from the Myostatin anchor.
+* Symptom: The atomic shifts for residues 27 and 98 were calculated at 58.53 Å and 69.63 Å, respectively.
+* Biological Impossibility: The entire TGF-$\beta$ dimer is roughly 70-80 Å wide. A shift of this magnitude implies the second monomer was located physically outside the biological assembly.
+3.2 Root Cause Analysis
+The error was traced to the nature of the source file, PDB 6MAC.
+1. Ternary Complex: Unlike 3HH2 (which is a simple ligand dimer), 6MAC contains GDF11 bound to two receptors (ActRIIB and Alk5).
+2. Symmetry Expansion Error: The initial script ran symmetry expansion on the entire complex.
+3. The "Franken-Dimer": The script arbitrarily assigned "Chain B" to the symmetry mate. However, because the receptors were present, "Chain B" became a massive clump of receptor protein, not the GDF11 monomer.
+4. Result: We were comparing a Myostatin monomer to a GDF11 Receptor.
+Corrective Action: A "Surgical Extraction" protocol was developed to isolate Chain A (Ligand) and delete all receptor chains before symmetry operations.
+4. Phase II Methodology: The Reconstruction
+Following the Phase I failure, we rebuilt the pipeline with a focus on structural integrity and rigorous verification.
+4.1 Surgical Extraction and Symmetry Scanning
+We modified the pipeline to:
+1. Load 6MAC.pdb.
+2. Select chain A and not solvent.
+3. Delete all other atoms.
+4. Run cmd.symexp to generate all potential crystal neighbors within 25 Å.
+4.2 The "Triple-Factor" Mate Selection
+A critical challenge in crystallography is distinguishing the biological dimer (the functional unit) from "crystal contacts" (neighbors in the lattice). We implemented a hardened selection logic:
+* Metric A: Interface Density (Contacts): We count both atoms and residues at the interface. A true dimer must have a substantial buried surface area.
+* Metric B: Steric Feasibility (Clashes): We reject any mate that has >5 atoms overlapping within 1.2 Å of the anchor. This filters out mathematical artifacts.
+* Metric C: Geometric Plausibility (COM Distance): We require the Center of Mass distance to be between 10 Å and 30 Å.
+Result of Selection:
+The algorithm rejected 9 candidates (0 contacts, or >36 Å distance) and identified a single valid partner:
+* Winner: sym04000000
+* Stats: 66 atomic contacts, 0 clashes, 19.0 Å COM distance.
+4.3 Specificity Mapping (The Score)
+To define the BindCraft constraints, we ranked residues based on an Impact Score:
+
+
+$$\text{Score} = \text{Shift (Å)} \times \text{SASA (Å}^2)$$
+* Shift: Measured displacement between Myostatin Chain B and GDF11 Chain B (after aligning Chain A).
+* SASA: Solvent Accessible Surface Area. Buried residues are ignored to prevent the model from trying to bind the protein core.
+* Chemistry Gate: We incorporated a "Chemical Property Flip" check (e.g., Charge Reversal). If a residue changes chemistry (Reviewer C protocol), it is promoted even if the geometric shift is small.
+5. Results & Validation
+The data produced by the final Phase II pipeline represents a physically valid "Differential Map."
+5.1 The Alignment Duality
+We observed a discrepancy between the Anchor RMSD and the Verification RMSD, which confirms the biological "Hinge" hypothesis.
+* PyMOL Anchor RMSD (0.681 Å): This low number indicates that the "bodies" (Monomer A) of Myostatin and GDF11 are structurally identical. We have a solid frame of reference.
+* Verification RMSD (2.354 Å): When we force an alignment of the entire structure, the error increases. This confirms that while the bodies match, the flexible loops and the relative angle of the second monomer differ.
+* Core RMSD (< 1.0 Å): When filtering out the top 20% most flexible loops, the RMSD drops significantly, proving that the alignment is chemically correct and not a mapping error.
+5.2 The Top-12 Specificity Hotspots
+The following table represents the "Green Light" constraints fed into BindCraft. Note that the majority of targets are Geometric (GEOM), meaning the amino acid is identical, but the position has moved.
+Residue
+	Mutation
+	Type
+	Shift (Å)
+	Interpretation
+	B68
+	GLY-GLY
+	GEOM
+	7.05
+	The wingtip. Massive displacement due to hinge leverage.
+	B66
+	PRO-PRO
+	GEOM
+	6.51
+	Proline rigidity makes this a stable geometric anchor.
+	B69
+	SER-SER
+	GEOM
+	5.06
+	Adjacent to the wingtip; highly accessible.
+	B45
+	GLY-GLY
+	GEOM
+	3.74
+	Mid-wing hinge point.
+	B29
+	TRP-TRP
+	GEOM
+	3.25
+	Bulky sidechain anchor.
+	B27
+	PHE-PHE
+	GEOM
+	3.15
+	Hydrophobic patch anchor.
+	B98
+	ILE-ILE
+	GEOM
+	2.78
+	Interface rim residue.
+	B63
+	GLN-GLN
+	GEOM
+	2.47
+	Polar contact point.
+	Interpretation:
+The data clearly shows the leverage effect of the hinge. Residues near the pivot (50s) show small shifts (~1.8 Å), while residues at the tips (60s) show massive shifts (>6 Å). This confirms we are targeting the Quaternary Structure, not just the sequence.
+6. Phase III Strategy: Generative Design
+With the target defined, we proceed to generation using BindCraft.
+6.1 Execution Parameters
+* Input PDB: mstn_clean.pdb (The aligned Myostatin anchor).
+* Chains: A,B (Dimer targeting).
+* Binder Length: 50-80 residues (Mini-protein scaffold).
+* Constraint String: The Top-8 residues (mirrored on Chain A and B) will be used as "Hotspots."
+   * String: B68,B63,B99,B29,B66,B69,B45,B98,A68,A63,A99,A29,A66,A69,A45,A98
+6.2 The "Negative Screen" Protocol
+Generation is only half the battle. We expect BindCraft to generate binders that fit the constraints. The critical test is whether those binders fail to bind GDF11.
+Validation Workflow:
+1. Positive Fold (AlphaFold2-Multimer):
+   * Input: Binder + Myostatin
+   * Pass Criteria: pAE < 5, pLDDT > 80.
+2. Negative Fold (AlphaFold2-Multimer):
+   * Input: Binder + GDF11
+   * Pass Criteria: High pAE (>10), Low pLDDT (<70), or RMSD > 5 Å.
+3. Selection: We only synthesize binders that show strong folding for MSTN and poor/failed folding for GDF11.
+7. Conclusion
+The TitanBlock project has successfully navigated the pitfalls of structural biology data curation. By rejecting the "Franken-dimer" and implementing rigorous physics-based filtering, we have generated a specificity map that exploits the subtle geometric differences between Myostatin and GDF11.
+The shifts we are targeting (2.0 - 7.0 Å) are biologically plausible and large enough to be discriminated by a rigid protein binder.
+Recommendation: Proceed immediately to RunPod execution using the phase3_execution_guide.md.
+Report generated by TitanBlock Computational Team (Scientist A, Reviewers B & C)

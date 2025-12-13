@@ -1,0 +1,16 @@
+DeepRisdiplam Training Log - v1
+Date: 2025-11-30 00:29:15.396428
+----------------------------------------
+Starting Training Run: v1
+Device: cuda
+1. Loading Data...
+   Positives: 194
+   Negatives: 78830
+2. Building PyTorch Model...
+3. Training (Batch Size: 96)...
+Epoch 1: Val Loss=0.6049 | Val Acc=0.7500
+   Saved new best model to deep_risdiplam_model_v1.pth
+Epoch 2: Val Loss=2.6123 | Val Acc=0.7500
+Epoch 3: Val Loss=2.4122 | Val Acc=0.7500
+Epoch 4: Val Loss=0.6626 | Val Acc=0.7500
+Epoch 5: Val Loss=0.6440 | Val Acc=0.5000

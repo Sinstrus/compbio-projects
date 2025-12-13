@@ -1,0 +1,43 @@
+--- Starting Hybrid V13 (FOCAL LOSS) Training on NVIDIA GeForce RTX 3070 Ti Laptop GPU ---
+Strategy: Focal Loss (Gamma=2) to mine hard positives.
+Loading TSV...
+Epoch 1: Loss=0.5732 | Prec=0.0066 | Rec=0.7895 | F1=0.0130 [SAVED BEST]
+Epoch 2: Loss=0.2482 | Prec=0.0254 | Rec=0.7368 | F1=0.0490 [SAVED BEST]
+Epoch 3: Loss=0.1005 | Prec=0.0763 | Rec=0.5263 | F1=0.1333 [SAVED BEST]
+Epoch 4: Loss=0.0340 | Prec=0.2903 | Rec=0.4737 | F1=0.3600 [SAVED BEST]
+Epoch 5: Loss=0.0239 | Prec=0.3448 | Rec=0.5263 | F1=0.4167 [SAVED BEST]
+Epoch 6: Loss=0.0160 | Prec=0.3600 | Rec=0.4737 | F1=0.4091
+Epoch 7: Loss=0.0224 | Prec=0.3103 | Rec=0.4737 | F1=0.3750
+Epoch 8: Loss=0.0178 | Prec=0.3462 | Rec=0.4737 | F1=0.4000
+Epoch 9: Loss=0.0166 | Prec=0.3600 | Rec=0.4737 | F1=0.4091
+Epoch 10: Loss=0.0176 | Prec=0.3462 | Rec=0.4737 | F1=0.4000
+Epoch 11: Loss=0.0146 | Prec=0.3750 | Rec=0.4737 | F1=0.4186 [SAVED BEST]
+Epoch 12: Loss=0.0149 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 13: Loss=0.0150 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 14: Loss=0.0154 | Prec=0.3462 | Rec=0.4737 | F1=0.4000
+Epoch 15: Loss=0.0155 | Prec=0.3913 | Rec=0.4737 | F1=0.4286 [SAVED BEST]
+Epoch 16: Loss=0.0178 | Prec=0.3214 | Rec=0.4737 | F1=0.3830
+Epoch 17: Loss=0.0159 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 18: Loss=0.0156 | Prec=0.3913 | Rec=0.4737 | F1=0.4286
+Epoch 19: Loss=0.0174 | Prec=0.3600 | Rec=0.4737 | F1=0.4091
+Epoch 20: Loss=0.0158 | Prec=0.3600 | Rec=0.4737 | F1=0.4091
+Epoch 21: Loss=0.0152 | Prec=0.3913 | Rec=0.4737 | F1=0.4286
+Epoch 22: Loss=0.0151 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 23: Loss=0.0160 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 24: Loss=0.0166 | Prec=0.3913 | Rec=0.4737 | F1=0.4286
+Epoch 25: Loss=0.0156 | Prec=0.3600 | Rec=0.4737 | F1=0.4091
+Epoch 26: Loss=0.0165 | Prec=0.3600 | Rec=0.4737 | F1=0.4091
+Epoch 27: Loss=0.0161 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 28: Loss=0.0158 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 29: Loss=0.0164 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 30: Loss=0.0170 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 31: Loss=0.0158 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 32: Loss=0.0150 | Prec=0.3913 | Rec=0.4737 | F1=0.4286
+Epoch 33: Loss=0.0167 | Prec=0.3913 | Rec=0.4737 | F1=0.4286
+Epoch 34: Loss=0.0164 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 35: Loss=0.0168 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 36: Loss=0.0165 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 37: Loss=0.0156 | Prec=0.3600 | Rec=0.4737 | F1=0.4091
+Epoch 38: Loss=0.0162 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 39: Loss=0.0161 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 40: Loss=0.0165 | Prec=0.3750 | Rec=0.4737 | F1=0.4186

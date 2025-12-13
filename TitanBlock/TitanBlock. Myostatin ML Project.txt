@@ -1,0 +1,65 @@
+Project TitanBlock: De Novo Peptide Design Targeting Myostatin (MSTN)
+To: Computational Biology Lead
+From: Senior Computational Biologist / Protein Engineer
+Date: October 26, 2025
+Subject: Technical Pipeline & Feasibility for MSTN Binder Design
+1. Project Summary & Problem Definition
+The Clinical Problem
+The objective is to design a high-affinity peptide binder for Myostatin (GDF-8), a negative regulator of muscle mass. In muscle atrophy disorders (SMA, Duchenne), inhibiting MSTN can restore muscle bulk.
+? Therapeutic Mechanism: We are targeting the mature homodimer interface where MSTN binds to the Activin Receptor Type IIB (ActRIIB). The goal is a "decoy" peptide that competitively binds this interface, preventing receptor engagement (Sequestering/Steric Hindrance).
+Key Technical Obstacles
+? The "GDF11 Trap" (The Specificity Gap): This is the single biggest risk. Myostatin is structurally nearly identical to GDF11 (Growth Differentiation Factor 11). While MSTN inhibition builds muscle, GDF11 inhibition causes severe side effects (cardiovascular toxicity, erythropoiesis disruption). Many historical failures occurred because binders could not distinguish between the two.
+? The Disulfide Challenge: The mature active form of MSTN is a disulfide-linked homodimer. The binding surface is large and relatively flat, often requiring a larger footprint than a small molecule can provide (hence the need for a peptide).
+Gaps in Knowledge
+? Off-Target Prediction Reliability: We do not yet know if current generation tools (BindCraft/Boltz-1) have the resolution to discriminate the ~10% sequence difference between MSTN and GDF11 without explicit "negative design" constraints.
+? Epitope "Hotness": We need to determine if the specific residues that differ between MSTN and GDF11 are actually energetically capable of supporting a high-affinity interaction, or if we are forced to bind the conserved region and rely on subtle shape complementarity.
+2. The Computational Pipeline (Hybrid Workflow)
+This pipeline leverages the local MSI Raider (RTX 3070 Ti, 8GB) for lightweight tasks and visual checks, reserving RunPod (A100/A6000) for the VRAM-intensive generative steps.
+Step 1: Target Prep & "The Differential Map"
+? Goal: Define the binding site and identify "Safe Zones" (residues unique to MSTN).
+? Input: Crystal structure of MSTN:ActRIIB complex (e.g., PDB: 1S4Y).
+? Action: Align Human MSTN vs. Human GDF11. Map the differing residues onto the 3D structure.
+? Sanity Check (The "Coordinate Bug" Equivalent):
+? The "Offset Check": Manually verify that residue Lys-X in your PDB file matches Lys-X in the Uniprot canonical sequence. A 1-residue shift here means we design against a ghost target.
+? The "Glycan Shield" Check: Check the PDB for N-linked glycosylation sites. If the model predicts binding to a residue that is covered by a sugar in vivo, the binder will fail.
+? Hardware: Local (MSI Raider). PyMOL/ChimeraX runs perfectly here.
+Step 2: Generative Design (The Heavy Lift)
+? Goal: Generate ~5,000 candidate peptide backbones and sequences.
+? Tool: BindCraft (or RFdiffusion coupled with ProteinMPNN).
+? Why BindCraft? It integrates the target structure directly into the generation process (MCTS/AlphaFold-based), offering higher success rates for protein-protein interfaces than generic diffusion.
+? Action: Run generation targeting the ActRIIB binding site on MSTN.
+? Hardware: Cloud (RunPod - A100 80GB).
+? Reasoning: BindCraft/RFdiffusion requires massive VRAM to hold the target + binder + gradients. The 8GB 3070 Ti will OOM (Out of Memory) immediately on a complex of this size.
+Step 3: In Silico Validation & Specificity Screening
+? Goal: Filter 5,000 candidates down to 10 "leads" that bind MSTN but not GDF11.
+? Tool: Boltz-1 (or AlphaFold3-server if accessible, but Boltz-1 is open source and dockerizable).
+? Action:
+1. Fold Candidate + MSTN.
+2. Fold Candidate + GDF11 (The Decoy).
+3. Calculate pLDDT, PAE, and Interface $\Delta G$.
+? The "Accordion" Sanity Check (Hallucination Detector):
+? Method: Take the top 5 binders. Scramble the sequence of the MSTN target (randomize the amino acids but keep length). Fold the binder against this "noise" target.
+? Pass Criteria: The pLDDT/confidence should drop to zero.
+? Fail Criteria: If the model still predicts high confidence binding to the scrambled target, the binder is a "Hallucination"—a stable helix that ignores the target. Discard immediately.
+? Hardware: Cloud (RunPod - A6000 or A100). High-throughput folding requires batch processing speed.
+Step 4: Sequence Analysis & Selection
+? Goal: Select final candidates for synthesis.
+? Action: Filter for solubility, isoelectric point, and aggregation propensity (NetSurfP-3.0).
+? Hardware: Local (MSI Raider). These are lightweight inference tasks or script-based calculations.
+3. Translatability & Animal Models
+This is a rare "Goldilocks" scenario in biology.
+Homology Analysis (Mature Active Domain)
+The active signaling molecule (the C-terminal mature dimer) is extraordinarily conserved across species.
+SpeciesUniprot IDIdentity to Human Mature DomainHumanP43029100%MouseO08689100%RatO35312100%PigO77603100%DogO97566100%Cyno(Computed)100%Note: The precursor (pro-peptide) varies, but the drug target (mature domain) is identical.
+Model Selection
+? Primary Model: C57BL/6 Mouse.
+? Why: Since the sequence is 100% identical, a binder that works in humans will work in mice. There is no need for "humanized" mice. The $Mstn^{-/-}$ (Knockout) mouse is a well-established phenotype (double muscle mass), providing a clear positive control.
+? Safety/Tox Model: Cynomolgus Macaque or Beagle Dog.
+? Why: Again, 100% identity. Any off-target toxicity (e.g., GDF11 binding) seen in these animals will directly predict human toxicity.
+Risk Assessment
+? Cross-Reactivity: Guaranteed. The binder will cross-react with animal orthologs. This simplifies efficacy testing but raises the stakes for safety testing. If your binder hits GDF11 in silico, it will likely cause bleeds in the animal model.
+4. Immediate Next Steps
+1. Data Acquisition (Local): Download PDB 1S4Y (MSTN:ActRIIB) and PDB 6MAC (GDF11:ActRIIB). Create a PyMOL session overlaying them to identify the specific amino acid differences in the binding interface.
+2. Environment Setup (Cloud): Dockerize BindCraft on RunPod. Ensure you can pass the "Hello World" test (designing a binder for a small test protein like Ubiquitin) before burning credits on MSTN.
+3. The "Explicit Feature" Baseline (Local): Generate a CSV of the interface residues. Calculate the Hydrophobicity and Charge of the "MSTN-Unique" patch.
+? Heuristic: If the unique patch is purely hydrophobic, we need to design a hydrophobic core binder. If it's charged, we design for electrostatics. Don't let the DL model guess this; know the physics first.

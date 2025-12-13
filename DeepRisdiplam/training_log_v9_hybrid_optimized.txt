@@ -1,0 +1,13 @@
+--- Starting Hybrid V9 Training on NVIDIA GeForce RTX 3070 Ti Laptop GPU ---
+Config: MicroBatch=32 | AccumSteps=4 | EffectiveBatch=128
+Optimizations: AMP + Checkpointing + Gradient Accumulation + TF32
+Loading TSV...
+Train: 66713 | Val: 7413
+Epoch 1: Loss=0.0183 | Acc=0.9974 [SAVED BEST]
+Epoch 2: Loss=0.0178 | Acc=0.9974
+Epoch 3: Loss=0.0187 | Acc=0.9974
+Epoch 4: Loss=0.0179 | Acc=0.9974
+Epoch 5: Loss=0.0181 | Acc=0.9974
+Epoch 6: Loss=0.0182 | Acc=0.9974
+Epoch 7: Loss=0.0177 | Acc=0.9974
+Epoch 8: Loss=0.0202 | Acc=0.9974

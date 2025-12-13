@@ -1,0 +1,136 @@
+﻿TitanBlock: Nuclear Reset & Setup Guide
+This guide will wipe your existing titanblock environment and rebuild it from scratch to resolve the persistent ModuleNotFoundError.
+Phase 1: The Purge (Terminal)
+Open your terminal in VS Code (Ctrl+`) and run these commands one by one:
+1. Deactivate current environment:
+conda deactivate
+
+
+2. Remove the Jupyter Kernel spec:
+jupyter kernelspec uninstall -y titanblock
+rm -rf ~/.local/share/jupyter/kernels/titanblock
+
+
+3. Delete the Conda environment:
+conda remove --name titanblock --all -y
+
+
+4. Clean Conda cache (Optional but recommended):
+conda clean --all -y
+
+
+Phase 2: The Rebuild (Terminal)
+   1. Create the environment from the file:
+conda env create -f environment.yml
+
+
+   2. Activate the new environment:
+conda activate titanblock
+
+
+   3. Verify py3dmol exists (CRITICAL STEP):
+Run this command to find the EXACT path where pip installed the package.
+pip show py3dmol
+
+
+Copy the path listed after Location:. You will need this for the notebook.
+Phase 3: Kernel Registration
+      1. Register the kernel:
+python -m ipykernel install --user --name titanblock --display-name "Python (titanblock)"
+
+
+      2. Restart VS Code:
+         * Close the VS Code window completely.
+         * Re-open VS Code.
+Phase 4: Notebook Execution
+         1. Open view_structure.ipynb.
+         2. Select Kernel: Top Right -> Select Kernel -> Jupyter Kernels -> Python (titanblock).
+         3. Run the Code (Interactive Viewer):
+Cell 1: Structural Analysis & Alignment
+import os
+import urllib.request
+import py3Dmol  # Capital 'D' is required on Linux/WSL
+import pymol
+from pymol import cmd
+
+# 1. Download PDBs
+pdbs = {"MSTN": "3HH2", "GDF11": "6MAC"}
+for name, code in pdbs.items():
+   # Clean URL
+   url = f"[https://files.rcsb.org/download/](https://files.rcsb.org/download/){code}.pdb"
+   filename = f"{code}.pdb"
+   if not os.path.exists(filename):
+       print(f"Downloading {name}...")
+       urllib.request.urlretrieve(url, filename)
+
+# 2. Align & Clean (Headless PyMOL)
+pymol.finish_launching(['pymol', '-cq'])
+
+# Load original files
+cmd.load("3HH2.pdb", "mstn_raw")
+cmd.load("6MAC.pdb", "gdf11_raw")
+
+# Extract ONLY the mature chains (A & B) to remove noise
+cmd.create("mstn_clean", "mstn_raw and chain A+B")
+cmd.create("gdf11_clean", "gdf11_raw and chain A+B")
+
+# Align the clean dimers
+rms = cmd.align("gdf11_clean", "mstn_clean", cycles=0)
+print(f"Mature Dimer RMSD: {rms[0]:.3f} Angstroms")
+
+# Save the aligned files for the viewer
+cmd.save("mstn_clean.pdb", "mstn_clean")
+cmd.save("gdf11_aligned.pdb", "gdf11_clean")
+
+# Clean up PyMOL
+cmd.reinitialize()
+print("Alignment complete. Files saved for viewer.")
+
+Cell 2: Interactive 3D Visualization
+# Create the viewer instance
+view = py3Dmol.view(width=1000, height=800)
+
+# Load Myostatin (Cyan)
+with open("mstn_clean.pdb") as f:
+   view.addModel(f.read(), "pdb")
+view.setStyle({'model': 0}, {'cartoon': {'color': 'cyan'}})
+view.addLabel("Myostatin (3HH2)", {'position': {'x':0, 'y':0, 'z':0}, 'backgroundColor': 'cyan', 'fontColor': 'black'})
+
+# Load GDF11 (Magenta)
+with open("gdf11_aligned.pdb") as f:
+   view.addModel(f.read(), "pdb")
+view.setStyle({'model': 1}, {'cartoon': {'color': 'magenta'}})
+view.addLabel("GDF11 (6MAC)", {'position': {'x':0, 'y':5, 'z':0}, 'backgroundColor': 'magenta', 'fontColor': 'white'})
+
+# Set a nice background and zoom
+view.setBackgroundColor('white')
+view.zoomTo()
+
+# Render the interactive widget
+view.show()
+
+Troubleshooting: The Diagnostic Plan (Nuclear Option 2.0)
+If the standard setup above fails to detect the kernel, follow this advanced diagnostic procedure.
+1. Verify the Kernel File Content:
+Run this command in your terminal to see exactly what VS Code should be seeing:
+cat /home/cnguy/.local/share/jupyter/kernels/titanblock/kernel.json
+
+(You should see a JSON object with "argv": ["/home/cnguy/miniforge3/envs/titanblock/bin/python", ...]. If this path is wrong, that's the issue.)
+2. Start a Jupyter Server Manually:
+Since the internal VS Code server is failing to find the kernel, we will run the server ourselves in the terminal and force VS Code to connect to it. This is the most robust workaround.
+            * In your terminal (inside titanblock env):
+# Ensure jupyter is installed (already in environment.yml via conda)
+conda install jupyter  # Just in case
+jupyter notebook --no-browser --port=8888
+
+            * Copy the URL: Look for output like http://localhost:8888/?token=.... Copy that full URL.
+3. Connect VS Code to That Server:
+               * In VS Code, open the Command Palette (Ctrl+Shift+P).
+               * Type: Jupyter: Specify Jupyter Server for Connections.
+               * Select Existing.
+               * Paste the URL you copied from the terminal.
+               * Restart VS Code (Developer: Reload Window).
+4. Select Kernel (Final Attempt):
+               * Open your notebook.
+               * Click Select Kernel.
+               * Now, you should see "Existing Jupyter Server" as a category. Select the kernel from there.

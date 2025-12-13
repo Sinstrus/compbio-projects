@@ -1,0 +1,36 @@
+--- Starting Hybrid V12 (GUIDED ATTENTION) Training on NVIDIA GeForce RTX 3070 Ti Laptop GPU ---
+Feature: Analogous to AlphaFold FAPE, we enforce attention on the GT Donor.
+Loading TSV...
+Epoch 1: Loss=0.4493 | Prec=0.0061 | Rec=0.7368 | F1=0.0121 [SAVED BEST]
+Epoch 2: Loss=0.2140 | Prec=0.0106 | Rec=0.4737 | F1=0.0207 [SAVED BEST]
+Epoch 3: Loss=0.0817 | Prec=0.0342 | Rec=0.4737 | F1=0.0638 [SAVED BEST]
+Epoch 4: Loss=0.0418 | Prec=0.0783 | Rec=0.4737 | F1=0.1343 [SAVED BEST]
+Epoch 5: Loss=0.0282 | Prec=0.1385 | Rec=0.4737 | F1=0.2143 [SAVED BEST]
+Epoch 6: Loss=0.0239 | Prec=0.2903 | Rec=0.4737 | F1=0.3600 [SAVED BEST]
+Epoch 7: Loss=0.0241 | Prec=0.3103 | Rec=0.4737 | F1=0.3750 [SAVED BEST]
+Epoch 8: Loss=0.0241 | Prec=0.3000 | Rec=0.4737 | F1=0.3673
+Epoch 9: Loss=0.0282 | Prec=0.3214 | Rec=0.4737 | F1=0.3830 [SAVED BEST]
+Epoch 10: Loss=0.0285 | Prec=0.3333 | Rec=0.4737 | F1=0.3913 [SAVED BEST]
+Epoch 11: Loss=0.0326 | Prec=0.3333 | Rec=0.4737 | F1=0.3913
+Epoch 12: Loss=0.0344 | Prec=0.3333 | Rec=0.4737 | F1=0.3913
+Epoch 13: Loss=0.0327 | Prec=0.3750 | Rec=0.4737 | F1=0.4186 [SAVED BEST]
+Epoch 14: Loss=0.0356 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 15: Loss=0.0399 | Prec=0.3462 | Rec=0.4737 | F1=0.4000
+Epoch 16: Loss=0.0391 | Prec=0.3600 | Rec=0.4737 | F1=0.4091
+Epoch 17: Loss=0.0378 | Prec=0.2903 | Rec=0.4737 | F1=0.3600
+Epoch 18: Loss=0.0380 | Prec=0.3462 | Rec=0.4737 | F1=0.4000
+Epoch 19: Loss=0.0418 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 20: Loss=0.0367 | Prec=0.3600 | Rec=0.4737 | F1=0.4091
+Epoch 21: Loss=0.0399 | Prec=0.3913 | Rec=0.4737 | F1=0.4286 [SAVED BEST]
+Epoch 22: Loss=0.0410 | Prec=0.3913 | Rec=0.4737 | F1=0.4286
+Epoch 23: Loss=0.0395 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 24: Loss=0.0397 | Prec=0.3600 | Rec=0.4737 | F1=0.4091
+Epoch 25: Loss=0.0422 | Prec=0.3600 | Rec=0.4737 | F1=0.4091
+Epoch 26: Loss=0.0403 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 27: Loss=0.0381 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 28: Loss=0.0450 | Prec=0.4091 | Rec=0.4737 | F1=0.4390 [SAVED BEST]
+Epoch 29: Loss=0.0438 | Prec=0.3913 | Rec=0.4737 | F1=0.4286
+Epoch 30: Loss=0.0456 | Prec=0.3913 | Rec=0.4737 | F1=0.4286
+Epoch 31: Loss=0.0439 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 32: Loss=0.0442 | Prec=0.3750 | Rec=0.4737 | F1=0.4186
+Epoch 33: Loss=0.0435 | Prec=0.3750 | Rec=0.4737 | F1=0.4186

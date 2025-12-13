@@ -1,0 +1,160 @@
+﻿Project TitanBlock: Chapter 1 Progress Report
+Infrastructure Initialization & Structural Baseline Definition
+Date: December 8, 2025
+Prepared By: Lead Supervisor / Computational Biology Team
+Subject: Phase I Completion – Environment Stabilization & Target Structural Analysis
+1. Executive Summary
+Project TitanBlock aims to engineer a de novo peptide binder capable of selectively inhibiting Myostatin (GDF-8) to treat muscle atrophy disorders, while strictly avoiding the highly homologous off-target GDF11.
+Current Status: We have successfully completed Phase I: Target Definition and Infrastructure Stabilization. This phase was characterized by significant technical hurdles regarding the hybrid compute environment (WSL/VS Code), which have now been resolved into a reproducible "Nuclear Reset" protocol.
+Key Scientific Finding: Structural alignment of the Myostatin mature dimer (PDB: 3HH2) against GDF11 (PDB: 6MAC) reveals a critical geometric divergence. While the individual monomer backbones are nearly identical (RMSD ~0.711 Å), the quaternary arrangement of the dimer varies significantly (RMSD ~2.668 Å). This "Butterfly Effect"—a difference in the angle of the dimer interface—provides a validated structural "Safe Zone" for peptide targeting that relies on shape complementarity rather than sequence identity alone.
+Key Technical Achievement: We have established a robust, local molecular visualization pipeline using PyMOL (Headless) for alignment and py3Dmol for interactive browser-based inspection, overcoming severe "split-brain" environment issues between Conda and Pip within the Windows Subsystem for Linux (WSL).
+2. Scientific Background & Problem Definition
+2.1 The Clinical Target
+Myostatin (MSTN) is a negative regulator of muscle mass. Inhibition of MSTN is a validated therapeutic strategy for Duchenne Muscular Dystrophy (DMD) and Spinal Muscular Atrophy (SMA). The therapeutic mechanism requires a "decoy" binder that occludes the MSTN interface, preventing it from binding to its natural receptor, Activin Receptor Type IIB (ActRIIB).
+2.2 The "GDF11 Trap"
+The primary risk factor for this project is cross-reactivity with Growth Differentiation Factor 11 (GDF11).
+* Sequence Identity: ~90% homology in the mature active domain.
+* Safety Profile: Unlike MSTN inhibition (which causes hypertrophy), GDF11 inhibition is associated with cardiovascular toxicity and erythropoiesis disruption.
+Correction of Target Data:
+Initial project briefs suggested using PDB 1S4Y as the primary target. Upon review, we identified 1S4Y as Activin A, not Myostatin. Using this structure would have led to a "Ghost Target" failure (optimizing for the wrong TGF-beta family member). We have corrected the target baseline to PDB 3HH2 (Crystal structure of Myostatin:Follistatin complex), extracting only the Myostatin chains for analysis.
+3. Computational Infrastructure: The "Hybrid" Setup
+To balance cost and performance, TitanBlock utilizes a "Hub and Spoke" architecture.
+3.1 Hardware Configuration
+* Local Hub: MSI Raider GE66 (NVIDIA RTX 3070 Ti, 8GB VRAM). Used for data staging, visualization, and lightweight inference.
+* Cloud Spoke: RunPod (NVIDIA A100/A6000). Reserved for heavy generative tasks (BindCraft/RFdiffusion).
+* Environment: Windows 11 hosting Ubuntu via WSL2 (Windows Subsystem for Linux), accessed via VS Code Remote Tunnels.
+3.2 The "Dependency Hell" & Resolution
+Phase 1 encountered severe friction in establishing a stable Python environment for structural biology.
+* The Issue: VS Code running via Browser Tunnel failed to detect Conda environments created in the WSL terminal. Furthermore, the Jupyter kernel failed to locate py3dmol despite successful installation, due to a "split-brain" path issue where pip and conda managed separate site-packages directories.
+* The Root Cause:
+   1. VS Code kernel discovery caching lags behind terminal operations.
+   2. Case sensitivity mismatch on Linux filesystems (py3Dmol vs py3dmol).
+* The Solution: We developed a "Nuclear Reset" Protocol (detailed in Appendix A). This involves manually registering the ipykernel with a specific display name and bypassing VS Code's auto-discovery by creating a manual Jupyter Server instance if necessary.
+4. Methodology: Structural Alignment Pipeline
+We implemented a scripted pipeline to generate the "Differential Map"—the set of coordinates that distinguish MSTN from GDF11.
+4.1 Data Acquisition
+We utilized the Python urllib library to fetch validated structures directly from the RCSB Protein Data Bank, bypassing manual downloads to ensure reproducibility.
+Protein
+	PDB ID
+	Description
+	Role
+	Myostatin
+	3HH2
+	MSTN bound to Follistatin
+	Primary Target
+	GDF11
+	6MAC
+	GDF11 bound to ActRIIB/Alk5
+	Negative Control (Decoy)
+	Receptor
+	1S4Y
+	Activin:ActRIIB complex
+	Source of Receptor Coordinates
+	4.2 Biological Cleaning
+Raw PDB files contain "noise" irrelevant to binder design:
+* Pro-domains: Latency-conferring regions that are cleaved off in the mature active form.
+* Follistatin/Receptors: Existing binders that occlude the target surface.
+We utilized Headless PyMOL scripts to chemically select Chain A and Chain B (the mature homodimer) and strip all other atoms before alignment.
+4.3 Algorithm
+We performed a Global Alignment using the PyMOL align command with cycles=0.
+* Why cycles=0? Standard alignment algorithms reject "outliers" to make the fit look better. We specifically wanted to see the outliers because the structural deviations are our target epitopes. Disabling outlier rejection preserves the true geometric difference between the dimers.
+5. Results: The "Butterfly Effect"
+5.1 Quantitative Analysis (RMSD)
+Root Mean Square Deviation (RMSD) analysis yielded a critical insight into the structural biology of the target.
+* Monomer vs. Monomer: When aligning a single chain of MSTN to a single chain of GDF11, the RMSD is extremely low (~0.711 Å). This confirms high structural homology at the local fold level.
+* Dimer vs. Dimer: When aligning the biological pairs, the RMSD jumps to 2.668 Å.
+5.2 Qualitative Interpretation
+The sharp increase in RMSD for the dimer indicates a quaternary structure shift. Visual inspection reveals that while the individual "wings" of the proteins are identical, the angle at which they meet (the inter-monomer interface) differs.
+* The Insight: Myostatin and GDF11 exist in slightly different "open/closed" conformations.
+* The Opportunity: A peptide binder that is rigid and designed to bridge the two monomers of Myostatin at its specific "wing angle" may structurally clash with GDF11, providing specificity through Shape Complementarity rather than just surface chemistry.
+5.3 Visualization
+Using py3Dmol within the local notebook, we generated a superposition where:
+* Cyan: Myostatin (Mature Dimer)
+* Magenta: GDF11 (Mature Dimer)
+The visualization confirms that the "Knuckles" (the receptor binding sites at the tips of the dimer) are spatially offset, creating the "Safe Zone" we hypothesized.
+6. Strategic Recommendations & Next Steps
+With the environment stable and the target validated, we are ready to move to Phase II: Generative Design.
+Immediate Actions
+1. Map the Interface: Calculate the hydrophobicity and electrostatic potential of the "offset" regions identified in the structural alignment.
+2. Containerization: Verify that the RunPod cloud instances can pull the BindCraft Docker container.
+3. Design Strategy: We will not target the conserved core. We will target the quaternary angle. We will instruct the diffusion model to generate binders that span the dimer interface, locking it in the Myostatin-specific conformation.
+Risk Register Update
+* Technical Risk (High -> Medium): The VS Code/WSL environment is now stable, provided the "Nuclear Reset" protocol is followed for new environments.
+* Biological Risk (High -> High): Specificity remains the challenge, but the RMSD data provides a physical basis for differentiation.
+Appendix A: The "Nuclear Reset" Protocol (SOP)
+To be used whenever the VS Code Jupyter Kernel fails to detect the Conda environment.
+1. Terminal Operations (Inside VS Code):
+# 1. Deactivate and Remove Old Environment
+conda deactivate
+jupyter kernelspec uninstall -y titanblock
+conda remove --name titanblock --all -y
+
+# 2. Rebuild from YAML
+conda env create -f environment.yml
+conda activate titanblock
+
+# 3. Force-Install py3Dmol (Case Sensitive Fix)
+pip install py3Dmol
+
+# 4. Register Kernel Manually
+python -m ipykernel install --user --name titanblock --display-name "Python (titanblock)"
+
+2. VS Code Refresh:
+* Press Ctrl+Shift+P -> Developer: Reload Window.
+* Open Notebook -> Select Kernel -> Jupyter Kernels -> Python (titanblock).
+3. Notebook Header (Python):
+import sys
+import os
+import py3Dmol # Ensure Capital 'D'
+# If module not found, verify path matches 'pip show py3Dmol'
+
+Appendix B: Environment Configuration (environment.yml)
+The finalized, stable environment configuration for the Local Hub (MSI Raider).
+name: titanblock
+channels:
+ - pytorch
+ - nvidia
+ - conda-forge
+ - defaults
+dependencies:
+ - python=3.10
+ - jupyter
+ - notebook
+ - ipykernel
+ - ipywidgets
+ - pymol-open-source
+ - biopython
+ - numpy
+ - pandas
+ - scipy
+ - matplotlib
+ - pytorch
+ - pytorch-cuda=12.1
+ - pip:
+   - biolib
+   - py3Dmol
+
+Appendix C: Advanced Diagnostics (Nuclear Option 2.0)
+1. Verify the Kernel File Content:
+Run this command in your terminal to see exactly what VS Code should be seeing:
+cat /home/cnguy/.local/share/jupyter/kernels/titanblock/kernel.json
+
+(You should see a JSON object with "argv": ["/home/cnguy/miniforge3/envs/titanblock/bin/python", ...]. If this path is wrong, that's the issue.)
+2. Start a Jupyter Server Manually:
+Since the internal VS Code server is failing to find the kernel, we will run the server ourselves in the terminal and force VS Code to connect to it. This is the most robust workaround.
+* In your terminal (inside titanblock env):
+# Ensure jupyter is installed (already in environment.yml via conda)
+conda install jupyter  # Just in case
+jupyter notebook --no-browser --port=8888
+
+* Copy the URL: Look for output like http://localhost:8888/?token=.... Copy that full URL.
+3. Connect VS Code to That Server:
+   * In VS Code, open the Command Palette (Ctrl+Shift+P).
+   * Type: Jupyter: Specify Jupyter Server for Connections.
+   * Select Existing.
+   * Paste the URL you copied from the terminal.
+   * Restart VS Code (Developer: Reload Window).
+4. Select Kernel (Final Attempt):
+   * Open your notebook.
+   * Click Select Kernel.
+   * Now, you should see "Existing Jupyter Server" as a category. Select the kernel from there.
