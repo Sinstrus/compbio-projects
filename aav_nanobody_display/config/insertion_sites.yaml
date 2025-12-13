@@ -1,0 +1,100 @@
+# Insertion Site Configuration
+# Defines the different sites where nanobodies can be fused to AAV capsid proteins
+
+insertion_sites:
+  # VP2 N-terminus insertion
+  # The VP2 N-terminal region is not resolved in crystal structures
+  # It sits inside the capsid and can be externalized
+  VP2_N_terminus:
+    description: "N-terminus of VP2, internal to capsid"
+    vp_protein: "VP2"
+    position: "N-terminal"
+    resolved_in_pdb: false
+    copies_per_capsid: 5  # Approximate, based on 1:1:10 stoichiometry
+    structural_notes: |
+      The VP2 N-terminus (~65 residues before VP3 start) is disordered
+      and located inside the capsid. It can be externalized through the
+      5-fold pore during infection. Insertions here result in low copy
+      number display (5 copies per capsid).
+    modeling_strategy: |
+      1. Model VP2 N-terminal extension + nanobody as a separate fragment
+      2. Use AlphaFold to predict structure
+      3. Position at 5-fold axis interior
+    linker_recommendation:
+      n_terminal: "MA"  # Minimal start
+      c_terminal: "GGGGS"  # Flexible linker to VP2 body
+    max_insert_size: 500  # residues, nanobodies typically ~120aa
+
+  # VP1 N-terminus (VP1u unique region)
+  VP1_N_terminus:
+    description: "N-terminus unique to VP1, contains PLA2 domain"
+    vp_protein: "VP1"
+    position: "N-terminal"
+    resolved_in_pdb: false
+    copies_per_capsid: 5
+    structural_notes: |
+      VP1u contains ~137 residues unique to VP1, including a phospholipase
+      A2 (PLA2) domain essential for endosomal escape. Insertions here
+      are less common as they may disrupt PLA2 function.
+    modeling_strategy: |
+      1. Model VP1u + nanobody fusion
+      2. Ensure PLA2 domain (residues ~1-60) remains functional
+    linker_recommendation:
+      n_terminal: "M"
+      c_terminal: "GGSGG"
+    max_insert_size: 300
+
+  # VR Loop insertions (in VP3 region, present on all 60 subunits)
+  VR_loop:
+    description: "Variable region loop insertion in VP3 common region"
+    vp_protein: "VP3"
+    position: "internal_loop"
+    resolved_in_pdb: true
+    copies_per_capsid: 60  # All subunits contain VP3 region
+    structural_notes: |
+      VR loops are surface-exposed and present on all 60 capsid subunits.
+      VR-VIII is most commonly used for large insertions like nanobodies.
+      High copy number display but may affect capsid assembly if insert
+      is too large or causes steric clashes.
+    modeling_strategy: |
+      1. Extract loop coordinates from PDB
+      2. Model nanobody structure
+      3. Use AlphaFold multimer for VP3-nanobody fusion
+      4. Check for steric clashes with neighboring subunits
+    linker_recommendation:
+      n_terminal: "GSG"
+      c_terminal: "GSG"
+    max_insert_size: 150  # Smaller than N-terminal due to assembly constraints
+
+# Recommended insertion sites for nanobody display
+recommended_for_nanobody:
+  - site: "VR-VIII"
+    rationale: "Most tolerant of large insertions, good surface exposure"
+  - site: "VP2_N_terminus"
+    rationale: "Lower copy number, less impact on assembly, internal location"
+  - site: "VR-IV"
+    rationale: "Alternative surface site, near 3-fold axis"
+
+# Linker library for fusion constructs
+linkers:
+  flexible:
+    - name: "G4S"
+      sequence: "GGGGS"
+      length: 5
+    - name: "G4S_x2"
+      sequence: "GGGGSGGGGS"
+      length: 10
+    - name: "G4S_x3"
+      sequence: "GGGGSGGGGSGGGGS"
+      length: 15
+  rigid:
+    - name: "EAAAK"
+      sequence: "EAAAK"
+      length: 5
+    - name: "AP"
+      sequence: "PAPAP"
+      length: 5
+  hybrid:
+    - name: "flex_rigid"
+      sequence: "GGGGSEAAAKGGGGS"
+      length: 15

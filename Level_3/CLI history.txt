@@ -1,0 +1,53 @@
+pip install pandas
+3.  Run the script:
+```bash
+python parse_coordinates.py
+4.  It will generate `parsed_coordinates.tsv`.
+
+#!/bin/bash
+
+# 1. Create the environment
+conda create -n level3 python=3.9 -y
+
+# 2. Activate it
+conda activate level3
+
+# 3. Install Core Data Science & Genomic Tools
+# pyfaidx: fast python library for random access to genomic sequences
+# polars: faster than pandas for large CSVs (optional, but good for 247k rows)
+conda install pandas numpy scipy matplotlib seaborn tqdm pyfaidx scikit-learn polars
+
+# 4. Install PyTorch (CPU version is fine for now, lighter download)
+# If you have a GPU, remove the "+cpu" part
+conda install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+
+# 5. Install Jupyter for interactive exploration
+conda install jupyterlab ipykernel
+
+# 6. Register kernel
+python -m ipykernel install --user --name=level3 --display-name "Python (Level 3)"
+
+echo "Environment 'level3' created!"
+
+
+
+#!/bin/bash
+
+# Check if hg38.fa already exists
+if [ -f "hg38.fa" ]; then
+    echo "hg38.fa already exists. Skipping download."
+else
+    echo "Downloading hg38.fa.gz (approx 900MB)..."
+    # Download from UCSC
+    wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz
+    
+    echo "Unzipping..."
+    gunzip hg38.fa.gz
+    
+    # Create the index file (.fai) immediately to save time later
+    # (pyfaidx will do this automatically, but good to ensure it works now)
+    echo "Indexing genome (this might take a minute)..."
+    python -c "import pyfaidx; pyfaidx.Fasta('hg38.fa')"
+    
+    echo "Done! Genome ready."
+fi

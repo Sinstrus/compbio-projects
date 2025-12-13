@@ -1,0 +1,166 @@
+# AAV Serotype Configuration
+# Contains PDB codes, VP sequences, and VR loop positions for each serotype
+# VR loop positions are based on VP3 numbering (AAV2 convention)
+
+serotypes:
+  AAV9:
+    pdb_id: "3UX1"
+    uniprot_id: "Q6JC40"
+    description: "AAV9 - CNS tropism, crosses blood-brain barrier"
+    # VP3 starts at residue 203 in full VP1 sequence
+    vp3_start: 203
+    # VR loop positions (VP1 numbering, subtract 202 for VP3-only numbering)
+    vr_loops:
+      VR-I:
+        start: 262
+        end: 268
+        surface_exposed: true
+        common_insertion: false
+        notes: "Small loop, limited insertion capacity"
+      VR-II:
+        start: 327
+        end: 332
+        surface_exposed: true
+        common_insertion: false
+      VR-III:
+        start: 380
+        end: 386
+        surface_exposed: true
+        common_insertion: false
+      VR-IV:
+        start: 451
+        end: 474
+        surface_exposed: true
+        common_insertion: true
+        notes: "Large surface loop, commonly used for peptide display"
+      VR-V:
+        start: 490
+        end: 500
+        surface_exposed: true
+        common_insertion: true
+        notes: "Near 3-fold axis, good surface exposure"
+      VR-VI:
+        start: 526
+        end: 538
+        surface_exposed: true
+        common_insertion: false
+      VR-VII:
+        start: 545
+        end: 557
+        surface_exposed: true
+        common_insertion: false
+      VR-VIII:
+        start: 585
+        end: 596
+        surface_exposed: true
+        common_insertion: true
+        notes: "Most commonly used for large insertions, tolerates nanobodies"
+      VR-IX:
+        start: 705
+        end: 709
+        surface_exposed: true
+        common_insertion: false
+    # Capsid assembly info
+    symmetry:
+      point_group: "I"  # Icosahedral
+      subunits: 60
+      asymmetric_unit_chains: 1  # In PDB, usually 1 chain per ASU
+
+  AAV2:
+    pdb_id: "1LP3"
+    uniprot_id: "P03135"
+    description: "AAV2 - Prototype serotype, broad tropism"
+    vp3_start: 203
+    vr_loops:
+      VR-I:
+        start: 262
+        end: 269
+        surface_exposed: true
+        common_insertion: false
+      VR-II:
+        start: 327
+        end: 332
+        surface_exposed: true
+        common_insertion: false
+      VR-III:
+        start: 381
+        end: 390
+        surface_exposed: true
+        common_insertion: false
+      VR-IV:
+        start: 451
+        end: 474
+        surface_exposed: true
+        common_insertion: true
+        notes: "587 insertion site commonly used"
+      VR-V:
+        start: 490
+        end: 500
+        surface_exposed: true
+        common_insertion: true
+      VR-VI:
+        start: 526
+        end: 542
+        surface_exposed: true
+        common_insertion: false
+      VR-VII:
+        start: 544
+        end: 557
+        surface_exposed: true
+        common_insertion: false
+      VR-VIII:
+        start: 585
+        end: 598
+        surface_exposed: true
+        common_insertion: true
+        notes: "Classic 588 insertion site"
+      VR-IX:
+        start: 704
+        end: 714
+        surface_exposed: true
+        common_insertion: false
+    symmetry:
+      point_group: "I"
+      subunits: 60
+      asymmetric_unit_chains: 1
+
+  AAV8:
+    pdb_id: "2QA0"
+    uniprot_id: "Q8JQF8"
+    description: "AAV8 - Liver tropism"
+    vp3_start: 203
+    vr_loops:
+      VR-IV:
+        start: 451
+        end: 474
+        surface_exposed: true
+        common_insertion: true
+      VR-VIII:
+        start: 585
+        end: 596
+        surface_exposed: true
+        common_insertion: true
+    symmetry:
+      point_group: "I"
+      subunits: 60
+      asymmetric_unit_chains: 1
+
+  AAV5:
+    pdb_id: "3NTT"
+    uniprot_id: "Q9YIJ4"
+    description: "AAV5 - Unique receptor binding"
+    vp3_start: 203
+    vr_loops:
+      VR-VIII:
+        start: 575
+        end: 584
+        surface_exposed: true
+        common_insertion: true
+        notes: "Different numbering due to sequence divergence"
+    symmetry:
+      point_group: "I"
+      subunits: 60
+      asymmetric_unit_chains: 1
+
+# Default serotype for pipeline
+default_serotype: "AAV9"

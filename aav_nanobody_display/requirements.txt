@@ -1,0 +1,20 @@
+# Core dependencies
+numpy>=1.21.0
+biopython>=1.79
+pyyaml>=6.0
+
+# Visualization
+py3dmol>=2.0.0
+
+# Structure prediction (optional - install based on your needs)
+# ESMFold - fast, local prediction
+# fair-esm>=2.0.0
+# torch>=1.12.0
+
+# For ColabFold, install separately:
+# https://github.com/YoshitakaMo/localcolabfold
+
+# Development dependencies (optional)
+# pytest>=7.0.0
+# black>=22.0.0
+# mypy>=0.990
