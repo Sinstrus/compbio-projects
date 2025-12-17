@@ -1,0 +1,102 @@
+{
+  "$schema": "knowledge_base_schema_v1.0",
+  "description": "Schema for defining biological systems in the DNA Engineer Agent knowledge base",
+  "version": "1.0.0",
+  
+  "philosophy": {
+    "principle": "Goal-driven requirements derivation",
+    "explanation": "Instead of static checklists, we reason from biological goals to molecular requirements. The central dogma (DNA→RNA→Protein) guides what we need to find.",
+    "workflow": [
+      "1. Identify the biological GOAL (e.g., produce recombinant AAV)",
+      "2. Derive PROTEIN requirements (what proteins are needed for this goal?)",
+      "3. Derive NUCLEIC ACID requirements (what encodes/controls those proteins?)",
+      "4. Generate a MANIFEST of elements to verify",
+      "5. Verify each element by HOMOLOGY against reference databases"
+    ]
+  },
+
+  "system_schema": {
+    "system_id": {
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier (e.g., 'recombinant_aav_production')"
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "description": "Human-readable name"
+    },
+    "description": {
+      "type": "string",
+      "required": true,
+      "description": "What this biological system does"
+    },
+    "goal": {
+      "type": "string",
+      "required": true,
+      "description": "The end goal of this system (e.g., 'Produce infectious AAV particles')"
+    },
+    "central_dogma_chain": {
+      "type": "object",
+      "required": true,
+      "description": "Traces from goal back to molecular requirements",
+      "properties": {
+        "proteins_required": "What proteins are needed to achieve the goal?",
+        "transcripts_required": "What mRNAs encode those proteins?",
+        "cis_elements_required": "What DNA elements control transcription?",
+        "other_nucleic_acids": "Any other DNA/RNA requirements (e.g., ITRs for packaging)"
+      }
+    },
+    "construct_types": {
+      "type": "array",
+      "required": true,
+      "description": "The different DNA constructs used in this system and what each should contain"
+    },
+    "structural_rules": {
+      "type": "array",
+      "required": true,
+      "description": "Biological constraints (e.g., 'AAP must be in +1 frame relative to VP1')"
+    },
+    "literature_references": {
+      "type": "array",
+      "required": false,
+      "description": "Key papers for this system (PMIDs)"
+    }
+  },
+
+  "protein_schema": {
+    "protein_id": "Unique identifier",
+    "name": "Common name",
+    "function": "What it does",
+    "why_essential": "Why the goal fails without it",
+    "reference_accessions": {
+      "uniprot": "UniProt accession(s)",
+      "ncbi_protein": "NCBI protein accession(s)"
+    },
+    "expected_length_aa": "[min, max] amino acid length",
+    "serotype_variants": "Map of serotype → specific accession (for viral proteins)"
+  },
+
+  "cis_element_schema": {
+    "element_id": "Unique identifier",
+    "name": "Common name",
+    "type": "promoter | terminator | enhancer | origin | packaging_signal | splice_site | other",
+    "function": "What it does",
+    "drives_expression_of": "What gene(s) this element controls (for promoters)",
+    "reference_accessions": {
+      "ncbi_nuccore": "NCBI nucleotide accession",
+      "coordinates": "[start, end] in reference"
+    },
+    "expected_length_bp": "[min, max] base pair length",
+    "detection_method": "How to find it (sequence alignment, motif search, etc.)"
+  },
+
+  "construct_type_schema": {
+    "type_id": "Unique identifier (e.g., 'rep_cap_helper')",
+    "name": "Human-readable name",
+    "purpose": "What this construct provides to the system",
+    "must_contain": ["List of required elements"],
+    "must_not_contain": ["List of elements that should NOT be present"],
+    "typical_size_bp": "[min, max] expected size range"
+  }
+}

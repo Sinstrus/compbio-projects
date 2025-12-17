@@ -1,0 +1,61 @@
+{
+  "agent_version": "2.1.0",
+  "release_date": "2024-12-17",
+  "architecture": "Goal-Driven Requirements Derivation",
+  "changelog": [
+    {
+      "version": "2.1.0",
+      "date": "2024-12-17",
+      "changes": [
+        "Added mandatory verification checklist generation after Phase 1",
+        "Added Phase 1.5: Checklist Execution Loop - ensures ALL requirements are verified",
+        "Agent must now mark every checkbox before proceeding to report generation",
+        "Added explicit 'do not skip items because user didn't mention them' rule",
+        "Updated non-skippable checkpoints (now 7 checkpoints)",
+        "Phase 5 report must include complete checklist summary table",
+        "Report metadata now includes 'checklist_complete' field"
+      ]
+    },
+    {
+      "version": "2.0.0",
+      "date": "2024-12-16",
+      "changes": [
+        "MAJOR ARCHITECTURE CHANGE: Goal-driven requirements derivation",
+        "New knowledge_base/ directory with extensible biological system definitions",
+        "Systems are defined by: Goal → Proteins → mRNAs → Cis-elements (Central Dogma)",
+        "Agent derives requirements dynamically from knowledge base, not static checklists",
+        "BLAST-first approach: identify gross anatomy before looking for specific elements",
+        "Element verification by homology alignment, not just motif search",
+        "Explicit acceptance criteria (85% identity minimum for VERIFIED status)",
+        "Structural rule validation (e.g., AAP in +1 frame, VP1/2/3 nested)",
+        "Construct type classification (Rep-Cap helper vs transfer plasmid vs etc.)",
+        "Extensible: add new biological systems by creating new JSON in knowledge_base/systems/"
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "date": "2024-12-16",
+      "changes": [
+        "Added mandatory ground-truth verification against external databases",
+        "Added verification_sources.json",
+        "Pre-Flight Reports include verification status"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "2024-12-16",
+      "changes": [
+        "Added plasmid type classification",
+        "Added context-aware cis-element detection",
+        "Added persistent Pre-Flight Report generation"
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "date": "2024-12-16",
+      "changes": [
+        "Initial release"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,349 @@
+{
+  "$schema": "../SCHEMA.json",
+  "system_id": "recombinant_aav_production",
+  "name": "Recombinant AAV Production",
+  "version": "1.0.0",
+  "last_updated": "2024-12-16",
+  
+  "description": "Production of recombinant adeno-associated virus (rAAV) vectors for gene therapy or research. Uses a multi-plasmid system where Rep/Cap functions are provided in trans.",
+  
+  "goal": "Produce infectious AAV particles containing a transgene payload",
+
+  "central_dogma_chain": {
+    "step_1_goal": "Produce AAV particles",
+    
+    "step_2_proteins_required": {
+      "question": "What proteins are needed to achieve particle production?",
+      "answer": [
+        {"protein": "Rep78/Rep68", "role": "Genome replication - nick at TRS, helicase activity"},
+        {"protein": "Rep52/Rep40", "role": "Genome packaging - ATPase, helicase for inserting DNA into capsid"},
+        {"protein": "VP1", "role": "Capsid structural protein, contains phospholipase domain for endosomal escape"},
+        {"protein": "VP2", "role": "Capsid structural protein"},
+        {"protein": "VP3", "role": "Capsid structural protein, most abundant (VP1:VP2:VP3 ≈ 1:1:10)"},
+        {"protein": "AAP", "role": "Assembly-Activating Protein - targets VP to nucleolus for capsid assembly"}
+      ]
+    },
+    
+    "step_3_transcripts_required": {
+      "question": "What mRNAs encode those proteins? How are they generated?",
+      "answer": {
+        "rep_transcripts": {
+          "p5_transcript": "Encodes Rep78 (unspliced) or Rep68 (spliced)",
+          "p19_transcript": "Encodes Rep52 (unspliced) or Rep40 (spliced)"
+        },
+        "cap_transcripts": {
+          "p40_transcript": "Encodes VP1 (minor splice), VP2 (ACG start), VP3 (conventional ATG)",
+          "aap_transcript": "AAP is translated from +1 frame of the VP transcript via leaky scanning"
+        }
+      }
+    },
+    
+    "step_4_cis_elements_required": {
+      "question": "What DNA elements control transcription of those mRNAs?",
+      "answer": {
+        "promoters": [
+          {"element": "p5", "drives": "Rep78/68", "position": "~map unit 5 in WT AAV"},
+          {"element": "p19", "drives": "Rep52/40", "position": "~map unit 19 in WT AAV"},
+          {"element": "p40", "drives": "VP1/2/3 and AAP", "position": "~map unit 40 in WT AAV"}
+        ],
+        "terminators": [
+          {"element": "polyA", "function": "Terminates transcription, stabilizes mRNA"}
+        ],
+        "splicing": [
+          {"element": "rep_intron", "function": "Alternative splicing generates Rep68 and Rep40"},
+          {"element": "cap_intron", "function": "Alternative splicing affects VP1 vs VP2/3 ratio"}
+        ]
+      }
+    },
+    
+    "step_5_other_nucleic_acids": {
+      "question": "What other DNA elements are required for the system?",
+      "answer": {
+        "packaging_signals": [
+          {"element": "ITR", "function": "Inverted Terminal Repeat - ONLY cis element required for packaging. Rep proteins recognize ITRs to replicate and package the genome."}
+        ],
+        "replication_elements": [
+          {"element": "TRS", "function": "Terminal Resolution Site within ITR - where Rep nicks for replication"},
+          {"element": "RBE", "function": "Rep Binding Element within ITR - where Rep binds"}
+        ]
+      }
+    }
+  },
+
+  "proteins": {
+    "Rep78": {
+      "protein_id": "rep78",
+      "name": "Rep78",
+      "function": "Site-specific endonuclease, helicase, ATPase. Nicks at TRS for replication.",
+      "why_essential": "Cannot replicate AAV genome without Rep78/68 nicking activity",
+      "reference_accessions": {
+        "AAV2": {"uniprot": "P03135", "region": "1-621"},
+        "note": "Rep proteins are typically from AAV2 regardless of Cap serotype"
+      },
+      "expected_length_aa": [621, 625],
+      "shares_orf_with": ["Rep68"],
+      "generated_by": "p5 promoter, unspliced transcript"
+    },
+    "Rep68": {
+      "protein_id": "rep68",
+      "name": "Rep68",
+      "function": "Same as Rep78 but lacks C-terminal domain. Uses alternative splice.",
+      "why_essential": "Redundant with Rep78 for some functions",
+      "reference_accessions": {
+        "AAV2": {"uniprot": "P03135", "region": "1-536", "note": "Spliced variant"}
+      },
+      "expected_length_aa": [536, 540],
+      "shares_orf_with": ["Rep78"],
+      "generated_by": "p5 promoter, spliced transcript"
+    },
+    "Rep52": {
+      "protein_id": "rep52",
+      "name": "Rep52",
+      "function": "Helicase, ATPase. Required for packaging genome into capsid.",
+      "why_essential": "Cannot package DNA into preformed capsids without Rep52/40",
+      "reference_accessions": {
+        "AAV2": {"uniprot": "P03135", "region": "225-621", "note": "Internal start"}
+      },
+      "expected_length_aa": [397, 401],
+      "shares_orf_with": ["Rep40"],
+      "generated_by": "p19 promoter, unspliced transcript"
+    },
+    "Rep40": {
+      "protein_id": "rep40",
+      "name": "Rep40",
+      "function": "Same as Rep52 but lacks C-terminal domain.",
+      "why_essential": "Redundant with Rep52 for some functions",
+      "reference_accessions": {
+        "AAV2": {"uniprot": "P03135", "region": "225-536", "note": "Spliced variant"}
+      },
+      "expected_length_aa": [311, 315],
+      "shares_orf_with": ["Rep52"],
+      "generated_by": "p19 promoter, spliced transcript"
+    },
+    "VP1": {
+      "protein_id": "vp1",
+      "name": "VP1 (Capsid Protein 1)",
+      "function": "Capsid structural protein. N-terminus contains phospholipase A2 domain for endosomal escape.",
+      "why_essential": "No capsid formation without VP proteins",
+      "reference_accessions": {
+        "AAV2": {"uniprot": "P03135-2", "length": 735},
+        "AAV9": {"uniprot": "Q6JC40", "length": 736}
+      },
+      "expected_length_aa": [733, 738],
+      "shares_orf_with": ["VP2", "VP3"],
+      "generated_by": "p40 promoter, minor splice product",
+      "serotype_variable": true
+    },
+    "VP2": {
+      "protein_id": "vp2",
+      "name": "VP2 (Capsid Protein 2)",
+      "function": "Capsid structural protein. Starts at ACG codon within VP1 frame.",
+      "why_essential": "Contributes to capsid, though VP2-null AAV is viable",
+      "reference_accessions": {
+        "AAV2": {"note": "Starts ~137aa into VP1"},
+        "AAV9": {"note": "Starts ~138aa into VP1"}
+      },
+      "expected_length_aa": [598, 602],
+      "shares_orf_with": ["VP1", "VP3"],
+      "generated_by": "p40 promoter, ACG initiation",
+      "serotype_variable": true
+    },
+    "VP3": {
+      "protein_id": "vp3",
+      "name": "VP3 (Capsid Protein 3)",
+      "function": "Capsid structural protein. Most abundant (10x VP1/VP2). Conventional ATG start.",
+      "why_essential": "Major capsid component",
+      "reference_accessions": {
+        "AAV2": {"note": "Starts ~203aa into VP1"},
+        "AAV9": {"note": "Starts ~204aa into VP1"}
+      },
+      "expected_length_aa": [530, 535],
+      "shares_orf_with": ["VP1", "VP2"],
+      "generated_by": "p40 promoter, conventional ATG",
+      "serotype_variable": true
+    },
+    "AAP": {
+      "protein_id": "aap",
+      "name": "Assembly-Activating Protein",
+      "function": "Targets VP proteins to nucleolus for capsid assembly. Non-structural.",
+      "why_essential": "Capsid assembly is severely impaired without AAP",
+      "reference_accessions": {
+        "AAV2": {"ncbi_protein": "YP_680426.1", "length": 204},
+        "AAV9": {"ncbi_protein": "AAS99265.1", "length": 201, "note": "Verify this - AAP is poorly annotated in databases"}
+      },
+      "expected_length_aa": [198, 210],
+      "reading_frame": "+1 relative to VP1",
+      "starts_at": "~codon 50 of VP1 (in +1 frame)",
+      "generated_by": "Translated from VP mRNA via leaky scanning/frameshifting",
+      "serotype_variable": true,
+      "verification_note": "AAP is often NOT annotated in GenBank files. Must verify by translating +1 frame of VP1 region and searching for known AAP sequences."
+    }
+  },
+
+  "cis_elements": {
+    "p5_promoter": {
+      "element_id": "p5",
+      "name": "p5 Promoter",
+      "type": "promoter",
+      "function": "Drives expression of Rep78 and Rep68",
+      "drives_expression_of": ["Rep78", "Rep68"],
+      "reference_accessions": {
+        "AAV2": {"ncbi_nuccore": "NC_001401", "coordinates": [190, 320]}
+      },
+      "expected_length_bp": [100, 150],
+      "contains_motifs": ["TATA box"],
+      "notes": "Named for position at ~5 map units in WT AAV genome"
+    },
+    "p19_promoter": {
+      "element_id": "p19",
+      "name": "p19 Promoter",
+      "type": "promoter",
+      "function": "Drives expression of Rep52 and Rep40",
+      "drives_expression_of": ["Rep52", "Rep40"],
+      "reference_accessions": {
+        "AAV2": {"ncbi_nuccore": "NC_001401", "coordinates": [842, 970]}
+      },
+      "expected_length_bp": [100, 150],
+      "contains_motifs": ["TATA box"],
+      "notes": "Named for position at ~19 map units in WT AAV genome"
+    },
+    "p40_promoter": {
+      "element_id": "p40",
+      "name": "p40 Promoter",
+      "type": "promoter",
+      "function": "Drives expression of VP1, VP2, VP3, and AAP",
+      "drives_expression_of": ["VP1", "VP2", "VP3", "AAP"],
+      "reference_accessions": {
+        "AAV2": {"ncbi_nuccore": "NC_001401", "coordinates": [1822, 1880]}
+      },
+      "expected_length_bp": [40, 80],
+      "notes": "Named for position at ~40 map units in WT AAV genome"
+    },
+    "ITR": {
+      "element_id": "itr",
+      "name": "Inverted Terminal Repeat",
+      "type": "packaging_signal",
+      "function": "Required in cis for genome replication and packaging. Rep proteins bind here.",
+      "reference_accessions": {
+        "AAV2": {"ncbi_nuccore": "NC_001401", "coordinates_left": [1, 145], "coordinates_right": [4535, 4679]}
+      },
+      "expected_length_bp": [141, 145],
+      "structure": "T-shaped palindrome with A-A', B-B', C-C' arms and D sequence",
+      "contains_elements": ["RBE", "TRS"],
+      "notes": "ITRs can exist in 'flip' or 'flop' orientation. Both are functional."
+    },
+    "TRS": {
+      "element_id": "trs",
+      "name": "Terminal Resolution Site",
+      "type": "replication_element",
+      "function": "Site where Rep78/68 makes site-specific nick during replication",
+      "sequence": "GGTTGA",
+      "context_required": "Only functional within ITR",
+      "reference_accessions": {
+        "AAV2": {"ncbi_nuccore": "NC_001401", "note": "Within ITR D sequence"}
+      },
+      "notes": "This 6bp motif will occur by chance elsewhere in plasmids. Only report as TRS if within ITR."
+    },
+    "RBE": {
+      "element_id": "rbe",
+      "name": "Rep Binding Element",
+      "type": "replication_element",
+      "function": "GAGC repeat where Rep proteins bind within ITR",
+      "sequence_motif": "GAGCGAGCGAGCGCGC",
+      "context_required": "Only functional within ITR",
+      "reference_accessions": {
+        "AAV2": {"ncbi_nuccore": "NC_001401", "note": "Within ITR"}
+      }
+    }
+  },
+
+  "construct_types": {
+    "transfer_plasmid": {
+      "type_id": "transfer_plasmid",
+      "name": "AAV Transfer Plasmid (pAAV)",
+      "purpose": "Carries the transgene payload to be packaged into AAV particles",
+      "must_contain": ["ITR_left", "ITR_right", "transgene", "promoter", "polyA"],
+      "must_not_contain": ["Rep", "Cap"],
+      "typical_size_bp": [4000, 8000],
+      "notes": "The region between ITRs must be <4.7kb for efficient packaging",
+      "examples": ["pAAV-CAG-GFP", "pAAV-EF1a-mCherry"]
+    },
+    "rep_cap_helper": {
+      "type_id": "rep_cap_helper",
+      "name": "Rep-Cap Helper Plasmid",
+      "purpose": "Provides Rep and Cap proteins in trans for packaging",
+      "must_contain": ["Rep_ORF", "Cap_ORF", "p5_or_substitute", "p19_or_substitute", "p40_or_substitute"],
+      "must_not_contain": ["ITR"],
+      "typical_size_bp": [6000, 9000],
+      "notes": "ITRs are deliberately excluded to prevent packaging of this plasmid. Rep is often from AAV2; Cap can be any serotype.",
+      "examples": ["pRC", "pAAV-RC", "pRepCap"]
+    },
+    "adenovirus_helper": {
+      "type_id": "adeno_helper",
+      "name": "Adenovirus Helper Plasmid",
+      "purpose": "Provides adenoviral helper functions (E1A, E1B, E2A, E4, VA RNA) needed for AAV replication",
+      "must_contain": ["E2A", "E4", "VA"],
+      "must_not_contain": ["ITR", "Rep", "Cap"],
+      "typical_size_bp": [10000, 16000],
+      "notes": "In HEK293 cells, E1A/E1B are provided by the cell line. pHelper provides the rest.",
+      "examples": ["pHelper", "pAdDeltaF6"]
+    },
+    "aav_genome": {
+      "type_id": "aav_genome",
+      "name": "Wild-type AAV Genome",
+      "purpose": "Reference for the complete AAV genome (not typically used in production)",
+      "must_contain": ["ITR_left", "ITR_right", "Rep_ORF", "Cap_ORF", "p5", "p19", "p40"],
+      "typical_size_bp": [4679, 4700],
+      "notes": "Wild-type AAV has everything between two ITRs. rAAV production splits this across multiple plasmids."
+    }
+  },
+
+  "structural_rules": [
+    {
+      "rule_id": "aap_frame",
+      "description": "AAP is encoded in +1 reading frame relative to VP1",
+      "validation": "Translate VP1 region in +1 frame, search for AAP protein sequence",
+      "if_violated": "AAP will not be produced, capsid assembly will fail"
+    },
+    {
+      "rule_id": "vp_nested",
+      "description": "VP1, VP2, VP3 share the same reading frame with nested start sites",
+      "validation": "VP3 C-terminus = VP2 C-terminus = VP1 C-terminus",
+      "if_violated": "Capsid stoichiometry will be wrong"
+    },
+    {
+      "rule_id": "itr_orientation",
+      "description": "ITRs must be in opposite orientations flanking the payload",
+      "validation": "Left ITR and right ITR should be reverse complements",
+      "if_violated": "Replication will not work correctly"
+    },
+    {
+      "rule_id": "rep_cap_no_itr",
+      "description": "Rep-Cap helper must NOT contain ITRs",
+      "validation": "Search for ITR sequences - should find none",
+      "if_violated": "The helper plasmid itself would be packaged"
+    },
+    {
+      "rule_id": "packaging_limit",
+      "description": "Payload between ITRs must be <4.7kb for efficient packaging",
+      "validation": "Measure distance between ITR endpoints",
+      "if_violated": "Packaging efficiency drops dramatically, truncated genomes produced"
+    }
+  ],
+
+  "serotypes": {
+    "note": "Cap (VP1/2/3 and AAP) varies by serotype. Rep is typically AAV2-derived regardless of Cap serotype.",
+    "common_serotypes": ["AAV1", "AAV2", "AAV5", "AAV6", "AAV8", "AAV9", "AAV-DJ", "AAV-PHP.eB"],
+    "reference_genomes": {
+      "AAV2": {"ncbi": "NC_001401", "note": "Most well-characterized, often used for Rep"},
+      "AAV9": {"ncbi": "NC_006261", "note": "CNS tropism, used in Zolgensma"}
+    }
+  },
+
+  "literature_references": [
+    {"pmid": "12663685", "title": "AAV biology and therapeutic applications review"},
+    {"pmid": "20124532", "title": "Discovery of AAP"},
+    {"pmid": "17965325", "title": "AAV Rep protein functions"},
+    {"pmid": "9882319", "title": "AAV capsid structure and assembly"}
+  ]
+}

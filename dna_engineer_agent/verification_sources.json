@@ -1,0 +1,126 @@
+{
+  "$schema": "verification_sources_v1.0",
+  "description": "Authoritative external sources for ground-truth verification. The agent MUST consult these sources to verify critical biological entities rather than relying solely on file annotations or hardcoded motifs.",
+  "version": "1.0.0",
+  "last_updated": "2024-12-16",
+  
+  "philosophy": {
+    "principle": "Trust but verify",
+    "explanation": "File annotations may be incomplete or wrong. Hardcoded motifs in our own config files may be outdated or serotype-specific. The agent MUST ground its analysis against authoritative external databases.",
+    "mandatory": true,
+    "human_review_required": false
+  },
+
+  "verification_workflow": {
+    "description": "For each critical biological entity, the agent must:",
+    "steps": [
+      "1. FETCH: Retrieve reference sequence from authoritative source",
+      "2. ALIGN: Use fetched sequence to search the target plasmid",
+      "3. COMPARE: Check if file annotation matches the alignment",
+      "4. DOCUMENT: Record the source, accession, and any discrepancies in the report"
+    ]
+  },
+
+  "sources": {
+    "protein_sequences": {
+      "primary": {
+        "name": "UniProt",
+        "url": "https://www.uniprot.org",
+        "api": "https://rest.uniprot.org/uniprotkb/search",
+        "trust_level": "HIGH",
+        "usage": "Canonical protein sequences, annotations, and functional information"
+      },
+      "secondary": {
+        "name": "NCBI Protein",
+        "url": "https://www.ncbi.nlm.nih.gov/protein",
+        "api": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/",
+        "trust_level": "HIGH",
+        "usage": "Backup source if UniProt unavailable"
+      }
+    },
+    "nucleotide_sequences": {
+      "primary": {
+        "name": "NCBI Nucleotide",
+        "url": "https://www.ncbi.nlm.nih.gov/nuccore",
+        "api": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/",
+        "trust_level": "HIGH",
+        "usage": "Reference genomes, plasmid sequences"
+      },
+      "secondary": {
+        "name": "Addgene",
+        "url": "https://www.addgene.org",
+        "trust_level": "MEDIUM",
+        "usage": "Plasmid maps and sequences (verify against depositor)"
+      }
+    },
+    "aav_specific": {
+      "primary": {
+        "name": "AAV Reference Sequences",
+        "description": "Curated AAV sequences from literature and databases",
+        "sources": [
+          "NCBI RefSeq for AAV genomes",
+          "UniProt for AAV proteins (Rep, Cap, AAP)"
+        ]
+      }
+    }
+  },
+
+  "required_verifications": {
+    "AAP": {
+      "description": "Assembly-Activating Protein - critical overlapping ORF in AAV Cap gene",
+      "verification_mandatory": true,
+      "verification_method": {
+        "step_1": "Fetch canonical AAP sequence from UniProt for the specific serotype",
+        "step_2": "Translate VP1 region in +1 frame",
+        "step_3": "Align fetched AAP sequence against the +1 frame translation",
+        "step_4": "Use alignment to determine TRUE start and end positions",
+        "step_5": "Compare against file annotation and report discrepancies"
+      },
+      "reference_accessions": {
+        "AAV2_AAP": "UniProt: A0A0K2JBC4 or similar",
+        "AAV9_AAP": "Search UniProt: 'AAP AAV9' or 'assembly activating protein AAV9'",
+        "_note": "Always search for the specific serotype. Do NOT use AAV2 sequences to verify AAV9."
+      },
+      "fallback_if_offline": "Use conserved N-terminal motif from cis_elements manifest, but flag as UNVERIFIED in report"
+    },
+    
+    "ITR": {
+      "description": "Inverted Terminal Repeats - essential for AAV genome packaging",
+      "verification_mandatory": true,
+      "verification_method": {
+        "step_1": "Fetch canonical ITR sequence from NCBI for the specific serotype",
+        "step_2": "Align against plasmid sequence",
+        "step_3": "Check for flipped/flopped configurations",
+        "step_4": "Verify structural integrity (palindromic regions)"
+      },
+      "reference_accessions": {
+        "AAV2_ITR": "NCBI: NC_001401 (positions 1-145 and 4535-4679)",
+        "_note": "ITR sequences are highly conserved across serotypes but verify anyway"
+      }
+    },
+
+    "VP1_VP2_VP3": {
+      "description": "Capsid proteins - share C-terminal sequence, different N-termini",
+      "verification_mandatory": false,
+      "verification_method": "Fetch reference Cap sequence from UniProt/NCBI, align to verify boundaries"
+    }
+  },
+
+  "report_requirements": {
+    "for_each_verified_entity": [
+      "Source database (e.g., UniProt)",
+      "Accession number",
+      "Date/version of reference sequence",
+      "Alignment score or match percentage",
+      "Verified coordinates (start, end, length)",
+      "Comparison with file annotation",
+      "Discrepancy flag if any"
+    ],
+    "if_verification_failed": [
+      "Reason for failure (offline, no hit, ambiguous)",
+      "Fallback method used",
+      "Confidence level (VERIFIED vs UNVERIFIED)",
+      "Recommendation for manual review"
+    ]
+  }
+}

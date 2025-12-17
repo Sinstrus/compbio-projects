@@ -1,0 +1,166 @@
+{
+  "$schema": "../SCHEMA.json",
+  "description": "Reference sequences for ground-truth verification. These are the authoritative sources to align against when verifying plasmid contents.",
+  "version": "1.0.0",
+  "last_updated": "2024-12-16",
+
+  "databases": {
+    "uniprot": {
+      "name": "UniProt",
+      "url": "https://www.uniprot.org",
+      "api_search": "https://rest.uniprot.org/uniprotkb/search",
+      "api_fetch": "https://rest.uniprot.org/uniprotkb/{accession}.fasta",
+      "trust_level": "HIGH",
+      "use_for": ["protein_sequences"]
+    },
+    "ncbi_protein": {
+      "name": "NCBI Protein",
+      "url": "https://www.ncbi.nlm.nih.gov/protein",
+      "api_fetch": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id={accession}&rettype=fasta",
+      "trust_level": "HIGH",
+      "use_for": ["protein_sequences"]
+    },
+    "ncbi_nuccore": {
+      "name": "NCBI Nucleotide",
+      "url": "https://www.ncbi.nlm.nih.gov/nuccore",
+      "api_fetch": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id={accession}&rettype=fasta",
+      "trust_level": "HIGH",
+      "use_for": ["nucleotide_sequences", "genome_sequences"]
+    }
+  },
+
+  "aav_references": {
+    "genomes": {
+      "AAV2": {
+        "ncbi_nuccore": "NC_001401.2",
+        "length_bp": 4679,
+        "description": "Adeno-associated virus 2, complete genome",
+        "use_for": ["ITR verification", "Rep reference", "Overall structure"]
+      },
+      "AAV9": {
+        "ncbi_nuccore": "NC_006261.1",
+        "length_bp": 4697,
+        "description": "Adeno-associated virus 9, complete genome",
+        "use_for": ["Cap verification for AAV9 constructs"]
+      }
+    },
+    
+    "proteins": {
+      "AAV2_Rep": {
+        "uniprot": "P03135",
+        "ncbi_protein": "YP_680422.1",
+        "length_aa": 621,
+        "description": "Rep78 (full length), Rep68/52/40 are subsets",
+        "use_for": ["Verify Rep ORF in any AAV helper plasmid"],
+        "regions": {
+          "Rep78": {"start": 1, "end": 621},
+          "Rep68": {"start": 1, "end": 536, "note": "Spliced"},
+          "Rep52": {"start": 225, "end": 621},
+          "Rep40": {"start": 225, "end": 536, "note": "Spliced"}
+        }
+      },
+      
+      "AAV2_VP1": {
+        "uniprot": "P03135",
+        "ncbi_protein": "YP_680426.1",
+        "length_aa": 735,
+        "description": "AAV2 capsid protein VP1",
+        "use_for": ["Verify AAV2 Cap constructs"]
+      },
+      
+      "AAV9_VP1": {
+        "uniprot": "Q6JC40",
+        "ncbi_protein": "AAS99264.1",
+        "length_aa": 736,
+        "description": "AAV9 capsid protein VP1",
+        "use_for": ["Verify AAV9 Cap constructs"],
+        "variable_regions": {
+          "VR-I": {"vp1_residues": [262, 269]},
+          "VR-II": {"vp1_residues": [327, 332]},
+          "VR-III": {"vp1_residues": [382, 394]},
+          "VR-IV": {"vp1_residues": [451, 474]},
+          "VR-V": {"vp1_residues": [494, 502]},
+          "VR-VI": {"vp1_residues": [532, 537]},
+          "VR-VII": {"vp1_residues": [545, 558]},
+          "VR-VIII": {"vp1_residues": [581, 593]},
+          "VR-IX": {"vp1_residues": [704, 714]}
+        }
+      },
+      
+      "AAV2_AAP": {
+        "ncbi_protein": "YP_680426.1",
+        "note": "AAP is in +1 frame of VP1, often not separately annotated",
+        "length_aa": 204,
+        "description": "AAV2 Assembly-Activating Protein",
+        "use_for": ["Reference for AAP structure"],
+        "verification_method": "Translate VP1 region in +1 frame, align to this sequence"
+      },
+      
+      "AAV9_AAP": {
+        "ncbi_protein": "AAS99265.1",
+        "note": "This may be the full polyprotein - extract AAP region manually",
+        "expected_length_aa": [200, 210],
+        "description": "AAV9 Assembly-Activating Protein",
+        "use_for": ["Verify AAP in AAV9 Cap constructs"],
+        "verification_method": "Translate AAV9 VP1 region in +1 frame, align to known AAP",
+        "fallback": "If database entry unavailable, use AAV2 AAP as approximate reference (high conservation in N-terminus)"
+      }
+    },
+    
+    "cis_elements": {
+      "AAV2_ITR": {
+        "ncbi_nuccore": "NC_001401.2",
+        "coordinates": {"left": [1, 145], "right": [4535, 4679]},
+        "length_bp": 145,
+        "description": "AAV2 Inverted Terminal Repeat",
+        "use_for": ["Verify ITR presence and integrity in transfer plasmids"],
+        "sequence_snippet_for_search": "GCGCTCGCTCGCTCACTGAGGCC",
+        "note": "This diagnostic sequence is in the D-region and should be highly conserved"
+      }
+    }
+  },
+
+  "verification_acceptance_criteria": {
+    "alignment_identity": {
+      "minimum_for_verified": 85,
+      "minimum_for_partial": 70,
+      "below_partial": "REJECT - wrong sequence or serotype mismatch",
+      "unit": "percent"
+    },
+    "length_tolerance": {
+      "proteins": {
+        "tolerance_percent": 5,
+        "note": "Verified length should be within 5% of expected"
+      },
+      "cis_elements": {
+        "tolerance_bp": 10,
+        "note": "Verified length should be within 10bp of expected"
+      }
+    },
+    "boundary_discrepancy": {
+      "acceptable_bp": 30,
+      "flag_for_review_bp": 100,
+      "note": "If verified boundaries differ from annotation by >100bp, flag prominently"
+    }
+  },
+
+  "fallback_strategy": {
+    "if_primary_unavailable": [
+      "1. Try secondary database (NCBI if UniProt fails, or vice versa)",
+      "2. Try related serotype as approximate reference",
+      "3. Use conserved motif search from cis_elements manifest",
+      "4. Mark as UNVERIFIED and block modifications to that region"
+    ],
+    "conserved_motifs_for_fallback": {
+      "AAP_N_terminus": {
+        "motif": "MXXFXEIVXXV",
+        "note": "Rough conservation pattern, X=variable. Only use if database unavailable.",
+        "confidence": "LOW"
+      },
+      "ITR_D_sequence": {
+        "motif": "GCGCTCGCTCGCTCACTGAGGCC",
+        "confidence": "HIGH"
+      }
+    }
+  }
+}
