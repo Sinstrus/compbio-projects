@@ -1,0 +1,272 @@
+LOCUS       pGS-ssAAV-EF1A-VP1-rBG_v02 6421 bp    DNA     circular UNK 01-JAN-1980
+DEFINITION  AAV transfer plasmid expressing VP1/VP2/VP3 with 6 engineered
+            restriction sites.
+ACCESSION   pGS-ssAAV-EF1A-VP1-rBG_v02
+VERSION     pGS-ssAAV-EF1A-VP1-rBG_v02
+KEYWORDS    .
+SOURCE      .
+  ORGANISM  .
+            .
+FEATURES             Location/Qualifiers
+     rep_origin      3986..4574
+                     /direction=RIGHT
+                     /label="ori"
+                     /note="high-copy-number ColE1/pMB1/pBR322/pUC origin of
+                     replication"
+     promoter        4739..4843
+                     /gene="bla"
+                     /label="AmpR promoter"
+     CDS             4844..5704
+                     /codon_start=1
+                     /gene="bla"
+                     /product="beta-lactamase"
+                     /label="AmpR"
+                     /note="confers resistance to ampicillin, carbenicillin, and
+                     related antibiotics"
+                     /translation="MSIQHFRVALIPFFAAFCLPVFAHPETLVKVKDAEDQLGARVGYI
+                     ELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRIDAGQEQLGRRIHYSQNDLVEYS
+                     PVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDRW
+                     EPELNEAIPNDERDTTMPVAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPLLRSA
+                     LPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIAEIGAS
+                     LIKHW"
+     promoter        159..1330
+                     /label="EF1a_promoter"
+                     /note="Human EF1-alpha promoter with Intron A"
+     CDS             1350..3563
+                     /label="VP1"
+                     /gene="cap"
+                     /codon_start=1
+                     /translation="MKAADGYLPDWLEDNLSEGIREWWALKPGAPQPKANQQHQDNARG
+                     LVLPGYKYLGPGNGLDKGEPVNAADAAALEHDKAYDQQLKAGDNPYLKYNHADAEFQER
+                     LKEDTSFGGNLGRAVFQAKKRLLEPLGLVEEAAKTAPGKKRPVEQSPQEPDSSAGIGKS
+                     GAQPAKKRLNFGQTGDTESVPDPQPIGEPPAAPSGVGSLTLASGGGAPVADNNEGADGV
+                     GSSSGNWHCDSQWLGDRVITTSTRTWALPTYNNHLYKQISNSTSGGSSNDNAYFGYSTP
+                     WGYFDFNRFHCHFSPRDWQRLINNNWGFRPKRLNFKLFNIQVKEVTDNNGVKTIANNLT
+                     STVQVFTDSDYQLPYVLGSAHEGCLPPFPADVFMIPQYGYLTLNDGSQAVGRSSFYCLE
+                     YFPSQMLRTGNNFQFSYEFENVPFHSSYAHSQSLDRLMNPLIDQYLYYLSKTINGSGQN
+                     QQTLKFSVAGPSNMAVQGRNYIPGPSYRQQRVSTTVTQNNNSEFAWPGASSWALNGRNS
+                     LMNPGPAMASHKEGEDRFFPLSGSLIFGKQGTGRDNVDADKVMITNEEEIKTTNPVATE
+                     SYGQVATNHQSAQAQAQTGWVQNQGILPGMVWQDRDVYLQGPIWAKIPHTDGNFHPSPL
+                     MGGFGMKHPPPQILIKNTPVPADPPTAFNKDKLNSFITQYSTGQVSVEIEWELQKENSK
+                     RWNPEIQYTSNYYKSNNVEFAVNTEGVYSEPRPIGTRYLTRNL"
+                     /note="AAV9 VP1 capsid protein. Contains 6 engineered
+                     silent restriction sites. N-terminal Met added for
+                     expression."
+     CDS             1764..3563
+                     /label="VP2"
+                     /gene="cap"
+                     /codon_start=1
+                     /translation="TAPGKKRPVEQSPQEPDSSAGIGKSGAQPAKKRLNFGQTGDTESV
+                     PDPQPIGEPPAAPSGVGSLTLASGGGAPVADNNEGADGVGSSSGNWHCDSQWLGDRVIT
+                     TSTRTWALPTYNNHLYKQISNSTSGGSSNDNAYFGYSTPWGYFDFNRFHCHFSPRDWQR
+                     LINNNWGFRPKRLNFKLFNIQVKEVTDNNGVKTIANNLTSTVQVFTDSDYQLPYVLGSA
+                     HEGCLPPFPADVFMIPQYGYLTLNDGSQAVGRSSFYCLEYFPSQMLRTGNNFQFSYEFE
+                     NVPFHSSYAHSQSLDRLMNPLIDQYLYYLSKTINGSGQNQQTLKFSVAGPSNMAVQGRN
+                     YIPGPSYRQQRVSTTVTQNNNSEFAWPGASSWALNGRNSLMNPGPAMASHKEGEDRFFP
+                     LSGSLIFGKQGTGRDNVDADKVMITNEEEIKTTNPVATESYGQVATNHQSAQAQAQTGW
+                     VQNQGILPGMVWQDRDVYLQGPIWAKIPHTDGNFHPSPLMGGFGMKHPPPQILIKNTPV
+                     PADPPTAFNKDKLNSFITQYSTGQVSVEIEWELQKENSKRWNPEIQYTSNYYKSNNVEF
+                     AVNTEGVYSEPRPIGTRYLTRNL"
+                     /note="AAV9 VP2 capsid protein. Starts at ACC (Thr)."
+     CDS             1959..3563
+                     /label="VP3"
+                     /gene="cap"
+                     /codon_start=1
+                     /translation="LASGGGAPVADNNEGADGVGSSSGNWHCDSQWLGDRVITTSTRTW
+                     ALPTYNNHLYKQISNSTSGGSSNDNAYFGYSTPWGYFDFNRFHCHFSPRDWQRLINNNW
+                     GFRPKRLNFKLFNIQVKEVTDNNGVKTIANNLTSTVQVFTDSDYQLPYVLGSAHEGCLP
+                     PFPADVFMIPQYGYLTLNDGSQAVGRSSFYCLEYFPSQMLRTGNNFQFSYEFENVPFHS
+                     SYAHSQSLDRLMNPLIDQYLYYLSKTINGSGQNQQTLKFSVAGPSNMAVQGRNYIPGPS
+                     YRQQRVSTTVTQNNNSEFAWPGASSWALNGRNSLMNPGPAMASHKEGEDRFFPLSGSLI
+                     FGKQGTGRDNVDADKVMITNEEEIKTTNPVATESYGQVATNHQSAQAQAQTGWVQNQGI
+                     LPGMVWQDRDVYLQGPIWAKIPHTDGNFHPSPLMGGFGMKHPPPQILIKNTPVPADPPT
+                     AFNKDKLNSFITQYSTGQVSVEIEWELQKENSKRWNPEIQYTSNYYKSNNVEFAVNTEG
+                     VYSEPRPIGTRYLTRNL"
+                     /note="AAV9 VP3 capsid protein. Most abundant capsid
+                     component (1:1:10 ratio)."
+     CDS             1879..2471
+                     /label="AAV9_AAP"
+                     /codon_start=2
+                     /translation="WRHRVSPRPSTNRRTSRSPLRCGISYTGFRWWRTSGRQ*RRCRWS
+                     G*FLGKLALRFPMAGGQSHHHQHPNLGPAHLQQSPLQANLQQHIWRIFK*QRLLRLQHP
+                     LGVF*LQQIPLPLLTT*LAATHQQQLGIPA*ATQLQALQHSGQRGYGQQWSQDHRQ*PY
+                     QHGPGLHGLRLSAPVRARVGSRGLPPAVPSGRF"
+                     /note="Assembly-Activating Protein. Translated from +1
+                     frame of VP1. Essential for capsid assembly."
+     misc_feature    2136..2159
+                     /label="AAV9_VR-I"
+                     /note="AAV9 Variable Region VR-I (AA 262-269).
+                     Surface-exposed loop for capsid engineering."
+     misc_feature    2331..2348
+                     /label="AAV9_VR-II"
+                     /note="AAV9 Variable Region VR-II (AA 327-332).
+                     Surface-exposed loop for capsid engineering."
+     misc_feature    2496..2510
+                     /label="AAV9_VR-III"
+                     /note="AAV9 Variable Region VR-III (AA 382-386).
+                     Surface-exposed loop for capsid engineering."
+     misc_feature    2706..2732
+                     /label="AAV9_VR-IV"
+                     /note="AAV9 Variable Region VR-IV (AA 452-460).
+                     Surface-exposed loop for capsid engineering."
+     misc_feature    2814..2867
+                     /label="AAV9_VR-V"
+                     /note="AAV9 Variable Region VR-V (AA 488-505).
+                     Surface-exposed loop for capsid engineering."
+     misc_feature    2931..2969
+                     /label="AAV9_VR-VI"
+                     /note="AAV9 Variable Region VR-VI (AA 527-539).
+                     Surface-exposed loop for capsid engineering."
+     misc_feature    2985..3026
+                     /label="AAV9_VR-VII"
+                     /note="AAV9 Variable Region VR-VII (AA 545-558).
+                     Surface-exposed loop for capsid engineering."
+     misc_feature    3093..3131
+                     /label="AAV9_VR-VIII"
+                     /note="AAV9 Variable Region VR-VIII (AA 581-593).
+                     Surface-exposed loop for capsid engineering."
+     misc_feature    3462..3494
+                     /label="AAV9_VR-IX"
+                     /note="AAV9 Variable Region VR-IX (AA 704-714).
+                     Surface-exposed loop for capsid engineering."
+     misc_feature    1493..1498
+                     /label="SmaI_site"
+                     /note="Engineered SmaI restriction site (CCCGGG). Silent
+                     mutation: CTT→CTC (L→L)"
+     misc_feature    1816..1822
+                     /label="BbvCI_site"
+                     /note="Engineered BbvCI restriction site (CCTCAGC). Silent
+                     mutation: TCC→TCA (S→S)"
+     misc_feature    2571..2576
+                     /label="AgeI_site"
+                     /note="Engineered AgeI restriction site (ACCGGT). Silent
+                     mutation: ACG→ACC (T→T)"
+     misc_feature    2768..2773
+                     /label="BsrGI_site"
+                     /note="Engineered BsrGI restriction site (TGTACA). Silent
+                     mutation: GTC→GTA (V→V)"
+     misc_feature    2925..2930
+                     /label="BmtI_site"
+                     /note="Engineered BmtI restriction site (GCTAGC). Silent
+                     mutation: GCC→GCT (A→A)"
+     misc_feature    3151..3156
+                     /label="BstZ17I_site"
+                     /note="Engineered BstZ17I restriction site (GTATAC). Silent
+                     mutation: GGA→GGT (G→G)"
+     3'UTR           3572..3629
+                     /label="mini_3UTR"
+                     /note="Minimal 3' UTR element for mRNA stability. [Action]:
+                     Inserted | [Risk]: Low"
+     polyA_signal    3630..3761
+                     /label="rBG_polyA"
+                     /note="Rabbit beta-globin polyadenylation signal"
+ORIGIN
+        1 gaccgtctac gggagctgaa caattggcgc gctcgctcgc tcactgaggc cgcccgggca
+       61 aagcccgggc gtcgggcgac ctttggtcgc ccggcctcag tgagcgagcg agcgcgcaga
+      121 gagggagtgg ccaactccat cactaggggt tcctgaatgg ctccggtgcc cgtcagtggg
+      181 cagagcgcac atcgcccaca gtccccgaga agttgggggg aggggtcggc aattgaaccg
+      241 gtgcctagag aaggtggcgc ggggtaaact gggaaagtga tgtcgtgtac tggctccgcc
+      301 tttttcccga gggtggggga gaaccgtata taagtgcagt agtcgccgtg aacgttcttt
+      361 ttcgcaacgg gtttgccgcc agaacacagg taagtgccgt gtgtggttcc cgcgggcctg
+      421 gcctctttac gggttatggc ccttgcgtgc cttgaattac ttccacctgg ctgcagtacg
+      481 tgattcttga tcccgagctt cgggttggaa gtgggtggga gagttcgagg ccttgcgctt
+      541 aaggagcccc ttcgcctcgt gcttgagttg aggcctggcc tgggcgctgg ggccgccgcg
+      601 tgcgaatctg gtggcacctt cgcgcctgtc tcgctgcttt cgataagtct ctagccattt
+      661 aaaatttttg atgacctgct gcgacgcttt ttttctggca agatagtctt gtaaatgcgg
+      721 gccaagatct gcacactggt atttcggttt ttggggccgc gggcggcgac ggggcccgtg
+      781 cgtcccagcg cacatgttcg gcgaggcggg gcctgcgagc gcggccaccg agaatcggac
+      841 gggggtagtc tcaagctggc cggcctgctc tggtgcctgg cctcgcgccg ccgtgtatcg
+      901 ccccgccctg ggcggcaagg ctggcccggt cggcaccagt tgcgtgagcg gaaagatggc
+      961 cgcttcccgg ccctgctgca gggagctcaa aatggaggac gcggcgctcg ggagagcggg
+     1021 cgggtgagtc acccacacaa aggaaaaggg cctttccgtc ctcagccgtc gcttcatgtg
+     1081 actccacgga gtaccgggcg ccgtccaggc acctcgatta gttctcgagc ttttggagta
+     1141 cgtcgtcttt aggttggggg gaggggtttt atgcgatgga gtttccccac actgagtggg
+     1201 tggagactga agttaggcca gcttggcact tgatgtaatt ctccttggaa tttgcccttt
+     1261 ttgagtttgg atcttggttc attctcaagc ctcagacagt ggttcaaagt ttttttcttc
+     1321 catttcaggt gtcgtgactt aaggccacca tgaaggctgc cgatggttat cttccagatt
+     1381 ggctcgagga caaccttagt gaaggaattc gcgagtggtg ggctttgaaa cctggagccc
+     1441 ctcaacccaa ggcaaatcaa caacatcaag acaacgctcg aggtcttgtg ctcccgggtt
+     1501 acaaatacct tggacccggc aacggactcg acaaggggga gccggtcaac gcagcagacg
+     1561 cggcggccct cgagcacgac aaggcctacg accagcagct caaggccgga gacaacccgt
+     1621 acctcaagta caaccacgcc gacgccgagt tccaggagcg gctcaaagaa gatacgtctt
+     1681 ttgggggcaa cctcgggcga gcagtcttcc aggccaaaaa gaggcttctt gaacctcttg
+     1741 gtctggttga ggaagcggct aagaccgctc ctggaaagaa gaggcctgta gagcagtctc
+     1801 ctcaggaacc ggactcctca gcgggtattg gcaaatcggg tgcacagccc gctaaaaaga
+     1861 gactcaattt cggtcagact ggcgacacag agtcagtccc agaccctcaa ccaatcggag
+     1921 aacctcccgc agccccctca ggtgtgggat ctcttacact ggcttcaggt ggtggcgcac
+     1981 cagtggcaga caataacgaa ggtgccgatg gagtgggtag ttcctcggga aattggcatt
+     2041 gcgattccca atggctgggg gacagagtca tcaccaccag cacccgaacc tgggccctgc
+     2101 ccacctacaa caatcacctc tacaagcaaa tctccaacag cacatctgga ggatcttcaa
+     2161 atgacaacgc ctacttcggc tacagcaccc cctgggggta ttttgacttc aacagattcc
+     2221 actgccactt ctcaccacgt gactggcagc gactcatcaa caacaactgg ggattccggc
+     2281 ctaagcgact caacttcaag ctcttcaaca ttcaggtcaa agaggttacg gacaacaatg
+     2341 gagtcaagac catcgccaat aaccttacca gcacggtcca ggtcttcacg gactcagact
+     2401 atcagctccc gtacgtgctc gggtcggctc acgagggctg cctcccgccg ttcccagcgg
+     2461 acgttttcat gattcctcag tacgggtatc tgacgcttaa tgatggaagc caggccgtgg
+     2521 gtcgttcgtc cttttactgc ctggaatatt tcccgtcgca aatgctaaga accggtaaca
+     2581 acttccagtt cagctacgag tttgagaacg tacctttcca tagcagctac gctcacagcc
+     2641 aaagcctgga ccgactaatg aatccactca tcgaccaata cttgtactat ctctcaaaga
+     2701 ctattaacgg ttctggacag aatcaacaaa cgctaaaatt cagtgtggcc ggacccagca
+     2761 acatggctgt acagggaaga aactacatac ctggacccag ctaccgacaa caacgtgtct
+     2821 caaccactgt gactcaaaac aacaacagcg aatttgcttg gcctggagct tcttcttggg
+     2881 ctctcaatgg acgtaatagc ttgatgaatc ctggacctgc tatggctagc cacaaagaag
+     2941 gagaggaccg tttctttcct ttgtctggat ctttaatttt tggcaaacaa ggaactggaa
+     3001 gagacaacgt ggatgcggac aaagtcatga taaccaacga agaagaaatt aaaactacta
+     3061 acccggtagc aacggagtcc tatggacaag tggccacaaa ccaccagagt gcccaagcac
+     3121 aggcgcagac cggctgggtt caaaaccaag gtatacttcc gggtatggtt tggcaggaca
+     3181 gagatgtgta cctgcaagga cccatttggg ccaaaattcc tcacacggac ggcaactttc
+     3241 acccttctcc gctgatggga gggtttggaa tgaagcaccc gcctcctcag atcctcatca
+     3301 aaaacacacc tgtacctgcg gatcctccaa cggccttcaa caaggacaag ctgaactctt
+     3361 tcatcaccca gtattctact ggccaagtca gcgtggagat cgagtgggag ctgcagaagg
+     3421 aaaacagcaa gcgctggaac ccggagatcc agtacacttc caactattac aagtctaata
+     3481 atgttgaatt tgctgttaat actgaaggtg tatatagtga accccgcccc attggcacca
+     3541 gatacctgac tcgtaatctg taagcggccg ctgtgccttc tagttgccag ccatctgttg
+     3601 tttgcccctc ccccgtgcct tccttgaccg ctcgctttct tgctgtccaa tttctattaa
+     3661 aggttccttt gttccctaag tccaactact aaactggggg atattatgaa gggccttgag
+     3721 catctggatt ctgcctaata aaaaacattt attttcattg cgcgctcgct cgctcactga
+     3781 ggccgggcga ccaaaggtcg cccgacgccc gggctttgcc cgggcggcct cagtgagcga
+     3841 gcgagcgcgc actagttgat gcggtatttt ctccttacgc atctgtgcgg tatttcacac
+     3901 cgcatacgtc acatgtgtca gaggttttca ccgtcatcac cgaacactga gcgtcagacc
+     3961 ccgtagaaaa gatcaaagga tcttcttgag atcctttttt tctgcgcgta atctgctgct
+     4021 tgcaaacaaa aaaaccaccg ctaccagcgg tggtttgttt gccggatcaa gagctaccaa
+     4081 ctctttttcc gaaggtaact ggcttcagca gagcgcagat accaaatact gttcttctag
+     4141 tgtagccgta gttaggccac cacttcaaga actctgtagc accgcctaca tacctcgctc
+     4201 tgctaatcct gttaccagtg gctgctgcca gtggcgataa gtcgtgtctt accgggttgg
+     4261 actcaagacg atagttaccg gataaggcgc agcggtcggg ctgaacgggg ggttcgtgca
+     4321 cacagcccag cttggagcga acgacctaca ccgaactgag atacctacag cgtgagctat
+     4381 gagaaagcgc cacgcttccc gaagggagaa aggcggacag gtatccggta agcggcaggg
+     4441 tcggaacagg agagcgcacg agggagcttc cagggggaaa cgcctggtat ctttatagtc
+     4501 ctgtcgggtt tcgccacctc tgacttgagc gtcgattttt gtgatgctcg tcaggggggc
+     4561 ggagcctatg gaaaaacgcc agcaacgcgg cctttttacg gttcctggcc ttttgctggc
+     4621 cttttgctca catgtacgcg cgagtcgaaa gggcctcgtg atacgcctat ttttataggt
+     4681 taatgtgatg ataataatgg tttcttagac gtcaggtggc acttttcggg gaaatgtgcg
+     4741 cggaacccct atttgtttat ttttctaaat acattcaaat atgtatccgc tcatgagaca
+     4801 ataaccctga taaatgcttc aataatattg aaaaaggaag agtatgagta ttcaacattt
+     4861 ccgtgtcgcc cttattccct tttttgcggc attttgcctt cctgtttttg ctcacccaga
+     4921 aacgctggtg aaagtaaaag atgctgaaga tcagttgggt gcacgagtgg gttacatcga
+     4981 actggatctc aacagcggta agatccttga gagttttcgc cccgaagaac gttttccaat
+     5041 gatgagcact tttaaagttc tgctatgtgg cgcggtatta tcccgtattg acgccgggca
+     5101 agagcaactc ggtcgccgca tacactattc tcagaatgac ttggttgagt actcaccagt
+     5161 cacagaaaag catcttacgg atggcatgac agtaagagaa ttatgcagtg ctgccataac
+     5221 catgagtgat aacactgcgg ccaacttact tctgacaacg atcggaggac cgaaggagct
+     5281 aaccgctttt ttgcacaaca tgggggatca tgtaactcgc cttgatcgtt gggaaccgga
+     5341 gctgaatgaa gccataccaa acgacgagcg tgacaccacg atgcctgtag caatggcaac
+     5401 aacgttgcgc aaactattaa ctggcgaact acttactcta gcttcccggc aacaattaat
+     5461 agactggatg gaggcggata aagttgcagg accacttctg cgctcggcgc ttccggctgg
+     5521 ctggtttatt gctgataaat ctggagccgg tgagcgtgga tctcgcggta tcattgcagc
+     5581 actggggcca gatggtaagc cctcccgtat cgtagttatc tacaccacgg ggagtcaggc
+     5641 aactatggat gaacgaaata gacagatcgc tgagataggt gcctcactga ttaagcattg
+     5701 gtaactgtca gaccaagttt actcatatat actttagatt gatttaaaac ttcattttta
+     5761 atttaaaagg atctaggtga agatcctttt tgataatctc atgaccaaaa tcccttaacg
+     5821 tgagttttcg ttccactgag cgtcagttta tcccttaacc ctgcgttatc ccctgattct
+     5881 gtggataacc gtattaccgc ctttgagtga gctgataccg ctcgccgcag ccgaacgacc
+     5941 gagcgcagcg agtcagtgag cgaggaagcg gaagaacgcc caatacgcaa accgcctctc
+     6001 cccgcgcgtt ggccgattca ttaatgcagc tggcacgaca ggtttcccga ctggaaagcg
+     6061 ggcagtgatc tggcgtaccg ttcctgtcta aaatcccttt aatcggcctc ctgtttagct
+     6121 cccgctctga ttctaacgag gaaagcacgt tatacgtgct cgtcaaagcg ttgatattca
+     6181 gtcaattaca aacattaata acgaagagat gacagaaaaa ttttcattct gtgacagaga
+     6241 aaaagtagcc gaagatgtcg gtttgtcaca tggagttggc atatggtgca ctctcagtac
+     6301 aatctgctct gatgccgcat agttaagcca gccccgacac ccgccaacac ccgctgacgc
+     6361 gccctgacgg gcttgtctga agcaaccata gtctcccggc atccgcttac agacaagctg
+     6421 t
+//
