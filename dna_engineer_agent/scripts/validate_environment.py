@@ -59,6 +59,8 @@ def check_file_structure(base_path: Path):
         "cis_elements/manifest.json",
         "parts_library/schema.json",
         "parts_library/linkers.json",
+        "scripts/tools/silent_sites.py",
+        "scripts/tools/README.md",
     ]
     
     expected_dirs = [
@@ -70,6 +72,7 @@ def check_file_structure(base_path: Path):
         "projects",
         "reports",
         "scripts",
+        "scripts/tools",
         "test_data",
     ]
     
@@ -251,6 +254,61 @@ def list_cis_elements(base_path: Path):
     print()
 
 
+def test_design_tools(base_path: Path) -> bool:
+    """Test that design tools are importable and functional."""
+    print("=" * 60)
+    print("DESIGN TOOLS TEST")
+    print("=" * 60)
+    
+    tools_dir = base_path / "scripts" / "tools"
+    if not tools_dir.exists():
+        print("  Tools directory not found.")
+        return False
+    
+    # Test silent_sites.py import
+    try:
+        import sys
+        sys.path.insert(0, str(tools_dir))
+        
+        from silent_sites import (
+            find_candidates, 
+            find_protein_in_dna,
+            RESTRICTION_ENZYMES,
+            matches_iupac
+        )
+        
+        print(f"  ✓ silent_sites.py imported successfully")
+        print(f"    - {len(RESTRICTION_ENZYMES)} restriction enzymes loaded")
+        
+        # Quick functional test
+        test_dna = "ATGGAATTCAAG"  # Contains EcoRI site (GAATTC)
+        test_protein = "MEF"
+        
+        start, end, frame = find_protein_in_dna(test_dna, test_protein)
+        if start is not None:
+            print(f"    - Protein search: OK (found at {start}-{end})")
+        else:
+            print(f"    - Protein search: FAILED")
+            return False
+        
+        # Test IUPAC matching
+        if matches_iupac('A', 'R') and matches_iupac('G', 'R') and not matches_iupac('C', 'R'):
+            print(f"    - IUPAC matching: OK")
+        else:
+            print(f"    - IUPAC matching: FAILED")
+            return False
+        
+        print()
+        return True
+        
+    except ImportError as e:
+        print(f"  ✗ Failed to import silent_sites.py: {e}")
+        return False
+    except Exception as e:
+        print(f"  ✗ Error testing silent_sites.py: {e}")
+        return False
+
+
 def list_biological_systems(base_path: Path):
     """Display available biological systems from knowledge base."""
     print("=" * 60)
@@ -327,6 +385,10 @@ def main():
     list_biological_systems(base_path)
     list_available_parts(base_path)
     list_cis_elements(base_path)
+    
+    # Test design tools
+    tools_ok = test_design_tools(base_path)
+    results["design_tools"] = tools_ok
     
     # Summary
     print("=" * 60)

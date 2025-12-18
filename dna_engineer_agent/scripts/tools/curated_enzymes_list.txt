@@ -1,0 +1,67 @@
+RESTRICTION_ENZYMES = [
+    # Standard 6-bp cutters (most common, reliable enzymes)
+    ("AfeI", "AGCGCT"),
+    ("AflII", "CTTAAG"),
+    ("AgeI", "ACCGGT"),
+    ("ApaI", "GGGCCC"),
+    ("ApaLI", "GTGCAC"),
+    ("AvrII", "CCTAGG"),
+    ("BamHI", "GGATCC"),
+    ("BglII", "AGATCT"),
+    ("BmtI", "GCTAGC"),      # Same as NheI
+    ("BsaI", "GGTCTC"),      # Type IIS, commonly used
+    ("BsmBI", "CGTCTC"),     # Type IIS
+    ("BspEI", "TCCGGA"),
+    ("BsrGI", "TGTACA"),
+    ("BstBI", "TTCGAA"),
+    ("BstZ17I", "GTATAC"),
+    ("ClaI", "ATCGAT"),
+    ("EagI", "CGGCCG"),
+    ("EcoRI", "GAATTC"),
+    ("EcoRV", "GATATC"),
+    ("Esp3I", "CGTCTC"),     # Same as BsmBI, Type IIS
+    ("HindIII", "AAGCTT"),
+    ("HpaI", "GTTAAC"),
+    ("KpnI", "GGTACC"),
+    ("MfeI", "CAATTG"),
+    ("MluI", "ACGCGT"),
+    ("MscI", "TGGCCA"),
+    ("NcoI", "CCATGG"),
+    ("NdeI", "CATATG"),
+    ("NheI", "GCTAGC"),      # Same as BmtI
+    ("NruI", "TCGCGA"),
+    ("NsiI", "ATGCAT"),
+    ("PciI", "ACATGT"),
+    ("PmlI", "CACGTG"),
+    ("PstI", "CTGCAG"),
+    ("PvuI", "CGATCG"),
+    ("PvuII", "CAGCTG"),
+    ("SacI", "GAGCTC"),
+    ("SacII", "CCGCGG"),
+    ("SalI", "GTCGAC"),
+    ("ScaI", "AGTACT"),
+    ("SmaI", "CCCGGG"),
+    ("SnaBI", "TACGTA"),
+    ("SpeI", "ACTAGT"),
+    ("SphI", "GCATGC"),
+    ("StuI", "AGGCCT"),
+    ("XbaI", "TCTAGA"),
+    ("XhoI", "CTCGAG"),
+    ("XmaI", "CCCGGG"),      # Same as SmaI
+
+    # 8-bp cutters (very specific, low star activity)
+    ("AscI", "GGCGCGCC"),
+    ("AsiSI", "GCGATCGC"),
+    ("FseI", "GGCCGGCC"),
+    ("NotI", "GCGGCCGC"),
+    ("PacI", "TTAATTAA"),
+    ("PmeI", "GTTTAAAC"),
+    ("SbfI", "CCTGCAGG"),
+    ("SrfI", "GCCCGGGC"),
+    ("SwaI", "ATTTAAAT"),
+
+    # Minimal ambiguity (1-2 variable positions, commonly used)
+    ("AflIII", "ACRYGT"),
+    ("BsaWI", "WCCGGW"),
+    ("HincII", "GTYRAC"),
+]

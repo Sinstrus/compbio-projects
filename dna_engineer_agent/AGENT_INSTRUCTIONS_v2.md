@@ -308,8 +308,86 @@ Only after the analysis is complete and the construct is understood:
 1. **State the modification goal** in precise molecular terms
 2. **Check for conflicts** with verified elements
 3. **Plan the modification** with exact coordinates
-4. **Generate the modification script** (Python/Biopython)
-5. **Validate the result** before saving
+4. **Consider adding restriction site handles** (see Design Tools below)
+5. **Generate the modification script** (Python/Biopython)
+6. **Validate the result** before saving
+
+---
+
+## Design Tools
+
+The agent has access to specialized tools in `scripts/tools/` for DNA design tasks.
+
+### Silent Restriction Site Finder (`scripts/tools/silent_sites.py`)
+
+**Purpose:** Find restriction enzyme sites that can be introduced via silent mutations (nucleotide changes that preserve the amino acid sequence).
+
+**Capability:**
+- Finds sites requiring **0 mutations** (already present)
+- Finds sites requiring **1 mutation** ("one-out" sites)
+- Finds sites requiring **2 mutations** ("two-out" sites)
+- Configurable via `--mutations` parameter (default: 2)
+
+**When to Use:**
+- When inserting new sequences (VHH, tags, etc.) that may need future modification
+- When the user requests "handles" or "flanking sites" for cloning
+- When planning constructs for Golden Gate assembly or Genscript FLASH service
+- When adding diagnostic restriction sites for clone verification
+
+**Risk Policy:**
+Silent mutations change codon usage but not protein sequence. We accept this risk because:
+- The utility of restriction sites (enables fast modification) outweighs codon bias concerns
+- All changes are documented in the modification report
+- The tool only suggests — the agent evaluates each suggestion
+
+**Usage in Workflow:**
+```python
+# After planning an insertion, check for restriction site opportunities
+import sys
+sys.path.insert(0, 'scripts/tools')
+from silent_sites import find_candidates
+
+candidates = find_candidates(
+    dna_seq=insertion_dna,
+    protein_seq=insertion_protein,
+    max_mutations=2,  # Find sites requiring 0, 1, or 2 changes
+    min_length=6
+)
+
+# Filter for useful sites
+useful = [c for c in candidates 
+          if c.mutation_type == "Silent" 
+          and c.uniqueness_dna == "Unique"
+          and c.enzyme in ["BsaI", "BbsI", "BsmBI"]]  # Golden Gate enzymes
+
+# Prioritize by number of edits (0 > 1 > 2)
+useful.sort(key=lambda c: c.edits_required)
+```
+
+**Key Parameters:**
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--mutations` | 2 | Maximum nucleotide changes allowed |
+| `--min-length` | 6 | Minimum restriction site length |
+| `--roi` | None | Region of interest (for large sequences) |
+| `--show-all` | False | Include non-silent mutations in output |
+
+**What to Document:**
+When introducing silent mutations for restriction sites:
+1. The enzyme and its recognition sequence
+2. The number of mutations required
+3. Each mutation made (e.g., "A→G at position 45")
+4. The codon change (e.g., "GCA→GCG, both encode Ala")
+5. Whether the site is unique in the final construct
+
+**Example Annotation:**
+```
+[Action]: Added BsaI site via 2 silent mutations
+[Position]: 3450-3455 bp
+[Mutations]: T3452C (ACC→ACG, Thr→Thr), A3454G (GCA→GCG, Ala→Ala)
+[Reason]: Enable future VHH swapping via Golden Gate
+[Risk]: LOW (silent mutations, protein unchanged)
+```
 
 ---
 
@@ -317,7 +395,7 @@ Only after the analysis is complete and the construct is understood:
 
 ```
 dna_engineer_agent/
-├── AGENT_INSTRUCTIONS.md          # This file
+├── AGENT_INSTRUCTIONS_v2.md       # This file (the "brain")
 ├── VERSION.json                   # Agent version
 ├── knowledge_base/
 │   ├── SCHEMA.json                # How systems are defined
@@ -334,7 +412,10 @@ dna_engineer_agent/
 ├── reports/
 │   └── *.md                       # Generated reports
 ├── scripts/
-│   └── *.py                       # Utility scripts
+│   ├── validate_environment.py    # Environment checker
+│   └── tools/                     # Design tools
+│       ├── README.md              # Tool documentation
+│       └── silent_sites.py        # Silent restriction site finder
 └── test_data/
     └── *.gb                       # Test sequences
 ```

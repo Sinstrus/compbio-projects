@@ -1,8 +1,23 @@
 {
-  "agent_version": "2.1.0",
+  "agent_version": "2.2.0",
   "release_date": "2024-12-17",
   "architecture": "Goal-Driven Requirements Derivation",
   "changelog": [
+    {
+      "version": "2.2.0",
+      "date": "2024-12-17",
+      "changes": [
+        "Added scripts/tools/ directory for specialized design tools",
+        "Added silent_sites.py - Silent Restriction Site Finder",
+        "  - Finds restriction sites introducible via silent mutations",
+        "  - Supports 250+ enzymes with IUPAC ambiguity codes",
+        "  - ROI support for large sequences",
+        "  - Dual uniqueness tracking (full sequence vs ROI)",
+        "Added Design Tools section to AGENT_INSTRUCTIONS_v2.md",
+        "Documented risk policy for codon changes (LOW risk, high utility)",
+        "Added workflow guidance for adding 'handles' during modifications"
+      ]
+    },
     {
       "version": "2.1.0",
       "date": "2024-12-17",
