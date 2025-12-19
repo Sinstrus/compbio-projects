@@ -9,7 +9,22 @@
 
 Generated v04 transfer plasmid using a **cloning strategy** instead of stuffer replacement. The EF1a-VP1-polyA cassette is designed to be synthesized and cloned into HindIII/XbaI sites in the backbone.
 
-**Key Change from v03:** Replaced XbaI (Region 1) with AvrII to avoid conflict with XbaI cloning site in backbone.
+**Key Changes from v03:**
+1. Replaced XbaI (Region 1) with AvrII to avoid conflict with XbaI cloning site
+2. Use full 1194 bp EF1α promoter (v03 was truncated to 1172 bp)
+3. Preserve both HindIII and XbaI cloning sites in final plasmid
+
+## Important Corrections Made
+
+**Initial v04 (before corrections):**
+- ❌ EF1α was 1172 bp (missing 22 bp)
+- ❌ XbaI site was not present in final plasmid
+
+**Corrected v04 (current):**
+- ✅ EF1α is 1194 bp (full version from v01)
+- ✅ XbaI site preserved at position 3732
+- ✅ HindIII site at position 189
+- ✅ Proper cloning simulation with both sites regenerated
 
 ---
 
@@ -112,11 +127,13 @@ test_data/AAV9-RepCap-NOCAP-v04.gb (7,078 bp)
 
 ### Transfer Plasmid
 ```
-test_data/pGS-ssAAV-EF1A-VP1-rBG_v04.gb (6,434 bp)
+test_data/pGS-ssAAV-EF1A-VP1-rBG_v04.gb (6,462 bp)
 ```
 - Assembled using cloning strategy
-- ITR128 annotations: positions 27-154 and 3736-3863
-- All 6 sites verified unique
+- EF1α promoter: 1194 bp (full version with intron)
+- ITR128 annotations: positions 27-154 and 3758-3885
+- Cloning sites preserved: HindIII (189) and XbaI (3732)
+- All 6 VP1 sites verified unique
 - Only ssAAV version generated
 
 ### Analysis Scripts
@@ -142,19 +159,33 @@ projects/aav_transfer_plasmid/analysis/
 ```
 
 ### Transfer Plasmid v04 Verification
+
+**Cloning sites:**
 ```
-✅ AvrII      1 site @ position 1522
-✅ BspEI      1 site @ position 1850
-✅ BsmBI      1 site @ position 2574
-✅ BsrGI      1 site @ position 2782
-✅ BmtI       1 site @ position 2943
-✅ BstZ17I    1 site @ position 3167
+✅ HindIII    1 site @ position 189
+✅ XbaI       1 site @ position 3732
+```
+
+**VP1 unique sites:**
+```
+✅ AvrII      1 site @ position 1544
+✅ BspEI      1 site @ position 1872
+✅ BsmBI      1 site @ position 2596
+✅ BsrGI      1 site @ position 2804
+✅ BmtI       1 site @ position 2965
+✅ BstZ17I    1 site @ position 3189
 ```
 
 ### ITR Annotations
 ```
 ✅ ITR128 (left):  27-154
-✅ ITR128 (right): 3736-3863
+✅ ITR128 (right): 3758-3885
+```
+
+### EF1α Promoter
+```
+✅ Length: 1194 bp (positions 193-1386)
+✅ Full version with intron
 ```
 
 **✅ ALL REQUIREMENTS MET**
@@ -167,11 +198,13 @@ projects/aav_transfer_plasmid/analysis/
 |--------|-----|-----|
 | **Region 1 enzyme** | XbaI (2 mutations) | AvrII (1 mutation) ✅ |
 | **Assembly strategy** | Stuffer replacement | Cloning into sites ✅ |
-| **ITR annotations** | Not present | Annotated ✅ |
+| **ITR annotations** | Present but shifted | Annotated correctly ✅ |
 | **Backbone** | v01 (no ITRs) | v02 (with ITRs) ✅ |
 | **Cloning sites** | N/A | HindIII/XbaI ✅ |
+| **EF1α length** | 1172 bp (truncated) | 1194 bp (full) ✅ |
+| **XbaI site preserved** | N/A | Yes (position 3732) ✅ |
 | **Total mutations** | 8 | 7 ✅ |
-| **Plasmid size** | 6,436 bp | 6,434 bp |
+| **Plasmid size** | 6,436 bp | 6,462 bp |
 
 ---
 

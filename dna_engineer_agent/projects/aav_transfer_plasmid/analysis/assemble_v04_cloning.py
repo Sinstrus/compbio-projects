@@ -51,25 +51,34 @@ def main():
         print("❌ ERROR: Could not find VP1 in v04 RepCap")
         sys.exit(1)
 
-    # Get EF1a and polyA from v03 transfer plasmid
+    # Get EF1a (1194 bp version from v01) and polyA from transfer plasmids
+    transfer_v01 = SeqIO.read('test_data/pGS-ssAAV-EF1A-VP1-rBG_v01.gb', 'genbank')
+
     ef1a_feature = None
     polya_feature = None
 
-    for feature in transfer_v03.features:
+    # Get correct 1194 bp EF1α from v01
+    for feature in transfer_v01.features:
         label = feature.qualifiers.get('label', [''])[0]
         if 'EF1' in label or 'EF-1' in label or 'EF1a' in label:
             ef1a_feature = feature
-            print(f"✓ Found EF1α in v03 transfer: {feature.location.start+1}-{feature.location.end}")
-        elif 'polyA' in label or 'rBG' in label:
+            print(f"✓ Found EF1α (1194 bp) in v01 transfer: {feature.location.start+1}-{feature.location.end}")
+            break
+
+    # Get polyA from v03
+    for feature in transfer_v03.features:
+        label = feature.qualifiers.get('label', [''])[0]
+        if 'polyA' in label or 'rBG' in label:
             polya_feature = feature
             print(f"✓ Found polyA in v03 transfer: {feature.location.start+1}-{feature.location.end}")
+            break
 
     if not all([ef1a_feature, vp1_v04_feature, polya_feature]):
         print("❌ ERROR: Could not find all required features")
         sys.exit(1)
 
     # Extract sequences
-    ef1a_seq = ef1a_feature.extract(transfer_v03.seq)
+    ef1a_seq = ef1a_feature.extract(transfer_v01.seq)  # 1194 bp version from v01
     vp1_seq = vp1_v04_feature.extract(repcap_v04.seq)
     polya_seq = polya_feature.extract(transfer_v03.seq)
 
@@ -108,25 +117,28 @@ def main():
     print(f"Backbone XbaI: position {xbai_pos_0idx+1} (1-indexed)")
 
     # Extract backbone fragments
-    # Left: 1 to HindIII (inclusive)
-    # Right: XbaI+6 to end
-    left_fragment = backbone_v02.seq[:hindiii_pos_0idx + 6]  # Include HindIII site
-    right_fragment = backbone_v02.seq[xbai_pos_0idx + 6:]  # After XbaI site
+    # In proper cloning:
+    # - Digest backbone with HindIII + XbaI, removing region between them
+    # - Insert cassette with HindIII and XbaI sites
+    # - Both restriction sites are regenerated in the final plasmid
 
-    print(f"\n✓ Left fragment: 1-{len(left_fragment)} ({len(left_fragment)} bp)")
-    print(f"✓ Right fragment: {len(left_fragment) + len(cassette_seq) + 1}-end ({len(right_fragment)} bp)")
+    # Left fragment: everything BEFORE HindIII site
+    left_fragment = backbone_v02.seq[:hindiii_pos_0idx]
 
-    # Remove HindIII and XbaI from cassette ends (they're already in the fragments)
-    # Actually, we want to keep one copy. Let's think about this:
-    # Left fragment ends with: ...AAGCTT
-    # Cassette starts with: AAGCTT...
-    # We should remove the duplicate HindIII from cassette
+    # Right fragment: everything AFTER XbaI site
+    right_fragment = backbone_v02.seq[xbai_pos_0idx + 6:]
 
-    # Remove HindIII from start of cassette and XbaI from end
-    cassette_insert = cassette_seq[6:-6]
+    # Cassette: full insert WITH HindIII and XbaI sites
+    # (This simulates the ligation where both sites are regenerated)
+    cassette_with_sites = cassette_seq  # Already has HindIII-insert-XbaI
 
-    # Assemble: left + cassette_insert + right
-    final_seq = left_fragment + cassette_insert + right_fragment
+    print(f"\n✓ Left fragment: 1-{len(left_fragment)} ({len(left_fragment)} bp, before HindIII)")
+    print(f"✓ Cassette: {len(cassette_with_sites)} bp (HindIII-EF1α-VP1-polyA-XbaI)")
+    print(f"✓ Right fragment: {len(right_fragment)} bp (after XbaI)")
+
+    # Assemble: left + cassette + right
+    # This recreates both HindIII and XbaI sites in the final plasmid
+    final_seq = left_fragment + cassette_with_sites + right_fragment
 
     print(f"\n✓ Final plasmid: {len(final_seq)} bp")
 
@@ -139,21 +151,21 @@ def main():
 
     # Copy ITRs and backbone features from v02 backbone
     # We need to adjust positions for features after the insertion
-    insertion_point = hindiii_pos_0idx + 6
-    insertion_length = len(cassette_insert)
-    removed_length = (xbai_pos_0idx + 6) - insertion_point
+    insertion_point = hindiii_pos_0idx  # Start of HindIII site (where we cut)
+    insertion_length = len(cassette_with_sites)  # Full cassette with sites
+    removed_length = (xbai_pos_0idx + 6) - insertion_point  # Everything from HindIII to after XbaI
     shift = insertion_length - removed_length
 
-    print(f"Insertion point: {insertion_point}")
-    print(f"Insertion length: {insertion_length} bp")
-    print(f"Removed length: {removed_length} bp")
+    print(f"Insertion point: {insertion_point} (HindIII position)")
+    print(f"Insertion length: {insertion_length} bp (cassette with sites)")
+    print(f"Removed length: {removed_length} bp (HindIII to XbaI region)")
     print(f"Net shift: {shift:+d} bp")
 
     for feature in backbone_v02.features:
-        # If feature is entirely before insertion, keep as-is
+        # If feature is entirely before insertion point, keep as-is
         if feature.location.end <= insertion_point:
             features.append(feature)
-        # If feature is entirely after insertion, shift it
+        # If feature is entirely after the removed region, shift it
         elif feature.location.start >= xbai_pos_0idx + 6:
             new_start = feature.location.start + shift
             new_end = feature.location.end + shift
@@ -163,20 +175,34 @@ def main():
                 qualifiers=feature.qualifiers.copy()
             )
             features.append(new_feature)
-        # If feature spans insertion, skip it (it's the stuffer)
+        # If feature spans insertion, skip it (it's the removed stuffer region)
 
     # Add cassette features
+    # Cassette starts right where HindIII begins (at insertion_point)
     cassette_start = len(left_fragment)
 
-    # EF1α promoter
-    ef1a_start = cassette_start
+    # HindIII site (first 6 bp of cassette)
+    hindiii_site_start = cassette_start
+    hindiii_site_end = hindiii_site_start + 6
+    features.append(SeqFeature(
+        FeatureLocation(hindiii_site_start, hindiii_site_end, strand=1),
+        type='misc_feature',
+        qualifiers={'label': ['HindIII'], 'note': ['Cloning site (5\' junction)']}
+    ))
+    print(f"✓ HindIII site: {hindiii_site_start+1}-{hindiii_site_end}")
+
+    # EF1α promoter (after HindIII)
+    ef1a_start = hindiii_site_end
     ef1a_end = ef1a_start + len(ef1a_seq)
     features.append(SeqFeature(
         FeatureLocation(ef1a_start, ef1a_end, strand=1),
         type='promoter',
-        qualifiers={'label': ['EF1α promoter']}
+        qualifiers={
+            'label': ['EF1α promoter'],
+            'note': ['Human EEF1A1 promoter with first intron (1194 bp)']
+        }
     ))
-    print(f"✓ EF1α promoter: {ef1a_start+1}-{ef1a_end}")
+    print(f"✓ EF1α promoter: {ef1a_start+1}-{ef1a_end} (1194 bp)")
 
     # VP1
     vp1_start = ef1a_end
@@ -201,6 +227,16 @@ def main():
     ))
     print(f"✓ polyA: {polya_start+1}-{polya_end}")
 
+    # XbaI site (last 6 bp of cassette)
+    xbai_site_start = polya_end
+    xbai_site_end = xbai_site_start + 6
+    features.append(SeqFeature(
+        FeatureLocation(xbai_site_start, xbai_site_end, strand=1),
+        type='misc_feature',
+        qualifiers={'label': ['XbaI'], 'note': ['Cloning site (3\' junction)']}
+    ))
+    print(f"✓ XbaI site: {xbai_site_start+1}-{xbai_site_end}")
+
     # Create final record
     transfer_plasmid = SeqRecord(
         final_seq,
@@ -216,6 +252,27 @@ def main():
     print("STEP 5: VERIFYING RESTRICTION SITES")
     print("="*80)
 
+    # First verify cloning sites
+    from Bio.Restriction import HindIII, XbaI
+    cloning_enzymes = [HindIII, XbaI]
+    cloning_batch = RestrictionBatch(cloning_enzymes)
+    cloning_analysis = Analysis(cloning_batch, final_seq)
+    cloning_sites = cloning_analysis.full()
+
+    print("Cloning sites:")
+    for enzyme in cloning_enzymes:
+        enzyme_sites = cloning_sites.get(enzyme, [])
+        count = len(enzyme_sites)
+        positions = [p+1 for p in enzyme_sites]
+
+        if count == 1:
+            print(f"✅ {enzyme.__name__:<10s} {count} site @ position {positions[0]}")
+        else:
+            print(f"❌ {enzyme.__name__:<10s} {count} sites @ {positions} - SHOULD BE 1!")
+            sys.exit(1)
+
+    # Now verify the 6 unique sites in VP1
+    print("\nVP1 unique restriction sites:")
     enzymes = [AvrII, BspEI, BsmBI, BsrGI, BmtI, BstZ17I]
     batch = RestrictionBatch(enzymes)
     analysis = Analysis(batch, final_seq)
@@ -237,7 +294,7 @@ def main():
         print("\n❌ ERROR: Not all sites are unique!")
         sys.exit(1)
 
-    print("\n✅ All sites verified unique!")
+    print("\n✅ All cloning sites and VP1 sites verified!")
 
     # Save
     output_path = 'test_data/pGS-ssAAV-EF1A-VP1-rBG_v04.gb'
