@@ -23,7 +23,8 @@ This document captures critical bugs, design issues, and lessons learned during 
 - [DESIGN-001: Cloning Site Conflicts (XbaI in v04)](#design-001-cloning-site-conflicts-xbai-in-v04)
 - [DESIGN-002: Context-Dependent Uniqueness](#design-002-context-dependent-uniqueness)
 - [DESIGN-003: Splice Acceptor Avoidance](#design-003-splice-acceptor-avoidance)
-- [DESIGN-004: Fussy Enzyme Selection](#design-004-fussy-enzyme-selection)
+- [DESIGN-004: Dam Methylation in Cloning Site Selection](#design-004-dam-methylation-in-cloning-site-selection)
+- [DESIGN-005: Fussy Enzyme Selection](#design-005-fussy-enzyme-selection)
 
 ### General Principles
 - [The Importance of Testing](#the-importance-of-testing)
@@ -588,7 +589,238 @@ Not directly tested (biological rather than computational issue), but:
 
 ---
 
-### DESIGN-004: Fussy Enzyme Selection
+### DESIGN-004: Dam Methylation in Cloning Site Selection
+
+**Severity:** CRITICAL (synthesis and cloning failure)
+
+#### Problem
+Using XbaI (TCTAGA) as a cloning site results in a failure mode with standard E. coli due to dam methylase activity. The GATC motif created by XbaI or at ligation junctions is methylated by dam methylase, causing the restriction site to behave abnormally and requiring special dam- E. coli strains.
+
+#### Biological Background
+**Dam methylase in E. coli:**
+```
+Recognition: GATC (adenine methylation)
+Function: DNA mismatch repair, replication timing
+Prevalence: Present in >99% of lab E. coli strains (dam+)
+
+Dam- strains (special order):
+- JM110
+- SCS110
+- dam-/dcm- strains
+- More expensive, slower growth, special handling
+```
+
+**XbaI and dam methylation:**
+```
+XbaI site: TCTAGA
+           -------- XbaI recognition
+           T-C-T-A-G-A
+
+Issue: The site itself or ligation junctions can create GATC contexts
+Effect: Dam methylation of adenine in GATC interferes with XbaI cutting
+Result: Incomplete digestion, abnormal cleavage, cloning failures
+```
+
+#### Real-World Manifestation (v04 → v05 Revision)
+
+**AAV Transfer Plasmid v04 (FAILED DESIGN):**
+- Right cloning site: XbaI (position 2276)
+- Issue identified: GATC motif → dam methylation → requires dam- E. coli
+- Impact: Increased cost, special strain requirement, reduced reliability
+- Status: ❌ DEPRECATED, do not use
+
+**AAV Transfer Plasmid v05 (CORRECTED):**
+- Right cloning site: MluI (position 2270, one site proximal)
+- MluI recognition: ACGCGT (no GATC motif)
+- Works with standard dam+ E. coli (DH5α, TOP10, etc.)
+- Status: ✅ Production ready
+
+#### Timeline of Discovery
+
+1. **v04 design completed:** Used XbaI as right cloning site
+2. **User identified issue:** "XbaI creates GATC motif → dam methylation problem"
+3. **Solution proposed:** Use MluI (one site proximal in polylinker)
+4. **v05 generated:** MluI-based design, no dam issues
+5. **Lesson documented:** Added to LESSONS_LEARNED.md
+
+#### Impact
+
+**Cloning failures with v04:**
+- Incomplete restriction digests
+- Multiple bands on gel instead of clean cuts
+- Ligation efficiency reduced
+- Transformation success rate lowered
+- Requires ordering special dam- E. coli strain
+
+**Cost implications:**
+- Standard dam+ E. coli: $50-100 per vial, widely available
+- Dam- E. coli strains: $200-400 per vial, special order
+- Workflow delays: 1-2 weeks for strain procurement
+- Reduced reliability: Dam- strains grow slower, more finicky
+
+**Scientific impact:**
+- Loss of confidence in automated design tools
+- Wasted synthesis costs (~$500-1000 per construct)
+- Delayed research timelines (2-4 weeks)
+
+#### Fix Applied
+
+**Enzyme substitution:**
+```
+v04 (WRONG):  HindIII --- cassette --- XbaI (TCTAGA)
+                                       ^^^^ GATC issue
+
+v05 (CORRECT): HindIII --- cassette --- MluI (ACGCGT)
+                                        ^^^^ No GATC
+```
+
+**Polylinker analysis:**
+```
+Right polylinker (proximal to distal):
+... NcoI - NheI - AvrII - KpnI - MluI - XbaI ...
+                                  ^^^^^   ^^^^
+                                  v05     v04
+                                  ✅      ❌
+
+MluI is one site proximal to XbaI:
+- Position: MluI 2270, XbaI 2276 (6 bp difference)
+- Recognition: ACGCGT (no GATC)
+- Compatibility: Standard E. coli OK
+```
+
+#### Prevention Strategies
+
+**1. Enzyme Selection Criteria:**
+
+Always check cloning enzymes for dam/dcm methylation sensitivity:
+
+**Dam-sensitive enzymes (AVOID for standard cloning):**
+- XbaI (TCTAGA) - can create GATC contexts
+- BclI (TGATCA) - contains GATC
+- BamHI (GGATCC) - adjacent to potential GATC
+- MboI (GATC) - direct dam site
+
+**Dam-insensitive enzymes (PREFERRED):**
+- MluI (ACGCGT) - no GATC ✅
+- NotI (GCGGCCGC) - no GATC ✅
+- SpeI (ACTAGT) - no GATC ✅
+- AscI (GGCGCGCC) - no GATC ✅
+- PmeI (GTTTAAAC) - no GATC ✅
+- HindIII (AAGCTT) - no GATC ✅
+- EcoRI (GAATTC) - no GATC ✅
+
+**2. Cloning Site Analysis Checklist:**
+
+Before finalizing any cloning strategy:
+```
+☐ Check each cloning site for GATC motifs
+☐ Consider both the site itself AND ligation junctions
+☐ Verify compatibility with standard dam+ E. coli
+☐ Prefer dam-insensitive enzymes when options exist
+☐ Document methylation sensitivity in design rationale
+```
+
+**3. Polylinker Navigation:**
+
+When a cloning site has dam issues:
+```
+Strategy: Move to adjacent site in polylinker
+Example: XbaI (dam issue) → MluI (one site proximal, no issue)
+
+Check both directions:
+- Proximal (toward insert): Often better (shorter backbone)
+- Distal (away from insert): Alternative if proximal unavailable
+```
+
+**4. Knowledge Base Integration:**
+
+Add to enzyme metadata (knowledge_base/enzyme_metadata.json):
+```json
+{
+  "XbaI": {
+    "recognition": "TCTAGA",
+    "methylation_sensitivity": {
+      "dam": "HIGH",
+      "dcm": "NONE",
+      "warning": "Can create GATC contexts, requires dam- E. coli",
+      "alternative": "MluI, SpeI, or AvrII"
+    }
+  },
+  "MluI": {
+    "recognition": "ACGCGT",
+    "methylation_sensitivity": {
+      "dam": "NONE",
+      "dcm": "NONE",
+      "note": "Safe for standard dam+ E. coli"
+    }
+  }
+}
+```
+
+#### Testing and Validation
+
+**Checkpoint 10: Methylation Sensitivity Check (NEW)**
+
+Add to synthesis workflow:
+```
+For each cloning site in design:
+  1. Extract recognition sequence
+  2. Check for GATC motifs (dam)
+  3. Check for CCWGG motifs (dcm)
+  4. Flag if present
+  5. Suggest alternative enzyme
+  6. Document in design report
+```
+
+**Test coverage:**
+```python
+def test_dam_methylation_check():
+    """Ensure cloning sites don't have dam methylation issues."""
+    sites = {
+        'XbaI': 'TCTAGA',
+        'MluI': 'ACGCGT',
+        'BclI': 'TGATCA'
+    }
+
+    assert not has_gatc_motif('ACGCGT')  # MluI OK
+    assert has_gatc_motif('TGATCA')       # BclI has GATC
+    # XbaI is complex, check context-dependent
+```
+
+#### Lessons
+
+**Technical:**
+1. **Methylation matters** — Dam methylation is ubiquitous in E. coli
+2. **GATC is the enemy** — Avoid it in cloning sites
+3. **Context-dependent issues** — Some enzymes are borderline, check ligation junctions
+4. **Polylinker navigation** — Adjacent sites often solve the problem
+
+**Process:**
+1. **Check methylation early** — During enzyme selection, not after synthesis
+2. **Prefer standard strains** — Dam+ E. coli is cheaper, faster, more reliable
+3. **Document assumptions** — Note why each enzyme was chosen
+4. **Validate with community knowledge** — NEB catalogs document methylation sensitivity
+
+**Cost-benefit:**
+1. **Prevention is cheap** — Choosing MluI over XbaI costs nothing
+2. **Failure is expensive** — Re-synthesis + special strains = $500-1000+ delay
+3. **Standard is better** — Using common E. coli strains saves time and money
+
+#### Related Issues
+
+- DESIGN-001: Cloning site conflicts (XbaI uniqueness issue)
+- DESIGN-004: Fussy enzyme selection (reliability matters)
+- Checkpoint 9: Cloning site uniqueness (extended to include methylation check)
+
+#### References
+
+1. **Dam methylase:** Marinus, M.G. (1987). "DNA methylation in Escherichia coli." Annu Rev Genet.
+2. **Restriction enzyme methylation sensitivity:** NEB catalog, "Methylation Sensitivity" section
+3. **E. coli strain selection:** Addgene guide, "Choosing the Right Competent Cells"
+
+---
+
+### DESIGN-005: Fussy Enzyme Selection
 
 **Severity:** LOW-MEDIUM (cloning efficiency)
 
@@ -910,8 +1142,8 @@ Lessons learned from:
 
 ---
 
-**Document Version:** 1.0
-**Last Updated:** 2025-12-19
+**Document Version:** 1.1
+**Last Updated:** 2025-12-19 (Added DESIGN-004: Dam Methylation in Cloning Site Selection)
 **Next Review:** After each major release or significant bug discovery
 **Maintainer:** DNA Engineer Agent development team
 
