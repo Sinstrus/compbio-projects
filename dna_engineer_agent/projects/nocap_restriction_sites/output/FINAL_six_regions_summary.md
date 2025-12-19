@@ -45,8 +45,8 @@
 
 - **Frame offset:** 0 (starts at codon boundary)
 - **Site:** BbvCI @ 2828
-- **Type:** Type IIS enzyme (cuts outside recognition site)
-- **Application:** Golden Gate assembly
+- **Type:** Type II enzyme (standard, cuts within recognition site)
+- **Note:** BbvCI was previously misclassified as Type IIS. It is NOT suitable for Golden Gate assembly.
 
 ### Region 3: AAP-stop to VR4 (3485-3717)
 
@@ -100,7 +100,7 @@
 2. **`scripts/tools/silent_sites_curated.py`:** (NEW)
    - Curated list of 61 reliable, non-fussy enzymes
    - Excludes: Nicking enzymes (Nb.*, Nt.*), double-cutters (BaeI, XcmI), mega-enzymes (I-SceI), highly ambiguous sites (>2 N's)
-   - Includes: Common 6-bp and 8-bp cutters, reliable Type IIS enzymes (BbvCI, BsaI, BsmBI)
+   - Includes: Common 6-bp and 8-bp cutters, Type II enzymes (BbvCI), and Type IIS enzymes (BsaI, BsmBI)
 
 3. **Frame offset calculation (corrected in all analysis scripts):**
    ```python
