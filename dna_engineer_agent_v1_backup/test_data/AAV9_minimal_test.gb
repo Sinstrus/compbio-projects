@@ -1,0 +1,91 @@
+LOCUS       AAV9_minimal_test       3000 bp    DNA     circular SYN 16-DEC-2024
+DEFINITION  Minimal AAV9 test construct for DNA Engineer Agent validation.
+            [HISTORY] v01: Initial creation for testing
+ACCESSION   TEST001
+VERSION     TEST001.1
+KEYWORDS    test; AAV9; validation.
+SOURCE      synthetic construct
+  ORGANISM  synthetic construct
+            other sequences; artificial sequences.
+COMMENT     This is a simplified test construct containing:
+            - Mock ITR sequences (not real, just for pattern matching tests)
+            - A simplified VP region with VR-IV anchor sequences
+            - Placeholder sequences for testing insertion logic
+            
+            NOT FOR ACTUAL USE - VALIDATION ONLY
+FEATURES             Location/Qualifiers
+     source          1..3000
+                     /organism="synthetic construct"
+                     /mol_type="other DNA"
+     misc_feature    1..100
+                     /label="Mock_ITR_Left"
+                     /note="Placeholder ITR for testing. Contains
+                     GCGCTCGCTCGCTCACTGAGGCC diagnostic sequence."
+     CDS             200..2600
+                     /label="VP1"
+                     /note="Mock VP1 coding region"
+                     /codon_start=1
+                     /translation="MAADGYLPDWLEDTLSEGIRQWWKLKPGPPPPKPAERHKDDSRGL
+                     VGYLPDWLEDTLSEGIRQWWKLKPGPPPPKPAERHKDDSRGLVLPGYKYLGPFNGLDK
+                     GERPVQGTTTQSRLQPGTASGKYTLNNNDEEDNLSQAAARFFSQMVTDDENVQQKRAP
+                     LTAPGKKRPVEPSPQRSPDSSTGIGKKGQQPAKKRLNFGQTGDSESVPDPQPIGEPPA
+                     APSGVGPNTMAAAGSNYNKSVNVDFTVDTNGVYSEPRPIGTRYLTRNL"
+     misc_feature    1350..1400
+                     /label="VR-IV_Region"
+                     /note="Variable Region IV - primary VHH insertion site.
+                     Contains anchor motif GTTTQSR upstream."
+     misc_feature    2700..2800
+                     /label="Mock_ITR_Right"
+                     /note="Placeholder right ITR for testing."
+ORIGIN
+        1 ttggccactc cctctctgcg cgctcgctcg ctcactgagg ccgcccgggc aaagcccggg
+       61 cgtcgggcga cctttggtcg cccggcctca gtgagcgagc gagcgcgcag agagggagtg
+      121 gccaactcca tcactagggg ttcctgcggc cttaaggcca ctagtggatc ctctagagtc
+      181 gacctgcagg catgcaagct tatggctgcc gatggttatc ttccagattg gctcgaggac
+      241 actctctctg aaggaataag acagtggtgg aagctcaaac ctggcccacc accaccaaag
+      301 cccgcagagc ggcataaaga cgacagcagg ggtcttgtgc tacctgggta caagtacctc
+      361 ggacccttca acggactcga caagggggag cgtccagtgc agggcaccac cactcagtcc
+      421 cgcctgcagc ccggcactgc ttccggcaag tacaccctga acaacaacga cgaggaagac
+      481 aacctgtccc aggcggcagc gcgattcttc tctcagatgg tcacagacga caacgtgcag
+      541 cagaaacgtg caccgctgac tgcgccgggc aagaagaggc ctgtggagcc atctccccag
+      601 cggtccccag actcctccac aggcattggc aagaagggcc aacagcctgc caagaaacgt
+      661 ctcaacttcg ggcagactgg cgactcggag tccgtgcctg acccacagcc tatcggggag
+      721 ccgccggctg cacccagcgg cgtgggccct aacacgatgg ccgccgcggg ctccaactac
+      781 aacaagtctg tcaacgtgga tttcaccgtg gacaccaacg gcgtgtactc cgagcccagg
+      841 cccatcggca cccgttacct cacccgcaat ctttaagctt gaattcgata tcaagcttat
+      901 cgataccgtc gactagagct cgctgatcag cctcgactgt gccttctagt tgccagccat
+      961 ctgttgtttg cccctccccc gtgccttcct tgaccctgga aggtgccact cccactgtcc
+     1021 tttcctaata aaatgaggaa attgcatcgc attgtctgag taggtgtcat tctattctgg
+     1081 ggggtggggt ggggcaggac agcaaggggg aggattggga agacaatagc aggcatgctg
+     1141 gggatgcggt gggctctatg gcttctgagg cggaaagaac cagctggggc tctagggggt
+     1201 atccccacgc gccctgtagc ggcgcattaa gcgcggcggg tgtggtggtt acgcgcagcg
+     1261 tgaccgctac acttgccagc gccctagcgc ccgctccttt cgctttcttc ccttcctttc
+     1321 tcgccacgtt cgccggcttt ccccgtcaag ctctaaatcg ggggctccct ttagggttcc
+     1381 ggcaccacca cctttgacgt tggagtccac gttctttaat agtggactct tgttccaaac
+     1441 tggaacaaca ctcaacccta tctcggtcta ttcttttgat ttataagggc gcatgcagct
+     1501 gcaggccgct aatacgactc actatagggc gaattgggtc gacggtatcg ataagcttga
+     1561 tatcgaattc ctgcagcccg ggggatccac tagttctaga gcggccgcca ccgcggtgga
+     1621 gctccagctt ttgttccctt tagtgagggt taattgcgcg cttggcgtaa tcatggtcat
+     1681 agctgtttcc tgtgtgaaat tgttatccgc tcacaattcc acacaacata cgagccggaa
+     1741 gcataaagtg taaagcctgg ggtgcctaat gagtgagcta actcacatta attgcgttgc
+     1801 gctcactgcc cgctttccag tcgggaaacc tgtcgtgcca gctgcattaa tgaatcggcc
+     1861 aacgcgcggg gagaggcggt ttgcgtattg ggcgctcttc cgcttcctcg ctcactgact
+     1921 cgctgcgctc ggtcgttcgg ctgcggcgag cggtatcagc tcactcaaag gcggtaatac
+     1981 ggttatccac agaatcaggg gataacgcag gaaagaacat gtgagcaaaa ggccagcaaa
+     2041 aggccaggaa ccgtaaaaag gccgcgttgc tggcgttttt ccataggctc cgcccccctg
+     2101 acgagcatca caaaaatcga cgctcaagtc agaggtggcg aaacccgaca ggactataaa
+     2161 gataccaggc gtttccccct ggaagctccc tcgtgcgctc tcctgttccg accctgccgc
+     2221 ttaccggata cctgtccgcc tttctccctt cgggaagcgt ggcgctttct catagctcac
+     2281 gctgtaggta tctcagttcg gtgtaggtcg ttcgctccaa gctgggctgt gtgcacgaac
+     2341 cccccgttca gcccgaccgc tgcgccttat ccggtaacta tcgtcttgag tccaacccgg
+     2401 taagacacga cttatcgcca ctggcagcag ccactggtaa caggattagc agagcgaggt
+     2461 atgtaggcgg tgctacagag ttcttgaagt ggtggcctaa ctacggctac actagaagga
+     2521 cagtatttgg tatctgcgct ctgctgaagc cagttacctt cggaaaaaga gttggtagct
+     2581 cttgatccgg caaacaaacc accgctggta gcggtggttt ttttgtttgc aagcagcaga
+     2641 ttacgcgcag aaaaaaagga tctcaagaag atcctttgat cttttctacg gggtctgacg
+     2701 aggaacccct agtgatggag ttggccactc cctctctgcg cgctcgctcg ctcactgagg
+     2761 ccgggcgacc aaaggtcgcc cgacgcccgg gctttgcccg ggcggcctca gtgagcgagc
+     2821 gagcgcgcag agagggagtg gccaacccca tcactagggg ttcctgcggc cgcgaattcg
+     2881 agctcggtac ccggggatcc tctagagtcg acctgcaggc atgcaagctt ggcactggcc
+     2941 gtcgttttac aacgtcgtga ctgggaaaac cctggcgtta cccaacttaa tcgccttgca
+//

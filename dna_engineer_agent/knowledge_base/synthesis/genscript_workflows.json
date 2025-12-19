@@ -1,0 +1,234 @@
+{
+  "description": "GenScript synthesis workflows and cloning methods for AAV and FLASH plasmids",
+  "version": "1.0",
+  "last_updated": "2025-12-19",
+
+  "workflows": {
+    "aav_transfer_plasmid": {
+      "name": "AAV Transfer Plasmid (pGS-AAV series)",
+      "cloning_method": "HindIII_XbaI",
+      "description": "Standard cloning method for AAV transfer plasmids using HindIII and XbaI restriction sites",
+
+      "cloning_sites": {
+        "upstream": {
+          "enzyme": "HindIII",
+          "sequence": "AAGCTT",
+          "note": "Most distal site in 5' polylinker, immediately after 5' ITR and polylinker"
+        },
+        "downstream": {
+          "enzyme": "XbaI",
+          "sequence": "TCTAGA",
+          "note": "Most distal site in 3' polylinker, immediately before 3' ITR"
+        }
+      },
+
+      "workflow_steps": [
+        {
+          "step": 1,
+          "action": "Design expression cassette",
+          "details": "Include promoter, Kozak, CDS, polyA. Ensure no internal HindIII or XbaI sites."
+        },
+        {
+          "step": 2,
+          "action": "Add flanking sites",
+          "details": "Add HindIII site (AAGCTT) at 5' end and XbaI site (TCTAGA) at 3' end of synthesis construct"
+        },
+        {
+          "step": 3,
+          "action": "Synthesize construct",
+          "details": "GenScript synthesizes the complete expression cassette with flanking sites"
+        },
+        {
+          "step": 4,
+          "action": "Digest and clone",
+          "details": "Digest synthesis product with HindIII/XbaI, ligate into pGS-AAV backbone digested with same enzymes"
+        },
+        {
+          "step": 5,
+          "action": "Verify",
+          "details": "Sanger sequencing across entire insert, verify ITR integrity"
+        }
+      ],
+
+      "critical_constraints": {
+        "no_internal_hindiii": {
+          "rule": "CDS and regulatory elements must NOT contain HindIII sites (AAGCTT)",
+          "rationale": "HindIII is used for cloning. Internal sites would prevent proper digestion/ligation."
+        },
+        "no_internal_xbai": {
+          "rule": "CDS and regulatory elements must NOT contain XbaI sites (TCTAGA)",
+          "rationale": "XbaI is used for cloning. Internal sites would prevent proper digestion/ligation."
+        },
+        "preserve_itr_flanking": {
+          "rule": "Maintain sequence fidelity in regions flanking ITRs",
+          "rationale": "ITR secondary structure is critical for AAV packaging. Mutations near ITRs can affect packaging efficiency."
+        }
+      },
+
+      "backbone_variants": [
+        {
+          "name": "pGS-scAAV-ITR128",
+          "itr_type": "ITR2 (128bp 5' ITR, 91bp 3' ITR deletion/truncation for self-complementary)",
+          "use_case": "Self-complementary AAV for faster onset but half cargo capacity (~2.2 kb max)"
+        },
+        {
+          "name": "pGS-scAAV-ITR145",
+          "itr_type": "ITR145 variant (145bp ITRs with deletion for self-complementary)",
+          "use_case": "Alternative scAAV ITR variant"
+        },
+        {
+          "name": "pGS-ssAAV-ITR128",
+          "itr_type": "ITR2 (128bp ITRs, full-length for single-stranded)",
+          "use_case": "Standard single-stranded AAV with full cargo capacity (~4.7 kb max)"
+        },
+        {
+          "name": "pGS-ssAAV-ITR145",
+          "itr_type": "ITR145 variant (145bp full-length ITRs for single-stranded)",
+          "use_case": "Alternative ssAAV ITR variant with larger ITRs"
+        }
+      ],
+
+      "selection_markers": [
+        "Ampicillin (Amp) resistance",
+        "Kanamycin (Kan) resistance"
+      ]
+    },
+
+    "flash_plasmid": {
+      "name": "FLASH Plasmid (pUC57 Key IIS Free series)",
+      "cloning_method": "EcoRV_blunt",
+      "description": "Blunt-end cloning method for FLASH plasmids using EcoRV",
+
+      "cloning_sites": {
+        "insertion_site": {
+          "enzyme": "EcoRV",
+          "sequence": "GATATC",
+          "note": "Blunt-end cutter. Insert is cloned directly at this site without overhangs."
+        }
+      },
+
+      "workflow_steps": [
+        {
+          "step": 1,
+          "action": "Design synthetic construct",
+          "details": "Design complete insert without added restriction sites (blunt ends)"
+        },
+        {
+          "step": 2,
+          "action": "Synthesize as blunt",
+          "details": "GenScript synthesizes with blunt ends (no added sequences)"
+        },
+        {
+          "step": 3,
+          "action": "Digest backbone",
+          "details": "Digest pUC57 backbone with EcoRV to generate blunt ends"
+        },
+        {
+          "step": 4,
+          "action": "Blunt-end ligation",
+          "details": "Ligate blunt insert into blunt-digested backbone"
+        },
+        {
+          "step": 5,
+          "action": "Screen for correct orientation",
+          "details": "Use colony PCR or restriction digest to identify correctly oriented clones"
+        }
+      ],
+
+      "critical_constraints": {
+        "no_type_iis_sites": {
+          "rule": "Insert must NOT contain BsaI, BsmBI, or BbsI sites",
+          "rationale": "Backbone is 'Key IIS Free' to enable downstream Golden Gate assembly. Internal Type IIS sites would interfere."
+        },
+        "orientation_ambiguity": {
+          "rule": "Blunt-end cloning is non-directional",
+          "rationale": "50% of clones will be in reverse orientation. Must screen for correct orientation after transformation."
+        },
+        "no_ecorv_in_insert": {
+          "rule": "Insert should not contain EcoRV sites (GATATC) if using standard workflow",
+          "rationale": "Internal EcoRV sites could complicate cloning, though not strictly forbidden in blunt-end cloning"
+        }
+      },
+
+      "backbone_variants": [
+        {
+          "name": "pUC57-Simple-Key IIS Free",
+          "selection": "Ampicillin (inferred from standard pUC57)",
+          "verified_iis_free": true,
+          "use_case": "Standard FLASH synthesis with Amp selection"
+        },
+        {
+          "name": "pUC57-Kan-Simple-Key IIS Free",
+          "selection": "Kanamycin",
+          "verified_iis_free": true,
+          "use_case": "FLASH synthesis with Kan selection for Amp-incompatible workflows"
+        }
+      ],
+
+      "advantages": [
+        "No restriction site requirements in insert design",
+        "Compatible with downstream Golden Gate assembly (no Type IIS sites)",
+        "Flexible for constructs where adding restriction sites would be problematic"
+      ],
+
+      "disadvantages": [
+        "Non-directional cloning requires orientation screening",
+        "Blunt-end ligation less efficient than sticky-end",
+        "Cannot use directional selection (must verify each clone)"
+      ]
+    }
+  },
+
+  "decision_tree": {
+    "description": "Guide for choosing between AAV and FLASH workflows",
+    "questions": [
+      {
+        "question": "Is this for AAV vector production?",
+        "yes": "Use AAV workflow (HindIII/XbaI)",
+        "no": "Continue to next question"
+      },
+      {
+        "question": "Will downstream Golden Gate assembly be used?",
+        "yes": "Use FLASH workflow (EcoRV blunt) to avoid Type IIS sites",
+        "no": "Either workflow acceptable, choose based on other factors"
+      },
+      {
+        "question": "Does insert contain unavoidable HindIII or XbaI sites?",
+        "yes": "Use FLASH workflow (EcoRV blunt)",
+        "no": "AAV workflow acceptable"
+      },
+      {
+        "question": "Is directional cloning critical (large insert, low copy)?",
+        "yes": "Use AAV workflow (directional with overhangs)",
+        "no": "FLASH workflow acceptable"
+      }
+    ]
+  },
+
+  "common_pitfalls": [
+    {
+      "issue": "Internal cloning sites in CDS",
+      "symptom": "Restriction digest produces multiple fragments instead of vector + insert",
+      "solution": "Run Checkpoint 9 before synthesis to verify cloning site uniqueness. Remove internal sites via silent mutations.",
+      "prevention": "Always check FINAL construct (backbone + insert) for site uniqueness, not just the insert alone"
+    },
+    {
+      "issue": "Type IIS sites in FLASH inserts",
+      "symptom": "Downstream Golden Gate assembly fails or produces wrong products",
+      "solution": "Remove BsaI/BsmBI/BbsI sites via silent mutations before synthesis",
+      "prevention": "Check backbone catalog for 'Key IIS Free' verification. Run Type IIS site scan on complete insert."
+    },
+    {
+      "issue": "Wrong orientation in FLASH clones",
+      "symptom": "Clone has insert but sequencing shows reverse orientation",
+      "solution": "Screen multiple colonies. Design PCR primers or restriction digests to identify correct orientation.",
+      "prevention": "Plan orientation screening strategy before transformation. Include diagnostic sites in insert design if possible."
+    },
+    {
+      "issue": "Mutations near ITRs",
+      "symptom": "Low AAV titer or packaging failure",
+      "solution": "Re-synthesize with correct sequence. Maintain ≥10bp buffer from ITR boundaries.",
+      "prevention": "Define exclusion zones near ITRs (see exclusion_zones.json). Avoid introducing restriction sites within 50bp of ITRs."
+    }
+  ]
+}

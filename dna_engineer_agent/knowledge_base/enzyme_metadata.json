@@ -1,0 +1,399 @@
+{
+  "description": "Metadata about restriction enzymes including type, reliability, and special considerations",
+  "version": "1.0",
+  "last_updated": "2025-12-19",
+
+  "enzyme_types": {
+    "Type_II": {
+      "description": "Classic restriction enzymes that cut at fixed positions within or near their recognition sequence",
+      "cleavage": "Cut at specific position within/near recognition site",
+      "applications": [
+        "Standard cloning (sticky-end or blunt-end)",
+        "Diagnostic digests",
+        "Mapping"
+      ],
+      "examples": ["EcoRI", "HindIII", "XbaI", "BamHI", "PstI", "EcoRV", "BbvCI"]
+    },
+
+    "Type_IIS": {
+      "description": "Enzymes that recognize asymmetric sequences and cut outside their recognition site, enabling Golden Gate assembly",
+      "cleavage": "Cut at defined distance outside recognition site (e.g., N bases downstream)",
+      "applications": [
+        "Golden Gate assembly",
+        "Seamless cloning",
+        "Modular cloning (MoClo)"
+      ],
+      "examples": ["BsaI", "BsmBI", "BbsI", "Esp3I", "SapI", "PaqCI"],
+      "note": "Presence in insert or backbone can interfere with Golden Gate workflows"
+    }
+  },
+
+  "enzymes": {
+    "EcoRI": {
+      "recognition_site": "GAATTC",
+      "cut_site": "G↓AATTC (5' overhang, 4 bases)",
+      "type": "Type II",
+      "methylation_sensitivity": "Dam methylation (GATC) may affect activity",
+      "reliability": "very_high",
+      "star_activity": "Yes, at low salt or high glycerol",
+      "isoschizomers": ["EcoRI-HF (high fidelity variant)"],
+      "applications": ["Standard cloning", "Mapping"],
+      "notes": "One of the most commonly used enzymes. Very reliable. Palindromic site."
+    },
+
+    "HindIII": {
+      "recognition_site": "AAGCTT",
+      "cut_site": "A↓AGCTT (5' overhang, 4 bases)",
+      "type": "Type II",
+      "methylation_sensitivity": "None",
+      "reliability": "very_high",
+      "star_activity": "Yes, at high enzyme concentrations",
+      "isoschizomers": ["HindIII-HF"],
+      "applications": ["Standard cloning", "pGS-AAV 5' cloning site"],
+      "notes": "Workhorse enzyme. Palindromic. Standard 5' cloning site for GenScript AAV backbones."
+    },
+
+    "XbaI": {
+      "recognition_site": "TCTAGA",
+      "cut_site": "T↓CTAGA (5' overhang, 4 bases)",
+      "type": "Type II",
+      "methylation_sensitivity": "Dam methylation may reduce activity",
+      "reliability": "high",
+      "star_activity": "Yes, non-optimal conditions",
+      "isoschizomers": ["XbaI-HF"],
+      "applications": ["Standard cloning", "pGS-AAV 3' cloning site"],
+      "notes": "Palindromic. Standard 3' cloning site for GenScript AAV backbones. Compatible with NheI and SpeI overhangs."
+    },
+
+    "EcoRV": {
+      "recognition_site": "GATATC",
+      "cut_site": "GAT↓ATC (blunt)",
+      "type": "Type II",
+      "methylation_sensitivity": "None",
+      "reliability": "very_high",
+      "star_activity": "Minimal",
+      "isoschizomers": ["EcoRV-HF"],
+      "applications": ["Blunt-end cloning", "FLASH plasmid cloning site"],
+      "notes": "Excellent blunt-end cutter. Palindromic. Used in pUC57 FLASH backbones."
+    },
+
+    "BamHI": {
+      "recognition_site": "GGATCC",
+      "cut_site": "G↓GATCC (5' overhang, 4 bases)",
+      "type": "Type II",
+      "methylation_sensitivity": "None",
+      "reliability": "very_high",
+      "star_activity": "Yes, at high glycerol",
+      "isoschizomers": ["BamHI-HF"],
+      "applications": ["Standard cloning", "Very common in older vectors"],
+      "notes": "Highly reliable workhorse enzyme. Palindromic."
+    },
+
+    "BbvCI": {
+      "recognition_site": "CCTCAGC",
+      "cut_site": "CC↓TCAGC (5' overhang, 2 bases)",
+      "type": "Type II",
+      "methylation_sensitivity": "None known",
+      "reliability": "medium",
+      "star_activity": "Not well documented",
+      "isoschizomers": [],
+      "applications": ["Specialized cloning applications"],
+      "notes": "IMPORTANT: BbvCI is a STANDARD Type II enzyme, NOT Type IIS. It cuts within its recognition sequence, not outside. Non-palindromic. Less commonly used. May be confused with Type IIS enzymes due to similar naming convention."
+    },
+
+    "BsaI": {
+      "recognition_site": "GGTCTC",
+      "cut_site": "GGTCTC(N)↓ (1 base into N region, creates 4-base 5' overhang)",
+      "type": "Type IIS",
+      "methylation_sensitivity": "None",
+      "reliability": "very_high",
+      "star_activity": "Minimal",
+      "isoschizomers": ["BsaI-HF", "Eco31I"],
+      "applications": ["Golden Gate assembly", "MoClo", "Seamless cloning"],
+      "notes": "Gold standard for Golden Gate. Highly reliable. Must be absent from both insert and backbone for successful Golden Gate. Non-palindromic."
+    },
+
+    "BsmBI": {
+      "recognition_site": "CGTCTC",
+      "cut_site": "CGTCTC(N)↓ (1 base into N region, creates 4-base 5' overhang)",
+      "type": "Type IIS",
+      "methylation_sensitivity": "None",
+      "reliability": "very_high",
+      "star_activity": "Minimal",
+      "isoschizomers": ["Esp3I (identical)"],
+      "applications": ["Golden Gate assembly", "Alternative to BsaI"],
+      "notes": "Essentially identical to Esp3I. Reliable Type IIS enzyme. Non-palindromic."
+    },
+
+    "BbsI": {
+      "recognition_site": "GAAGAC",
+      "cut_site": "GAAGAC(NN)↓ (2 bases into N region, creates 4-base 5' overhang)",
+      "type": "Type IIS",
+      "methylation_sensitivity": "None",
+      "reliability": "high",
+      "star_activity": "Minimal",
+      "isoschizomers": [],
+      "applications": ["Golden Gate assembly", "Alternative to BsaI"],
+      "notes": "CRITICAL FINDING: Present in ALL pGS-AAV backbones just downstream of 3' ITR (see backbone catalog). Position varies by ITR type but consistently present. This makes these backbones incompatible with BbsI-based Golden Gate assembly without modification. Non-palindromic."
+    },
+
+    "Esp3I": {
+      "recognition_site": "CGTCTC",
+      "cut_site": "CGTCTC(N)↓ (1 base into N region, creates 4-base 5' overhang)",
+      "type": "Type IIS",
+      "methylation_sensitivity": "None",
+      "reliability": "very_high",
+      "star_activity": "Minimal",
+      "isoschizomers": ["BsmBI (identical)"],
+      "applications": ["Golden Gate assembly"],
+      "notes": "Identical recognition and cleavage to BsmBI. Enzyme choice is commercial/availability preference. Non-palindromic."
+    },
+
+    "SapI": {
+      "recognition_site": "GCTCTTC",
+      "cut_site": "GCTCTTC(N)↓ (1 base into N region, creates 3-base 5' overhang)",
+      "type": "Type IIS",
+      "methylation_sensitivity": "None",
+      "reliability": "high",
+      "star_activity": "Minimal",
+      "isoschizomers": ["LguI"],
+      "applications": ["Golden Gate assembly", "Loop assembly"],
+      "notes": "Creates 3-base overhangs (vs 4-base for BsaI/BsmBI). Non-palindromic."
+    },
+
+    "PaqCI": {
+      "recognition_site": "CACCTGC",
+      "cut_site": "CACCTGC(NNNN)↓ on top strand, (NNNNNNNN)↓ on bottom strand (asymmetric)",
+      "type": "Type IIS",
+      "methylation_sensitivity": "None known",
+      "reliability": "medium",
+      "star_activity": "Not well documented",
+      "isoschizomers": [],
+      "applications": ["Specialized Golden Gate applications"],
+      "notes": "IMPORTANT: PaqCI IS a Type IIS enzyme. Creates asymmetric overhangs (4 bases on top strand, 8 bases on bottom). Less commonly used than BsaI/BsmBI. Non-palindromic."
+    },
+
+    "NotI": {
+      "recognition_site": "GCGGCCGC",
+      "cut_site": "GC↓GGCCGC (5' overhang, 4 bases)",
+      "type": "Type II",
+      "methylation_sensitivity": "None",
+      "reliability": "very_high",
+      "star_activity": "Minimal",
+      "isoschizomers": ["NotI-HF"],
+      "applications": ["Rare-cutter applications", "Large insert cloning"],
+      "notes": "8-base recognition site makes it very rare (cuts ~once per 65kb). Palindromic. Useful for large constructs."
+    },
+
+    "AscI": {
+      "recognition_site": "GGCGCGCC",
+      "cut_site": "GG↓CGCGCC (5' overhang, 4 bases)",
+      "type": "Type II",
+      "methylation_sensitivity": "None",
+      "reliability": "high",
+      "star_activity": "Minimal",
+      "isoschizomers": [],
+      "applications": ["Rare-cutter", "Found in many AAV polylinkers"],
+      "notes": "8-base recognition site. Very rare. Palindromic."
+    },
+
+    "PstI": {
+      "recognition_site": "CTGCAG",
+      "cut_site": "CTGCA↓G (3' overhang, 4 bases)",
+      "type": "Type II",
+      "methylation_sensitivity": "Dam methylation blocks cutting",
+      "reliability": "high",
+      "star_activity": "Yes, at non-optimal conditions",
+      "isoschizomers": ["PstI-HF"],
+      "applications": ["Standard cloning"],
+      "notes": "Palindromic. Dam methylation (GATC within recognition site: CTGATCAG variant) blocks cutting. Associated with Rep68 splice acceptor region in AAV2."
+    },
+
+    "SalI": {
+      "recognition_site": "GTCGAC",
+      "cut_site": "G↓TCGAC (5' overhang, 4 bases)",
+      "type": "Type II",
+      "methylation_sensitivity": "None",
+      "reliability": "very_high",
+      "star_activity": "Minimal",
+      "isoschizomers": ["SalI-HF"],
+      "applications": ["Standard cloning", "Compatible with XhoI overhangs"],
+      "notes": "Palindromic. Overhangs compatible with XhoI (can ligate together)."
+    },
+
+    "XhoI": {
+      "recognition_site": "CTCGAG",
+      "cut_site": "C↓TCGAG (5' overhang, 4 bases)",
+      "type": "Type II",
+      "methylation_sensitivity": "None",
+      "reliability": "very_high",
+      "star_activity": "Yes, at high glycerol",
+      "isoschizomers": ["XhoI-HF"],
+      "applications": ["Standard cloning", "Compatible with SalI overhangs"],
+      "notes": "Palindromic. Overhangs compatible with SalI (can ligate together)."
+    }
+  },
+
+  "reliability_ratings": {
+    "very_high": {
+      "description": "Consistently performs well, minimal optimization needed",
+      "examples": ["EcoRI", "HindIII", "BamHI", "BsaI", "BsmBI", "NotI"]
+    },
+    "high": {
+      "description": "Generally reliable with occasional need for optimization",
+      "examples": ["XbaI", "BbsI", "AscI", "PstI", "SapI"]
+    },
+    "medium": {
+      "description": "May require optimization or have specific conditions",
+      "examples": ["BbvCI", "PaqCI"]
+    },
+    "low": {
+      "description": "Fussy or unreliable, use alternatives when possible",
+      "examples": []
+    }
+  },
+
+  "fussy_enzymes": {
+    "description": "Enzymes that require special consideration or may be unreliable (DESIGN-004)",
+    "enzymes": [
+      {
+        "name": "BbvCI",
+        "issues": [
+          "Less commonly used, may have activity issues",
+          "Often confused as Type IIS but is actually Type II",
+          "Non-palindromic recognition makes it less versatile"
+        ],
+        "recommendations": "Avoid if possible. Use more reliable alternatives (EcoRI, HindIII, etc.)"
+      },
+      {
+        "name": "PaqCI",
+        "issues": [
+          "Asymmetric overhang creation can be complex",
+          "Less well characterized than BsaI/BsmBI",
+          "Lower commercial availability"
+        ],
+        "recommendations": "Use BsaI or BsmBI for standard Golden Gate instead"
+      },
+      {
+        "name": "SmaI",
+        "issues": [
+          "Blunt cutter, but activity can be temperature-sensitive",
+          "CpG content in recognition site (CCCGGG) can affect methylation"
+        ],
+        "recommendations": "Use EcoRV for more reliable blunt-end cloning"
+      }
+    ]
+  },
+
+  "methylation_blocking": {
+    "description": "Dam and Dcm methylation in E. coli can block certain restriction enzymes",
+    "Dam_methylation": {
+      "sequence": "GATC (N6-methyladenine)",
+      "affected_enzymes": [
+        "XbaI (TCTAGA contains overlapping GATC in some contexts)",
+        "EcoRI (can be affected if GATC overlaps)",
+        "PstI (CTGCAG → if mutated to CTGATCAG)"
+      ],
+      "solution": "Use Dam- E. coli strain (e.g., JM110, SCS110) or CutSmart enzymes (methylation-insensitive variants)"
+    },
+    "Dcm_methylation": {
+      "sequence": "CCWGG (C5-methylcytosine, W = A or T)",
+      "affected_enzymes": [
+        "EcoRII (CCWGG itself)",
+        "Some enzymes with CCWGG in recognition site"
+      ],
+      "solution": "Use Dcm- E. coli strain or avoid affected enzymes"
+    }
+  },
+
+  "compatibility_tables": {
+    "description": "Enzymes that create compatible overhangs",
+    "compatible_pairs": [
+      {
+        "enzyme1": "SalI",
+        "enzyme2": "XhoI",
+        "overhang": "TCGA (both create same 5' overhang)",
+        "notes": "Can ligate together, but recreates neither site"
+      },
+      {
+        "enzyme1": "BamHI",
+        "enzyme2": "BglII",
+        "overhang": "GATC",
+        "notes": "Can ligate together, recreates neither site"
+      },
+      {
+        "enzyme1": "NheI",
+        "enzyme2": "SpeI",
+        "overhang": "CTAG",
+        "notes": "Compatible overhangs"
+      },
+      {
+        "enzyme1": "NheI",
+        "enzyme2": "XbaI",
+        "overhang": "CTAG",
+        "notes": "Compatible overhangs"
+      },
+      {
+        "enzyme1": "SpeI",
+        "enzyme2": "XbaI",
+        "overhang": "CTAG",
+        "notes": "Compatible overhangs"
+      }
+    ]
+  },
+
+  "golden_gate_best_practices": {
+    "description": "Guidelines for Golden Gate assembly with Type IIS enzymes",
+    "enzyme_selection": {
+      "recommended": "BsaI or BsmBI/Esp3I (most reliable, well-established)",
+      "acceptable": "BbsI (if BsaI sites unavoidable), SapI (for 3-base overhangs)",
+      "avoid": "PaqCI (unless specifically needed for asymmetric overhangs)"
+    },
+    "backbone_compatibility": {
+      "pGS_AAV_series": {
+        "BsaI": "Compatible (no BsaI sites in backbone)",
+        "BsmBI": "Compatible (no BsmBI sites in backbone)",
+        "BbsI": "INCOMPATIBLE - all pGS-AAV backbones contain BbsI site downstream of 3' ITR",
+        "note": "For BbsI-based Golden Gate with pGS-AAV, must remove BbsI site from backbone first (non-trivial)"
+      },
+      "pUC57_FLASH_series": {
+        "BsaI": "Compatible (verified 'Key IIS Free')",
+        "BsmBI": "Compatible (verified 'Key IIS Free')",
+        "BbsI": "Compatible (verified 'Key IIS Free')",
+        "note": "Explicitly designed for Golden Gate compatibility"
+      }
+    },
+    "insert_design": {
+      "rule_1": "Insert must NOT contain internal Type IIS sites for the enzyme being used",
+      "rule_2": "Add Type IIS sites at termini with desired overhangs (e.g., 5'-BsaI-[4bp overhang]-insert-[4bp overhang]-BsaI-3')",
+      "rule_3": "Overhang design: use unique 4bp sequences, avoid palindromes, check for mispriming",
+      "rule_4": "Remove internal Type IIS sites via silent mutations if in coding region (Checkpoint 8)"
+    }
+  },
+
+  "critical_lessons": {
+    "BUG_003_related": {
+      "lesson": "Always count restriction sites on BOTH strands",
+      "enzymes_affected": "All palindromic enzymes (most Type II enzymes)",
+      "implementation": "For palindromic sites, each occurrence in sequence represents a site on both strands. For non-palindromic, search both forward strand and reverse complement."
+    },
+    "DESIGN_001_related": {
+      "lesson": "Verify cloning site uniqueness in FINAL construct (backbone + insert), not just insert alone",
+      "enzymes_affected": "HindIII, XbaI (for AAV cloning); EcoRV (for FLASH cloning)",
+      "implementation": "Checkpoint 9 must check uniqueness in full assembled plasmid"
+    },
+    "DESIGN_004_related": {
+      "lesson": "Avoid fussy or poorly characterized enzymes",
+      "enzymes_affected": "BbvCI, PaqCI, obscure enzymes",
+      "recommendation": "Stick to well-established, highly reliable enzymes (EcoRI, HindIII, BamHI, XbaI, BsaI, BsmBI)"
+    },
+    "Type_IIS_confusion": {
+      "lesson": "Correctly classify enzymes as Type II vs Type IIS",
+      "common_mistakes": [
+        "BbvCI is Type II, NOT Type IIS (cuts within recognition site)",
+        "PaqCI IS Type IIS (cuts outside recognition site)"
+      ],
+      "verification": "Type IIS enzymes cut OUTSIDE their recognition sequence. Type II cut within or immediately adjacent."
+    }
+  }
+}

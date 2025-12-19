@@ -1,0 +1,93 @@
+{
+  "$schema": "parts_library_v1.0",
+  "description": "Schema definition for DNA/protein parts libraries",
+  "version": "1.0.0",
+  
+  "part_schema": {
+    "id": {
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier (e.g., LINK_D2_N, VHH_CLONE_A)"
+    },
+    "name": {
+      "type": "string", 
+      "required": true,
+      "description": "Human-readable name"
+    },
+    "category": {
+      "type": "string",
+      "required": true,
+      "enum": ["linker", "vhh", "tag", "promoter", "terminator", "reporter", "selection", "other"],
+      "description": "Part category for organization"
+    },
+    "description": {
+      "type": "string",
+      "required": false,
+      "description": "Brief description of the part's function"
+    },
+    "sequence_type": {
+      "type": "string",
+      "required": true,
+      "enum": ["protein", "dna", "dna_override"],
+      "description": "protein = AA sequence, back-translate as needed. dna = DNA sequence. dna_override = DNA is specified and must be used exactly (no back-translation)."
+    },
+    "sequence_aa": {
+      "type": "string",
+      "required": false,
+      "description": "Amino acid sequence (single-letter code). Required if sequence_type is 'protein' or 'dna_override'."
+    },
+    "sequence_dna": {
+      "type": "string",
+      "required": false, 
+      "description": "DNA sequence. Required if sequence_type is 'dna' or 'dna_override'. If sequence_type is 'protein', this can be null (agent will back-translate)."
+    },
+    "length_aa": {
+      "type": "integer",
+      "required": false,
+      "description": "Length in amino acids. Auto-calculated if not provided."
+    },
+    "length_bp": {
+      "type": "integer",
+      "required": false,
+      "description": "Length in base pairs. Auto-calculated if not provided."
+    },
+    "preferred_codon_table": {
+      "type": "string",
+      "required": false,
+      "default": "Homo sapiens",
+      "description": "Codon usage table for back-translation if sequence_dna is null."
+    },
+    "source": {
+      "type": "string",
+      "required": false,
+      "description": "Reference or source (paper, patent, lab notebook, etc.)"
+    },
+    "notes": {
+      "type": "string",
+      "required": false,
+      "description": "Additional notes, warnings, or usage guidance."
+    },
+    "compatible_with": {
+      "type": "array",
+      "items": "string",
+      "required": false,
+      "description": "List of part IDs this part is designed to work with."
+    },
+    "tags": {
+      "type": "array",
+      "items": "string", 
+      "required": false,
+      "description": "Searchable tags (e.g., ['flexible', 'short', 'glycine-rich'])"
+    }
+  },
+  
+  "validation_rules": [
+    "If sequence_type is 'protein', sequence_aa must be provided",
+    "If sequence_type is 'dna', sequence_dna must be provided", 
+    "If sequence_type is 'dna_override', both sequence_aa and sequence_dna must be provided",
+    "sequence_aa should contain only valid amino acid codes (ACDEFGHIKLMNPQRSTVWY)",
+    "sequence_dna should contain only valid nucleotides (ATGC, lowercase accepted)",
+    "length_aa should equal len(sequence_aa) if both provided",
+    "length_bp should equal len(sequence_dna) if both provided"
+  ]
+}

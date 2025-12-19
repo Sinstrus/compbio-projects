@@ -1,0 +1,159 @@
+{
+  "$schema": "cis_elements_v1.0",
+  "description": "Core cis-regulatory elements and risk rules for DNA engineering",
+  "version": "1.0.0",
+  "last_updated": "2024-12-16",
+  
+  "detection_methods": {
+    "sequence_exact": "Exact DNA sequence match",
+    "sequence_partial": "Partial match (e.g., for long elements, match diagnostic subsequence)",
+    "protein_motif": "Translate all 6 frames, search for amino acid motif",
+    "regex": "Regular expression pattern matching on DNA"
+  },
+  
+  "risk_levels": {
+    "CRITICAL": {
+      "description": "Essential for construct function. Modification will break the system.",
+      "action": "BLOCK",
+      "requires_override": true
+    },
+    "HIGH": {
+      "description": "Likely to cause functional problems. Modification is risky.",
+      "action": "WARN_AND_CONFIRM",
+      "requires_override": true
+    },
+    "MEDIUM": {
+      "description": "May affect function. Proceed with caution.",
+      "action": "WARN",
+      "requires_override": false
+    },
+    "LOW": {
+      "description": "Minimal risk. Annotate for awareness.",
+      "action": "ANNOTATE",
+      "requires_override": false
+    }
+  },
+  
+  "elements": [
+    {
+      "id": "AAV2_ITR_LEFT",
+      "name": "AAV2 Left ITR",
+      "type": "Packaging_Signal",
+      "detection_method": "sequence_partial",
+      "sequence_dna": "TTGGCCACTCCCTCTCTGCGCGCTCGCTCGCTCACTGAGGCCGCCCGGGCAAAGCCCGGGCGTCGGGCGACCTTTGGTCGCCCGGCCTCAGTGAGCGAGCGAGCGCGCAGAGAGGGAGTGGCCAACTCCATCACTAGGGGTTCCT",
+      "diagnostic_subsequence": "GCGCTCGCTCGCTCACTGAGGCC",
+      "note": "Full ITR is ~145bp. The diagnostic subsequence targets the D-sequence which is most conserved. Flipped/flopped variants exist.",
+      "risk_level": "CRITICAL",
+      "action_on_overlap": "BLOCK"
+    },
+    {
+      "id": "AAV2_ITR_RIGHT", 
+      "name": "AAV2 Right ITR",
+      "type": "Packaging_Signal",
+      "detection_method": "sequence_partial",
+      "sequence_dna": "AGGAACCCCTAGTGATGGAGTTGGCCACTCCCTCTCTGCGCGCTCGCTCGCTCACTGAGGCCGGGCGACCAAAGGTCGCCCGACGCCCGGGCTTTGCCCGGGCGGCCTCAGTGAGCGAGCGAGCGCGCAGAGAGGGAGTGGCCAA",
+      "diagnostic_subsequence": "GCGCTCGCTCGCTCACTGAGGCC",
+      "note": "Right ITR is reverse complement orientation. Same diagnostic subsequence.",
+      "risk_level": "CRITICAL",
+      "action_on_overlap": "BLOCK"
+    },
+    {
+      "id": "AAV_REP_BINDING",
+      "name": "Rep Binding Element (RBE)",
+      "type": "Replication_Origin",
+      "detection_method": "sequence_exact",
+      "sequence_dna": "GAGCGAGCGAGCGCGC",
+      "note": "Core Rep binding motif within ITR. Required for genome replication.",
+      "risk_level": "CRITICAL", 
+      "action_on_overlap": "BLOCK"
+    },
+    {
+      "id": "AAV_TRS",
+      "name": "Terminal Resolution Site",
+      "type": "Replication_Origin",
+      "detection_method": "sequence_exact",
+      "sequence_dna": "GGTTGA",
+      "note": "Site where Rep nicks during replication. Context-dependent (only active within ITR).",
+      "risk_level": "HIGH",
+      "action_on_overlap": "WARN_AND_CONFIRM"
+    },
+    {
+      "id": "AAV_AAP_ORF",
+      "name": "Assembly-Activating Protein (AAP)",
+      "type": "Overlapping_ORF",
+      "detection_method": "protein_motif",
+      "sequence_aa": "MPGFYEIVIKVPSD",
+      "search_instructions": "Translate VP coding region in +1 frame (relative to VP start). AAP starts ~50 codons into VP1.",
+      "note": "AAP is essential for capsid assembly. Silent mutations in VP may be non-silent in AAP. Always check both frames.",
+      "risk_level": "HIGH",
+      "action_on_overlap": "WARN_AND_CONFIRM"
+    },
+    {
+      "id": "AAV_P5_PROMOTER",
+      "name": "p5 Promoter",
+      "type": "Promoter",
+      "detection_method": "sequence_partial",
+      "sequence_dna": "TATATAAGGGGGTGGGG",
+      "note": "Drives Rep78/68 expression. Contains TATA box.",
+      "risk_level": "MEDIUM",
+      "action_on_overlap": "WARN"
+    },
+    {
+      "id": "AAV_P19_PROMOTER",
+      "name": "p19 Promoter", 
+      "type": "Promoter",
+      "detection_method": "sequence_partial",
+      "sequence_dna": "TATAATGAGGGGGTGGG",
+      "note": "Drives Rep52/40 expression.",
+      "risk_level": "MEDIUM",
+      "action_on_overlap": "WARN"
+    },
+    {
+      "id": "AAV_P40_PROMOTER",
+      "name": "p40 Promoter",
+      "type": "Promoter", 
+      "detection_method": "sequence_partial",
+      "sequence_dna": "GTGGTTTTGTGTG",
+      "note": "Drives Cap gene expression.",
+      "risk_level": "MEDIUM",
+      "action_on_overlap": "WARN"
+    },
+    {
+      "id": "POLYA_BGH",
+      "name": "BGH Poly(A) Signal",
+      "type": "Regulatory",
+      "detection_method": "sequence_exact",
+      "sequence_dna": "AATAAA",
+      "note": "Core polyadenylation signal. Common in many constructs. The hexamer alone has many false positives; check context.",
+      "risk_level": "LOW",
+      "action_on_overlap": "ANNOTATE"
+    },
+    {
+      "id": "POLYA_SV40",
+      "name": "SV40 Poly(A) Signal",
+      "type": "Regulatory",
+      "detection_method": "sequence_partial",
+      "sequence_dna": "AACTTGTTTATTGCAGCTTATAATGGTTACAAATAAAGCAATAGCATCACAAATTTCACAAATAAAGCATTTTTTTCACTGC",
+      "diagnostic_subsequence": "AATAAAGCAATAGCATCACAAATTTCACAAATAAAGC",
+      "note": "SV40 late poly(A). More specific than just AATAAA.",
+      "risk_level": "LOW",
+      "action_on_overlap": "ANNOTATE"
+    },
+    {
+      "id": "KOZAK_CONSENSUS",
+      "name": "Kozak Consensus Sequence",
+      "type": "Translation_Signal",
+      "detection_method": "regex",
+      "pattern": "GCC[AG]CCATGG",
+      "note": "Optimal translation initiation context. The ATG should be the start codon.",
+      "risk_level": "MEDIUM",
+      "action_on_overlap": "WARN"
+    }
+  ],
+  
+  "custom_elements": [
+    {
+      "_comment": "Add project-specific elements here or in project context files"
+    }
+  ]
+}

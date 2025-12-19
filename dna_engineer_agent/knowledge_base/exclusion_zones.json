@@ -1,0 +1,305 @@
+{
+  "description": "Regions of AAV constructs where mutations should be avoided or carefully considered",
+  "version": "1.0",
+  "last_updated": "2025-12-19",
+
+  "exclusion_zones": [
+    {
+      "name": "ITR_boundaries",
+      "region": "Within 10bp of 5' or 3' ITR boundaries",
+      "severity": "CRITICAL",
+      "rationale": "ITR secondary structure is essential for AAV replication and packaging. Mutations near ITR boundaries can disrupt stem-loop formation.",
+      "consequences": [
+        "Reduced packaging efficiency",
+        "Loss of ITR function",
+        "Failed AAV production"
+      ],
+      "recommendations": [
+        "Never introduce restriction sites within 10bp of ITR boundaries",
+        "Avoid any mutations in this region unless absolutely necessary",
+        "If mutations required, verify ITR secondary structure predictions"
+      ],
+      "reference": "ITR secondary structure is critical for Rep protein binding and genome replication"
+    },
+
+    {
+      "name": "Rep68_splice_acceptor",
+      "region": "AAV2 nucleotides 2227-2232 (CCTGCAGG / PstI site) and surrounding context",
+      "severity": "HIGH",
+      "rationale": "This region contains a cryptic splice acceptor for Rep68. While not always active in typical AAV expression cassettes, mutations here can activate cryptic splicing in some contexts.",
+      "consequences": [
+        "Aberrant splicing of transgene mRNA",
+        "Reduced transgene expression",
+        "Production of truncated proteins"
+      ],
+      "recommendations": [
+        "Avoid introducing splice consensus sequences (AG dinucleotides) near position 2227-2232 equivalent in your construct",
+        "If working with full AAV genome or Rep-containing plasmids, preserve wild-type sequence",
+        "For standard transfer plasmids (ITR-only), less critical but still worth noting"
+      ],
+      "notes": "This is primarily a concern for full AAV genome constructs or those containing Rep/Cap genes. Less relevant for standard ITR-only transfer plasmids.",
+      "reference": "AAV2 Rep68 alternative splicing, PMID: 8479185"
+    },
+
+    {
+      "name": "Kozak_consensus",
+      "region": "6bp upstream and 3bp downstream of translation start codon (ATG)",
+      "severity": "MEDIUM",
+      "rationale": "Kozak consensus sequence (GCCACCATGG) affects translation initiation efficiency. Mutations can reduce protein expression.",
+      "optimal_sequence": "GCCACCATGG (or GCCGCCATGG)",
+      "consequences": [
+        "Reduced translation efficiency",
+        "Lower protein expression",
+        "Leaky scanning to downstream ATGs"
+      ],
+      "recommendations": [
+        "Preserve optimal Kozak when possible: GCC(A/G)CCATGG",
+        "Critical positions: -3 (purine, preferably A), +4 (G)",
+        "If modifying for restriction site removal, maintain at least -3 A/G and +4 G",
+        "Test expression if significantly altering Kozak sequence"
+      ],
+      "reference": "Kozak consensus sequence for mammalian translation initiation"
+    },
+
+    {
+      "name": "polyA_signal",
+      "region": "AATAAA hexamer and surrounding 30bp region",
+      "severity": "HIGH",
+      "rationale": "PolyA signal (AATAAA or ATTAAA) and downstream elements are required for proper mRNA 3' end processing. Mutations can cause read-through or premature termination.",
+      "consequences": [
+        "Failure of mRNA 3' end cleavage/polyadenylation",
+        "Read-through into vector backbone",
+        "Reduced mRNA stability",
+        "Lower transgene expression"
+      ],
+      "recommendations": [
+        "Never mutate the AATAAA hexamer itself",
+        "Preserve sequence context ±30bp around polyA signal",
+        "Avoid introducing upstream AATAAA sites (cryptic polyA)",
+        "If using synthetic polyA (bGH, SV40), maintain consensus sequence",
+        "Consider using well-validated polyA signals (WPRE, bGH, SV40 late)"
+      ],
+      "common_polyA_signals": [
+        {
+          "name": "SV40 late polyA",
+          "sequence": "AATAAA",
+          "notes": "Most commonly used, well-validated"
+        },
+        {
+          "name": "bGH polyA",
+          "sequence": "AATAAA",
+          "notes": "Compact, efficient"
+        },
+        {
+          "name": "rbGlob polyA",
+          "sequence": "AATAAA",
+          "notes": "Strong signal, larger"
+        }
+      ],
+      "reference": "Canonical polyA signal recognition, PMID: 8524414"
+    },
+
+    {
+      "name": "splice_sites",
+      "region": "GT-AG dinucleotides in specific contexts (5'ss: GT, 3'ss: AG)",
+      "severity": "MEDIUM-HIGH",
+      "rationale": "Cryptic splice sites can cause aberrant splicing, especially in constructs with introns or long transgenes.",
+      "consequences": [
+        "Unintended splicing events",
+        "Production of truncated or aberrant proteins",
+        "Reduced expression of full-length transgene"
+      ],
+      "recommendations": [
+        "Avoid creating strong splice consensus sequences: (C/A)AG|GT(A/G)AGT (5'ss) or (C/T)nNCAG|G (3'ss)",
+        "If transgene naturally contains introns, use intronless cDNA for AAV",
+        "For large transgenes (>2kb), scan for cryptic splice sites and remove via silent mutations",
+        "Use splice site prediction tools (MaxEntScan, NNSplice) to identify strong cryptic sites"
+      ],
+      "tools": [
+        "MaxEntScan: http://hollywood.mit.edu/burgelab/maxent/Xmaxentscan_scoreseq.html",
+        "Human Splicing Finder: http://www.umd.be/HSF3/"
+      ],
+      "reference": "Cryptic splicing in gene therapy vectors, PMID: 11157795"
+    },
+
+    {
+      "name": "promoter_core",
+      "region": "TATA box and surrounding 50bp (for TATA-containing promoters)",
+      "severity": "HIGH",
+      "rationale": "Core promoter elements (TATA box, Inr, DPE) are critical for transcription initiation. Mutations dramatically affect expression levels.",
+      "consequences": [
+        "Reduced or abolished transcription",
+        "Altered transcription start site",
+        "Loss of promoter activity"
+      ],
+      "recommendations": [
+        "Never mutate core promoter elements (TATA box, Inr, DPE)",
+        "Preserve promoter sequence exactly as published/validated",
+        "For common promoters (CMV, EF1α, CAG), use exact reference sequences",
+        "If removing restriction sites from promoter region, verify activity experimentally"
+      ],
+      "common_promoters": [
+        {
+          "name": "CMV immediate early",
+          "notes": "Strong, ubiquitous. Prone to silencing in some contexts."
+        },
+        {
+          "name": "EF1α",
+          "notes": "Constitutive, less prone to silencing than CMV"
+        },
+        {
+          "name": "CAG (hybrid)",
+          "notes": "Very strong, combination of CMV enhancer + chicken β-actin promoter"
+        },
+        {
+          "name": "U6 (for shRNA)",
+          "notes": "RNA Pol III promoter, very sensitive to mutations"
+        }
+      ],
+      "reference": "Promoter architecture and function"
+    },
+
+    {
+      "name": "regulatory_elements",
+      "region": "Enhancers, silencers, WPRE, and other regulatory sequences",
+      "severity": "MEDIUM-HIGH",
+      "rationale": "Regulatory elements can dramatically affect transgene expression. Mutations may reduce or eliminate their function.",
+      "consequences": [
+        "Reduced expression levels",
+        "Altered tissue specificity",
+        "Loss of post-transcriptional enhancement (WPRE)"
+      ],
+      "recommendations": [
+        "Use exact published sequences for regulatory elements",
+        "For WPRE, avoid mutations in structured regions (3' end especially)",
+        "If modifying enhancers, consider testing expression empirically",
+        "Maintain spacing between regulatory elements and core promoter"
+      ],
+      "common_elements": [
+        {
+          "name": "WPRE (Woodchuck Post-transcriptional Regulatory Element)",
+          "notes": "Enhances transgene expression 2-10 fold. Use WPRE3 variant (X protein deleted) for safety. Avoid mutations in 3' structured region."
+        },
+        {
+          "name": "CMV enhancer",
+          "notes": "Often combined with other promoters (e.g., CAG = CMV enhancer + chicken β-actin)"
+        }
+      ],
+      "reference": "WPRE structure and function, PMID: 11095629"
+    },
+
+    {
+      "name": "start_codon_context",
+      "region": "ATG start codon and 9bp upstream",
+      "severity": "MEDIUM",
+      "rationale": "Context around start codon affects translation initiation. Overlaps with Kozak consensus.",
+      "consequences": [
+        "Reduced translation",
+        "Use of alternative start codons",
+        "Leaky scanning"
+      ],
+      "recommendations": [
+        "Optimize Kozak context (see Kozak_consensus zone)",
+        "Avoid upstream ATGs in good Kozak context (can cause N-terminal extension or reduced translation)",
+        "If upstream ATG unavoidable, ensure it's in poor Kozak context or out-of-frame"
+      ],
+      "reference": "Translation initiation in eukaryotes"
+    },
+
+    {
+      "name": "internal_ribosome_entry_sites",
+      "region": "IRES elements (if present) ~400-600bp structured sequences",
+      "severity": "CRITICAL",
+      "rationale": "IRES allow cap-independent translation. Highly structured, very sensitive to mutations.",
+      "consequences": [
+        "Loss of IRES-mediated translation",
+        "Reduced or abolished downstream cistron expression",
+        "Complete loss of polycistronic expression"
+      ],
+      "recommendations": [
+        "Treat IRES sequences as completely immutable",
+        "Use exact reference sequences from validated sources",
+        "Do not attempt to remove restriction sites from IRES regions",
+        "If restriction sites present, use alternative cloning strategy"
+      ],
+      "common_IRES": [
+        {
+          "name": "EMCV IRES",
+          "notes": "Most commonly used. ~600bp. Do not modify."
+        },
+        {
+          "name": "CITE IRES",
+          "notes": "Shorter alternative. Still highly structured."
+        }
+      ],
+      "alternative": "Consider using 2A peptide sequences instead of IRES for polycistronic expression (more compact, less sensitive to mutations)",
+      "reference": "IRES-mediated translation, PMID: 15016912"
+    }
+  ],
+
+  "general_principles": [
+    {
+      "principle": "Preserve published sequences",
+      "description": "For well-validated elements (promoters, polyA, ITRs), use exact published sequences without modification"
+    },
+    {
+      "principle": "Buffer zones",
+      "description": "Maintain ≥10bp buffer between designed elements and critical regions (ITRs, splice sites, etc.)"
+    },
+    {
+      "principle": "Functional validation",
+      "description": "If mutations are made in or near exclusion zones, validate expression/function experimentally"
+    },
+    {
+      "principle": "Silent mutations preferred",
+      "description": "When removing restriction sites from coding regions, use only silent mutations and verify with Checkpoint 8"
+    },
+    {
+      "principle": "Avoid cryptic sites",
+      "description": "Scan for cryptic splice sites, polyA signals, and start codons. Remove via silent mutations if needed."
+    }
+  ],
+
+  "tools_and_resources": [
+    {
+      "name": "MaxEntScan",
+      "purpose": "Splice site prediction",
+      "url": "http://hollywood.mit.edu/burgelab/maxent/Xmaxentscan_scoreseq.html"
+    },
+    {
+      "name": "Human Splicing Finder",
+      "purpose": "Comprehensive splice site analysis",
+      "url": "http://www.umd.be/HSF3/"
+    },
+    {
+      "name": "Kozak Context Calculator",
+      "purpose": "Evaluate Kozak sequence strength",
+      "url": "https://www.thermofisher.com/us/en/home/life-science/cloning/gene-synthesis/geneart-gene-synthesis/design-my-gene.html"
+    },
+    {
+      "name": "PolyA Site Predictor",
+      "purpose": "Identify potential polyadenylation signals",
+      "url": "https://www.ncbi.nlm.nih.gov/tools/polya/"
+    },
+    {
+      "name": "mRNA structure prediction (mfold, RNAfold)",
+      "purpose": "Predict secondary structures that might affect expression",
+      "url": "http://www.unafold.org/ or http://rna.tbi.univie.ac.at/"
+    }
+  ],
+
+  "checkpoints_integration": {
+    "Checkpoint_8": {
+      "name": "Silent Mutation Verification",
+      "exclusion_zones_check": "Ensure silent mutations are not introduced in exclusion zones (Kozak, promoter core, polyA signal, etc.)"
+    },
+    "Checkpoint_9": {
+      "name": "Cloning Site Uniqueness",
+      "exclusion_zones_check": "Verify that restriction sites near ITRs or in exclusion zones are accounted for in uniqueness calculation"
+    },
+    "Phase_0": {
+      "name": "Project Setup",
+      "exclusion_zones_check": "Document which exclusion zones are present in chosen backbone and expression elements"
+    }
+  }
+}

@@ -1,0 +1,595 @@
+{
+  "aav_backbones": [
+    {
+      "file": "pGS-scAAV-ITR128-Amp-empty.gb",
+      "description": "pGS-scAAV-ITR128-Amp-empty.",
+      "length": 4973,
+      "selection_marker": "Ampicillin",
+      "itrs": {
+        "5ITR128": {
+          "start": 27,
+          "end": 154,
+          "length": 128
+        },
+        "3ITR128 dtrs": {
+          "start": 2312,
+          "end": 2402,
+          "length": 91
+        }
+      },
+      "mcs_sites": {
+        "EcoRI": [
+          155
+        ],
+        "HindIII": [
+          185
+        ],
+        "XhoI": [
+          191
+        ],
+        "NotI": [
+          198
+        ],
+        "SalI": [
+          212
+        ],
+        "AgeI": [
+          218
+        ],
+        "SphI": [
+          224
+        ],
+        "PstI": [
+          229
+        ],
+        "EcoRV": [
+          234
+        ],
+        "XbaI": [
+          2276
+        ],
+        "KpnI": [
+          2263
+        ],
+        "SpeI": [
+          2403
+        ],
+        "NheI": [
+          2251
+        ]
+      },
+      "type_iis_sites": {
+        "BbsI": [
+          2299
+        ]
+      },
+      "cloning_method": "HindIII_XbaI"
+    },
+    {
+      "file": "pGS-scAAV-ITR128-Kan-empty.gb",
+      "description": "pGS-scAAV-ITR128-Kan-empty.",
+      "length": 4886,
+      "selection_marker": "Kanamycin",
+      "itrs": {
+        "5ITR128": {
+          "start": 16,
+          "end": 143,
+          "length": 128
+        },
+        "3ITR128 dtrs": {
+          "start": 2301,
+          "end": 2391,
+          "length": 91
+        }
+      },
+      "mcs_sites": {
+        "EcoRI": [
+          144
+        ],
+        "HindIII": [
+          174
+        ],
+        "XhoI": [
+          180
+        ],
+        "NotI": [
+          187
+        ],
+        "SalI": [
+          201
+        ],
+        "AgeI": [
+          207
+        ],
+        "SphI": [
+          213
+        ],
+        "PstI": [
+          218
+        ],
+        "EcoRV": [
+          223
+        ],
+        "XbaI": [
+          2265
+        ],
+        "KpnI": [
+          2392
+        ],
+        "SpeI": [
+          2252
+        ],
+        "NheI": [
+          2240
+        ]
+      },
+      "type_iis_sites": {
+        "BbsI": [
+          2288
+        ]
+      },
+      "cloning_method": "HindIII_XbaI"
+    },
+    {
+      "file": "pGS-scAAV-ITR145-Amp-empty.gb",
+      "description": "pGS-scAAV-ITR145-Amp-empty.",
+      "length": 5007,
+      "selection_marker": "Ampicillin",
+      "itrs": {
+        "5ITR145": {
+          "start": 27,
+          "end": 171,
+          "length": 145
+        },
+        "3ITR145 dtrs": {
+          "start": 2329,
+          "end": 2436,
+          "length": 108
+        }
+      },
+      "mcs_sites": {
+        "EcoRI": [
+          172
+        ],
+        "HindIII": [
+          202
+        ],
+        "XhoI": [
+          208
+        ],
+        "NotI": [
+          215
+        ],
+        "SalI": [
+          229
+        ],
+        "AgeI": [
+          235
+        ],
+        "SphI": [
+          241
+        ],
+        "PstI": [
+          246
+        ],
+        "EcoRV": [
+          251
+        ],
+        "XbaI": [
+          2293
+        ],
+        "KpnI": [
+          2280
+        ],
+        "SpeI": [
+          2437
+        ],
+        "NheI": [
+          2268
+        ]
+      },
+      "type_iis_sites": {
+        "BbsI": [
+          2316
+        ]
+      },
+      "cloning_method": "HindIII_XbaI"
+    },
+    {
+      "file": "pGS-scAAV-ITR145-Kan-empty.gb",
+      "description": "pGS-scAAV-ITR145-Kan-empty.",
+      "length": 4920,
+      "selection_marker": "Kanamycin",
+      "itrs": {
+        "5ITR145": {
+          "start": 16,
+          "end": 160,
+          "length": 145
+        },
+        "3ITR145 dtrs": {
+          "start": 2318,
+          "end": 2425,
+          "length": 108
+        }
+      },
+      "mcs_sites": {
+        "EcoRI": [
+          161
+        ],
+        "HindIII": [
+          191
+        ],
+        "XhoI": [
+          197
+        ],
+        "NotI": [
+          204
+        ],
+        "SalI": [
+          218
+        ],
+        "AgeI": [
+          224
+        ],
+        "SphI": [
+          230
+        ],
+        "PstI": [
+          235
+        ],
+        "EcoRV": [
+          240
+        ],
+        "XbaI": [
+          2282
+        ],
+        "KpnI": [
+          2426
+        ],
+        "SpeI": [
+          2269
+        ],
+        "NheI": [
+          2257
+        ]
+      },
+      "type_iis_sites": {
+        "BbsI": [
+          2305
+        ]
+      },
+      "cloning_method": "HindIII_XbaI"
+    },
+    {
+      "file": "pGS-ssAAV-ITR128-Amp-empty.gb",
+      "description": "pGS-ssAAV-ITR128-Amp-empty.",
+      "length": 5010,
+      "selection_marker": "Ampicillin",
+      "itrs": {
+        "5ITR128": {
+          "start": 27,
+          "end": 154,
+          "length": 128
+        },
+        "3ITR128": {
+          "start": 2312,
+          "end": 2439,
+          "length": 128
+        }
+      },
+      "mcs_sites": {
+        "EcoRI": [
+          155
+        ],
+        "HindIII": [
+          185
+        ],
+        "XhoI": [
+          191
+        ],
+        "NotI": [
+          198
+        ],
+        "SalI": [
+          212
+        ],
+        "AgeI": [
+          218
+        ],
+        "SphI": [
+          224
+        ],
+        "PstI": [
+          229
+        ],
+        "EcoRV": [
+          234
+        ],
+        "XbaI": [
+          2276
+        ],
+        "KpnI": [
+          2263
+        ],
+        "SpeI": [
+          2440
+        ],
+        "NheI": [
+          2251
+        ]
+      },
+      "type_iis_sites": {
+        "BbsI": [
+          2299
+        ]
+      },
+      "cloning_method": "HindIII_XbaI"
+    },
+    {
+      "file": "pGS-ssAAV-ITR128-Kan-empty.gb",
+      "description": "pGS-ssAAV-ITR128-Kan-empty.",
+      "length": 4923,
+      "selection_marker": "Kanamycin",
+      "itrs": {
+        "5ITR128": {
+          "start": 16,
+          "end": 143,
+          "length": 128
+        },
+        "3ITR128": {
+          "start": 2301,
+          "end": 2428,
+          "length": 128
+        }
+      },
+      "mcs_sites": {
+        "EcoRI": [
+          144
+        ],
+        "HindIII": [
+          174
+        ],
+        "XhoI": [
+          180
+        ],
+        "NotI": [
+          187
+        ],
+        "SalI": [
+          201
+        ],
+        "AgeI": [
+          207
+        ],
+        "SphI": [
+          213
+        ],
+        "PstI": [
+          218
+        ],
+        "EcoRV": [
+          223
+        ],
+        "XbaI": [
+          2265
+        ],
+        "KpnI": [
+          2429
+        ],
+        "SpeI": [
+          2252
+        ],
+        "NheI": [
+          2240
+        ]
+      },
+      "type_iis_sites": {
+        "BbsI": [
+          2288
+        ]
+      },
+      "cloning_method": "HindIII_XbaI"
+    },
+    {
+      "file": "pGS-ssAAV-ITR145-Amp-empty.gb",
+      "description": "pGS-ssAAV-ITR145-Amp-empty.",
+      "length": 5044,
+      "selection_marker": "Ampicillin",
+      "itrs": {
+        "5ITR145": {
+          "start": 27,
+          "end": 171,
+          "length": 145
+        },
+        "3ITR145": {
+          "start": 2329,
+          "end": 2473,
+          "length": 145
+        }
+      },
+      "mcs_sites": {
+        "EcoRI": [
+          172
+        ],
+        "HindIII": [
+          202
+        ],
+        "XhoI": [
+          208
+        ],
+        "NotI": [
+          215
+        ],
+        "SalI": [
+          229
+        ],
+        "AgeI": [
+          235
+        ],
+        "SphI": [
+          241
+        ],
+        "PstI": [
+          246
+        ],
+        "EcoRV": [
+          251
+        ],
+        "XbaI": [
+          2293
+        ],
+        "KpnI": [
+          2280
+        ],
+        "SpeI": [
+          2474
+        ],
+        "NheI": [
+          2268
+        ]
+      },
+      "type_iis_sites": {
+        "BbsI": [
+          2316
+        ]
+      },
+      "cloning_method": "HindIII_XbaI"
+    },
+    {
+      "file": "pGS-ssAAV-ITR145-Kan-empty.gb",
+      "description": "pGS-ssAAV-ITR145-Kan-empty.",
+      "length": 4957,
+      "selection_marker": "Kanamycin",
+      "itrs": {
+        "5ITR145": {
+          "start": 16,
+          "end": 160,
+          "length": 145
+        },
+        "3ITR145": {
+          "start": 2318,
+          "end": 2462,
+          "length": 145
+        }
+      },
+      "mcs_sites": {
+        "EcoRI": [
+          161
+        ],
+        "HindIII": [
+          191
+        ],
+        "XhoI": [
+          197
+        ],
+        "NotI": [
+          204
+        ],
+        "SalI": [
+          218
+        ],
+        "AgeI": [
+          224
+        ],
+        "SphI": [
+          230
+        ],
+        "PstI": [
+          235
+        ],
+        "EcoRV": [
+          240
+        ],
+        "XbaI": [
+          2282
+        ],
+        "KpnI": [
+          2463
+        ],
+        "SpeI": [
+          2269
+        ],
+        "NheI": [
+          2257
+        ]
+      },
+      "type_iis_sites": {
+        "BbsI": [
+          2305
+        ]
+      },
+      "cloning_method": "HindIII_XbaI"
+    }
+  ],
+  "flash_backbones": [
+    {
+      "file": "pUC57-Kan-Simple-Key IIS Free.gb",
+      "description": "pUC57-Kan-Simple-Key IIS Free.",
+      "length": 2579,
+      "selection_marker": "Kanamycin",
+      "itrs": {},
+      "mcs_sites": {
+        "EcoRV": [
+          304
+        ]
+      },
+      "type_iis_sites": {},
+      "cloning_method": "EcoRV_blunt",
+      "claimed_iis_free": true,
+      "verified_iis_free": true
+    },
+    {
+      "file": "pUC57-Simple-Key IIS Free.gb",
+      "description": "pUC57-Simple-Key IIS Free.",
+      "length": 2710,
+      "selection_marker": null,
+      "itrs": {},
+      "mcs_sites": {
+        "EcoRV": [
+          304
+        ]
+      },
+      "type_iis_sites": {},
+      "cloning_method": "EcoRV_blunt",
+      "claimed_iis_free": true,
+      "verified_iis_free": true
+    }
+  ],
+  "metadata": {
+    "standard_cloning_sites": [
+      "HindIII",
+      "XbaI"
+    ],
+    "type_iis_enzymes_checked": [
+      "BsaI",
+      "BsmBI",
+      "BbsI",
+      "Esp3I",
+      "PaqCI",
+      "SapI"
+    ],
+    "restriction_sites": {
+      "EcoRI": "GAATTC",
+      "HindIII": "AAGCTT",
+      "XhoI": "CTCGAG",
+      "NotI": "GCGGCCGC",
+      "AscI": "GGCGCGCC",
+      "SalI": "GTCGAC",
+      "AgeI": "ACCGGT",
+      "SphI": "GCATGC",
+      "PstI": "CTGCAG",
+      "EcoRV": "GATATC",
+      "XbaI": "TCTAGA",
+      "KpnI": "GGTACC",
+      "SpeI": "ACTAGT",
+      "NheI": "GCTAGC",
+      "SacI": "GAGCTC",
+      "BsaI": "GGTCTC",
+      "BsmBI": "CGTCTC",
+      "BbsI": "GAAGAC",
+      "Esp3I": "CGTCTC",
+      "SapI": "GCTCTTC",
+      "PaqCI": "CACCTGC"
+    }
+  }
+}

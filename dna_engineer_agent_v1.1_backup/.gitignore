@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project-specific
+*.zip
+
+# Output files (generated .gb files)
+# Uncomment if you don't want to track generated constructs:
+# *_v[0-9][0-9].gb
+# *_v[0-9][0-9]_*.gb
+
+# Large reference files (add your own if needed)
+# test_data/AAV*_full.gb

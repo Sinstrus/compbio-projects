@@ -1,0 +1,30 @@
+{
+  "agent_version": "1.1.0",
+  "release_date": "2024-12-16",
+  "changelog": [
+    {
+      "version": "1.1.0",
+      "date": "2024-12-16",
+      "changes": [
+        "Added plasmid type classification (Transfer, Rep-Cap Helper, etc.)",
+        "Added context-aware cis-element detection (TRS only valid in ITR)",
+        "Added mandatory independent verification for overlapping ORFs (AAP)",
+        "Added serotype-specific anchor motif handling",
+        "Added persistent Pre-Flight Report generation with metadata",
+        "Added reports/ directory with template"
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "date": "2024-12-16",
+      "changes": [
+        "Initial release",
+        "Core agent instructions",
+        "Cis-element manifest with AAV elements",
+        "Parts library with linker designs",
+        "AAV VHH v1 project context",
+        "Environment validation script"
+      ]
+    }
+  ]
+}

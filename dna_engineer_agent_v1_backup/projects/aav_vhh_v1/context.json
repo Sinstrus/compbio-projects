@@ -1,0 +1,111 @@
+{
+  "$schema": "project_context_v1.0",
+  "project_name": "AAV VHH Display v1",
+  "project_id": "aav_vhh_v1",
+  "version": "1.0.0",
+  "last_updated": "2024-12-16",
+  "description": "In vivo display of VHH nanobodies on AAV capsid surface for high-affinity binder identification.",
+  
+  "objectives": [
+    "Identify high-affinity VHH binders via AAV capsid display",
+    "Screen insertion at VR-IV and VR-VIII variable regions",
+    "Evaluate multiple linker designs for optimal display"
+  ],
+  
+  "constraints": [
+    "This project is for binder identification, NOT AAV gene therapy development",
+    "Capsid must remain functional for packaging and transduction",
+    "VHH must be surface-exposed in assembled capsid"
+  ],
+  
+  "default_parameters": {
+    "serotype": "AAV9",
+    "preferred_linker_design": "D2",
+    "primary_insertion_locus": "VR-IV",
+    "backup_insertion_locus": "VR-VIII",
+    "codon_table": "Homo sapiens"
+  },
+  
+  "insertion_loci": {
+    "VR-IV": {
+      "name": "Variable Region IV (Loop 4)",
+      "description": "Primary insertion site for VHH display",
+      "vp1_residue_range": [452, 460],
+      "anchor_motifs": {
+        "_comment": "Anchor sequences are SEROTYPE-SPECIFIC. These are examples for AAV2. For other serotypes, derive anchors from the actual sequence.",
+        "AAV2": {
+          "upstream": "GTTTQSR",
+          "downstream": "LQPGTAS"
+        },
+        "AAV9": {
+          "upstream": "YLSKTI",
+          "downstream": "TLKFSVA",
+          "_note": "Verify these against your specific AAV9 construct. VR-IV in AAV9 is typically 'NGSGQNQQT' between these anchors."
+        }
+      },
+      "notes": "Well-characterized insertion site. Maintains capsid assembly in most designs. IMPORTANT: Always verify anchor sequences against your actual plasmid - serotype variants and engineered capsids may differ.",
+      "risk_level": "MEDIUM",
+      "known_issues": ["Insertions >150aa may destabilize capsid", "Some VHHs cause aggregation"]
+    },
+    "VR-VIII": {
+      "name": "Variable Region VIII (Loop 8)",
+      "description": "Alternative 'rescue' site for problematic VHHs",
+      "vp1_residue_range": [585, 592],
+      "anchor_motif_upstream": "SNYNKSVNVDF",
+      "anchor_motif_downstream": "SSSSTDP",
+      "notes": "Less commonly used but viable for VHHs that fail at VR-IV.",
+      "risk_level": "MEDIUM",
+      "known_issues": ["Lower display efficiency than VR-IV in some serotypes"]
+    }
+  },
+  
+  "linker_recommendations": {
+    "high_affinity_binders": {
+      "recommendation": "Design 2 (Asymmetric)",
+      "linker_ids": ["LINK_D2_N", "LINK_D2_C"],
+      "rationale": "Moderate flexibility allows binding without steric clash. Asymmetric design minimizes insertional footprint."
+    },
+    "low_affinity_binders": {
+      "recommendation": "Design 7 (Coiled-Coil)",
+      "linker_ids": ["LINK_D7_LEAD", "LINK_D7_RETURN"],
+      "rationale": "Rigid presentation may enhance avidity effects. Structural stabilization helps weak binders."
+    },
+    "unknown_affinity": {
+      "recommendation": "Design 1 (Symmetric Flexible)",
+      "linker_ids": ["LINK_D1_N", "LINK_D1_C"],
+      "rationale": "Maximum flexibility for initial screening. Can optimize linker after hit identification."
+    }
+  },
+  
+  "aav_specific_rules": [
+    {
+      "rule": "Always check AAP reading frame",
+      "applies_to": "Any modification within VP1/VP2/VP3 coding region",
+      "action": "Agent must translate alternate frame and verify no stop codons introduced in AAP"
+    },
+    {
+      "rule": "Preserve capsid assembly signals",
+      "applies_to": "Modifications near VP1 unique region",
+      "action": "Warn if modifying first 137 residues of VP1"
+    },
+    {
+      "rule": "Maintain ITR integrity",
+      "applies_to": "Any modification",
+      "action": "Hard block on ITR modifications"
+    }
+  ],
+  
+  "file_naming_convention": {
+    "pattern": "{serotype}_{vhh_id}_{locus}_{linker_design}_v{version}.gb",
+    "example": "AAV9_CloneA_VRIV_D2_v01.gb"
+  },
+  
+  "quality_checklist": [
+    "ORF integrity verified (no frameshift)",
+    "No internal stop codons in VHH or linkers",
+    "AAP reading frame checked (no stop codons)",
+    "ITRs unmodified",
+    "Insert length annotated",
+    "All modifications have provenance notes"
+  ]
+}
