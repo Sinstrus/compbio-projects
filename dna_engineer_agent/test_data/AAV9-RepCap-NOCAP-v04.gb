@@ -1,5 +1,5 @@
 LOCUS       BASE-DRAFT-AAV9-        7078 bp    DNA     circular SYN 17-DEC-2025
-DEFINITION  AAV9-RepCap-NOCAP-v04 with 6 unique restriction sites.
+DEFINITION  AAV9-RepCap-NOCAP-v04 with corrected start codons.
 ACCESSION   .
 VERSION     .
 KEYWORDS    .
@@ -304,17 +304,17 @@ ORIGIN
      2161 gcttcactca cggtgtcaaa gactgtttag agtgctttcc cgtgtcagaa tctcaacccg
      2221 tttctgtcgt caaaaaggcg tatcagaaac tgtgctacat tcatcacatc atgggaaagg
      2281 tgccagacgc ttgcactgct tgcgacctgg tcaatgtgga cttggatgac tgtgtttctg
-     2341 aacaataaat gacttaaacc aggtaaggct gccgatggtt atcttccaga ttggctcgag
+     2341 aacaataaat gacttaaacc aggtatggct gccgatggtt atcttccaga ttggctcgag
      2401 gacaacctta gtgaaggaat tcgcgagtgg tgggctttga aacctggagc ccctcaaccc
      2461 aaggcaaatc aacaacatca agacaacgct cgaggtcttg tgcttccggg ttacaaatac
      2521 ctaggacccg gcaacggact cgacaagggg gagccggtca acgcagcaga cgcggcggcc
      2581 ctcgagcacg acaaggccta cgaccagcag ctcaaggccg gagacaaccc gtacctcaag
      2641 tacaaccacg ccgacgccga gttccaggag cggctcaaag aagatacgtc ttttgggggc
      2701 aacctcgggc gagcagtctt ccaggccaaa aagaggcttc ttgaacctct tggtctggtt
-     2761 gaggaagcgg ctaagaccgc tcctggaaag aagaggcctg tagagcagtc tcctcaggaa
+     2761 gaggaagcgg ctaagacggc tcctggaaag aagaggcctg tagagcagtc tcctcaggaa
      2821 ccggactcct ccgcgggtat tggcaaatcc ggagcacagc ccgctaaaaa gagactcaat
      2881 ttcggtcaga ctggcgacac agagtcagtc ccagaccctc aaccaatcgg agaacctccc
-     2941 gcagccccct caggtgtggg atctcttaca ctggcttcag gtggtggcgc accagtggca
+     2941 gcagccccct caggtgtggg atctcttaca atggcttcag gtggtggcgc accagtggca
      3001 gacaataacg aaggtgccga tggagtgggt agttcctcgg gaaattggca ttgcgattcc
      3061 caatggctgg gggacagagt catcaccacc agcacccgaa cctgggccct gcccacctac
      3121 aacaatcacc tctacaagca aatctccaac agcacatctg gaggatcttc aaatgacaac
