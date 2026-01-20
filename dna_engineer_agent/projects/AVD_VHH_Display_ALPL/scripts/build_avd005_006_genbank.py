@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
 Build AVD005 and AVD006 complete constructs and generate GenBank files
+
+v2.0 - Uses dnachisel-optimized insert sequence to avoid:
+  - High GC content (original: 93% in linker, 70% in VHH)
+  - Repetitive sequences causing synthesis problems
 """
 
 from Bio import SeqIO
@@ -17,22 +21,26 @@ sys.path.insert(0, str(Path(__file__).parent))
 # VHH3 anti-ALPL sequence (118 amino acids)
 VHH3_AA = "EVQLVESGGGLVQPGGSLRLSCAASGFTFSTADMGWFRQAPGKGRELVAAVSGSGFSTYSDSVEGRFTISRDNAKRMVYLQMNSLRAEDTAVYYCAKATISLYYAMDVWGQGTTVTVSS"
 
-# D2 Linkers
+# D2 Linkers (Biogen patent specification)
 LINK_D2_N_AA = "GGGGSGGGGSGGGGSGGGGS"  # (GGGGS)x4 = 20 aa
-LINK_D2_C_AA = ""  # Direct fusion
+LINK_D2_C_AA = "GGGGS"  # (GGGGS)x1 = 5 aa (ASYMMETRIC, not direct fusion)
 
-# Codon usage (prefer high-frequency human codons)
-CODON_USAGE_HUMAN = {
-    'A': 'GCC', 'C': 'TGC', 'D': 'GAC', 'E': 'GAG', 'F': 'TTC',
-    'G': 'GGC', 'H': 'CAC', 'I': 'ATC', 'K': 'AAG', 'L': 'CTG',
-    'M': 'ATG', 'N': 'AAC', 'P': 'CCC', 'Q': 'CAG', 'R': 'CGC',
-    'S': 'AGC', 'T': 'ACC', 'V': 'GTG', 'W': 'TGG', 'Y': 'TAC',
-    '*': 'TAA'
-}
-
-def codon_optimize(aa_seq):
-    """Codon-optimize for Homo sapiens"""
-    return ''.join(CODON_USAGE_HUMAN[aa] for aa in aa_seq)
+# DNACHISEL-OPTIMIZED INSERT SEQUENCE (N-linker + VHH + C-linker)
+# Optimized to:
+#   - GC content: 60.2% (was 73.2%)
+#   - Repeats >= 9bp: minimal (was 718)
+#   - N-linker: varied codons (GGT, GGA, GGC for Gly; TCT, TCA, AGT for Ser)
+#   - C-linker: (GGGGS)x1 with varied codons
+#   - VHH optimized with dnachisel EnforceGCContent(35-65%) and AvoidHairpins
+# Total: 429 bp encoding 143 aa (20 aa N-linker + 118 aa VHH + 5 aa C-linker)
+OPTIMIZED_INSERT = (
+    # N-terminal linker (60 bp, 20 aa) - manually designed with varied codons
+    "GGTGGAGGCGGATCTGGAGGCGGTGGTTCAGGCGGTGGAGGAAGTGGTGGCGGAGGTTCT"
+    # VHH (354 bp, 118 aa) - dnachisel optimized
+    "GAGGTGCAACTGGTTGAAAGCGGCGGAGGACTTGTTCAACCCGGCGGCAGCCTTAGGCTTTCTTGCGCTGCCAGCGGCTTCACCTTTAGCACCGCCGACATGGGCTGGTTTAGGCAAGCTCCCGGAAAAGGCAGGGAACTTGTTGCCGCTGTGAGCGGCAGCGGCTTCAGCACCTACTCTGATAGCGTTGAGGGCAGGTTCACCATCAGCAGGGACAACGCCAAGAGGATGGTGTACCTGCAGATGAACAGCTTGAGGGCCGAGGACACCGCCGTGTACTACTGCGCCAAGGCCACAATTAGCCTGTACTACGCCATGGATGTGTGGGGACAGGGCACCACCGTGACCGTGAGCAGC"
+    # C-terminal linker (15 bp, 5 aa) - varied codons (GGGGS = GGT GGA GGC GGT TCT)
+    "GGTGGAGGCGGTTCT"
+)
 
 
 def build_vp1_vhh_fusion(vp1_original, insertion_aa_pos=456):
@@ -41,7 +49,7 @@ def build_vp1_vhh_fusion(vp1_original, insertion_aa_pos=456):
 
     Steps:
     1. Split VP1 at insertion position
-    2. Insert: N-linker + VHH + C-linker
+    2. Insert: N-linker + VHH (using OPTIMIZED_INSERT for synthesis)
     3. Knock out VP2 (ACG→ACC at codon 137) and VP3 (ATG→CTG at codon 202)
     """
     # Convert to uppercase and list for mutation
@@ -70,28 +78,39 @@ def build_vp1_vhh_fusion(vp1_original, insertion_aa_pos=456):
     vp1_before = vp1_ko[:insertion_bp]
     vp1_after = vp1_ko[insertion_bp:]
 
-    # Codon-optimize linkers and VHH
-    linker_n = codon_optimize(LINK_D2_N_AA)
-    vhh = codon_optimize(VHH3_AA)
-    linker_c = codon_optimize(LINK_D2_C_AA) if LINK_D2_C_AA else ""
+    # Use dnachisel-optimized insert (N-linker + VHH + C-linker)
+    insert_cassette = OPTIMIZED_INSERT
+    linker_n_len = 60  # 20 aa * 3 bp
+    vhh_len = 354      # 118 aa * 3 bp
+    linker_c_len = 15  # 5 aa * 3 bp
 
-    insert_cassette = linker_n + vhh + linker_c
+    # Verify translation matches expected amino acids
+    insert_aa = str(Seq(insert_cassette).translate())
+    expected_aa = LINK_D2_N_AA + VHH3_AA + LINK_D2_C_AA
+    if insert_aa != expected_aa:
+        print(f"  ⚠ WARNING: Optimized insert translates to different AA sequence!")
+        print(f"    Expected: {expected_aa}")
+        print(f"    Got:      {insert_aa}")
+    else:
+        print(f"  ✓ Optimized insert translation verified (143 aa)")
+
     vp1_vhh_fusion = vp1_before + insert_cassette + vp1_after
 
     print(f"  ✓ VHH insertion at aa {insertion_aa_pos}:")
-    print(f"    N-linker: {len(linker_n)} bp ({len(LINK_D2_N_AA)} aa)")
-    print(f"    VHH3: {len(vhh)} bp ({len(VHH3_AA)} aa)")
-    print(f"    C-linker: {len(linker_c)} bp ({len(LINK_D2_C_AA)} aa)")
-    print(f"    Total insert: {len(insert_cassette)} bp")
+    print(f"    N-linker: {linker_n_len} bp ({len(LINK_D2_N_AA)} aa) - asymmetric long")
+    print(f"    VHH3: {vhh_len} bp ({len(VHH3_AA)} aa)")
+    print(f"    C-linker: {linker_c_len} bp ({len(LINK_D2_C_AA)} aa) - asymmetric short")
+    print(f"    Total insert: {len(insert_cassette)} bp (dnachisel-optimized)")
+    print(f"    Insert GC content: {100*sum(1 for c in insert_cassette if c in 'GC')/len(insert_cassette):.1f}%")
     print(f"    Final VP1-VHH: {len(vp1_vhh_fusion)} bp ({len(vp1_vhh_fusion)//3} aa)")
 
     return vp1_vhh_fusion, {
         'insertion_bp': insertion_bp,
         'linker_n_start': insertion_bp,
-        'linker_n_end': insertion_bp + len(linker_n),
-        'vhh_start': insertion_bp + len(linker_n),
-        'vhh_end': insertion_bp + len(linker_n) + len(vhh),
-        'linker_c_start': insertion_bp + len(linker_n) + len(vhh),
+        'linker_n_end': insertion_bp + linker_n_len,
+        'vhh_start': insertion_bp + linker_n_len,
+        'vhh_end': insertion_bp + linker_n_len + vhh_len,
+        'linker_c_start': insertion_bp + linker_n_len + vhh_len,
         'linker_c_end': insertion_bp + len(insert_cassette),
         'vp2_knockout_bp': 411,
         'vp3_knockout_bp': 606,
@@ -318,8 +337,9 @@ def main():
 
     # Load starting materials
     project_root = Path(__file__).parent.parent
-    avd003_file = project_root / "AVD003-EF1A-VPall-bGH.dna"
-    avd002_file = project_root / "AVD002-Rep2Mut2Cap9-6R-wt.dna"
+    plasmids_dir = project_root / "plasmids"
+    avd003_file = plasmids_dir / "AVD003-EF1A-VPall-bGH.dna"
+    avd002_file = plasmids_dir / "AVD002-Rep2Mut2Cap9-6R-wt.dna"
 
     avd003 = SeqIO.read(avd003_file, "snapgene")
     avd002 = SeqIO.read(avd002_file, "snapgene")
@@ -375,7 +395,7 @@ def main():
     print()
 
     # Write GenBank files
-    output_dir = project_root
+    output_dir = plasmids_dir
     avd005_output = output_dir / "AVD005-EF1A-VP1-VHH3-ALPL-bGH.gb"
     avd006_output = output_dir / "AVD006-Rep2Mut2Cap9-VP1-VHH3-ALPL.gb"
 

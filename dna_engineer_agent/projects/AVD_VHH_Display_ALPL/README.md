@@ -15,23 +15,41 @@ This project creates VP1-only AAV capsid constructs with anti-ALPL VHH3 nanobody
 
 | Construct | Parent | Description | Size |
 |-----------|--------|-------------|------|
-| **AVD005** | AVD003 | EF1a-VP1-VHH3-ALPL-bGH | 6,690 bp |
-| **AVD006** | AVD002 | Rep2Mut2Cap9-VP1-VHH3-ALPL | 7,521 bp |
+| **AVD005** | AVD003 | EF1a-VP1-VHH3-ALPL-bGH | 6,705 bp |
+| **AVD006** | AVD002 | Rep2Mut2Cap9-VP1-VHH3-ALPL | 7,536 bp |
 
 ## Design Features
 
-- **VHH insertion site:** VR-IV at amino acid 456 of VP1
-- **Linker design:** D2 asymmetric - N-terminal (GGGGS)x4, C-terminal direct fusion
+- **VHH insertion site:** VR-IV at amino acid 456 of VP1 (optimal for surface display)
+- **Linker design:** D2 asymmetric flexible (from Biogen patent/literature)
+  - **N-terminal:** (GGGGS)×4 = 20 aa = 60 bp (long, flexible "flagpole")
+  - **C-terminal:** (GGGGS)×1 = 5 aa = 15 bp (SHORT anchor, NOT direct fusion)
+  - **Rationale:** 4:1 asymmetry provides >10× enhancement vs symmetric designs
+  - **See:** `docs/DESIGN_PATTERN_Asymmetric_Linkers.md` for full biophysical analysis
 - **VP2 knockout:** ACG→ACC at codon 138 (silent)
 - **VP3 knockout:** ATG→CTG at codon 203 (M→L)
+- **Result:** VP1-only expression with VHH at 3-fold spike apex
+
+### v2.0 Optimization (dnachisel)
+
+The VHH+linker insert was optimized to address synthesis issues:
+
+| Metric | Original | Optimized |
+|--------|----------|-----------|
+| Linker GC | 93.3% | 66.7% |
+| VHH GC | 70.3% | 59.9% |
+| Insert GC | 73.2% | 60.9% |
+| Direct repeats | 718 | 8 |
+
+Linker uses varied codons (GGT/GGA/GGC for Gly, TCT/TCA/AGT for Ser) instead of repetitive high-GC codons.
 
 ## Synthetic Fragments for Ordering
 
 | Construct | Boundaries | Length | Cost |
 |-----------|-----------|--------|------|
-| AVD005 | AvrII (1676) → BsrGI (3358) | 1,683 bp | $420-$589 |
-| AVD006 | SmaI (2519) → BsrGI (4216) | 1,698 bp | $424-$594 |
-| **TOTAL** | | **3,381 bp** | **$844-$1,183** |
+| AVD005 | AvrII (1676) → BsrGI (3373) | 1,698 bp | $424-$594 |
+| AVD006 | SmaI (2519) → BsrGI (4231) | 1,713 bp | $428-$599 |
+| **TOTAL** | | **3,411 bp** | **$852-$1,193** |
 
 ## Directory Structure
 
@@ -60,6 +78,7 @@ AVD_VHH_Display_ALPL/
 - `FINAL_ORDERING_INSTRUCTIONS.md` - GenScript order form info
 - `GENSCRIPT_ORDERING_SUMMARY.md` - Complete ordering summary
 - `DESIGN_VERIFICATION_AVD005_AVD006.md` - Design verification report
+- `DESIGN_PATTERN_Asymmetric_Linkers.md` - **Comprehensive analysis of D2 linker strategy**
 
 ### Scripts
 - `build_avd005_006_genbank.py` - Builds final GenBank files

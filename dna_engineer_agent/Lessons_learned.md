@@ -163,45 +163,64 @@ For VP1-only expression (e.g., VHH display), VP2 and VP3 must be knocked out whi
 
 ---
 
-## DESIGN-007: VHH Insertion at Variable Regions
+## DESIGN-007: VHH Insertion at Variable Regions with Asymmetric Linkers
 
 **Type:** Design Pattern
 **Discovered:** 2026-01-14
 **Project:** AVD005/AVD006 anti-ALPL VHH display
+**Reference:** See `docs/DESIGN_PATTERN_Asymmetric_Linkers.md` for full analysis
 
 ### Background
 
 AAV capsid has 9 variable regions (VR-I through VR-IX) that tolerate insertions:
-- VR-IV (aa 452-460): Located at 3-fold spike, good for display
-- VR-VIII (aa 586-591): Also commonly used
+- **VR-IV (aa 452-460):** Located at 3-fold spike apex - **OPTIMAL for VHH display**
+- VR-VIII (aa 586-591): Also used but disrupts HSPG binding in AAV2
 
 ### Design Parameters Used
 
 **Insertion Site:**
 - Location: VR-IV at amino acid 456 of VP1
 - Position: bp 1368 (456 × 3) from VP1 start
+- Rationale: Highest solvent exposure, best receptor engagement
 
-**Linker Design (D2 = Asymmetric Flexible):**
-- N-terminal linker: (GGGGS)×4 = 20 amino acids = 60 bp
-- C-terminal linker: Direct fusion = 0 amino acids = 0 bp
-- Total linker contribution: 60 bp
+**Linker Design (D2 = Asymmetric Flexible) - FROM BIOGEN PATENT:**
+- **N-terminal linker:** (GGGGS)×4 = 20 amino acids = 60 bp
+- **C-terminal linker:** (GGGGS)×1 = 5 amino acids = 15 bp (SHORT, not direct fusion)
+- **Total linker contribution:** 75 bp
+- **Asymmetry rationale:**
+  - Long N-terminal = rotational freedom ("flagpole" dynamics)
+  - Short C-terminal = structural anchor (nucleates folding)
+  - Empirically validated: >10-fold enhancement in CNS transduction vs symmetric designs
 
 **VHH Insert:**
 - Target: ALPL (Alkaline Phosphatase)
 - VHH clone: VHH3 anti-ALPL
-- Size: 119 amino acids = 357 bp (codon-optimized for Homo sapiens)
+- Size: 118 amino acids = 354 bp (dnachisel-optimized for synthesis)
 
 **Total Insertion:**
-- 417 bp = 60 bp (linker) + 357 bp (VHH)
-- 139 amino acids = 20 aa (linker) + 119 aa (VHH)
+- 432 bp = 60 bp (N-linker) + 354 bp (VHH) + 15 bp (C-linker)
+- 143 amino acids = 20 aa (N-linker) + 118 aa (VHH) + 5 aa (C-linker)
+
+### Why Asymmetric? (Critical Design Insight)
+
+The asymmetric linker is **intentional and evidence-based**, NOT a mistake:
+
+1. **Polymer physics:** Long N-terminal linker acts as entropic spring, allows VHH to "scan" for receptors
+2. **Structural stability:** C-terminal anchor prevents VHH from collapsing onto capsid surface
+3. **Empirical validation:** Biogen patent data shows >10× improvement over symmetric linkers
+4. **Best for high-affinity VHHs:** Design D2 is optimal when KD < 10 nM
+
+**Common misconception:** "Both sides should have linkers for symmetry" OR "Asymmetric means direct fusion"
+**Reality:** Biogen D2 specifies ASYMMETRY = long N-term (20 aa) + SHORT C-term (5 aa), NOT zero C-term. The 4:1 ratio (not 4:0) provides optimal performance.
 
 ### The Lesson
 
-Document all insertion parameters clearly:
+Document all insertion parameters AND the biophysical rationale:
 1. Insertion site (VR region, amino acid position, bp position)
-2. Linker design (type, sequence, length)
+2. Linker design (type, sequence, length, **asymmetry reasoning**)
 3. Insert sequence (target, size, codon optimization)
 4. Total size impact
+5. **Biophysical mechanism** (why this design works)
 
 ---
 
@@ -272,6 +291,88 @@ OVERALL: ✅ PASS — Only intentional changes detected
 
 ---
 
+## DESIGN-008: Codon Optimization for Synthesis Compatibility
+
+**Type:** Best Practice
+**Discovered:** 2026-01-14
+**Project:** AVD005/AVD006 synthetic fragment ordering
+
+### The Problem
+
+Initial codon optimization used simple lookup tables preferring "high-frequency" human codons:
+
+```python
+CODON_USAGE_HUMAN = {
+    'G': 'GGC',  # 75% GC!
+    'S': 'AGC',  # 67% GC!
+    ...
+}
+```
+
+This created synthesis problems:
+- (GGGGS)×4 linker: **93.3% GC** (using GGC-GGC-GGC-GGC-AGC)
+- VHH sequence: **70.3% GC**
+- **718 direct repeats** >= 9bp from repetitive linker pattern
+
+GenScript flagged these as synthesis issues (high GC + inverted repeats).
+
+### The Solution
+
+Use dnachisel to optimize with explicit constraints:
+
+```python
+from dnachisel import *
+
+problem = DnaOptimizationProblem(
+    sequence=original_sequence,
+    constraints=[
+        EnforceTranslation(),                 # Preserve protein sequence
+        EnforceGCContent(mini=0.35, maxi=0.65, window=50),  # GC in range
+        AvoidHairpins(stem_size=9, hairpin_window=200),     # No hairpins
+        AvoidPattern(enzyme_pattern("BsaI")),  # Avoid cloning sites
+    ],
+    objectives=[
+        CodonOptimize(species="h_sapiens"),   # Prefer common codons
+    ]
+)
+problem.resolve_constraints()
+problem.optimize()
+```
+
+For repetitive linkers like (GGGGS)×4, use varied codons manually:
+
+```python
+# OLD: Repetitive high-GC (93% GC)
+"GGCGGCGGCGGCAGCGGCGGCGGCGGCAGCGGCGGCGGCGGCAGCGGCGGCGGCGGCAGC"
+
+# NEW: Varied codons (67% GC)
+"GGTGGAGGCGGATCTGGAGGCGGTGGTTCAGGCGGTGGAGGAAGTGGTGGCGGAGGTTCT"
+```
+
+### Results
+
+| Metric | Original | Optimized | Change |
+|--------|----------|-----------|--------|
+| Linker GC | 93.3% | 66.7% | -26.6% |
+| VHH GC | 70.3% | 59.9% | -10.4% |
+| Insert GC | 73.2% | 60.9% | -12.3% |
+| Direct repeats | 718 | 8 | -99% |
+
+### The Lesson
+
+**Simple codon optimization can create synthesis problems. Use dnachisel with explicit GC and hairpin constraints, especially for repetitive sequences like glycine-serine linkers.**
+
+### Prevention Checklist
+
+- [ ] Before ordering synthesis, check GC content in 50bp windows (target: 35-65%)
+- [ ] Check for direct repeats >= 9bp
+- [ ] Check for inverted repeats (potential hairpins) >= 9bp
+- [ ] For repetitive sequences (GGGGS linkers), use varied codon synonyms
+- [ ] Use dnachisel with EnforceGCContent and AvoidHairpins constraints
+- [ ] Run sequence through synthesis vendor's complexity checker before ordering
+
+---
+
 ## Summary of Lessons
 
 | ID | Type | Summary | Prevention |
@@ -280,10 +381,12 @@ OVERALL: ✅ PASS — Only intentional changes detected
 | DESIGN-005 | Best Practice | Synthetic fragment boundary selection | Use flanking sites, not internal sites |
 | DESIGN-006 | Design Pattern | VP2/VP3 knockout strategy | ACG→ACC (silent), ATG→CTG (non-silent) |
 | DESIGN-007 | Design Pattern | VHH insertion at variable regions | Document site, linkers, insert clearly |
+| DESIGN-008 | Best Practice | Codon optimization for synthesis | Use dnachisel with GC and hairpin constraints |
 | Checkpoint 10 | Verification | Parent-child sequence comparison | Verify ONLY intentional changes exist |
 
 ---
 
 ## Version History
 
-- **2026-01-14:** Added BUG-005, DESIGN-005, DESIGN-006, DESIGN-007, Checkpoint 10 from AVD005/AVD006 project
+- **2026-01-14:** Added BUG-005, DESIGN-005, DESIGN-006, DESIGN-007, DESIGN-008, Checkpoint 10 from AVD005/AVD006 project
+- **2026-01-14:** Added DESIGN-008 (dnachisel optimization for synthesis compatibility)

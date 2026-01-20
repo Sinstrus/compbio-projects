@@ -1,0 +1,22 @@
+Based on the **2024 study by Hoffmann et al.** (titled *"Unlocking Precision Gene Therapy: Harnessing AAV Tropism With Nanobody Swapping at Capsid Hotspots"*), here are the specific sections that address the "VP2 preference" and the architectural strategy.
+
+It is important to clarify a distinction found in the text: The authors' conclusion that **"engineering VP2 is the preferred path"** refers specifically to inserting nanobodies into **surface loops** (hotspots) of the VP2 subunit, rather than fusing them to the N-terminus. In fact, they cite the N-terminal fusion strategy (used by Hamann) as a comparator that was *less* effective in their analysis.
+
+Here are the direct quotes from the paper:
+
+### 1. The "VP2 Preference" Conclusion
+This specific quote appears in the **Abstract**, where the authors summarize their finding that modifying the VP2 subunit (via loop insertion) preserves yield better than modifying VP1.
+
+> **Quote:** "Our data suggest that **engineering VP2 is the preferred path for maintaining both virus production yield and infectivity.** Our study shows that nanobody swapping at multiple capsid location is a viable strategy for nanobody-directed cell-specific AAV targeting." [1, 2]
+
+### 2. Description of the Engineering Strategy (Loop Insertion, not N-term)
+In the **Results** section, the authors describe their design. They did not fuse to the N-terminus; instead, they inserted the nanobody into specific "hotspots" (loops) within the VP sequence.
+
+> **Quote:** "We chose in total eight different insertion positions on the capsid surface: three positions in the 2/5-fold wall (Q259, N262, and Q387), two positions in the protruding pore (N328 and N337), two positions in the depression around the pore (N664 and S670), as well as the previously proven insertion position T456 at the tip of the 3-fold protrusion... Since VP3 makes up the majority of the AAV capsid, we restricted the nanobody embeddings to VP1 or VP2..." 
+
+### 3. Comparison to N-Terminal Fusions
+In the **Discussion** section, the authors explicitly contrast their "VP2 loop insertion" strategy with the "VP2 N-terminal fusion" strategy (referencing the Hamann et al. paper), suggesting the N-terminal approach was less effective in previous comparisons.
+
+> **Quote:** "Consequently, the VP2 monomer, for which no crucial functions are known, appears to be the better choice for nanobody insertions. While Eichhoff et al. only tested a single insertion into VP1, **Hamann et al. also tested N-terminal fusions of a nanobody to VP2, which was less effective than the known VR4 insertion position of VP1.** Supporting the notion that engineering VP2 is the more promising route, a previous study by us also tested VP2 insertions into VR4 and found that this insertion was superior compared to the VP1 equivalent." 
+
+**Correction/Clarification:** While my previous summary stated the 2024 study utilized "VP2 N-terminal fusions," the text reveals they actually championed **VP2 Loop Insertions** (specifically at positions like N262 and T456 within the VP2 subunit) as the superior method, explicitly distinguishing it from and improving upon the N-terminal fusion strategies used in earlier works.
