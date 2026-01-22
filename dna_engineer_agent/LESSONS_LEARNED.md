@@ -18,6 +18,8 @@ This document captures critical bugs, design issues, and lessons learned during 
 - [BUG-001: Frame Offset Calculation Error](#bug-001-frame-offset-calculation-error)
 - [BUG-002: Hardcoded Frame=0 Assumption](#bug-002-hardcoded-frame0-assumption)
 - [BUG-003: Single-Strand Uniqueness Counting](#bug-003-single-strand-uniqueness-counting)
+- [BUG-004: Incorrect Amino Acid Insertion Point](#bug-004-incorrect-amino-acid-insertion-point)
+- [BUG-006: N-Terminal Insertion After Single Amino Acid](#bug-006-n-terminal-insertion-after-single-amino-acid)
 
 ### Design Issues
 - [DESIGN-001: Cloning Site Conflicts (XbaI in v04)](#design-001-cloning-site-conflicts-xbai-in-v04)
@@ -319,6 +321,662 @@ See `scripts/tools/tests/test_uniqueness_counting.py`:
 - DESIGN-001: XbaI conflict in v04 (direct consequence of this bug)
 - DESIGN-002: Context-dependent uniqueness (conceptual extension)
 - Checkpoint 9: Cloning site uniqueness verification (designed to prevent this)
+
+---
+
+### BUG-004: Incorrect Amino Acid Insertion Point
+
+**Severity:** CRITICAL (protein sequence incorrect)
+
+**Date Discovered:** 2026-01-20
+
+#### Problem
+When inserting a sequence into a specific amino acid position (e.g., "after SKTINGSG, before QNQQTLKF"), the code incorrectly calculated the DNA insertion point, resulting in an off-by-one-codon error. This caused the insert to be placed 3 bp (1 codon) too late, disrupting the intended protein sequence.
+
+#### Example
+**Intended insertion:**
+```
+VP1: ...YLYYLSKTINGSG | INSERT | QNQQTLKFSV...
+                      ↑ Insert here (after SKTINGSG)
+```
+
+**What actually happened:**
+```
+VP1: ...YLYYLSKTINGSGQ | INSERT | NQQTLKFSV...
+                       ↑ Insert here (3 bp too late!)
+```
+
+**Result:** The glutamine (Q) from QNQQTLKF was incorrectly placed before the insert instead of after it.
+
+#### Root Cause
+**Incorrect DNA coordinate calculation from amino acid coordinates:**
+
+```python
+# WRONG (the bug)
+# Plan said: "Insert at VR-IV region (bp 3746)"
+# But this was hard-coded without verifying the actual amino acid boundaries
+
+insertion_point = 3746  # Hard-coded, no verification
+
+# The actual SKTINGSG sequence ends at bp 3743
+# SKTINGSG: bp 3719-3743 (25 codons × 3 = 75 bp from position 447 aa)
+# QNQQTLKF: starts at bp 3743
+
+# So insertion_point should be 3743, not 3746!
+```
+
+**The mistake:** Used a hard-coded bp position (3746) from the plan without:
+1. Verifying SKTINGSG ends at that position
+2. Searching for the actual amino acid sequence in DNA
+3. Calculating insertion point from amino acid coordinates
+
+#### Impact
+**Immediate consequences:**
+- VP1-VHH fusion protein has wrong sequence
+- Flanking region check FAILED:
+  - Before insert: SKTINGSGQ (should be SKTINGSG)
+  - After insert: NQQTLKF (should be QNQQTLKF)
+- VHH3 nanobody may not fold correctly (wrong N-terminal context)
+- Trans-complementation experiments would fail (wrong protein produced)
+
+**Downstream impact:**
+- Wasted synthesis cost (~$200-400 for 447 bp fragment)
+- Delayed experiments (need to re-synthesize correct sequence)
+- Loss of confidence in automated design
+- Required manual verification to catch the error
+
+#### Timeline of Discovery
+1. **Initial design:** Hard-coded insertion point as bp 3746 from plan
+2. **Build script executed:** Files generated, verification passed (incorrectly)
+3. **User spotted error:** "Just before the insertion point is SKTINGSGQ"
+4. **Investigation:** Found SKTINGSG actually ends at bp 3743
+5. **Root cause identified:** No amino acid → DNA coordinate verification
+6. **Fix applied:** Calculate insertion point from actual amino acid positions
+
+#### Fix
+
+**Correct approach:**
+
+```python
+def find_aa_insertion_point(sequence, cds_start, upstream_aa, downstream_aa):
+    """
+    Find DNA insertion point between two amino acid sequences.
+
+    Args:
+        sequence: Full DNA sequence
+        cds_start: Start position of CDS (0-indexed)
+        upstream_aa: Amino acid sequence before insertion (e.g., "SKTINGSG")
+        downstream_aa: Amino acid sequence after insertion (e.g., "QNQQTLKF")
+
+    Returns:
+        DNA position where insert should go (0-indexed)
+    """
+    # Extract CDS
+    cds_seq = sequence[cds_start:]
+
+    # Translate to amino acids
+    cds_aa = str(Seq(cds_seq).translate())
+
+    # Find upstream sequence
+    upstream_pos = cds_aa.find(upstream_aa)
+    if upstream_pos == -1:
+        raise ValueError(f"Upstream sequence '{upstream_aa}' not found in CDS")
+
+    # Calculate DNA position after upstream sequence
+    # Position in amino acids → multiply by 3 for DNA position
+    aa_end_pos = upstream_pos + len(upstream_aa)
+    dna_insertion_point = cds_start + (aa_end_pos * 3)
+
+    # Verify downstream sequence is immediately after
+    downstream_pos = cds_aa.find(downstream_aa, aa_end_pos)
+    if downstream_pos != aa_end_pos:
+        raise ValueError(f"Downstream sequence '{downstream_aa}' not immediately after upstream")
+
+    return dna_insertion_point
+
+# CORRECT usage:
+insertion_point = find_aa_insertion_point(
+    sequence=avd002_seq,
+    cds_start=2378,  # VP1 start
+    upstream_aa="SKTINGSG",
+    downstream_aa="QNQQTLKF"
+)
+# Returns: 3743 (correct position)
+```
+
+**Applied fix in AVD007 build script:**
+```python
+# Step 1: Find SKTINGSG in VP1 amino acid sequence
+vp1_seq = avd002_seq[2378:4589]
+vp1_aa = str(Seq(vp1_seq).translate())
+sktingsg_pos = vp1_aa.find("SKTINGSG")  # Returns 447
+
+# Step 2: Calculate DNA position
+# SKTINGSG ends at aa position 447 + 8 = 455
+# DNA position = 2378 + (455 * 3) = 2378 + 1365 = 3743
+insertion_point = 2378 + ((sktingsg_pos + len("SKTINGSG")) * 3)
+# insertion_point = 3743 ✓ CORRECT
+
+# Step 3: Verify flanking sequences
+before = Seq(seq[insertion_point-24:insertion_point]).translate()
+after = Seq(seq[insertion_point:insertion_point+24]).translate()
+assert str(before) == "SKTINGSG", f"Upstream is {before}, expected SKTINGSG"
+assert str(after).startswith("QNQQTLKF"), f"Downstream is {after}, expected QNQQTLKF..."
+```
+
+#### Prevention
+
+**1. Never hard-code DNA positions for amino acid insertions**
+```python
+# BAD: Hard-coded position from plan
+insertion_point = 3746  # Where did this come from?
+
+# GOOD: Calculate from amino acid coordinates
+insertion_point = find_aa_insertion_point(seq, cds_start, "SKTINGSG", "QNQQTLKF")
+```
+
+**2. Always verify flanking sequences**
+```python
+# After calculating insertion point, verify it's correct
+upstream = translate(seq[insertion_point-24:insertion_point])
+downstream = translate(seq[insertion_point:insertion_point+24])
+
+assert upstream == expected_upstream, f"Upstream mismatch: {upstream} vs {expected_upstream}"
+assert downstream.startswith(expected_downstream), f"Downstream mismatch: {downstream}"
+```
+
+**3. Add insertion point verification to build scripts**
+```python
+def verify_insertion_flanks(seq, insertion_point, expected_before, expected_after):
+    """
+    Verify flanking sequences match expectations.
+
+    Raises ValueError if flanks don't match.
+    """
+    before_len = len(expected_before) * 3
+    after_len = len(expected_after) * 3
+
+    before = seq[insertion_point-before_len:insertion_point]
+    after = seq[insertion_point:insertion_point+after_len]
+
+    before_aa = str(Seq(before).translate())
+    after_aa = str(Seq(after).translate())
+
+    if before_aa != expected_before:
+        raise ValueError(
+            f"Upstream flank mismatch!\n"
+            f"  Expected: {expected_before}\n"
+            f"  Found:    {before_aa}\n"
+            f"  Position: {insertion_point}"
+        )
+
+    if after_aa != expected_after:
+        raise ValueError(
+            f"Downstream flank mismatch!\n"
+            f"  Expected: {expected_after}\n"
+            f"  Found:    {after_aa}\n"
+            f"  Position: {insertion_point}"
+        )
+
+    return True
+```
+
+**4. Include flanking sequence verification in automated tests**
+```python
+def test_vhh_insertion_flanks():
+    """Test that VHH3 insert is placed at correct position."""
+    avd007 = SeqIO.read("AVD007.gb", "genbank")
+
+    # VHH3 insert should be at bp 3743
+    insertion_point = 3743
+
+    # Check upstream (SKTINGSG)
+    upstream = avd007.seq[insertion_point-24:insertion_point]
+    assert str(Seq(upstream).translate()) == "SKTINGSG"
+
+    # Check downstream (QNQQTLKF)
+    downstream = avd007.seq[insertion_point+447:insertion_point+447+24]
+    assert str(Seq(downstream).translate()) == "QNQQTLKF"
+```
+
+#### Test Coverage
+
+**Add to test suite:**
+```python
+# test_insertion_point_calculation.py
+
+def test_find_insertion_point_from_amino_acids():
+    """Test that amino acid boundaries are correctly converted to DNA positions."""
+    # Construct test sequence
+    sequence = "ATGATGATG" + "AGCAAGACAATCAACGGCAGCGGA" + "CAGAATCAACAAACGCTAAAATTC"
+    #          ATG (start)   SKTINGSG (8 aa = 24 bp)    QNQQTLKF...
+
+    cds_start = 0
+    insertion_point = find_aa_insertion_point(
+        sequence, cds_start, "SKTINGSG", "QNQQTLKF"
+    )
+
+    # Should insert after SKTINGSG (9 bp start + 24 bp SKTINGSG = 33 bp)
+    assert insertion_point == 33
+
+    # Verify flanks
+    before = Seq(sequence[insertion_point-24:insertion_point]).translate()
+    after = Seq(sequence[insertion_point:insertion_point+24]).translate()
+    assert str(before) == "SKTINGSG"
+    assert str(after) == "QNQQTLKF"
+
+def test_off_by_one_codon_bug():
+    """Demonstrate the bug: hard-coding insertion point 3 bp too late."""
+    sequence = build_test_sequence_with_sktingsg()
+    cds_start = 2378
+
+    # Bug: hard-coded position
+    wrong_insertion_point = 3746
+
+    # Correct: calculated position
+    correct_insertion_point = find_aa_insertion_point(
+        sequence, cds_start, "SKTINGSG", "QNQQTLKF"
+    )
+
+    # Off by one codon (3 bp)
+    assert correct_insertion_point == 3743
+    assert wrong_insertion_point - correct_insertion_point == 3
+
+    # Verify bug consequences
+    wrong_before = Seq(sequence[wrong_insertion_point-24:wrong_insertion_point]).translate()
+    assert str(wrong_before) == "SKTINGSGQ"  # Extra Q! Bug manifestation
+```
+
+#### Lessons
+
+**Technical:**
+1. **Never hard-code positions** derived from amino acid coordinates
+2. **Always calculate** DNA positions from amino acid positions programmatically
+3. **Verify flanking sequences** match expectations before finalizing
+4. **Off-by-one errors** in molecular biology have severe consequences
+
+**Process:**
+1. **Plans are not specifications** — verify every coordinate
+2. **Amino acid → DNA conversion** requires explicit calculation, not assumption
+3. **Automated verification** catches errors humans miss
+4. **User verification is critical** — "something looks wrong" intuition is valuable
+
+**Communication:**
+1. **Specify insertion points unambiguously**: "After SKTINGSG" not "at bp 3746"
+2. **Document coordinate systems**: 0-indexed vs 1-indexed, DNA vs amino acid
+3. **Include verification checks** in design documents
+4. **Show flanking sequences** in verification reports for manual inspection
+
+#### Related Issues
+- BUG-001: Frame offset calculation error (similar coordinate conversion issue)
+- BUG-002: Hardcoded frame=0 assumption (hardcoding positions is dangerous)
+- Prevention: Always calculate, never assume
+
+#### References
+1. Biopython Seq.translate() documentation
+2. AAV capsid structure: VR-IV region at VP1 positions 447-460
+3. This error: AVD005/AVD007 plasmid design (2026-01-20)
+
+---
+
+### BUG-006: N-Terminal Insertion After Single Amino Acid
+
+**Severity:** CRITICAL (incorrect protein sequence)
+
+**Date Discovered:** 2026-01-22
+
+#### Problem
+When inserting VHH3 at the N-terminus of VP1 and VP2, the insert was placed after a single amino acid (M) instead of after the intended M-A dipeptide. This resulted in an incorrect protein sequence with a missing alanine residue before the insert.
+
+#### Example
+
+**Intended insertion (from plan notation "MA-ADGYLPD"):**
+```
+VP1: M-A-[VHH3]-[GGGGS5]-A-D-G-Y-L-P-D-W...
+      ↑ Insert after M-A dipeptide (2 amino acids)
+
+VP2: M-A-[VHH3]-[GGGGS5]-P-G-K-K-R...
+      ↑ Insert after M-A dipeptide (2 amino acids)
+```
+
+**What actually happened:**
+```
+VP1: M-[VHH3]-[GGGGS5]-A-A-D-G-Y-L-P-D-W...
+      ↑ Inserted after M only (1 amino acid) - missing first A!
+
+VP2: M-[VHH3]-[GGGGS5]-A-P-G-K-K-R...
+      ↑ Inserted after M only (1 amino acid) - missing first A!
+```
+
+**Result:** The first alanine (A) was incorrectly placed AFTER the insert instead of BEFORE it, disrupting the native N-terminal sequence.
+
+#### Root Cause
+
+**Notation misinterpretation:**
+The notation "MA-ADGYLPD" means:
+- "MA" = the dipeptide to insert AFTER (2 amino acids: Met-Ala)
+- "-" = insertion point (dash indicates where to insert)
+- "ADGYLPD" = sequence after the insertion
+
+**Incorrect interpretation:**
+- Treated "MA-ADGYLPD" as "insert after M, before AADGYLPD"
+- Used insertion point 2381 (after ATG only) instead of 2384 (after ATG GCT)
+- Used insertion point 2792 (after ACG only) instead of 2795 (after ACG GCT)
+
+**DNA coordinate calculation error:**
+```python
+# WRONG (the bug)
+# VP1: Inserted after ATG (bp 2379-2381, 0-indexed 2378-2380)
+insertion_point = 2381  # After M only
+
+# VP2: Inserted after ACG (bp 2790-2792, 0-indexed 2789-2791)
+insertion_point = 2792  # After M only
+
+# CORRECT (the fix)
+# VP1: Insert after ATG GCT (M-A dipeptide, bp 2379-2384)
+insertion_point = 2384  # After M-A
+
+# VP2: Insert after ACG GCT (M-A dipeptide, bp 2790-2795)
+insertion_point = 2795  # After M-A
+```
+
+**The mistake:** Failed to count BOTH amino acids in the "MA" dipeptide before calculating the DNA insertion point.
+
+#### Impact
+
+**Immediate consequences:**
+- AVD008, AVD009, AVD010 all have incorrect N-terminal sequences
+- Missing first alanine (A) after Met in the native sequence
+- VHH3 fusion has wrong N-terminal context (M-VHH3 instead of M-A-VHH3)
+- Protein may not fold correctly or may have altered function
+
+**Downstream impact:**
+- Requires rebuild of 3 constructs (AVD008, AVD009, AVD010)
+- Wasted synthesis cost if constructs had been ordered (~$600-1200 for 3 constructs)
+- Delayed experiments (would need to re-synthesize correct sequences)
+- Similar to BUG-004 but affects different constructs
+
+**Verification that caught the error:**
+User manually checked flanking sequences and noticed:
+- Before insert: "M" (should be "M-A")
+- After insert: "A-A-D-G-Y-L" (should be "A-D-G-Y-L")
+
+#### Timeline of Discovery
+
+1. **Initial design:** Specified "MA-ADGYLPD" notation in plan
+2. **Build script implemented:** Used insertion_point = 2381 (VP1) and 2792 (VP2)
+3. **Constructs generated:** GenBank files created with wrong sequences
+4. **User spotted error:** "Wait, it should be M-A-[INSERT]-A-D-G-Y-L, not M-[INSERT]-A-A-D-G-Y-L"
+5. **Investigation:** Found insertion points were 3 bp too early (missing one codon)
+6. **Root cause identified:** Misinterpreted "MA" as single amino acid "M" + "A"
+7. **Fix applied:** Corrected insertion points to 2384 (VP1) and 2795 (VP2)
+8. **Verification:** Flanking sequences now correct (M-A before insert, A-D-G-Y-L after)
+
+#### Fix
+
+**Correct approach:**
+
+```python
+def verify_dipeptide_insertion(sequence, cds_start, dipeptide, downstream_aa):
+    """
+    Calculate DNA insertion point for dipeptide-based N-terminal insertions.
+
+    Args:
+        sequence: Full DNA sequence
+        cds_start: CDS start position (0-indexed)
+        dipeptide: Two amino acids to insert after (e.g., "MA")
+        downstream_aa: Amino acid sequence after insertion (e.g., "ADGYL")
+
+    Returns:
+        DNA position for insertion (0-indexed)
+    """
+    # Extract CDS and translate
+    cds_seq = sequence[cds_start:]
+    cds_aa = str(Seq(cds_seq).translate())
+
+    # Verify dipeptide at N-terminus
+    if not cds_aa.startswith(dipeptide):
+        raise ValueError(f"CDS does not start with {dipeptide}, got {cds_aa[:2]}")
+
+    # Calculate insertion point: after dipeptide (2 amino acids = 6 bp)
+    insertion_point = cds_start + (len(dipeptide) * 3)
+
+    # Verify downstream sequence immediately follows
+    downstream_pos = len(dipeptide)
+    if not cds_aa[downstream_pos:].startswith(downstream_aa):
+        raise ValueError(
+            f"Downstream sequence mismatch. "
+            f"Expected {downstream_aa}, got {cds_aa[downstream_pos:downstream_pos+len(downstream_aa)]}"
+        )
+
+    return insertion_point
+
+# CORRECT usage for VP1:
+insertion_point = verify_dipeptide_insertion(
+    sequence=avd002_seq,
+    cds_start=2378,  # VP1 start (0-indexed)
+    dipeptide="MA",
+    downstream_aa="ADGYL"
+)
+# Returns: 2384 (after ATG GCT, which is M-A)
+
+# CORRECT usage for VP2:
+insertion_point = verify_dipeptide_insertion(
+    sequence=avd002_seq,
+    cds_start=2789,  # VP2 start (0-indexed)
+    dipeptide="TA",  # Will become M-A at translation
+    downstream_aa="PGKKR"
+)
+# Returns: 2795 (after ACG GCT, which is T-A in DNA, M-A at translation)
+```
+
+**Applied fix in build script:**
+```python
+# AVD008/009: VP1 N-terminal insertion
+insertion_point = 2384  # After ATG GCT (M-A dipeptide)
+# Results in: M-A-[VHH3]-[GGGGS5]-A-D-G-Y-L...
+
+# AVD010: VP2 N-terminal insertion
+insertion_point = 2795  # After ACG GCT (M-A dipeptide)
+# Results in: M-A-[VHH3]-[GGGGS5]-P-G-K-K-R...
+```
+
+#### Prevention
+
+**1. Always count amino acids explicitly when dealing with dipeptides**
+```python
+# BAD: Assume "MA" is shorthand for "M" + "A"
+insertion_point = cds_start + 3  # After M only - WRONG!
+
+# GOOD: Explicitly count dipeptide length
+dipeptide_length = 2  # M and A
+insertion_point = cds_start + (dipeptide_length * 3)  # After M-A - CORRECT!
+```
+
+**2. Clarify notation in plans**
+```
+# AMBIGUOUS:
+"MA-ADGYLPD" - Could mean "M + A-ADGYLPD" or "MA + ADGYLPD"
+
+# CLEAR:
+"Insert after M-A dipeptide, before A-D-G-Y-L"
+"Notation: M-A | [INSERT] | A-D-G-Y-L"
+```
+
+**3. Always verify flanking sequences programmatically**
+```python
+def verify_insertion_flanks(seq, insertion_point, expected_before, expected_after):
+    """
+    Verify flanking sequences match expectations.
+
+    Raises ValueError if flanks don't match.
+    """
+    before_len = len(expected_before) * 3
+    after_len = len(expected_after) * 3
+
+    before = seq[insertion_point-before_len:insertion_point]
+    after = seq[insertion_point:insertion_point+after_len]
+
+    before_aa = str(Seq(before).translate())
+    after_aa = str(Seq(after).translate())
+
+    if before_aa != expected_before:
+        raise ValueError(
+            f"Upstream flank mismatch!\n"
+            f"  Expected: {expected_before}\n"
+            f"  Found:    {before_aa}\n"
+            f"  Position: {insertion_point}"
+        )
+
+    if after_aa != expected_after:
+        raise ValueError(
+            f"Downstream flank mismatch!\n"
+            f"  Expected: {expected_after}\n"
+            f"  Found:    {after_aa}\n"
+            f"  Position: {insertion_point}"
+        )
+
+    return True
+
+# Verify VP1 insertion
+verify_insertion_flanks(
+    seq=avd008_seq,
+    insertion_point=2384,
+    expected_before="MA",  # M-A dipeptide
+    expected_after="ADGYL"  # First 5 aa after insert
+)
+```
+
+**4. Document dipeptide vs single amino acid insertions clearly**
+Add to AGENT_INSTRUCTIONS_v4.md:
+```
+When inserting after a dipeptide:
+- "MA-ADGYL" means insert AFTER both M and A (2 amino acids)
+- Calculate: cds_start + (2 * 3) = 6 bp after CDS start
+- Verify: upstream = "MA", downstream = "ADGYL"
+
+When inserting after a single amino acid:
+- "M-ADGYL" means insert AFTER just M (1 amino acid)
+- Calculate: cds_start + (1 * 3) = 3 bp after CDS start
+- Verify: upstream = "M", downstream = "ADGYL"
+
+ALWAYS verify by translating flanking sequences!
+```
+
+#### Test Coverage
+
+**Add to test suite:**
+```python
+# test_dipeptide_insertion.py
+
+def test_dipeptide_insertion_vp1():
+    """Test that VHH3 insert is placed after M-A, not just M."""
+    # Build AVD008
+    avd008 = create_avd008(avd002_record)
+    seq = str(avd008.seq)
+
+    # Check upstream (M-A)
+    upstream = seq[2378:2384]
+    assert Seq(upstream).translate() == "MA"
+
+    # Check insert starts at 2384
+    insert_start = seq[2384:2393]  # First 9 bp of insert
+    assert Seq(insert_start).translate() == "EVQ"  # First 3 aa of VHH3
+
+    # Check downstream (A-D-G-Y-L)
+    downstream = seq[2816:2831]  # After 432 bp insert
+    assert Seq(downstream).translate() == "ADGYL"
+
+def test_single_amino_acid_vs_dipeptide():
+    """Demonstrate the difference between single AA and dipeptide insertion."""
+    sequence = "ATGGCTGCCGATGGTTAT..."  # M-A-A-D-G-Y...
+    cds_start = 0
+
+    # WRONG: Insert after M only
+    wrong_insertion = cds_start + 3
+    assert Seq(sequence[:wrong_insertion]).translate() == "M"
+
+    # RIGHT: Insert after M-A dipeptide
+    correct_insertion = cds_start + 6
+    assert Seq(sequence[:correct_insertion]).translate() == "MA"
+
+    # Off by one dipeptide (3 bp)
+    assert correct_insertion - wrong_insertion == 3
+
+def test_verify_dipeptide_insertion_function():
+    """Test the verification function."""
+    sequence = build_test_vp1_sequence()  # ATG GCT GCC GAT GGT TAT...
+
+    # Should calculate correct position
+    insertion_point = verify_dipeptide_insertion(
+        sequence,
+        cds_start=0,
+        dipeptide="MA",
+        downstream_aa="ADGYL"
+    )
+
+    assert insertion_point == 6  # After ATG GCT (M-A)
+
+    # Should raise if downstream doesn't match
+    with pytest.raises(ValueError):
+        verify_dipeptide_insertion(
+            sequence,
+            cds_start=0,
+            dipeptide="MA",
+            downstream_aa="WRONG"  # Incorrect downstream
+        )
+```
+
+#### Lessons
+
+**Technical:**
+1. **Dipeptide means TWO amino acids** — always count both (M AND A, not M OR A)
+2. **Notation matters** — "MA-ADGYL" has specific meaning (insert after MA)
+3. **The dash "-" indicates insertion point** — not a separator between amino acids
+4. **Always verify flanking sequences** — catches off-by-one errors immediately
+
+**Process:**
+1. **Plans need unambiguous notation** — spell out "dipeptide" explicitly
+2. **Programmatic verification catches errors** — don't trust manual calculation
+3. **Similar to BUG-004** — both involve amino acid coordinate conversion
+4. **User verification is critical** — manual inspection caught the error
+
+**Communication:**
+1. **Be explicit about amino acid count**: "2 amino acids (M-A)" not "MA"
+2. **Show expected sequences**: "M-A-[INSERT]-A-D-G-Y-L" is clearer than "MA-ADGYLPD"
+3. **Document insertion points unambiguously**: "After M-A dipeptide (bp 2384)" not "at bp 2381"
+
+#### Relationship to BUG-004
+
+**Similarities:**
+- Both involve amino acid → DNA coordinate conversion
+- Both result from misinterpreting plans
+- Both caught by user verification of flanking sequences
+- Both prevented by programmatic calculation + verification
+
+**Differences:**
+- BUG-004: VR4 internal insertion, off by 1 codon (inserted after SKTINGSGQ instead of SKTINGSG)
+- BUG-006: N-terminal insertion, off by 1 codon (inserted after M instead of M-A)
+- BUG-004: Single amino acid sequence boundary
+- BUG-006: Dipeptide sequence boundary (2 amino acids)
+
+**Combined Lesson:**
+NEVER hard-code DNA positions for amino acid insertions. ALWAYS:
+1. Calculate from amino acid coordinates programmatically
+2. Verify flanking sequences before and after insertion point
+3. Use helper functions that take amino acid sequences as input
+4. Test with both single amino acid and multi-amino acid boundaries
+
+#### Related Issues
+- BUG-004: Incorrect amino acid insertion point (similar root cause)
+- BUG-001: Frame offset calculation error (coordinate conversion issues)
+- AGENT_INSTRUCTIONS_v4.1 §"CRITICAL RULE: Amino Acid Insertion Points" (rule was not followed)
+
+#### References
+1. Biopython Seq.translate() documentation
+2. AAV9 capsid VP1/VP2 N-terminal sequences
+3. This error: AVD008-AVD010 plasmid design (2026-01-22)
+4. Notation standards for insertion point specification
 
 ---
 
@@ -1142,8 +1800,8 @@ Lessons learned from:
 
 ---
 
-**Document Version:** 1.1
-**Last Updated:** 2025-12-19 (Added DESIGN-004: Dam Methylation in Cloning Site Selection)
+**Document Version:** 1.2
+**Last Updated:** 2026-01-22 (Added BUG-006: N-Terminal Insertion After Single Amino Acid)
 **Next Review:** After each major release or significant bug discovery
 **Maintainer:** DNA Engineer Agent development team
 

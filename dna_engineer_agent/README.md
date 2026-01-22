@@ -2,6 +2,36 @@
 
 An agentic framework for designing and manipulating DNA sequences using natural language instructions. Built for use with Claude Code or similar LLM-based coding assistants.
 
+---
+
+## 🚨 MANDATORY READING BEFORE EVERY TASK
+
+**CRITICAL:** Before starting ANY DNA design, analysis, or modification task, you MUST:
+
+1. **Read AGENT_INSTRUCTIONS_v4.md** (or latest version)
+   - Location: `/home/cnguy/projects/dna_engineer_agent/AGENT_INSTRUCTIONS_v4.md`
+   - Find highest version number (v4.0, v4.1, etc.)
+   - This contains all critical rules, checkpoints, and workflows
+
+2. **Read LESSONS_LEARNED.md**
+   - Location: `/home/cnguy/projects/dna_engineer_agent/LESSONS_LEARNED.md`
+   - Contains documented bugs and how to prevent them
+   - Each bug has: problem, root cause, fix, prevention, test coverage
+
+3. **Verify understanding of notation**
+   - Example: "MA-ADGYLPD" means insert AFTER the "MA" dipeptide (2 amino acids)
+   - The dash "-" indicates the insertion point
+   - Always verify by translating sequences
+
+**Why This Matters:**
+- BUG-004: Off-by-one-codon error at VR4 insertion (cost: $200-400 synthesis + delays)
+- BUG-006: Inserted after M instead of M-A dipeptide (cost: 3 constructs need rebuild)
+- These errors are PREVENTABLE by reading the instructions
+
+**This is NON-NEGOTIABLE.** Failure to read these files leads to repeating past mistakes.
+
+---
+
 ## Quick Start
 
 ### 1. Environment
