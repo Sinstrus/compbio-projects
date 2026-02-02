@@ -2,13 +2,19 @@
 
 ## Document Purpose
 
-This document captures critical bugs, design issues, and lessons learned during the development and deployment of the DNA Engineer Agent through v3.0. Each entry includes:
+This document captures critical bugs, design issues, success stories, and lessons learned during the development and deployment of the DNA Engineer Agent. Each entry includes:
 
+**For bugs and design issues:**
 - **Root cause analysis** — What went wrong and why
 - **Impact** — What broke as a result
 - **Fix** — How it was resolved
 - **Prevention** — How to avoid it in the future
 - **Test coverage** — Automated tests that catch this issue
+
+**For success stories:**
+- **What went right** — Key practices that led to success
+- **Template** — Reusable patterns for similar tasks
+- **Lessons reinforced** — How past bugs were avoided
 
 ---
 
@@ -32,6 +38,10 @@ This document captures critical bugs, design issues, and lessons learned during 
 - [The Importance of Testing](#the-importance-of-testing)
 - [Double-Checking Biological Assumptions](#double-checking-biological-assumptions)
 - [Comprehensive Checkpoints](#comprehensive-checkpoints)
+
+### Success Stories
+- [SUCCESS-001: AAV 5-Fold Axis Annotation Workflow](#success-001-aav-5-fold-axis-annotation-workflow)
+- [SUCCESS-002: Minimal-Change VHH Sequence Swap](#success-002-minimal-change-vhh-sequence-swap-vhh3--tfr1-clones-ab)
 
 ---
 
@@ -1789,6 +1799,255 @@ This document should be:
 7. Extract principles (what to remember)
 ```
 
+---
+
+## Success Stories
+
+### SUCCESS-001: AAV 5-Fold Axis Annotation Workflow
+
+**Date:** 2026-01-30
+
+**Task:** Extract AAV VP1 5-fold axis residues from UniProt sequences and create an annotated GenBank file for AVD002 plasmid.
+
+#### What Went Right
+
+1. **Read instructions first**: Before starting, read AGENT_INSTRUCTIONS_v4.md and LESSONS_LEARNED.md as required by README.md.
+
+2. **Verified source file integrity**: Before creating the annotated GenBank file, verified that the existing `AVD002-temp.gb` sequence was 100% identical to the source SnapGene file `AVD002-Rep2Mut2Cap9-6R-wt.dna`. This prevents BUG-005 (parent sequence mismatch).
+
+3. **Programmatic position calculation**: Calculated all DNA positions from amino acid coordinates using a consistent formula:
+   ```python
+   def aa_to_dna_range(aa_start, aa_end, cds_start=VP1_START):
+       dna_start = cds_start + (aa_start - 1) * 3
+       dna_end = cds_start + aa_end * 3
+       return dna_start, dna_end
+   ```
+   This follows the lessons from BUG-004 and BUG-006.
+
+4. **Verification by translation**: After calculating positions, verified each feature by extracting the DNA sequence and translating back to amino acids:
+   ```
+   DE_Loop_5fold: VTDNNGVKTIANNLTSTVQVF ✓
+   ANNLT_motif: ANNLT ✓
+   L338_pore: L ✓
+   HI_Loop_5fold: ADPPTAFNKDKLNSFI ✓
+   F662_VP1: F ✓
+   ```
+
+5. **Used conserved motifs as anchors**: Found the conserved ANNLT motif to anchor DE loop position, rather than relying solely on literature coordinates which may use different numbering systems (VP1 vs VP3).
+
+6. **No back-and-forth required**: Task completed autonomously without requiring user clarification or correction.
+
+#### Key Practices Demonstrated
+
+| Practice | Implementation |
+|----------|----------------|
+| Read instructions before starting | Loaded AGENT_INSTRUCTIONS_v4.md and LESSONS_LEARNED.md |
+| Verify source sequence integrity | Compared GenBank to SnapGene file (100% match) |
+| Calculate positions programmatically | Used `aa_to_dna_range()` function |
+| Verify by translation | Translated each feature and compared to expected |
+| Use biological anchors | Found ANNLT motif position to validate coordinates |
+| Document the output | Listed all features with positions and sequences |
+
+#### Output
+
+- **File created:** `AVD002-Rep2Mut2Cap9-6R-wt-5fold.gb`
+- **Features added:** 5 (DE_Loop_5fold, ANNLT_motif, L338_pore_constriction, HI_Loop_5fold, F662_VP1_incorporation)
+- **Verification:** All positions confirmed by translation
+
+#### Template for Future Annotation Tasks
+
+```python
+# 1. Verify source files match
+gb_seq = str(SeqIO.read(gb_file, 'genbank').seq)
+dna_seq = extract_sequence_from_snapgene(dna_file)
+assert gb_seq == dna_seq, "Source files do not match!"
+
+# 2. Define position calculation function
+def aa_to_dna_range(aa_start, aa_end, cds_start):
+    dna_start = cds_start + (aa_start - 1) * 3
+    dna_end = cds_start + aa_end * 3
+    return dna_start, dna_end
+
+# 3. Calculate positions
+dna_s, dna_e = aa_to_dna_range(aa_start, aa_end, CDS_START)
+
+# 4. Verify by translation
+dna_seq = str(record.seq[dna_s:dna_e])
+aa_seq = str(Seq(dna_seq).translate())
+expected_aa = vp1_aa[aa_start-1:aa_end]
+assert aa_seq == expected_aa, f"Mismatch: got {aa_seq}, expected {expected_aa}"
+
+# 5. Add feature to record
+feature = SeqFeature(FeatureLocation(dna_s, dna_e), type="misc_feature", qualifiers={...})
+record.features.append(feature)
+```
+
+#### Lessons Reinforced
+
+- **BUG-004/BUG-006 prevention**: Always calculate DNA positions from amino acid coordinates, never hard-code
+- **Checkpoint 10 spirit**: Verify source sequence matches before modification
+- **Biological validation**: Use conserved motifs to anchor/validate coordinate systems
+
+---
+
+### SUCCESS-002: Minimal-Change VHH Sequence Swap (VHH3 → TfR1 Clones A/B)
+
+**Date:** 2026-02-02
+
+**Task:** Replace VHH3 in 5 AVD plasmids with Biogen anti-TfR1 Clone A (SS and PP variants) and Clone B sequences, using a minimal nucleotide change strategy to preserve synthesis-friendly codons.
+
+#### What Went Right
+
+1. **Minimal-change codon strategy**: Preserved existing VHH3 codons where amino acids were identical between sequences, only substituting codons where residues differed. This maximizes codon reuse and maintains synthesis-friendly sequences.
+   ```
+   Clone A-SS: 79 codons kept, 33 substituted, 7 deleted
+   Clone A-PP: 77 codons kept, 35 substituted, 7 deleted
+   Clone B:    79 codons kept, 40 substituted, 8 inserted
+   ```
+
+2. **Pairwise alignment-driven approach**: Used Biopython's PairwiseAligner to align VHH3 (119 aa) vs Clone A (112 aa) and Clone B (127 aa), identifying identical positions, substitutions, insertions, and deletions systematically.
+
+3. **Synthesis issue detection and correction**:
+   - **Homopolymer avoidance**: Initial Clone A sequence had C×6 run at position 83. Fixed by changing CCC→CCA (both encode Pro) to break up the run.
+   - **Golden Gate site removal**: Clone B had a BsaI site (GAGACC). Fixed with silent mutation GAG→GAA (both encode Glu) at position 297.
+   - No BsmBI sites were present in any sequence.
+
+4. **Systematic verification of all 15 plasmids**:
+   - VHH translation verified correct for all plasmids
+   - GC content 61.6-61.7% (synthesis-compatible range)
+   - No homopolymer runs >4 bases
+   - No BsaI or BsmBI sites in VHH sequences
+   - Linker sequences preserved
+   - Restriction sites intact
+
+5. **Batch generation with consistent feature updates**: Created all 15 plasmids programmatically with correct:
+   - Accession/LOCUS names (AVD012-026)
+   - DEFINITION descriptions
+   - VHH CDS annotations with translations
+   - VP fusion labels updated
+
+#### Key Practices Demonstrated
+
+| Practice | Implementation |
+|----------|----------------|
+| Alignment-based sequence design | Used PairwiseAligner to map VHH3→Clone A/B |
+| Codon preservation strategy | Kept VHH3 codons where AA identical |
+| Synthesis screening | Checked homopolymers, GC content, restriction sites |
+| Iterative refinement | Fixed homopolymer issues, then BsaI site |
+| Batch verification | Verified all 15 plasmids systematically |
+| Silent mutation for domestication | GAG→GAA to remove BsaI site in Clone B |
+
+#### Nucleotide Sequences Generated
+
+| Variant | Length | GC% | Key Changes |
+|---------|--------|-----|-------------|
+| Clone A-SS | 336 bp | 61.6% | Position 29: CCC→CCA (break C×6 run) |
+| Clone A-PP | 336 bp | 61.6% | Same as A-SS, plus C-terminus SS→PP |
+| Clone B | 381 bp | 61.7% | Position 100: GAG→GAA (remove BsaI) |
+
+#### Output
+
+**Files created/updated:**
+- AVD012-026: 15 new plasmid files with TfR1 VHH variants
+- Clone A-SS (5 plasmids): AVD012-016
+- Clone A-PP (5 plasmids): AVD017-021
+- Clone B (5 plasmids): AVD022-026
+
+**Plasmid configurations:**
+- VP1 VR-IV insertion (from AVD006): AVD012, AVD017, AVD022
+- VP1 VR-IV + VP2/3 KO (from AVD007): AVD013, AVD018, AVD023
+- VP1 N-terminal (from AVD008): AVD014, AVD019, AVD024
+- VP1 N-terminal + VP2/3 KO (from AVD009): AVD015, AVD020, AVD025
+- VP2 N-terminal (from AVD010): AVD016, AVD021, AVD026
+
+#### Template for Future VHH Swaps
+
+```python
+from Bio.Align import PairwiseAligner
+from Bio.Seq import Seq
+
+def generate_minimal_change_sequence(source_aa, source_nt, target_aa):
+    """
+    Generate nucleotide sequence for target_aa using minimal changes from source.
+    Preserves source codons where amino acids are identical.
+    """
+    # Build source codon map
+    source_codons = [source_nt[i:i+3] for i in range(0, len(source_nt), 3)]
+
+    # Align source vs target amino acids
+    aligner = PairwiseAligner()
+    aligner.mode = 'global'
+    aligner.match_score = 2
+    aligner.mismatch_score = -1
+    aligner.open_gap_score = -5
+    aligner.extend_gap_score = -1
+
+    alignments = aligner.align(source_aa, target_aa)
+    aln = alignments[0]
+
+    # Build result using alignment
+    result_codons = []
+    source_idx = 0
+
+    for aligned_source, aligned_target in zip(aligned_source_seq, aligned_target_seq):
+        if aligned_source == '-':
+            # Insertion: generate new codon
+            result_codons.append(get_best_codon(aligned_target))
+        elif aligned_target == '-':
+            # Deletion: skip source codon
+            source_idx += 1
+        elif aligned_source == aligned_target:
+            # Identical: keep source codon
+            result_codons.append(source_codons[source_idx])
+            source_idx += 1
+        else:
+            # Substitution: generate new codon
+            result_codons.append(get_best_codon(aligned_target))
+            source_idx += 1
+
+    return ''.join(result_codons)
+
+def verify_no_restriction_sites(seq, sites=['GGTCTC', 'GAGACC', 'CGTCTC', 'GAGACG']):
+    """Verify sequence has no BsaI or BsmBI sites."""
+    for site in sites:
+        if site in seq:
+            return False, site
+    return True, None
+
+def fix_restriction_site(seq, site_pos, codon_table):
+    """Fix restriction site with silent mutation."""
+    # Find codon containing the site
+    codon_start = (site_pos // 3) * 3
+    codon = seq[codon_start:codon_start+3]
+    aa = str(Seq(codon).translate())
+
+    # Find alternative codon
+    for alt_codon in codon_table[aa]:
+        if alt_codon != codon:
+            test_seq = seq[:codon_start] + alt_codon + seq[codon_start+3:]
+            if site not in test_seq:
+                return test_seq
+    return None  # No fix found
+```
+
+#### Lessons Reinforced
+
+- **BUG-003 awareness**: Check both forward and reverse complement for restriction sites (BsaI GGTCTC and GAGACC)
+- **Synthesis compatibility**: Screen for homopolymers >4 bases and fix with synonymous codons
+- **Golden Gate domestication**: Remove internal BsaI/BsmBI sites before synthesis
+- **Batch operations**: Process all variants systematically with consistent verification
+
+#### Relationship to Previous Lessons
+
+| Lesson | How Applied |
+|--------|-------------|
+| BUG-004/006 | Calculated insertion points programmatically, not hard-coded |
+| BUG-003 | Checked both strands for BsaI sites |
+| DESIGN-001 | Verified no cloning site conflicts in final sequences |
+| SUCCESS-001 | Verified translations of all new VHH sequences |
+
+---
+
 ### Acknowledgments
 
 Lessons learned from:
@@ -1797,11 +2056,12 @@ Lessons learned from:
 - Test-driven development (silent mutation verification)
 - Literature review (splice acceptor, enzyme reliability)
 - User feedback (fussy enzyme frustration)
+- Successful autonomous workflows (5-fold axis annotation)
 
 ---
 
-**Document Version:** 1.2
-**Last Updated:** 2026-01-22 (Added BUG-006: N-Terminal Insertion After Single Amino Acid)
+**Document Version:** 1.3
+**Last Updated:** 2026-01-30 (Added SUCCESS-001: AAV 5-Fold Axis Annotation Workflow)
 **Next Review:** After each major release or significant bug discovery
 **Maintainer:** DNA Engineer Agent development team
 
