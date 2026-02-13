@@ -38,10 +38,12 @@ This document captures critical bugs, design issues, success stories, and lesson
 - [The Importance of Testing](#the-importance-of-testing)
 - [Double-Checking Biological Assumptions](#double-checking-biological-assumptions)
 - [Comprehensive Checkpoints](#comprehensive-checkpoints)
+- [Do-No-Harm: Thresholds Over Absolutes](#do-no-harm-thresholds-over-absolutes)
 
 ### Success Stories
 - [SUCCESS-001: AAV 5-Fold Axis Annotation Workflow](#success-001-aav-5-fold-axis-annotation-workflow)
 - [SUCCESS-002: Minimal-Change VHH Sequence Swap](#success-002-minimal-change-vhh-sequence-swap-vhh3--tfr1-clones-ab)
+- [SUCCESS-003: Relaxing Do-No-Harm for "Not Detected" Splice Sites](#success-003-relaxing-do-no-harm-for-not-detected-splice-sites)
 
 ---
 
@@ -1755,6 +1757,54 @@ Checkpoints should be:
 
 ---
 
+### Do-No-Harm: Thresholds Over Absolutes
+
+**Lesson:** Safety checks should be defined by tolerable outcome thresholds, not by absolute zero-regression rules.
+
+**The Problem with Absolute Rules:**
+
+In multi-objective optimization (e.g., minimizing cryptic splice sites while preserving protein sequence), a change to improve one metric often causes a small regression in a neighboring metric. An absolute rule like "reject any regression" is mathematically clean but biologically naive — it treats a -6.44 → -5.71 shift (both "Not Detected") the same as a -0.5 → +3.0 shift (crossing into "Weak" territory).
+
+**The Principle:**
+
+```
+Ask: "Is the result still in the safe range?"
+NOT: "Did the score get worse?"
+```
+
+A regression is only harmful if it pushes the metric into a functionally relevant range. Below the detection threshold, fluctuations are noise, not signal.
+
+**Application Examples:**
+
+| Domain | Absolute Rule (Bad) | Threshold Rule (Good) |
+|--------|--------------------|-----------------------|
+| Splice sites | Any MaxEntScan increase = reject | Reject only if score >= 0.0 ("Detected") |
+| GC content | Any local GC increase = reject | Reject only if GC > 65% (synthesis limit) |
+| Codon usage | Any CAI decrease = reject | Reject only if CAI < 0.5 (poor expression) |
+| Restriction sites | Any new partial site = reject | Reject only if full site on either strand |
+
+**Implementation Pattern:**
+
+```python
+# BEFORE: Absolute (overly conservative)
+if metric_after > metric_before + epsilon:
+    return False  # Blocks beneficial changes
+
+# AFTER: Threshold-based (biologically informed)
+if metric_after > metric_before + epsilon:
+    if metric_after >= safe_threshold:
+        return False  # Only reject if result is harmful
+    # Otherwise allow: regression is in the noise floor
+```
+
+**When to use absolute rules vs thresholds:**
+- **Absolute:** Binary constraints (protein identity must be preserved, no new restriction sites)
+- **Threshold:** Continuous scores with biologically meaningful cutoffs (MaxEntScan, GC%, CAI)
+
+**Key Insight:** The threshold should come from biology, not from mathematical convenience. MaxEntScan's 0.0 threshold separates "Not Detected" from "Very Weak" — this is a well-characterized boundary in splice site recognition. Use it.
+
+---
+
 ## Conclusion
 
 ### Summary of Lessons
@@ -2048,6 +2098,67 @@ def fix_restriction_site(seq, site_pos, codon_table):
 
 ---
 
+### SUCCESS-003: Relaxing Do-No-Harm for "Not Detected" Splice Sites
+
+**Date:** 2026-02-12
+
+**Task:** Improve the intron body codon optimizer by relaxing the overly conservative `do_no_harm_check()` that blocked beneficial changes at position 396.
+
+#### What Went Right
+
+1. **Identified an overly strict safety rule**: The `do_no_harm_check()` used an absolute rule — any MaxEntScan score increase at a neighboring site = reject. This blocked a -4.02 improvement at the target GT donor (pos 396: 1.49 → -2.53) because a nearby AG acceptor at pos 406 increased by +0.73 (from -6.44 → -5.71). Both values are firmly "Not Detected" (< 0.0) and functionally irrelevant.
+
+2. **Applied the right biological principle**: Sites scoring below 0.0 on MaxEntScan are "Not Detected" — the spliceosome cannot recognize them. A score regression from -6.44 to -5.71 has zero functional impact. The safety check should guard against creating *functional* splice sites, not against meaningless score fluctuations in the noise floor.
+
+3. **Minimal, targeted code change**: Added a single `safe_ceiling` parameter (default 0.0) to `do_no_harm_check()`. The change is 3 lines: one new parameter, one `if` guard. All other safety checks (new GT/AG rejection, restriction sites, U1 dG) remain unchanged.
+
+4. **Broader optimization improvements**: The relaxed check didn't just fix position 396 — it unlocked improvements across the entire sequence. Final results improved from 66 → 19 total GT/AG (was 21 before), removing 2 additional sites.
+
+#### Results
+
+| Metric | Before (strict) | After (relaxed) |
+|--------|-----------------|-----------------|
+| Pos 396 GT donor | 1.49 "Very Weak" | -2.53 "Not Detected" |
+| AG@406 acceptor | -6.44 "Not Detected" | -5.71 "Not Detected" |
+| Total GT/AG | 21 | 19 |
+| Max cryptic GT score | 2.67 | -1.47 |
+| Stage 2a codon changes | 15 | 19 |
+| Stage 2b codon changes | 18 | 23 |
+| All checks | PASS | PASS |
+
+#### Key Principle: Do-No-Harm Should Use Tolerable Thresholds, Not Absolute Rules
+
+**The general lesson:** Safety checks ("do no harm") should be defined by **tolerable outcome thresholds**, not by absolute zero-regression rules. An absolute rule — "never allow any regression at any neighboring site" — is overly conservative and blocks beneficial optimizations when the regression is functionally meaningless.
+
+**The right question is not:** "Did the score get worse?"
+**The right question is:** "Is the resulting score still in a safe range?"
+
+This principle applies broadly:
+- **Splice site optimization**: Allow score increases if the site stays below the "Not Detected" threshold (< 0.0)
+- **GC content tuning**: A local GC increase from 42% to 45% shouldn't block a fix that eliminates a hairpin
+- **Codon frequency**: A slight decrease in CAI at one position shouldn't block removal of a restriction site
+- **Any multi-objective optimization**: When improving metric A causes a small regression in metric B, check whether B is still in the acceptable range — don't reject solely because B got slightly worse
+
+**Implementation pattern:**
+```python
+# BAD: Absolute rule (blocks beneficial changes)
+if new_score > old_score + epsilon:
+    return False  # Reject ANY regression
+
+# GOOD: Threshold-based rule (allows harmless regressions)
+if new_score > old_score + epsilon:
+    if new_score >= safe_ceiling:  # Only reject if result is harmful
+        return False
+```
+
+#### Lessons Reinforced
+
+- **Biological context matters more than mathematical purity**: A score below 0.0 is biologically meaningless regardless of whether it went up or down
+- **Verify safety check behavior on edge cases**: The pos 396 case revealed the safety check was too strict only because it was the last remaining "Very Weak" site
+- **Small code changes, large impact**: 3 lines of code unlocked 2 additional GT/AG removals and dropped the max cryptic score from 2.67 to -1.47
+
+---
+
 ### Acknowledgments
 
 Lessons learned from:
@@ -2060,8 +2171,8 @@ Lessons learned from:
 
 ---
 
-**Document Version:** 1.3
-**Last Updated:** 2026-01-30 (Added SUCCESS-001: AAV 5-Fold Axis Annotation Workflow)
+**Document Version:** 1.4
+**Last Updated:** 2026-02-12 (Added SUCCESS-003: Relaxed do-no-harm check; General Principle: Thresholds Over Absolutes)
 **Next Review:** After each major release or significant bug discovery
 **Maintainer:** DNA Engineer Agent development team
 

@@ -373,6 +373,59 @@ For repetitive linkers like (GGGGS)×4, use varied codons manually:
 
 ---
 
+## DESIGN-009: Do-No-Harm Safety Checks — Use Thresholds, Not Absolutes
+
+**Type:** General Principle
+**Discovered:** 2026-02-12
+**Project:** Intron body codon optimization (optimize_intron_body_codons.py)
+
+### The Problem
+
+The `do_no_harm_check()` in the codon optimizer used an absolute rule: any MaxEntScan score increase at any neighboring splice site = reject the change. This blocked a -4.02 improvement at the target GT donor (pos 396: 1.49 → -2.53) because the nearby AG acceptor at pos 406 increased by +0.73 (from -6.44 → -5.71). Both values are "Not Detected" (< 0.0) — the spliceosome can't recognize them.
+
+### The Solution
+
+Added a `safe_ceiling` parameter (default 0.0) to `do_no_harm_check()`:
+
+```python
+# Allow regression if the site stays below the safe ceiling (Not Detected)
+if site["maxent_score"] > orig["maxent_score"] + 0.01:
+    if site["maxent_score"] >= safe_ceiling:
+        return False
+    # Below ceiling → regression is harmless, allow the change
+```
+
+### The Principle
+
+**Safety checks should guard against harmful outcomes, not against any change.**
+
+The right question is not "Did the score get worse?" but "Is the resulting score still in a safe range?"
+
+This applies to any multi-objective optimization:
+- Splice sites: allow regression if score stays < 0.0 ("Not Detected")
+- GC content: allow local increase if still < 65% (synthesis limit)
+- Codon usage: allow CAI drop if still > 0.5 (adequate expression)
+
+### Results
+
+| Metric | Before (absolute) | After (threshold) |
+|--------|-------------------|-------------------|
+| Pos 396 GT donor | 1.49 "Very Weak" | -2.53 "Not Detected" |
+| AG@406 acceptor | -6.44 "Not Detected" | -5.71 "Not Detected" |
+| Total GT/AG in intron body | 21 | 19 |
+| Max cryptic GT score | 2.67 | -1.47 |
+| All verification checks | PASS | PASS |
+
+### Prevention Checklist
+
+- [ ] When writing safety checks, define the *threshold of harm*, not just "any change"
+- [ ] Use biologically meaningful cutoffs (MaxEntScan 0.0, GC 65%, etc.)
+- [ ] Use absolute rules only for binary constraints (protein identity, restriction sites)
+- [ ] Use threshold rules for continuous scores with known biological cutoffs
+- [ ] Periodically review safety checks for over-conservatism blocking beneficial changes
+
+---
+
 ## Summary of Lessons
 
 | ID | Type | Summary | Prevention |
@@ -383,6 +436,7 @@ For repetitive linkers like (GGGGS)×4, use varied codons manually:
 | DESIGN-007 | Design Pattern | VHH insertion at variable regions | Document site, linkers, insert clearly |
 | DESIGN-008 | Best Practice | Codon optimization for synthesis | Use dnachisel with GC and hairpin constraints |
 | Checkpoint 10 | Verification | Parent-child sequence comparison | Verify ONLY intentional changes exist |
+| DESIGN-009 | General Principle | Do-no-harm: thresholds over absolutes | Use biologically meaningful cutoffs, not zero-regression rules |
 
 ---
 
