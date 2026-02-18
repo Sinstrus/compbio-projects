@@ -33,7 +33,7 @@ except ImportError:
 
 # Project paths
 PROJECT_DIR = Path(__file__).parent.parent
-PLASMIDS_DIR = PROJECT_DIR / "plasmids"
+CONSTRUCTS_DIR = PROJECT_DIR.parent / "dna_engineer_agent" / "constructs"
 SYNTHETIC_DIR = PROJECT_DIR / "synthetic_fragments"
 DOCS_DIR = PROJECT_DIR / "docs"
 
@@ -67,7 +67,7 @@ GGGGS1_DNA = "GGTGGAGGCGGTTCT"
 def load_avd002():
     """Load AVD002 base plasmid from SnapGene .dna file"""
     print("Loading AVD002 base plasmid...")
-    avd002_path = PLASMIDS_DIR / "AVD002-Rep2Mut2Cap9-6R-wt.dna"
+    avd002_path = CONSTRUCTS_DIR / "AVD002-Rep2Mut2Cap9-6R-wt.dna"
 
     if not avd002_path.exists():
         raise FileNotFoundError(f"AVD002 not found at {avd002_path}")
@@ -866,13 +866,13 @@ def main():
     print("Writing GenBank files...")
     print("=" * 70)
 
-    export_genbank(avd005, PLASMIDS_DIR / "AVD005-Rep2Mut2Cap9-VP1ko.gb")
-    export_genbank(avd006, PLASMIDS_DIR / "AVD006-Rep2Mut2Cap9-VP1-VHH3-VR4.gb")
-    export_genbank(avd007, PLASMIDS_DIR / "AVD007-Rep2Mut2Cap9-VP1-VHH3-D2.gb")
-    export_genbank(avd008, PLASMIDS_DIR / "AVD008-Rep2Mut2Cap9-VP1n-VHH3.gb")
-    export_genbank(avd009, PLASMIDS_DIR / "AVD009-Rep2Mut2Cap9-VP1n-VHH3-D2.gb")
-    export_genbank(avd010, PLASMIDS_DIR / "AVD010-Rep2Mut2Cap9-VP2n-VHH3.gb")
-    export_genbank(avd011, PLASMIDS_DIR / "AVD011-Rep2Mut2Cap9-VP2ko.gb")
+    export_genbank(avd005, CONSTRUCTS_DIR / "AVD005-Rep2Mut2Cap9-VP1ko.gb")
+    export_genbank(avd006, CONSTRUCTS_DIR / "AVD006-Rep2Mut2Cap9-VP1-VHH3-VR4.gb")
+    export_genbank(avd007, CONSTRUCTS_DIR / "AVD007-Rep2Mut2Cap9-VP1-VHH3-D2.gb")
+    export_genbank(avd008, CONSTRUCTS_DIR / "AVD008-Rep2Mut2Cap9-VP1n-VHH3.gb")
+    export_genbank(avd009, CONSTRUCTS_DIR / "AVD009-Rep2Mut2Cap9-VP1n-VHH3-D2.gb")
+    export_genbank(avd010, CONSTRUCTS_DIR / "AVD010-Rep2Mut2Cap9-VP2n-VHH3.gb")
+    export_genbank(avd011, CONSTRUCTS_DIR / "AVD011-Rep2Mut2Cap9-VP2ko.gb")
 
     # Create verification report
     print("\n" + "=" * 70)

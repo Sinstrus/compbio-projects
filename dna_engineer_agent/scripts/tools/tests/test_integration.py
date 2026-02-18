@@ -31,7 +31,7 @@ from construct_verifier import (
 # Paths
 # ---------------------------------------------------------------------------
 
-PLASMID_DIR = Path(__file__).parent.parent.parent.parent / "projects" / "AVD_VHH_Display_ALPL" / "plasmids"
+PLASMID_DIR = Path(__file__).parent.parent.parent.parent / "constructs"
 
 # Skip all tests in this file if plasmid files are not present
 pytestmark = pytest.mark.skipif(
@@ -295,7 +295,7 @@ class TestAllConstructsSweep:
         assert not failures, f"Failed to parse: {failures}"
 
     def test_all_plasmids_have_hindiii(self):
-        """All AVD plasmids should have exactly 1 HindIII site (cloning site)."""
+        """All Rep2Mut2 AVD plasmids should have exactly 1 HindIII site (cloning site)."""
         SeqIO = _try_import_biopython()
         gb_files = list(PLASMID_DIR.glob("AVD*.gb"))
         if not gb_files:
@@ -303,8 +303,10 @@ class TestAllConstructsSweep:
 
         failures = []
         for gb_path in gb_files:
-            # Skip temp files
+            # Skip temp files and splicing reporters (different backbone, no HindIII)
             if "temp" in gb_path.name.lower():
+                continue
+            if "SplicingReporter" in gb_path.name:
                 continue
             try:
                 record = SeqIO.read(str(gb_path), "genbank")

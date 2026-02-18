@@ -28,7 +28,7 @@ except ImportError:
 
 # Project paths
 PROJECT_DIR = Path(__file__).parent.parent
-PLASMIDS_DIR = PROJECT_DIR / "plasmids"
+CONSTRUCTS_DIR = PROJECT_DIR.parent / "dna_engineer_agent" / "constructs"
 SYNTHETIC_DIR = PROJECT_DIR / "synthetic_fragments"
 DOCS_DIR = PROJECT_DIR / "docs"
 
@@ -50,7 +50,7 @@ FULL_INSERT_AA = LINK_D2_N_AA + VHH3_AA + LINK_D2_C_AA  # 149 aa total (25+119+5
 def load_avd002():
     """Load AVD002 base plasmid from SnapGene .dna file"""
     print("Loading AVD002 base plasmid...")
-    avd002_path = PLASMIDS_DIR / "AVD002-Rep2Mut2Cap9-6R-wt.dna"
+    avd002_path = CONSTRUCTS_DIR / "AVD002-Rep2Mut2Cap9-6R-wt.dna"
 
     if not avd002_path.exists():
         raise FileNotFoundError(f"AVD002 not found at {avd002_path}")
@@ -556,8 +556,8 @@ def main():
 
     # Export files
     print("\nWriting GenBank files...")
-    export_genbank(avd005_record, PLASMIDS_DIR / "AVD005-Rep2Mut2Cap9-VP1ko.gb")
-    export_genbank(avd007_record, PLASMIDS_DIR / "AVD007-Rep2Mut2Cap9-VP1-VHH3-D2.gb")
+    export_genbank(avd005_record, CONSTRUCTS_DIR / "AVD005-Rep2Mut2Cap9-VP1ko.gb")
+    export_genbank(avd007_record, CONSTRUCTS_DIR / "AVD007-Rep2Mut2Cap9-VP1-VHH3-D2.gb")
 
     print("\nWriting synthetic fragment...")
     export_synthetic_fragment(insert_seq, SYNTHETIC_DIR / "AVD007_synthetic_fragment.fasta")
@@ -569,8 +569,8 @@ def main():
     print("✅ Build completed successfully")
     print("=" * 70)
     print("\nGenerated files:")
-    print(f"  - {PLASMIDS_DIR / 'AVD005-Rep2Mut2Cap9-VP1ko.gb'} ({len(avd005_record.seq)} bp)")
-    print(f"  - {PLASMIDS_DIR / 'AVD007-Rep2Mut2Cap9-VP1-VHH3-D2.gb'} ({len(avd007_record.seq)} bp)")
+    print(f"  - {CONSTRUCTS_DIR / 'AVD005-Rep2Mut2Cap9-VP1ko.gb'} ({len(avd005_record.seq)} bp)")
+    print(f"  - {CONSTRUCTS_DIR / 'AVD007-Rep2Mut2Cap9-VP1-VHH3-D2.gb'} ({len(avd007_record.seq)} bp)")
     print(f"  - {SYNTHETIC_DIR / 'AVD007_synthetic_fragment.fasta'} ({len(insert_seq)} bp)")
     print(f"  - {DOCS_DIR / 'DESIGN_VERIFICATION_AVD005_AVD007.md'}")
     print()

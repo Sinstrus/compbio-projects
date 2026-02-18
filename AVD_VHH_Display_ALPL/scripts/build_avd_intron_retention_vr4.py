@@ -28,10 +28,9 @@ import openpyxl
 
 # ─── Project paths ───────────────────────────────────────────────────────────
 PROJECT_DIR = Path(__file__).parent.parent
-PLASMIDS_DIR = PROJECT_DIR / "plasmids"
-OUTPUT_DIR = PROJECT_DIR / "plasmids" / "intron_retention"
+CONSTRUCTS_DIR = PROJECT_DIR.parent / "dna_engineer_agent" / "constructs"
 SCRIPTS_DIR = PROJECT_DIR / "scripts"
-ROOT_DIR = PROJECT_DIR.parent.parent  # dna_engineer_agent root
+ROOT_DIR = PROJECT_DIR.parent / "dna_engineer_agent"
 
 # ─── Constants ───────────────────────────────────────────────────────────────
 INSERTION_POINT = 3743        # bp position in AVD002 (0-indexed)
@@ -252,10 +251,10 @@ def verify_spliced_scar(donor_15bp, acceptor_30bp, expected_scar_aa):
 
 def load_avd002():
     """Load AVD002 base plasmid from GenBank file."""
-    gb_path = PLASMIDS_DIR / "AVD002-Rep2Mut2Cap9-6R-wt-5fold.gb"
+    gb_path = CONSTRUCTS_DIR / "AVD002-Rep2Mut2Cap9-6R-wt-5fold.gb"
     if not gb_path.exists():
         # Try .dna format
-        dna_path = PLASMIDS_DIR / "AVD002-Rep2Mut2Cap9-6R-wt.dna"
+        dna_path = CONSTRUCTS_DIR / "AVD002-Rep2Mut2Cap9-6R-wt.dna"
         if dna_path.exists():
             record = SeqIO.read(str(dna_path), "snapgene")
         else:
@@ -604,7 +603,7 @@ def main():
     print(f"  {len(constructs)} constructs pass filter (log2FC >= 1.0, no stop codon)")
 
     # Step 3: Build all constructs
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    CONSTRUCTS_DIR.mkdir(parents=True, exist_ok=True)
     print(f"\nBuilding {len(constructs)} constructs...")
     print("-" * 72)
 
@@ -660,11 +659,11 @@ def main():
         avd_id = record.id
         gene = record.description.split("-")[-1].split(" |")[0]
         filename = f"{avd_id}-Rep2Mut2Cap9-VR4-IR-{gene}.gb"
-        export_genbank(record, OUTPUT_DIR / filename)
+        export_genbank(record, CONSTRUCTS_DIR / filename)
         print(f"  Wrote {filename}")
 
     # Summary CSV
-    csv_path = OUTPUT_DIR / "AVD059-099_intron_retention_summary.csv"
+    csv_path = CONSTRUCTS_DIR / "AVD059-099_intron_retention_summary.csv"
     export_summary_csv(qc_list, csv_path)
     print(f"  Wrote {csv_path.name}")
 
@@ -677,7 +676,7 @@ def main():
     if skipped:
         for avd_id, gene, reason, detail in skipped:
             print(f"    - {avd_id} ({gene}): {reason} {detail}")
-    print(f"  Output directory: {OUTPUT_DIR}")
+    print(f"  Output directory: {CONSTRUCTS_DIR}")
     print(f"  AVD range: AVD059-AVD{59 + len(constructs) - 1:03d}")
 
     # Print summary table

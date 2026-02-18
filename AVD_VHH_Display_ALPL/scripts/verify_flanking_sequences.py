@@ -11,7 +11,7 @@ from Bio import SeqIO
 from Bio.Seq import Seq
 from pathlib import Path
 
-PLASMIDS_DIR = Path(__file__).parent.parent / "plasmids"
+CONSTRUCTS_DIR = Path(__file__).parent.parent.parent / "dna_engineer_agent" / "constructs"
 
 def verify_vp1_n_term(construct_id, gb_file):
     """Verify VP1 N-terminal insertion flanking sequences."""
@@ -126,15 +126,15 @@ def main():
     results = []
 
     # Verify AVD008
-    avd008_file = PLASMIDS_DIR / "AVD008-Rep2Mut2Cap9-VP1n-VHH3.gb"
+    avd008_file = CONSTRUCTS_DIR / "AVD008-Rep2Mut2Cap9-VP1n-VHH3.gb"
     results.append(verify_vp1_n_term("AVD008", avd008_file))
 
     # Verify AVD009
-    avd009_file = PLASMIDS_DIR / "AVD009-Rep2Mut2Cap9-VP1n-VHH3-D2.gb"
+    avd009_file = CONSTRUCTS_DIR / "AVD009-Rep2Mut2Cap9-VP1n-VHH3-D2.gb"
     results.append(verify_vp1_n_term("AVD009", avd009_file))
 
     # Verify AVD010
-    avd010_file = PLASMIDS_DIR / "AVD010-Rep2Mut2Cap9-VP2n-VHH3.gb"
+    avd010_file = CONSTRUCTS_DIR / "AVD010-Rep2Mut2Cap9-VP2n-VHH3.gb"
     results.append(verify_vp2_n_term("AVD010", avd010_file))
 
     print("\n" + "=" * 70)
