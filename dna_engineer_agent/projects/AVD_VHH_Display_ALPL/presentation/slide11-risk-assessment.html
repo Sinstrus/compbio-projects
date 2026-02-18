@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7;
+             font-family: Calibri, Arial, sans-serif; margin: 0;">
+  <!-- Title area -->
+  <div style="padding: 20px 30px 8px 30px;">
+    <h1 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 22pt;
+               color: #003482; margin: 0; font-weight: bold;">Risk Analysis</h1>
+  </div>
+
+  <!-- Content area -->
+  <div class="col" style="padding: 4px 30px; gap: 12px;">
+    <!-- Risk table -->
+    <div style="background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+        <thead>
+          <tr style="background: #003482; color: #fff;">
+            <th style="padding: 7px 10px; text-align: left; font-weight: bold;">Risk</th>
+            <th style="padding: 7px 10px; text-align: center; font-weight: bold; width: 85px;">Likelihood</th>
+            <th style="padding: 7px 10px; text-align: center; font-weight: bold; width: 65px;">Impact</th>
+            <th style="padding: 7px 10px; text-align: left; font-weight: bold;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: #f8f9fa;">
+            <td style="padding: 6px 10px; border-bottom: 1px solid #e0e0e0;">NMD degradation</td>
+            <td style="padding: 6px 10px; text-align: center; border-bottom: 1px solid #e0e0e0;"><span style="background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 3px; font-size: 8pt;">Very Low</span></td>
+            <td style="padding: 6px 10px; text-align: center; border-bottom: 1px solid #e0e0e0;"><span style="background: #f8d7da; color: #721c24; padding: 2px 6px; border-radius: 3px; font-size: 8pt;">High</span></td>
+            <td style="padding: 6px 10px; border-bottom: 1px solid #e0e0e0; color: #4CAF50;">No triggers identified</td>
+          </tr>
+          <tr style="background: #fff;">
+            <td style="padding: 6px 10px; border-bottom: 1px solid #e0e0e0;">Cryptic splice sites</td>
+            <td style="padding: 6px 10px; text-align: center; border-bottom: 1px solid #e0e0e0;"><span style="background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 3px; font-size: 8pt;">Low</span></td>
+            <td style="padding: 6px 10px; text-align: center; border-bottom: 1px solid #e0e0e0;"><span style="background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 3px; font-size: 8pt;">Medium</span></td>
+            <td style="padding: 6px 10px; border-bottom: 1px solid #e0e0e0; color: #4CAF50;">VHH3 scanned, clear</td>
+          </tr>
+          <tr style="background: #f8f9fa;">
+            <td style="padding: 6px 10px; border-bottom: 1px solid #e0e0e0;">Start codon competition</td>
+            <td style="padding: 6px 10px; text-align: center; border-bottom: 1px solid #e0e0e0;"><span style="background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 3px; font-size: 8pt;">Low</span></td>
+            <td style="padding: 6px 10px; text-align: center; border-bottom: 1px solid #e0e0e0;"><span style="background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 3px; font-size: 8pt;">Medium</span></td>
+            <td style="padding: 6px 10px; border-bottom: 1px solid #e0e0e0; color: #4CAF50;">VP2 (ACG) avoids issue</td>
+          </tr>
+          <tr style="background: #fff;">
+            <td style="padding: 6px 10px; border-bottom: 1px solid #e0e0e0;">Frame shift</td>
+            <td style="padding: 6px 10px; text-align: center; border-bottom: 1px solid #e0e0e0;"><span style="background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 3px; font-size: 8pt;">None</span></td>
+            <td style="padding: 6px 10px; text-align: center; border-bottom: 1px solid #e0e0e0;"><span style="background: #f8d7da; color: #721c24; padding: 2px 6px; border-radius: 3px; font-size: 8pt;">Fatal</span></td>
+            <td style="padding: 6px 10px; border-bottom: 1px solid #e0e0e0; color: #4CAF50;">Verified (462 mod 3 = 0)</td>
+          </tr>
+          <tr style="background: #f8f9fa;">
+            <td style="padding: 6px 10px; border-bottom: 1px solid #e0e0e0;">Stop codon in X</td>
+            <td style="padding: 6px 10px; text-align: center; border-bottom: 1px solid #e0e0e0;"><span style="background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 3px; font-size: 8pt;">None</span></td>
+            <td style="padding: 6px 10px; text-align: center; border-bottom: 1px solid #e0e0e0;"><span style="background: #f8d7da; color: #721c24; padding: 2px 6px; border-radius: 3px; font-size: 8pt;">Fatal</span></td>
+            <td style="padding: 6px 10px; border-bottom: 1px solid #e0e0e0; color: #4CAF50;">Verified (none present)</td>
+          </tr>
+          <tr style="background: #fff;">
+            <td style="padding: 6px 10px; border-bottom: 1px solid #e0e0e0;">Retention too low/high</td>
+            <td style="padding: 6px 10px; text-align: center; border-bottom: 1px solid #e0e0e0;"><span style="background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 3px; font-size: 8pt;">Medium</span></td>
+            <td style="padding: 6px 10px; text-align: center; border-bottom: 1px solid #e0e0e0;"><span style="background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 3px; font-size: 8pt;">Medium</span></td>
+            <td style="padding: 6px 10px; border-bottom: 1px solid #e0e0e0; color: #FF7400;">Tune polyY length</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Summary -->
+    <div style="background: #d4edda; padding: 12px 18px; border-radius: 8px; border: 1px solid #4CAF50;">
+      <p style="font-size: 11pt; color: #155724; margin: 0; font-weight: bold;">
+        No fatal risks identified. All design constraints verified. Only empirical tuning needed for retention rate.
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="height: 40px; padding: 0 30px;">
+    <p style="font-size: 7pt; color: #414953; margin: 0; text-align: right;">11 | CONFIDENTIAL</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,455 @@
+LOCUS       AVD085                  7596 bp    DNA     circular UNK 12-FEB-2026
+DEFINITION  Rep2Mut2Cap9-VR4-IntronRetention-ATP6V0B | Scar=PGQHHL log2FC=1.079.
+ACCESSION   AVD085
+VERSION     AVD085
+KEYWORDS    .
+SOURCE      .
+  ORGANISM  .
+            .
+FEATURES             Location/Qualifiers
+     source          1..7596
+                     /mol_type="other DNA"
+                     /organism="synthetic DNA construct"
+                     /label="source"
+     primer_bind     379..395
+                     /label="M13 fwd"
+                     /note="common sequencing primer, one of multiple similar
+                     variants"
+     misc_feature    432..5317
+                     /label="INSERT"
+     misc_feature    446..496
+                     /label="vestigial p5 fragment"
+     CDS             join(497..2082,2404..2428)
+                     /codon_start=1
+                     /db_xref="4192013"
+                     /label="Rep68"
+                     /locus_tag="AAV2gp01"
+                     /product="Rep 68 protein"
+                     /protein_id="YP_680422.1"
+                     /transl_table=1
+                     /translation="MPGFYEIVIKVPSDLDEHLPGISDSFVNWVAEKEWELPPDSDMDL
+                     NLIEQAPLTVAEKLQRDFLTEWRRVSKAPEALFFVQFEKGESYFHMHVLVETTGVKSMV
+                     LGRFLSQIREKLIQRIYRGIEPTLPNWFAVTKTRNGAGGGNKVVDECYIPNYLLPKTQP
+                     ELQWAWTNMEQYLSACLNLTERKRLVAQHLTHVSQTQEQNKENQNPNSDAPVIRSKTSA
+                     RYMELVGWLVDKGITSEKQWIQEDQASYISFNAASNSRSQIKAALDNAGKIMSLTKTAP
+                     DYLVGQQPVEDISSNRIYKILELNGYDPQYAASVFLGWATKKFGKRNTIWLFGPATTGK
+                     TNIAEAIAHTVPFYGCVNWTNENFPFNDCVDKMVIWWEEGKMTAKVVESAKAILGGSKV
+                     RVDQKCKSSAQIDPTPVIVTSNTNMCAVIDGNSTTFEHQQPLQDRMFKFELTRRLDHDF
+                     GKVTKQEVKDFFRWAKDHVVEVEHEFYVKKGGAKKRPAPSDADISEPKRVRESVAQPST
+                     SDAEASINYADR,,LARGQP**"
+     misc_feature    497..2362
+                     /label="Rep2mut02"
+     gene            497..2362
+                     /db_xref="1489608"
+                     /label="AAV2gp02"
+                     /locus_tag="AAV2gp02"
+     CDS             497..2362
+                     /codon_start=1
+                     /label="Rep78"
+                     /transl_table=1
+                     /translation="MPGFYEIVIKVPSDLDEHLPGISDSFVNWVAEKEWELPPDSDMDL
+                     NLIEQAPLTVAEKLQRDFLTEWRRVSKAPEALFFVQFEKGESYFHMHVLVETTGVKSMV
+                     LGRFLSQIREKLIQRIYRGIEPTLPNWFAVTKTRNGAGGGNKVVDECYIPNYLLPKTQP
+                     ELQWAWTNMEQYLSACLNLTERKRLVAQHLTHVSQTQEQNKENQNPNSDAPVIRSKTSA
+                     RYMELVGWLVDKGITSEKQWIQEDQASYISFNAASNSRSQIKAALDNAGKIMSLTKTAP
+                     DYLVGQQPVEDISSNRIYKILELNGYDPQYAASVFLGWATKKFGKRNTIWLFGPATTGK
+                     TNIAEAIAHTVPFYGCVNWTNENFPFNDCVDKMVIWWEEGKMTAKVVESAKAILGGSKV
+                     RVDQKCKSSAQIDPTPVIVTSNTNMCAVIDGNSTTFEHQQPLQDRMFKFELTRRLDHDF
+                     GKVTKQEVKDFFRWAKDHVVEVEHEFYVKKGGAKKRPAPSDADISEPKRVRESVAQPST
+                     SDAEASINYADRYQNKCSRHVGMNLMLFPCRQCERLNQNSNICFTHGVKDCLECFPVSE
+                     SQPVSVVKKAYQKLCYIHHIMGKVPDACTACDLVNVDLDDCVSEQ*"
+     misc_feature    497..2060
+                     /label="REP2"
+                     /note="label: REP2 locus_tag: REP2"
+     regulatory      896..1053
+                     /label="p19 promoter"
+                     /regulatory_class="promoter"
+     CDS             1169..2362
+                     /codon_start=1
+                     /label="Rep52"
+                     /transl_table=1
+                     /translation="MELVGWLVDKGITSEKQWIQEDQASYISFNAASNSRSQIKAALDN
+                     AGKIMSLTKTAPDYLVGQQPVEDISSNRIYKILELNGYDPQYAASVFLGWATKKFGKRN
+                     TIWLFGPATTGKTNIAEAIAHTVPFYGCVNWTNENFPFNDCVDKMVIWWEEGKMTAKVV
+                     ESAKAILGGSKVRVDQKCKSSAQIDPTPVIVTSNTNMCAVIDGNSTTFEHQQPLQDRMF
+                     KFELTRRLDHDFGKVTKQEVKDFFRWAKDHVVEVEHEFYVKKGGAKKRPAPSDADISEP
+                     KRVRESVAQPSTSDAEASINYADRYQNKCSRHVGMNLMLFPCRQCERLNQNSNICFTHG
+                     VKDCLECFPVSESQPVSVVKKAYQKLCYIHHIMGKVPDACTACDLVNVDLDDCVSEQ*"
+     regulatory      1876..2028
+                     /label="p40 promoter"
+                     /regulatory_class="promoter"
+     misc_feature    2061..2087
+                     /label="REP78"
+                     /note="label: REP78 locus_tag: REP78"
+     intron          2083..2403
+                     /label="intron2"
+                     /locus_tag="AAV2gp03"
+     intron          2083..2376
+                     /label="intron1"
+     CDS             2088..2362
+                     /codon_start=1
+                     /label="REP78"
+                     /note="label: REP78(1) locus_tag: REP78(1)"
+                     /transl_table=1
+                     /translation="KTNVLVTWA*I*CCFPADNARD*IRIQISASLTVSKTV*SAFPCQ
+                     NLNPFLSSKRRIRNCATFITSWERCQTLALLATWSMWTWMTVFLNN"
+     source          2379..5081
+                     /db_xref="235455"
+                     /isolate="hu.14"
+                     /isolation_source="human tissue"
+                     /label="clade F"
+                     /mol_type="genomic DNA"
+                     /note="clade F"
+                     /note="/geo_loc_name=USA"
+                     /organism="Adeno-associated virus 9"
+     CDS             2379..5081
+                     /codon_start=1
+                     /label="VP1-IntronRetention"
+                     /transl_table=1
+                     /translation="MAADGYLPDWLEDNLSEGIREWWALKPGAPQPKANQQHQDNARGL
+                     VLPGYKYLGPGNGLDKGEPVNAADAAALEHDKAYDQQLKAGDNPYLKYNHADAEFQERL
+                     KEDTSFGGNLGRAVFQAKKRLLEPLGLVEEAAKTAPGKKRPVEQSPQEPDSSAGIGKSG
+                     AQPAKKRLNFGQTGDTESVPDPQPIGEPPAAPSGVGSLTMASGGGAPVADNNEGADGVG
+                     SSSGNWHCDSQWLGDRVITTSTRTWALPTYNNHLYKQISNSTSGGSSNDNAYFGYSTPW
+                     GYFDFNRFHCHFSPRDWQRLINNNWGFRPKRLNFKLFNIQVKEVTDNNGVKTIANNLTS
+                     TVQVFTDSDYQLPYVLGSAHEGCLPPFPADVFMIPQYGYLTLNDGSQAVGRSSFYCLEY
+                     FPSQMLRTGNNFQFSYEFENVPFHSSYAHSQSLDRLMNPLIDQYLYYLSKTINGSGQNQ
+                     QTLKFSVAGPSNMAVQGRNYIPGPSYRQQRVSTTVTQNNNSEFAWPGASSWALNGRNSL
+                     MNPGPAMASHKEGEDRFFPLSGSLIFGKQGTGRDNVDADKVMITNEEEIKTTNPVATES
+                     YGQVATNHQSAQAQAQTGWVQNQGILPGMVWQDRDVYLQGPIWAKIPHTDGNFHPSPLM
+                     GGFGMKHPPPQILIKNTPVPADPPTAFNKDKLNSFITQYSTGQVSVEIEWELQKENSKR
+                     WNPEIQYTSNYYKSNNVEFAVNTEGVYSEPRPIGTRYLTRNL*"
+                     /note="AAV9 VP1 with intron-retention cassette at VR-IV.
+                     Splice donor/acceptor from ATP6V0B."
+     gene            2379..5081
+                     /gene="cap"
+                     /label="cap"
+     misc_feature    2519..2524
+                     /label="SmaI_site"
+                     /note="Engineered SmaI restriction site (CCCGGG). Silent
+                     mutation: CTT→CTC (L→L)"
+     CDS             join(2790..2792,2793..5081)
+                     /codon_start=1
+                     /label="VP2"
+                     /transl_table=1
+                     /translation="T,APGKKRPVEQSPQEPDSSAGIGKSGAQPAKKRLNFGQTGDTES
+                     VPDPQPIGEPPAAPSGVGSLTMASGGGAPVADNNEGADGVGSSSGNWHCDSQWLGDRVI
+                     TTSTRTWALPTYNNHLYKQISNSTSGGSSNDNAYFGYSTPWGYFDFNRFHCHFSPRDWQ
+                     RLINNNWGFRPKRLNFKLFNIQVKEVTDNNGVKTIANNLTSTVQVFTDSDYQLPYVLGS
+                     AHEGCLPPFPADVFMIPQYGYLTLNDGSQAVGRSSFYCLEYFPSQMLRTGNNFQFSYEF
+                     ENVPFHSSYAHSQSLDRLMNPLIDQYLYYLSKTINGSGQNQQTLKFSVAGPSNMAVQGR
+                     NYIPGPSYRQQRVSTTVTQNNNSEFAWPGASSWALNGRNSLMNPGPAMASHKEGEDRFF
+                     PLSGSLIFGKQGTGRDNVDADKVMITNEEEIKTTNPVATESYGQVATNHQSAQAQAQTG
+                     WVQNQGILPGMVWQDRDVYLQGPIWAKIPHTDGNFHPSPLMGGFGMKHPPPQILIKNTP
+                     VPADPPTAFNKDKLNSFITQYSTGQVSVEIEWELQKENSKRWNPEIQYTSNYYKSNNVE
+                     FAVNTEGVYSEPRPIGTRYLTRNL*"
+     misc_feature    2842..2848
+                     /label="BbvCI_site"
+                     /note="Engineered BbvCI restriction site (CCTCAGC). Silent
+                     mutation: TCC→TCA (S→S)"
+     CDS             2905..3498
+                     /codon_start=1
+                     /label="AAV9 AAP"
+                     /transl_table=1
+                     /translation="LATQSQSQTLNQSENLPQPPQVWDLLQWLQVVAHQWQTITKVPME
+                     WVVPREIGIAIPNGWGTESSPPAPEPGPCPPTTITSTSKSPTAHLEDLQMTTPTSATAP
+                     PGGILTSTDSTATSHHVTGSDSSTTTGDSGLSDSTSSSSTFRSKRLRTTMESRPSPITL
+                     PARSRSSRTQTISSRTCSGRLTRAASRRSQRTFS*"
+     CDS             2985..5081
+                     /codon_start=1
+                     /label="VP3"
+                     /transl_table=1
+                     /translation="MASGGGAPVADNNEGADGVGSSSGNWHCDSQWLGDRVITTSTRTW
+                     ALPTYNNHLYKQISNSTSGGSSNDNAYFGYSTPWGYFDFNRFHCHFSPRDWQRLINNNW
+                     GFRPKRLNFKLFNIQVKEVTDNNGVKTIANNLTSTVQVFTDSDYQLPYVLGSAHEGCLP
+                     PFPADVFMIPQYGYLTLNDGSQAVGRSSFYCLEYFPSQMLRTGNNFQFSYEFENVPFHS
+                     SYAHSQSLDRLMNPLIDQYLYYLSKTINGSGQNQQTLKFSVAGPSNMAVQGRNYIPGPS
+                     YRQQRVSTTVTQNNNSEFAWPGASSWALNGRNSLMNPGPAMASHKEGEDRFFPLSGSLI
+                     FGKQGTGRDNVDADKVMITNEEEIKTTNPVATESYGQVATNHQSAQAQAQTGWVQNQGI
+                     LPGMVWQDRDVYLQGPIWAKIPHTDGNFHPSPLMGGFGMKHPPPQILIKNTPVPADPPT
+                     AFNKDKLNSFITQYSTGQVSVEIEWELQKENSKRWNPEIQYTSNYYKSNNVEFAVNTEG
+                     VYSEPRPIGTRYLTRNL*"
+     misc_feature    3162..3185
+                     /label="AAV9_VR-I"
+                     /note="AAV9 Variable Region VR-I (AA 262-269)"
+     misc_feature    3351..3413
+                     /label="DE_Loop_5fold"
+                     /note="DE Loop (5-fold pore walls). VP1 aa 325-345. Forms
+                     central pore at 5-fold axis. Contains ANNLT motif."
+     misc_feature    3357..3374
+                     /label="AAV9_VR-II"
+                     /note="AAV9 Variable Region VR-II (AA 327-332)"
+     misc_feature    3381..3395
+                     /label="ANNLT_motif"
+                     /note="Conserved ANNLT motif in DE loop. Highly conserved
+                     across AAV serotypes."
+     misc_feature    3390..3392
+                     /label="L338_pore_constriction"
+                     /note="L338 - Pore constriction residue at 5-fold axis.
+                     Critical for pore opening/function."
+     misc_feature    3522..3536
+                     /label="AAV9_VR-III"
+                     /note="AAV9 Variable Region VR-III (AA 382-386)"
+     misc_feature    3597..3602
+                     /label="AgeI_site"
+                     /note="Engineered AgeI restriction site (ACCGGT). Silent
+                     mutation: ACG→ACC (T→T)"
+     source          3711..4250
+                     /db_xref="235455"
+                     /isolate="hu.14"
+                     /isolation_source="human tissue"
+                     /label="clade F"
+                     /mol_type="genomic DNA"
+                     /note="clade F"
+                     /note="/geo_loc_name=USA"
+                     /organism="Adeno-associated virus 9"
+     misc_feature    3732..4250
+                     /label="AAV9_VR-IV"
+                     /note="AAV9 Variable Region VR-IV (AA 452-460)"
+     misc_feature    4286..4291
+                     /label="BsrGI_site"
+                     /note="Engineered BsrGI restriction site (TGTACA). Silent
+                     mutation: GTC→GTA (V→V)"
+     misc_feature    4332..4385
+                     /label="AAV9_VR-V"
+                     /note="AAV9 Variable Region VR-V (AA 488-505)"
+     misc_feature    4443..4448
+                     /label="BmtI_site"
+                     /note="Engineered BmtI restriction site (GCTAGC). Silent
+                     mutation: GCC→GCT (A→A)"
+     misc_feature    4449..4487
+                     /label="AAV9_VR-VI"
+                     /note="AAV9 Variable Region VR-VI (AA 527-539)"
+     misc_feature    4503..4544
+                     /label="AAV9_VR-VII"
+                     /note="AAV9 Variable Region VR-VII (AA 545-558)"
+     misc_feature    4611..4649
+                     /label="AAV9_VR-VIII"
+                     /note="AAV9 Variable Region VR-VIII (AA 581-593)"
+     misc_feature    4669..4674
+                     /label="BstZ17I_site"
+                     /note="Engineered BstZ17I restriction site (GTATAC). Silent
+                     mutation: GGA→GGT (G→G)"
+     misc_feature    4836..4883
+                     /label="HI_Loop_5fold"
+                     /note="HI Loop (surrounds 5-fold pore). VP1 aa 656-671.
+                     Important for VP1 unique domain positioning."
+     misc_feature    4854..4856
+                     /label="F662_VP1_incorporation"
+                     /note="F662 - Critical for VP1 incorporation into capsid.
+                     Key residue at 5-fold axis."
+     misc_feature    4980..5012
+                     /label="AAV9_VR-IX"
+                     /note="AAV9 Variable Region VR-IX (AA 704-714)"
+     misc_feature    5175
+                     /label="g to C SbfI removal"
+     regulatory      5186..5305
+                     /label="p5 promoter"
+                     /regulatory_class="promoter"
+     misc_feature    5201..5289
+                     /label="P5"
+     primer_bind     complement(5375..5391)
+                     /label="M13 rev"
+                     /note="common sequencing primer, one of multiple similar
+                     variants"
+     protein_bind    5399..5415
+                     /bound_moiety="lac repressor encoded by lacI"
+                     /label="lac operator"
+                     /note="The lac repressor binds to the lac operator
+                     toinhibit transcription in E. coli. This inhibition can be
+                     relieved by adding lactose or
+                     isopropyl-beta-D-thiogalactopyranoside (IPTG)."
+     promoter        complement(join(5423..5429,5430..5447,5448..5453))
+                     /label="lac promoter"
+                     /note="promoter for the E. coli lac operon"
+     protein_bind    5468..5489
+                     /bound_moiety="E. coli catabolite activator protein"
+                     /label="CAP binding site"
+                     /note="CAP binding activates transcription in the
+                     presenceof cAMP."
+     rep_origin      complement(5777..6365)
+                     /direction=LEFT
+                     /label="ori"
+                     /note="high-copy-number ColE1/pMB1/pBR322/pUC origin of
+                     replication"
+     CDS             complement(join(6536..7327,7328..7396))
+                     /codon_start=1
+                     /gene="bla"
+                     /label="AmpR"
+                     /note="confers resistance to ampicillin, carbenicillin, and
+                     related antibiotics"
+                     /product="beta-lactamase"
+                     /transl_table=1
+                     /translation="MSIQHFRVALIPFFAAFCLPVFA,HPETLVKVKDAEDQLGARVGY
+                     IELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRIDAGQEQLGRRIHYSQNDLVEY
+                     SPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDR
+                     WEPELNEAIPNDERDTTMPVAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPLLRS
+                     ALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIAEIGA
+                     SLIKHW*"
+     promoter        complement(7397..7501)
+                     /gene="bla"
+                     /label="AmpR promoter"
+     misc_feature    3744..3752
+                     /label="donor_exonic_ATP6V0B"
+                     /note="Splice donor exonic (9 bp) from ATP6V0B"
+     misc_feature    3753..3754
+                     /label="splice_donor_GT"
+                     /note="5' splice site (GT)"
+     misc_feature    3755..3758
+                     /label="donor_intronic"
+                     /note="Donor intronic sequence (4 bp)"
+     misc_feature    3759..3833
+                     /label="GGGGS5_GTAGdepleted"
+                     /note="(GGGGS)x5 linker, GT/AG-depleted codons (75 bp)"
+     CDS             3834..4190
+                     /label="VHH3_anti-ALPL"
+                     /note="Anti-ALPL VHH nanobody, 119 aa, GT/AG-depleted"
+                     /translation="EVQLVESGGGLVQPGGSLRLSCAASGFTFSTADMGWFRQAPGKGR
+                     ELVAAVSGSGFSTYSDSVEGRFTISRDNAKRMVYLQMNSLRAEDTAVYYCAKATISLYY
+                     AMDVWGQGTTVTVSS"
+     misc_feature    4191..4205
+                     /label="GGGGS1_GTAGdepleted"
+                     /note="(GGGGS)x1 linker, GT/AG-depleted codons (15 bp)"
+     misc_feature    4206..4224
+                     /label="acceptor_intronic"
+                     /note="Acceptor intronic sequence (19 bp)"
+     misc_feature    4225..4226
+                     /label="splice_acceptor_AG"
+                     /note="3' splice site (AG)"
+     misc_feature    4227..4235
+                     /label="acceptor_exonic_ATP6V0B"
+                     /note="Splice acceptor exonic (9 bp) from ATP6V0B"
+     intron          3753..4226
+                     /label="intron_ATP6V0B"
+                     /note="Synthetic intron from ATP6V0B retained intron.
+                     Contains GGGGS5-VHH3-GGGGS1 (GT/AG-depleted). Expected
+                     retention ~10-20%."
+ORIGIN
+        1 tcgcgcgttt cggtgatgac ggtgaaaacc tctgacacat gcagctcccg gagtcggtca
+       61 cagcttgtct gtaagcggat gccgggagca gacaagcccg tcagggcgcg tcagcgggtg
+      121 ttggcgggtg tcggggctgg cttaactatg cggcatcaga gcagattgta ctgagagtgc
+      181 accatatgcg gtgtgaaata ccgcacagat gcgtaaggag aaaataccgc atcaggcgcc
+      241 attcgccatt caggctgcgc aactgttggg aagggcgatc ggtgcgggcc tcttcgctat
+      301 tacgccagct ggcgaaaggg ggatgtgctg caaggcgatt aagttgggta acgccagggt
+      361 tttcccagtc acgacgttgt aaaacgacgg ccagtgaatt ggagatcggt acttcgcgaa
+      421 tgcgtcgaga tgcggccgcg catgcgagct cgcagggtct ccattttgaa gcgggaggtt
+      481 tgaacgcgca gccgccatgc cggggtttta cgagattgtg attaaggtcc ccagcgacct
+      541 tgacgagcat ctgcccggca tttctgacag ctttgtgaac tgggtggccg agaaggaatg
+      601 ggagttgccg ccagattctg acatggatct gaatctgatt gagcaggcac ccctgaccgt
+      661 ggccgagaag ctgcagcgcg actttctgac ggaatggcgc cgtgtgagta aggccccgga
+      721 ggctcttttc tttgtgcaat ttgagaaggg agagagctac ttccacatgc acgtgctcgt
+      781 ggaaaccacc ggggtgaaat ccatggtttt gggacgtttc ctgagtcaga ttcgcgaaaa
+      841 actgattcag agaatttacc gcgggatcga gccgactttg ccaaactggt tcgcggtcac
+      901 aaagaccaga aatggcgccg gaggcgggaa caaggtggtg gatgagtgct acatccccaa
+      961 ttacttgctc cccaaaaccc agcctgagct ccagtgggcg tggactaata tggaacagta
+     1021 tttaagcgcc tgtttgaatc tcacggagcg taaacggttg gtggcgcagc atctgacgca
+     1081 cgtgtcgcag acgcaggagc agaacaaaga gaatcagaat cccaattctg atgcgccggt
+     1141 gatcagatca aaaacttcag ccaggtacat ggagctggtc gggtggctcg tggacaaggg
+     1201 gattacctcg gagaagcagt ggatccagga ggaccaggcc tcatacatct ccttcaatgc
+     1261 ggcctccaac tcgcggtccc aaatcaaggc tgccttggac aatgcgggaa agattatgag
+     1321 cctgactaaa accgcccccg actacctggt gggccagcag cccgtggagg acatttccag
+     1381 caatcggatt tataaaattt tggaactaaa cgggtacgat ccccaatatg cggcttccgt
+     1441 ctttctggga tgggccacga aaaagttcgg caagaggaac accatctggc tgtttgggcc
+     1501 tgcaactacc gggaagacca acatcgcgga ggccatagcc cacactgtgc ccttctacgg
+     1561 gtgcgtaaac tggaccaatg agaactttcc cttcaacgac tgtgtcgaca agatggtgat
+     1621 ctggtgggag gaggggaaga tgaccgccaa ggtcgtggag tcggccaaag ccattctcgg
+     1681 aggaagcaag gtgcgcgtgg accagaaatg caagtcctcg gcccagatag acccgactcc
+     1741 cgtgatcgtc acctccaaca ccaacatgtg cgccgtgatt gacgggaact caacgacctt
+     1801 cgaacaccag cagccgttgc aagaccggat gttcaaattt gaactcaccc gccgtctgga
+     1861 tcatgacttt gggaaggtca ccaagcagga agtcaaagac tttttccggt gggcaaagga
+     1921 tcacgtggtt gaggtggagc atgaattcta cgtcaaaaag ggtggagcca agaaaagacc
+     1981 cgcccccagt gacgcagata taagtgagcc caaacgggtg cgcgagtcag ttgcgcagcc
+     2041 atcgacgtca gacgcggaag cttcgatcaa ctacgcggac aggtaccaaa acaaatgttc
+     2101 tcgtcacgtg ggcatgaatc tgatgctgtt tccctgcaga caatgcgaga gactgaatca
+     2161 gaattcaaat atctgcttca ctcacggtgt caaagactgt ttagagtgct ttcccgtgtc
+     2221 agaatctcaa cccgtttctg tcgtcaaaaa ggcgtatcag aaactgtgct acattcatca
+     2281 catcatggga aaggtgccag acgcttgcac tgcttgcgac ctggtcaatg tggacttgga
+     2341 tgactgtgtt tctgaacaat aaatgactta aaccaggtat ggctgccgat ggttatcttc
+     2401 cagattggct cgaggacaac cttagtgaag gaattcgcga gtggtgggct ttgaaacctg
+     2461 gagcccctca acccaaggca aatcaacaac atcaagacaa cgctcgaggt cttgtgctcc
+     2521 cgggttacaa ataccttgga cccggcaacg gactcgacaa gggggagccg gtcaacgcag
+     2581 cagacgcggc ggccctcgag cacgacaagg cctacgacca gcagctcaag gccggagaca
+     2641 acccgtacct caagtacaac cacgccgacg ccgagttcca ggagcggctc aaagaagata
+     2701 cgtcttttgg gggcaacctc gggcgagcag tcttccaggc caaaaagagg cttcttgaac
+     2761 ctcttggtct ggttgaggaa gcggctaaga cggctcctgg aaagaagagg cctgtagagc
+     2821 agtctcctca ggaaccggac tcctcagcgg gtattggcaa atcgggtgca cagcccgcta
+     2881 aaaagagact caatttcggt cagactggcg acacagagtc agtcccagac cctcaaccaa
+     2941 tcggagaacc tcccgcagcc ccctcaggtg tgggatctct tacaatggct tcaggtggtg
+     3001 gcgcaccagt ggcagacaat aacgaaggtg ccgatggagt gggtagttcc tcgggaaatt
+     3061 ggcattgcga ttcccaatgg ctgggggaca gagtcatcac caccagcacc cgaacctggg
+     3121 ccctgcccac ctacaacaat cacctctaca agcaaatctc caacagcaca tctggaggat
+     3181 cttcaaatga caacgcctac ttcggctaca gcaccccctg ggggtatttt gacttcaaca
+     3241 gattccactg ccacttctca ccacgtgact ggcagcgact catcaacaac aactggggat
+     3301 tccggcctaa gcgactcaac ttcaagctct tcaacattca ggtcaaagag gttacggaca
+     3361 acaatggagt caagaccatc gccaataacc ttaccagcac ggtccaggtc ttcacggact
+     3421 cagactatca gctcccgtac gtgctcgggt cggctcacga gggctgcctc ccgccgttcc
+     3481 cagcggacgt tttcatgatt cctcagtacg ggtatctgac gcttaatgat ggaagccagg
+     3541 ccgtgggtcg ttcgtccttt tactgcctgg aatatttccc gtcgcaaatg ctaagaaccg
+     3601 gtaacaactt ccagttcagc tacgagtttg agaacgtacc tttccatagc agctacgctc
+     3661 acagccaaag cctggaccga ctaatgaatc cactcatcga ccaatacttg tactatctct
+     3721 caaagactat taacggttct ggacctggtc aggtaagtgg cggcggcggc tcgggcggcg
+     3781 ggggctccgg cgggggcggc tccgggggcg gcggctctgg gggcgggggc tctgaagtcc
+     3841 aactcgtcga atccggcggc ggcctcgtcc aacccggcgg ctctctgcgg ctttcatgcg
+     3901 ccgcctctgg attcacattt tccaccgccg atatgggatg gttccggcaa gcccccggca
+     3961 aaggccggga actcgtcgcc gccgtttccg gctctggatt ctctacatat tccgattccg
+     4021 tcgaaggccg attcaccatc tctcgggata atgccaaacg catggtctac ctgcaaatga
+     4081 attccctgcg ggccgaagat accgccgtct actattgcgc caaagccacc atttccttat
+     4141 attatgccat ggacgtctgg ggccaaggca ccaccgtcac cgtttcctcc ggcggcgggg
+     4201 gctcgcctaa tctctaccac taccagcatc atcttcagaa tcaacaaacg ctaaaattca
+     4261 gtgtggccgg acccagcaac atggctgtac agggaagaaa ctacatacct ggacccagct
+     4321 accgacaaca acgtgtctca accactgtga ctcaaaacaa caacagcgaa tttgcttggc
+     4381 ctggagcttc ttcttgggct ctcaatggac gtaatagctt gatgaatcct ggacctgcta
+     4441 tggctagcca caaagaagga gaggaccgtt tctttccttt gtctggatct ttaatttttg
+     4501 gcaaacaagg aactggaaga gacaacgtgg atgcggacaa agtcatgata accaacgaag
+     4561 aagaaattaa aactactaac ccggtagcaa cggagtccta tggacaagtg gccacaaacc
+     4621 accagagtgc ccaagcacag gcgcagaccg gctgggttca aaaccaaggt atacttccgg
+     4681 gtatggtttg gcaggacaga gatgtgtacc tgcaaggacc catttgggcc aaaattcctc
+     4741 acacggacgg caactttcac ccttctccgc tgatgggagg gtttggaatg aagcacccgc
+     4801 ctcctcagat cctcatcaaa aacacacctg tacctgcgga tcctccaacg gccttcaaca
+     4861 aggacaagct gaactctttc atcacccagt attctactgg ccaagtcagc gtggagatcg
+     4921 agtgggagct gcagaaggaa aacagcaagc gctggaaccc ggagatccag tacacttcca
+     4981 actattacaa gtctaataat gttgaatttg ctgttaatac tgaaggtgta tatagtgaac
+     5041 cccgccccat tggcaccaga tacctgactc gtaatctgta atcgattgtt aatcaataaa
+     5101 ccgtttaatt cgtttcagtt gaactttggt ctctgcgtat ttctttctta tctagtttcc
+     5161 atggctacaa acctccagga ctagaggtcc tgtattagag gtcacgtgag tgttttgcga
+     5221 cattttgcga caccatgtgg tcacgctggg tatttaagcc cgagtgagca cgcagggtct
+     5281 ccattttgaa gcgggaggtt tgaactctag aacgcgtatc ggatgccgtg accgacgagt
+     5341 gcagaggcgt gcaagcgagc ttggcgtaat catggtcata gctgtttcct gtgtgaaatt
+     5401 gttatccgct cacaattcca cacaacatac gagccggaag cataaagtgt aaagcctggg
+     5461 gtgcctaatg agtgagctaa ctcacattaa ttgcgttgcg ctcactgccc gctttccagt
+     5521 cgggaaacct gtcgtgccag ctgcattaat gaatcggcca acgcgcgggg agaggcggtt
+     5581 tgcgtattgg gcgctgttcc gcttcctcgc tcactgactc gctgcgctcg gtcgttcggc
+     5641 tgcggcgagc ggtatcagct cactcaaagg cggtaatacg gttatccaca gaatcagggg
+     5701 ataacgcagg aaagaacatg tgagcaaaag gccagcaaaa ggccaggaac cgtaaaaagg
+     5761 ccgcgttgct ggcgtttttc cataggctcc gcccccctga cgagcatcac aaaaatcgac
+     5821 gctcaagtca gaggtggcga aacccgacag gactataaag ataccaggcg tttccccctg
+     5881 gaagctccct cgtgcgctct cctgttccga ccctgccgct taccggatac ctgtccgcct
+     5941 ttctcccttc gggaagcgtg gcgctttctc atagctcacg ctgtaggtat ctcagttcgg
+     6001 tgtaggtcgt tcgctccaag ctgggctgtg tgcacgaacc ccccgttcag cccgaccgct
+     6061 gcgccttatc cggtaactat cgtcttgagt ccaacccggt aagacacgac ttatcgccac
+     6121 tggcagcagc cactggtaac aggattagca gagcgaggta tgtaggcggt gctacagagt
+     6181 tcttgaagtg gtggcctaac tacggctaca ctagaagaac agtatttggt atctgcgctc
+     6241 tgctgaagcc agttaccttc ggaaaaagag ttggtagctc ttgatccggc aaacaaacca
+     6301 ccgctggtag cggtggtttt tttgtttgca agcagcagat tacgcgcaga aaaaaaggat
+     6361 ctcaagaaga tcctttgatc ttttctacgg ggtctgacgc tcagtggaac gaaaactcac
+     6421 gttaagggat tttggtcatg agattatcaa aaaggatctt cacctagatc cttttaaatt
+     6481 aaaaatgaag ttttaaatca atctaaagta tatatgagta aacttggtct gacagttacc
+     6541 aatgcttaat cagtgaggca cctatctcag cgatctgtct atttcgttca tccatagttg
+     6601 cctgactccc cgtcgtgtag ataactacga tacgggaggg cttaccatct ggccccagtg
+     6661 ctgcaatgat accgcgagat ccacgctcac cggctccaga tttatcagca ataaaccagc
+     6721 cagccggaag ggccgagcgc agaagtggtc ctgcaacttt atccgcctcc atccagtcta
+     6781 ttaattgttg ccgggaagct agagtaagta gttcgccagt taatagtttg cgcaacgttg
+     6841 ttgccattgc tacaggcatc gtggtgtcac gctcgtcgtt tggtatggct tcattcagct
+     6901 ccggttccca acgatcaagg cgagttacat gatcccccat gttgtgcaaa aaagcggtta
+     6961 gctccttcgg tcctccgatc gttgtcagaa gtaagttggc cgcagtgtta tcactcatgg
+     7021 ttatggcagc actgcataat tctcttactg tcatgccatc cgtaagatgc ttttctgtga
+     7081 ctggtgagta ctcaaccaag tcattctgag aatagtgtat gcggcgaccg agttgctctt
+     7141 gcccggcgtc aatacgggat aataccgcgc cacatagcag aactttaaaa gtgctcatca
+     7201 ttggaaaacg ttcttcgggg cgaaaactct caaggatctt accgctgttg agatccagtt
+     7261 cgatgtaacc cactcgtgca cccaactgat cttcagcatc ttttactttc accagcgttt
+     7321 ctgggtgagc aaaaacagga aggcaaaatg ccgcaaaaaa gggaataagg gcgacacgga
+     7381 aatgttgaat actcatactc ttcctttttc aatattattg aagcatttat cagggttatt
+     7441 gtctcatgag cggatacata tttgaatgta tttagaaaaa taaacaaata ggggttccgc
+     7501 gcacatttcc ccgaaaagtg ccacctgacg tctaagaaac cattattatc atgacattaa
+     7561 cctataaaaa taggcgtatc acgaggccct ttcgac
+//

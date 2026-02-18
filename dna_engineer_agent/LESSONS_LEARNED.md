@@ -25,7 +25,9 @@ This document captures critical bugs, design issues, success stories, and lesson
 - [BUG-002: Hardcoded Frame=0 Assumption](#bug-002-hardcoded-frame0-assumption)
 - [BUG-003: Single-Strand Uniqueness Counting](#bug-003-single-strand-uniqueness-counting)
 - [BUG-004: Incorrect Amino Acid Insertion Point](#bug-004-incorrect-amino-acid-insertion-point)
+- [BUG-005: Parent Sequence Mismatch in Multi-Construct Builds](#bug-005-parent-sequence-mismatch-in-multi-construct-builds)
 - [BUG-006: N-Terminal Insertion After Single Amino Acid](#bug-006-n-terminal-insertion-after-single-amino-acid)
+- [BUG-007: Repetitive GGGGS Codons](#bug-007-repetitive-ggggs-codons)
 
 ### Design Issues
 - [DESIGN-001: Cloning Site Conflicts (XbaI in v04)](#design-001-cloning-site-conflicts-xbai-in-v04)
@@ -33,6 +35,11 @@ This document captures critical bugs, design issues, success stories, and lesson
 - [DESIGN-003: Splice Acceptor Avoidance](#design-003-splice-acceptor-avoidance)
 - [DESIGN-004: Dam Methylation in Cloning Site Selection](#design-004-dam-methylation-in-cloning-site-selection)
 - [DESIGN-005: Fussy Enzyme Selection](#design-005-fussy-enzyme-selection)
+- [DESIGN-006: Synthetic Fragment Boundary Selection](#design-006-synthetic-fragment-boundary-selection)
+- [DESIGN-007: VP1/VP2/VP3 Knockout Strategy](#design-007-vp1vp2vp3-knockout-strategy)
+- [DESIGN-008: VHH Insertion at Variable Regions with Asymmetric Linkers](#design-008-vhh-insertion-at-variable-regions-with-asymmetric-linkers)
+- [DESIGN-009: Codon Optimization for Synthesis Compatibility](#design-009-codon-optimization-for-synthesis-compatibility)
+- [DESIGN-010: Do-No-Harm Safety Checks — Use Thresholds, Not Absolutes](#design-010-do-no-harm-safety-checks--use-thresholds-not-absolutes)
 
 ### General Principles
 - [The Importance of Testing](#the-importance-of-testing)
@@ -989,6 +996,137 @@ NEVER hard-code DNA positions for amino acid insertions. ALWAYS:
 2. AAV9 capsid VP1/VP2 N-terminal sequences
 3. This error: AVD008-AVD010 plasmid design (2026-01-22)
 4. Notation standards for insertion point specification
+
+---
+
+### BUG-005: Parent Sequence Mismatch in Multi-Construct Builds
+
+**Severity:** CRITICAL (incorrect construct sequence)
+
+**Date Discovered:** 2026-01-14
+
+#### Problem
+When building two related constructs (AVD005 from AVD003, AVD006 from AVD002), the build script extracted VP1 from AVD003 and used it for BOTH constructs:
+
+```python
+# WRONG: Uses AVD003's VP1 for both constructs
+vp1_original = str(avd003.seq[1520:3731])
+vp1_vhh_fusion = build_vp1_vhh_fusion(vp1_original)
+avd005 = create_avd005(avd003, vp1_vhh_fusion)
+avd006 = create_avd006(avd002, vp1_vhh_fusion)  # WRONG! Should use AVD002's VP1
+```
+
+#### Root Cause
+AVD003 and AVD002 had 7 pre-existing silent mutations in their VP1 sequences (from prior 6R site engineering). When AVD003's VP1 was inserted into AVD006, those 7 differences appeared as "unexplained" mutations.
+
+Comparing AVD002 to AVD006 showed **9 mutations** instead of the expected **2**:
+- 2 intentional (VP2/VP3 knockouts)
+- 7 unintentional (inherited from AVD003's VP1)
+
+#### Impact
+- Construct AVD006 contained 7 unintended silent mutations from AVD003
+- Comparing parent (AVD002) to child (AVD006) revealed unexplained differences
+- Loss of confidence in automated build process
+- Required rebuild from correct parent sequences
+
+#### Fix
+Each construct must use the VP1 sequence from its OWN parent plasmid:
+
+```python
+# CORRECT: Each construct uses VP1 from its own parent
+vp1_from_avd003 = str(avd003.seq[1520:3731])
+vp1_from_avd002 = str(avd002.seq[2378:4589])
+
+vp1_vhh_for_avd005 = build_vp1_vhh_fusion(vp1_from_avd003)
+vp1_vhh_for_avd006 = build_vp1_vhh_fusion(vp1_from_avd002)
+
+avd005 = create_avd005(avd003, vp1_vhh_for_avd005)
+avd006 = create_avd006(avd002, vp1_vhh_for_avd006)
+```
+
+#### Prevention
+1. **Always start from the actual parent sequence**, not a reference sequence from a different plasmid
+2. Different plasmids of the same "type" may have:
+   - Silent mutations from codon optimization
+   - Restriction site modifications (like 6R engineering)
+   - Vendor-specific sequence variants
+   - Historical sequence drift
+3. When building construct B from parent A, extract the modified region from A's actual sequence
+4. Never assume two "similar" plasmids have identical sequences
+5. After building, perform a full diff between parent and child to verify ONLY intentional changes exist
+6. If the diff shows unexpected mutations, investigate the source before proceeding
+
+#### Test Coverage
+- Checkpoint 10: Parent-child sequence verification (compares all differences against design spec)
+
+#### Related Issues
+- BUG-004: Incorrect amino acid insertion point (similar coordinate/source issue)
+- BUG-006: N-terminal insertion error (also affects AVD construct builds)
+- Checkpoint 10: Parent-child verification (designed to prevent this)
+
+---
+
+### BUG-007: Repetitive GGGGS Codons
+
+**Severity:** HIGH (synthesis failure risk)
+
+**Date Discovered:** 2026-01-14
+
+#### Problem
+Using simple codon lookup tables for (GGGGS) linkers produced repetitive DNA sequences (e.g., all GGC codons for Gly), creating 93% GC content and 718+ direct repeats >= 9bp, which synthesis vendors flag as problematic.
+
+#### Example
+```python
+# WRONG: Simple codon table produces repetitive sequence
+CODON_USAGE_HUMAN = {
+    'G': 'GGC',  # 75% GC!
+    'S': 'AGC',  # 67% GC!
+}
+
+# (GGGGS)x5 with simple lookup:
+# "GGC GGC GGC GGC AGC GGC GGC GGC GGC AGC GGC GGC GGC GGC AGC ..."
+# = 93.3% GC content
+# = 718+ direct repeats >= 9bp
+# Synthesis vendor: REJECTED
+```
+
+#### Root Cause
+Simple codon optimization table used the single "best" human codon for each amino acid without considering repetitive sequence context. For a (GGGGS)x5 linker, this means 20 glycine codons are ALL GGC, creating extreme GC content and massive sequence repetition.
+
+#### Impact
+- Synthesis vendors flag and reject sequences with >65% GC in 50bp windows
+- Direct repeats >= 9bp cause synthesis failures (deletion/recombination during assembly)
+- 718 direct repeats in a single linker sequence is catastrophic for synthesis
+- Delayed project timelines waiting for sequence redesign
+
+#### Fix
+Use varied codon synonyms for repetitive peptide sequences. For GGGGS5 (5x GGGGS), use 5 different GGGGS encoding units:
+
+```python
+# CORRECT: Varied codons for each repeat unit
+GGGGS5 = "GGTGGAGGCGGATCTGGAGGCGGTGGTTCAGGCGGTGGAGGAAGTGGTGGCGGAGGTTCTGGTGGAGGCGGTTCT"
+#          ----unit 1----- ----unit 2----- ----unit 3----- ----unit 4----- ----unit 5-----
+# Each unit uses different Gly codons (GGT, GGA, GGC, GGA) and Ser codons (TCT, TCA, AGT, TCT, TCT)
+# Result: 66.7% GC, 8 direct repeats (down from 718)
+
+GGGGS1 = "GGTGGAGGCGGTTCT"
+```
+
+#### Prevention
+1. Use BUG-007 varied-codon sequences from MEMORY.md for all GGGGS linkers
+2. Use dnachisel with GC and hairpin constraints for any repetitive sequences
+3. Before ordering synthesis, check GC content in 50bp windows (target: 35-65%)
+4. Check for direct repeats >= 9bp
+5. For repetitive sequences (GGGGS linkers), always use varied codon synonyms
+6. Run sequence through synthesis vendor's complexity checker before ordering
+
+#### Test Coverage
+- Synthesis screen in `ConstructVerifier`: checks GC content, homopolymers, repeats
+- `add_synthesis_screen()` method flags sequences with high GC or excessive repeats
+
+#### Related Issues
+- DESIGN-009: Codon optimization for synthesis compatibility (broader optimization approach)
+- BUG-003: Single-strand uniqueness counting (synthesis verification context)
 
 ---
 

@@ -61,11 +61,13 @@ CODON_TABLE = {
     'GGT': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G',
 }
 
-# Dam methylation sensitive enzymes (DESIGN-004)
-DAM_SENSITIVE_ENZYMES = {"XbaI", "BclI", "ClaI", "MboI", "DpnII"}
+# Fallback defaults (used when enzyme_metadata.json unavailable)
+_DEFAULT_DAM_SENSITIVE = {"XbaI", "BclI", "ClaI", "MboI", "DpnII"}
+_DEFAULT_FUSSY = {"BbvCI", "PaqCI", "SmaI"}
 
-# Enzymes with known reliability issues (DESIGN-005)
-FUSSY_ENZYMES = {"BbvCI", "PaqCI", "SmaI"}
+# Module-level aliases for backward compatibility
+DAM_SENSITIVE_ENZYMES = _DEFAULT_DAM_SENSITIVE
+FUSSY_ENZYMES = _DEFAULT_FUSSY
 
 # Default synthesis constraints
 DEFAULT_GC_WINDOW = 50
@@ -267,6 +269,42 @@ def load_enzyme_metadata() -> Dict:
     return _enzyme_metadata_cache
 
 
+def get_dam_sensitive_enzymes() -> set:
+    """Derive dam-sensitive enzyme names from knowledge base JSON.
+
+    Unions defaults with JSON-derived enzymes so known dam-sensitive
+    enzymes are never lost even if absent from JSON.
+    """
+    metadata = load_enzyme_metadata()
+    result = set(_DEFAULT_DAM_SENSITIVE)
+    for name, info in metadata.get("enzymes", {}).items():
+        methyl = info.get("methylation_sensitivity", "")
+        if "Dam" in methyl:
+            result.add(name)
+    return result
+
+
+def get_fussy_enzymes() -> set:
+    """Derive fussy enzyme names from knowledge base JSON.
+
+    Unions defaults with JSON-derived enzymes so known fussy
+    enzymes are never lost even if absent from JSON.
+    """
+    metadata = load_enzyme_metadata()
+    result = set(_DEFAULT_FUSSY)
+    fussy = metadata.get("fussy_enzymes", {}).get("enzymes", [])
+    for e in fussy:
+        if "name" in e:
+            result.add(e["name"])
+    return result
+
+
+def get_recognition_site(enzyme_name: str) -> Optional[str]:
+    """Look up a restriction enzyme's recognition site from knowledge base JSON."""
+    metadata = load_enzyme_metadata()
+    return metadata.get("enzymes", {}).get(enzyme_name, {}).get("recognition_site")
+
+
 def validate_enzyme_choice(enzyme_name: str) -> List[CheckResult]:
     """
     Validate a restriction enzyme choice against knowledge base metadata.
@@ -284,7 +322,7 @@ def validate_enzyme_choice(enzyme_name: str) -> List[CheckResult]:
 
     # Check if enzyme is known
     if enzyme_name not in enzymes:
-        if enzyme_name in DAM_SENSITIVE_ENZYMES:
+        if enzyme_name in get_dam_sensitive_enzymes():
             results.append(CheckResult(
                 name=f"Enzyme:{enzyme_name}:dam_sensitive",
                 passed=False,
@@ -292,7 +330,7 @@ def validate_enzyme_choice(enzyme_name: str) -> List[CheckResult]:
                 message=f"{enzyme_name} is dam-methylation sensitive (DESIGN-004)",
                 details="Use dam-insensitive alternative: MluI, NotI, HindIII, EcoRI, SnaBI",
             ))
-        if enzyme_name in FUSSY_ENZYMES:
+        if enzyme_name in get_fussy_enzymes():
             results.append(CheckResult(
                 name=f"Enzyme:{enzyme_name}:fussy",
                 passed=False,
@@ -583,6 +621,40 @@ class ConstructVerifier:
             return results
 
         self._checks.append(_check)
+
+    def add_restriction_check_by_name(
+        self,
+        required_unique: Optional[List[str]] = None,
+        forbidden: Optional[List[str]] = None,
+    ):
+        """
+        Like add_restriction_check but takes enzyme name lists, looks up sites from KB.
+
+        Args:
+            required_unique: List of enzyme names that must appear exactly once.
+            forbidden: List of enzyme names that must NOT appear.
+
+        Raises:
+            ValueError: If any enzyme name has no recognition site in the KB.
+        """
+        req_dict = {}
+        for name in (required_unique or []):
+            site = get_recognition_site(name)
+            if site is None:
+                raise ValueError(f"Unknown enzyme '{name}': not found in knowledge base")
+            req_dict[name] = site
+
+        forb_dict = {}
+        for name in (forbidden or []):
+            site = get_recognition_site(name)
+            if site is None:
+                raise ValueError(f"Unknown enzyme '{name}': not found in knowledge base")
+            forb_dict[name] = site
+
+        self.add_restriction_check(
+            required_unique=req_dict if req_dict else None,
+            forbidden=forb_dict if forb_dict else None,
+        )
 
     def add_protein_check(
         self,

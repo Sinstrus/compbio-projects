@@ -1,0 +1,11 @@
+Splice Donor H-Bond Validation Results
+==================================================
+
+PASS: CAGGTAAGTAT -> 21 H-bonds (Consensus extended)
+PASS: AAGGTAAGTAT -> 18 H-bonds (Near-consensus)
+PASS: AAGGTGAGTAT -> 18 H-bonds (Weak +3)
+PASS: AAGGTAAGCAT -> 18 H-bonds (Weak +6)
+PASS: TTTGTTTTTAT -> 13 H-bonds (Minimal)
+PASS: CAGGTAAGTGC -> 22 H-bonds (Near-maximum)
+
+Overall: PASSED

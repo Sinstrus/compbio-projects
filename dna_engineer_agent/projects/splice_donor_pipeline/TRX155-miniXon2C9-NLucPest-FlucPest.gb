@@ -1,0 +1,863 @@
+LOCUS       TRX155-miniXon2C9-NLucPest-FlucPest 6711 bp    DNA     circular SYN 14-MAY-2025
+DEFINITION  .
+ACCESSION   TRX155-miniXon2C9-NLucPest-FlucPest
+VERSION     TRX155-miniXon2C9-NLucPest-FlucPest
+KEYWORDS    .
+SOURCE      .
+  ORGANISM  .
+            .
+FEATURES             Location/Qualifiers
+     misc_feature    1077..1082
+                     /label="common"
+     polyA_signal    4168..4392
+                     /label="bGHpoly(A)signal"
+                     /note="bovinegrowthhormonepolyadenylationsignal"
+     promoter        complement(6512..6616)
+                     /gene="bla"
+                     /label="AmpRpromoter"
+     CDS             complement(join(5651..6442,6443..6511))
+                     /codon_start=1
+                     /gene="bla"
+                     /label="AmpR"
+                     /note="confersresistancetoampicillin,carbenicillin,andrelat
+                     edantibiotics"
+                     /note="/parts=1:signalsequence"
+                     /product="β-lactamase"
+                     /transl_table=1
+                     /translation="MSIQHFRVALIPFFAAFCLPVFA,HPETLVKVKDAEDQLGARVGY
+                     IELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRIDAGQEQLGRRIHYSQNDLVEY
+                     SPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDR
+                     WEPELNEAIPNDERDTTMPVAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPLLRS
+                     ALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIAEIGA
+                     SLIKHW*"
+     promoter        complement(join(4538..4544,4545..4562,4563..4568))
+                     /label="lacpromoter"
+                     /note="promoterfortheE.colilacoperon"
+                     /note="/parts=1:-35;3:-10"
+     protein_bind    4583..4604
+                     /bound_moiety="E.colicataboliteactivatorprotein"
+                     /label="CAPbindingsite"
+                     /note="CAPbindingactivatestranscriptioninthepresenceofcAMP.
+                     "
+     protein_bind    4514..4530
+                     /bound_moiety="lacrepressorencodedbylacI"
+                     /label="lacoperator"
+                     /note="Thelacrepressorbindstothelacoperatortoinhibittranscr
+                     iptioninE.coli.Thisinhibitioncanberelievedbyaddinglactoseor
+                     isopropyl-β-D-thiogalactopyranoside(IPTG)."
+     rep_origin      complement(4892..5480)
+                     /direction=LEFT
+                     /label="ori"
+                     /note="high-copy-numberColE1/pMB1/pBR322/pUCoriginofreplica
+                     tion"
+     primer_bind     379..395
+                     /label="M13fwd"
+                     /note="commonsequencingprimer,oneofmultiplesimilarvariants"
+     primer_bind     complement(4490..4506)
+                     /label="M13rev"
+                     /note="commonsequencingprimer,oneofmultiplesimilarvariants"
+     misc_feature    492..871
+                     /label="CMV(I/E)"
+     promoter        492..1076
+                     /label="CMV(585)"
+     promoter        872..1076
+                     /label="CMV"
+     misc_feature    1061..1067
+                     /label="TATA"
+     misc_feature    432..4432
+                     /label="INSERT"
+     misc_feature    1077..1082
+                     /label="frommydesigns"
+     misc_feature    1277..1335
+                     /label="PSEX"
+     misc_feature    1083..1131
+                     /label="e1"
+     misc_feature    1083..1492
+                     /label="miniXon2"
+     CDS             1310..1312
+                     /codon_start=1
+                     /label="ATGTIS113"
+                     /transl_table=1
+                     /translation="M"
+     misc_feature    1493..1527
+                     /label="exon2"
+     misc_feature    1341
+                     /label="C9"
+     misc_feature    1332
+                     /label="T-1"
+     misc_feature    1342
+                     /label="C10"
+     CDS             join(1310..1335,1493..1538)
+                     /codon_start=1
+                     /label="ATGTIS113"
+                     /transl_table=1
+                     /translation="MQEVHDCVE,,NQTTRNCCFPWVRGS"
+     misc_feature    1631
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1649
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     CDS             1584..1649
+                     /codon_start=1
+                     /label="P2A"
+                     /transl_table=1
+                     /translation="GSGATNFSLLKQAGDLEENPGP"
+     CDS             1547..2296
+                     /codon_start=1
+                     /label="OvORFframe3versionD"
+                     /transl_table=1
+                     /translation="MLAFIMLTATMARIRRNQFFIAQASGRFGRKSRAGFHIGRFRWGL
+                     APNRRIQSRSSPRARRGFIIISKFGGFRNADPKDCLERGKWAQNRYPCHHPIRRIERRS
+                     NGPNRKNFQGRLSGRRSSFQGHPPLWNIGHRWGYAEYDRLFRPAIRRHRRFRWQKNNGY
+                     RDPLEWQQNYRRAPHQSRWIPPFPRNHQWRDRMAALRKDFGEFAWISPGSRGTSRRDIA
+                     HVMRARIGDGSPSRGMRIRPHQCLRPRL"
+     CDS             1539..1583
+                     /codon_start=1
+                     /transl_table=1
+                     /translation="PSSCLPSSCLPPPWH"
+                     /label="Regulator ORF"
+     CDS             2306..2359
+                     /codon_start=1
+                     /label="T2A"
+                     /note="Eukaryoticribosomesfailtoinsertapeptidebondbetweenth
+                     eGlyandProresidues,yieldingseparatepolypeptides."
+                     /product="2Apeptidefrom&amp;amp;amp;amp;nbsp;Thoseaasignavi
+                     ruscapsi dprotein"
+                     /transl_table=1
+                     /translation="EGRGSLLTCGDVEENPGP"
+     misc_feature    2407
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2602
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2653
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2671
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2741..2743
+                     /label="AGC=>TCA"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2951..2953
+                     /label="TCA=>AGT"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3008
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3010
+                     /label="G=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3196
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3244
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3275..3277
+                     /label="AGC=>TCA"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3296..3298
+                     /label="TCA=>AGT"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3395..3397
+                     /label="TCA=>AGT"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3469
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3505
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3562
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3614..3616
+                     /label="TCA=>AGT"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3901
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3925
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    3976
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     CDS             2360..4006
+                     /codon_start=1
+                     /label="luc2(humanized)"
+                     /note="syntheticluc2versionoftheluciferasegene"
+                     /product="fireflyluciferase"
+                     /transl_table=1
+                     /translation="EDAKNIKKGPAPFYPLEDGTAGEQLHKAMKRYALVPGTIAFTDAH
+                     IEVDITYAEYFEMSVRLAEAMKRYGLNTNHRIVVCSENSLQFFMPVLGALFIGVAVAPA
+                     NDIYNERELLNSMGISQPTVVFVSKKGLQKILNVQKKLPIIQKIIIMDSKTDYQGFQSM
+                     YTFVTSHLPPGFNEYDFVPESFDRDKTIALIMNSSGSTGLPKGVALPHRTACVRFSHAR
+                     DPIFGNQIIPDTAILSVVPFHHGFGMFTTLGYLICGFRVVLMYRFEEELFLRSLQDYKI
+                     QSALLVPTLFSFFAKSTLIDKYDLSNLHEIASGGAPLSKEVGEAVAKRFHLPGIRQGYG
+                     LTETTSAILITPEGDDKPGAVGKVVPFFEAKVVDLDTGKTLGVNQRGELCVRGPMIMSG
+                     YVNNPEATNALIDKDGWLHSGDIAYWDEDEHFFIVDRLKSLIKYKGYQVAPAELESILL
+                     QHPNIFDAGVAGLPDDDAGELPAAVVVLEHGKTMTEKEIVDYVASQVTTAKKLRGGVVF
+                     VDEVPKGLTGKLDARKIREILIKAKKGGKIAV"
+     misc_feature    1652
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1659
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1661
+                     /label="C=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1679
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1685
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1688
+                     /label="G=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1691
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1697
+                     /label="C=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1703
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1706
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1709
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1718
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1721
+                     /label="A=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1724
+                     /label="G=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1727
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1730
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1733
+                     /label="G=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1736..1739
+                     /label="CAGT=>ATCA"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1742
+                     /label="G=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1748
+                     /label="G=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1752
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1754
+                     /label="C=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1760
+                     /label="G=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1769
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1788
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1796
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1808
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1811
+                     /label="G=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1817
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1835
+                     /label="G=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1838
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1844..1845
+                     /label="TC=>AT"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1856
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1868
+                     /label="G=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1883
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1889
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1892
+                     /label="G=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1895
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1898
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1901
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1904
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1913
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1916
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1922
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1928
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1931
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1937
+                     /label="C=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1941
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1946
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1952
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1967
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1976
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1985
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1991
+                     /label="G=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    1994
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2009
+                     /label="G=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2015
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2024
+                     /label="G=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2027
+                     /label="C=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2030
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2036
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2045
+                     /label="G=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2051
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2078
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2084
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2090
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2093
+                     /label="C=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2099
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2102
+                     /label="G=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2108
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2120
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2123
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2132
+                     /label="C=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2141
+                     /label="G=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2148
+                     /label="C=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2150
+                     /label="C=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2154
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2165
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2168
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2171
+                     /label="C=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2177
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2180
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2183
+                     /label="G=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2186
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2189
+                     /label="A=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2192
+                     /label="G=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2204
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2213
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2219
+                     /label="C=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2225
+                     /label="A=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2232..2234
+                     /label="AGC=>TCG"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2237
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2243
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2246
+                     /label="G=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2249
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2252
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2255
+                     /label="C=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2258
+                     /label="T=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2261
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2264
+                     /label="T=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2267
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2270
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2279
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    2282
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     CDS             2163..2282
+                     /codon_start=1
+                     /label="hPEST"
+                     /note="humancodon-optimized"
+                     /product="PESTdegradationsequencefrommouseornithinedecarbox
+                     ylase"
+                     /transl_table=1
+                     /translation="SHGFPPEVEEQAAGTLPMSCAQESGMDRHPAACASARINV"
+     CDS             1650..2159
+                     /codon_start=1
+                     /gene=""
+                     /label="Nluc"
+                     /note="humancodon-optimized"
+                     /product="NanoLuc®luciferase"
+                     /transl_table=1
+                     /translation="VFTLEDFVGDWRQTAGYNLDQVLEQGGVSSLFQNLGVSVTPIQRI
+                     VLSGENGLKIDIHVIIPYEGLSGDQMGQIEKIFKVVYPVDDHHFKVILHYGTLVIDGVT
+                     PNMIDYFGRPYEGIAVFDGKKITVTGTLWNGNKIIDERLINPDGSLLFRVTINGVTGWR
+                     LCERILA"
+     misc_feature    4012
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4015
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4018
+                     /label="C=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4027
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4033
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4051
+                     /label="T=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4060
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4066
+                     /label="C=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4072
+                     /label="A=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4079..4080
+                     /label="AG=>TC"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4084
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4090
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4096
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4099
+                     /label="A=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4105
+                     /label="T=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4108
+                     /label="T=>C"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4111
+                     /label="T=>A"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4114
+                     /label="A=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4117
+                     /label="T=>G"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     misc_feature    4126
+                     /label="C=>T"
+                     /note="/color=#ff0000"
+                     /note="/is_edit=true"
+     CDS             4010..4129
+                     /codon_start=1
+                     /label="hPEST"
+                     /note="humancodon-optimized"
+                     /product="PESTdegradationsequencefrommouseornithinedecarbox
+                     ylase"
+                     /transl_table=1
+                     /translation="SHGFPPEVEEQAAGTLPMSCAQESGMDRHPAACASARINV"
+ORIGIN
+        1 tcgcgcgttt cggtgatgac ggtgaaaacc tctgacacat gcagctcccg gagacggtca
+       61 cagcttgtct gtaagcggat gccgggagca gacaagcccg tcagggcgcg tcagcgggtg
+      121 ttggcgggtg tcggggctgg cttaactatg cggcatcaga gcagattgta ctgagagtgc
+      181 accatatgcg gtgtgaaata ccgcacagat gcgtaaggag aaaataccgc atcaggcgcc
+      241 attcgccatt caggctgcgc aactgttggg aagggcgatc ggtgcgggcc tcttcgctat
+      301 tacgccagct ggcgaaaggg ggatgtgctg caaggcgatt aagttgggta acgccagggt
+      361 tttcccagtc acgacgttgt aaaacgacgg ccagtgaatt ggagatcggt acttcgcgaa
+      421 tgcgtcgaga tcacctgcgg ttgctactta tctaccaggg taatggggat cctctagaac
+      481 tatagctagt cgacattgat tattgactag ttattaatag taatcaatta cggggtcatt
+      541 agttcatagc ccatatatgg agttccgcgt tacataactt acggtaaatg gcccgcctgg
+      601 ctgaccgccc aacgaccccc gcccattgac gtcaataatg acgtatgttc ccatagtaac
+      661 gccaataggg actttccatt gacgtcaatg ggtggagtat ttacggtaaa ctgcccactt
+      721 ggcagtacat caagtgtatc atatgccaag tacgccccct attgacgtca atgacggtaa
+      781 atggcccgcc tggcattatg cccagtacat gaccttatgg gactttccta cttggcagta
+      841 catctacgta ttagtcatcg ctattaccat ggtgatgcgg ttttggcagt acatcaatgg
+      901 gcgtggatag cggtttgact cacggggatt tccaagtctc caccccattg acgtcaatgg
+      961 gagtttgttt tggcaccaaa atcaacggga ctttccaaaa tgtcgtaaca actccgcccc
+     1021 attgacgcaa atgggcggta ggcgtgtacg gtgggaggtc tatataagca gagctcctcg
+     1081 agttgcagag agccactggc atcagctttg ccattcttgg aaacttttct ggtaagttct
+     1141 ctcgttacca tcttttgaaa ttttatgaca aaacaggaat tgtgtgaaat ttcaaatatt
+     1201 ggattaggaa atacaaagtt actgaaagtg aggtactaat gtttataaaa taaaaacttt
+     1261 ttcttgccat ttgcagattt aacatttttg agtcaatcca agtgccacca tgcaggaggt
+     1321 tcatgattgt gtagagtaag ccataatttt gttgaggttt aactctgaat acttaatgtg
+     1381 gtactgaata cttcgcctgg ctaatttttg tatttttagt agagacgggg tttcaccatg
+     1441 gtggccaggc tgggttctgg ttgtttatga tctttatttt ttggtgatct aggaaccaaa
+     1501 caacaagaaa ttgttgtttc ccgtgggtaa gaggatcccc atcatcatgc ttgccttcat
+     1561 catgcttacc gccaccatgg cacggatccg gcgcaaccaa tttttcattg ctcaagcaag
+     1621 cgggcgattt ggaagaaaat cccgggccgg ttttcacatt ggaagatttc gttggggatt
+     1681 ggcgccaaac cgccggatac aatctcgatc aagtcctcga gcaaggcggg gtttcatcat
+     1741 tatttcaaaa tttgggggtt tccgtaacgc cgatccaaag gattgtcttg agcggggaaa
+     1801 atgggctcaa aatcgatatc catgtcatca tcccatacga aggattgagc ggcgatcaaa
+     1861 tgggccaaat cgaaaaaatt ttcaaggtcg tttatccggt cgacgatcat catttcaagg
+     1921 tcatcctcca ttatggaaca ttggtcatcg atggggttac gccgaatatg atcgattatt
+     1981 tcggccggcc atacgaaggc atcgccgttt tcgatggcaa aaaaataacg gttaccggga
+     2041 ccctttggaa tggcaacaaa attatcgacg agcgcctcat caatcccgat ggatccctcc
+     2101 ttttccgcgt aaccatcaat ggcgtgaccg gatggcggct ttgcgaaagg attttggcga
+     2161 attcgcatgg atttcccccg gaagtcgagg aacaagccgc cgggacattg cccatgtcat
+     2221 gcgcgcaaga atcggggatg gatcgccatc ccgcggcatg cgcatccgcc cgcatcaatg
+     2281 tttaaggccg cgactcggaa gcggagaggg ccgcggaagc ctcctcacat gcggggacgt
+     2341 cgaggaaaat cccggccccg aagatgcaaa aaacataaag aagggccccg ccccattcta
+     2401 cccactcgag gacggcaccg ccggcgagca actccacaag gctatgaagc gctacgccct
+     2461 cgtccccggc accatcgcct ttaccgacgc acatatcgag gtcgacatta cctacgccga
+     2521 atacttcgag atgagcgttc ggctcgccga agctatgaag cgctatgggc tcaatacaaa
+     2581 ccatcggatc gtcgtctgct ccgagaattc actccaattc ttcatgcccg tcctcggggc
+     2641 cctcttcatc ggcgtcgctg tcgcccccgc gaacgacatc tacaacgagc gcgagctcct
+     2701 caactcaatg ggcatctcac aacccaccgt cgtcttcgtc tcaaagaaag ggctccaaaa
+     2761 gatcctcaac gtccaaaaga agctccccat catacaaaag atcatcatca tggattcaaa
+     2821 gaccgactac caaggcttcc aaagcatgta caccttcgtc acttcccatc tcccacccgg
+     2881 cttcaacgaa tacgacttcg tccccgagag cttcgaccgg gacaaaacca tcgccctcat
+     2941 catgaactca agtggctcaa ccggactccc caagggcgtc gccctccccc accgcaccgc
+     3001 ttgcgtccga ttctcccatg cccgcgaccc catcttcggc aaccaaatca tccccgacac
+     3061 cgctatcctc tccgtcgtcc catttcacca cggcttcggc atgttcacca ccctcggcta
+     3121 cctcatctgc ggctttcgcg tcgtcctcat gtaccgcttc gaggaggagc tcttcctccg
+     3181 ctcactccaa gactacaaga ttcaatctgc cctcctcgtc cccacactct tttcattctt
+     3241 cgcgaagagc actctcatcg acaaatacga cctctcaaac ctccacgaga tcgccagtgg
+     3301 cggggccccc ctctcaaagg aggtcgggga ggccgtcgcc aaacgcttcc acctccccgg
+     3361 catccgccaa ggctacggcc tcaccgaaac aaccagtgcc attctcatca cccccgaagg
+     3421 ggacgacaag cctggcgccg tcggcaaggt cgtccccttc ttcgaggcga aggtcgtcga
+     3481 cctcgacacc gggaagacac tcggcgtcaa ccaacgcggc gagctctgcg tccggggccc
+     3541 catgatcatg agcggctacg tcaacaaccc cgaggctaca aacgctctca tcgacaagga
+     3601 cggctggctc cacagtggcg acatcgccta ctgggacgag gacgagcact tcttcatcgt
+     3661 cgaccggctc aagagcctca tcaaatacaa gggctaccaa gtcgcccccg ccgaactcga
+     3721 gagcatcctc ctccaacacc ccaacatctt cgacgccggc gtcgccggcc tccccgacga
+     3781 cgatgccggc gagctccccg ccgccgtcgt cgtcctcgaa cacgggaaaa ccatgaccga
+     3841 gaaggagatc gtcgactatg tcgcctcaca agttacaacc gccaagaagc tccgcggggg
+     3901 cgttgtcttc gtcgacgagg tcccgaaagg actcaccggc aagctcgacg cccgcaagat
+     3961 ccgcgagatt ctcatcaagg ccaagaaggg cggcaagatc gccgtcaatt cccatggatt
+     4021 tccgccggag gtcgaagagc aagccgccgg aacattgccg atgtcatgcg cccaagaatc
+     4081 cggcatggat cggcatccgg ccgcatgcgc atcggcgcgc atcaatgtct aatagagggc
+     4141 ccgtttaaac ccgctgatca gcctcgactg tgccttctag ttgccagcca tctgttgttt
+     4201 gcccctcccc cgtgccttcc ttgaccctgg aaggtgccac tcccactgtc ctttcctaat
+     4261 aaaatgagga aattgcatcg cattgtctga gtaggtgtca ttctattctg gggggtgggg
+     4321 tggggcagga cagcaagggg gaggattggg aagacaatag caggcatgct ggggatgcgg
+     4381 tgggctctat gggcctaggt agataagtag catggcgggt taaccgcagg tgatcggatg
+     4441 ccgggaccga cgagtgcaga ggcgtgcaag cgagcttggc gtaatcatgg tcatagctgt
+     4501 ttcctgtgtg aaattgttat ccgctcacaa ttccacacaa catacgagcc ggaagcataa
+     4561 agtgtaaagc ctggggtgcc taatgagtga gctaactcac attaattgcg ttgcgctcac
+     4621 tgcccgcttt ccagtcggga aacctgtcgt gccagctgca ttaatgaatc ggccaacgcg
+     4681 cggggagagg cggtttgcgt attgggcgct cttccgcttc ctcgctcact gactcgctgc
+     4741 gctcggtcgt tcggctgcgg cgagcggtat cagctcactc aaaggcggta atacggttat
+     4801 ccacagaatc aggggataac gcaggaaaga acatgtgagc aaaaggccag caaaaggcca
+     4861 ggaaccgtaa aaaggccgcg ttgctggcgt ttttccatag gctccgcccc cctgacgagc
+     4921 atcacaaaaa tcgacgctca agtcagaggt ggcgaaaccc gacaggacta taaagatacc
+     4981 aggcgtttcc ccctggaagc tccctcgtgc gctctcctgt tccgaccctg ccgcttaccg
+     5041 gatacctgtc cgcctttctc ccttcgggaa gcgtggcgct ttctcatagc tcacgctgta
+     5101 ggtatctcag ttcggtgtag gtcgttcgct ccaagctggg ctgtgtgcac gaaccccccg
+     5161 ttcagcccga ccgctgcgcc ttatccggta actatcgtct tgagtccaac ccggtaagac
+     5221 acgacttatc gccactggca gcagccactg gtaacaggat tagcagagcg aggtatgtag
+     5281 gcggtgctac agagttcttg aagtggtggc ctaactacgg ctacactaga agaacagtat
+     5341 ttggtatctg cgctctgctg aagccagtta ccttcggaaa aagagttggt agctcttgat
+     5401 ccggcaaaca aaccaccgct ggtagcggtg gtttttttgt ttgcaagcag cagattacgc
+     5461 gcagaaaaaa aggatctcaa gaagatcctt tgatcttttc tacggggtct gacgctcagt
+     5521 ggaacgaaaa ctcacgttaa gggattttgg tcatgagatt atcaaaaagg atcttcacct
+     5581 agatcctttt aaattaaaaa tgaagtttta aatcaatcta aagtatatat gagtaaactt
+     5641 ggtctgacag ttaccaatgc ttaatcagtg aggcacctat ctcagcgatc tgtctatttc
+     5701 gttcatccat agttgcctga ctccccgtcg tgtagataac tacgatacgg gagggcttac
+     5761 catctggccc cagtgctgca atgataccgc gagacccacg ctcaccggct ccagatttat
+     5821 cagcaataaa ccagccagcc ggaagggccg agcgcagaag tggtcctgca actttatccg
+     5881 cctccatcca gtctattaat tgttgccggg aagctagagt aagtagttcg ccagttaata
+     5941 gtttgcgcaa cgttgttgcc attgctacag gcatcgtggt gtcacgctcg tcgtttggta
+     6001 tggcttcatt cagctccggt tcccaacgat caaggcgagt tacatgatcc cccatgttgt
+     6061 gcaaaaaagc ggttagctcc ttcggtcctc cgatcgttgt cagaagtaag ttggccgcag
+     6121 tgttatcact catggttatg gcagcactgc ataattctct tactgtcatg ccatccgtaa
+     6181 gatgcttttc tgtgactggt gagtactcaa ccaagtcatt ctgagaatag tgtatgcggc
+     6241 gaccgagttg ctcttgcccg gcgtcaatac gggataatac cgcgccacat agcagaactt
+     6301 taaaagtgct catcattgga aaacgttctt cggggcgaaa actctcaagg atcttaccgc
+     6361 tgttgagatc cagttcgatg taacccactc gtgcacccaa ctgatcttca gcatctttta
+     6421 ctttcaccag cgtttctggg tgagcaaaaa caggaaggca aaatgccgca aaaaagggaa
+     6481 taagggcgac acggaaatgt tgaatactca tactcttcct ttttcaatat tattgaagca
+     6541 tttatcaggg ttattgtctc atgagcggat acatatttga atgtatttag aaaaataaac
+     6601 aaataggggt tccgcgcaca tttccccgaa aagtgccacc tgacgtctaa gaaaccatta
+     6661 ttatcatgac attaacctat aaaaataggc gtatcacgag gccctttcgt c
+//

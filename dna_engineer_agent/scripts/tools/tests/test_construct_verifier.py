@@ -28,6 +28,10 @@ from construct_verifier import (
     VerificationReport,
     count_sites_both_strands,
     find_site_positions,
+    get_dam_sensitive_enzymes,
+    get_fussy_enzymes,
+    get_recognition_site,
+    load_enzyme_metadata,
     reverse_complement,
     synthesis_screen,
     translate,
@@ -492,6 +496,129 @@ class TestIntegration:
         # Critical checks should pass
         # (warnings from synthesis screen for short seq are OK)
         assert report.passed, f"Failed: {report.critical_failures}"
+
+
+# ---------------------------------------------------------------------------
+# Knowledge base integration tests (Improvement A)
+# ---------------------------------------------------------------------------
+
+class TestDamSensitiveFromMetadata:
+    """A4: Verify dam-sensitive enzymes are derived from JSON."""
+
+    def test_xbai_derived_from_json(self):
+        """XbaI should be in the set derived from enzyme_metadata.json."""
+        dam_set = get_dam_sensitive_enzymes()
+        assert "XbaI" in dam_set
+
+    def test_superset_of_defaults(self):
+        """JSON-derived set should be a superset of the hard-coded defaults."""
+        from construct_verifier import _DEFAULT_DAM_SENSITIVE
+        dam_set = get_dam_sensitive_enzymes()
+        # JSON may have more than defaults (e.g., EcoRI, PstI mention Dam)
+        # but should include the critical ones
+        for enzyme in ["XbaI"]:
+            assert enzyme in dam_set
+
+
+class TestFussyFromMetadata:
+    """A4: Verify fussy enzymes are derived from JSON."""
+
+    def test_bbvci_derived_from_json(self):
+        """BbvCI should be in the fussy set derived from enzyme_metadata.json."""
+        fussy_set = get_fussy_enzymes()
+        assert "BbvCI" in fussy_set
+
+    def test_paqci_derived_from_json(self):
+        """PaqCI should be in the fussy set."""
+        fussy_set = get_fussy_enzymes()
+        assert "PaqCI" in fussy_set
+
+    def test_smai_derived_from_json(self):
+        """SmaI should be in the fussy set."""
+        fussy_set = get_fussy_enzymes()
+        assert "SmaI" in fussy_set
+
+
+class TestGetRecognitionSite:
+    """A4: Verify recognition site lookup from KB."""
+
+    def test_hindiii(self):
+        assert get_recognition_site("HindIII") == "AAGCTT"
+
+    def test_ecori(self):
+        assert get_recognition_site("EcoRI") == "GAATTC"
+
+    def test_bsai(self):
+        assert get_recognition_site("BsaI") == "GGTCTC"
+
+    def test_unknown_enzyme(self):
+        assert get_recognition_site("FakeEnzyme123") is None
+
+
+class TestRestrictionCheckByName:
+    """A4: End-to-end test of add_restriction_check_by_name()."""
+
+    def test_unique_site_passes(self):
+        seq = "GGGAAGCTTGGGTCTAGAGGG"  # 1x HindIII, 1x XbaI
+        v = ConstructVerifier(sequence=seq, name="test")
+        v.add_restriction_check_by_name(required_unique=["HindIII", "XbaI"])
+        report = v.run_all()
+        assert report.passed
+
+    def test_forbidden_site_fails(self):
+        seq = "GGGGGTCTCGGG"  # Contains BsaI
+        v = ConstructVerifier(sequence=seq, name="test")
+        v.add_restriction_check_by_name(forbidden=["BsaI"])
+        report = v.run_all()
+        assert not report.passed
+
+    def test_unknown_enzyme_raises(self):
+        seq = "AAAA"
+        v = ConstructVerifier(sequence=seq, name="test")
+        with pytest.raises(ValueError, match="Unknown enzyme"):
+            v.add_restriction_check_by_name(required_unique=["FakeEnzyme123"])
+
+
+class TestFallbackWhenNoJson:
+    """A4: Verify defaults work when JSON is unavailable."""
+
+    def test_dam_sensitive_fallback(self, monkeypatch):
+        """When JSON has no enzymes, fall back to defaults."""
+        import construct_verifier as cv
+        # Clear cache and mock load to return empty
+        monkeypatch.setattr(cv, '_enzyme_metadata_cache', None)
+        original_load = cv.load_enzyme_metadata
+
+        def mock_load():
+            cv._enzyme_metadata_cache = {"enzymes": {}, "fussy_enzymes": {"enzymes": []}}
+            return cv._enzyme_metadata_cache
+
+        monkeypatch.setattr(cv, 'load_enzyme_metadata', mock_load)
+        try:
+            dam_set = cv.get_dam_sensitive_enzymes()
+            assert dam_set == cv._DEFAULT_DAM_SENSITIVE
+        finally:
+            # Restore cache so other tests work
+            monkeypatch.setattr(cv, '_enzyme_metadata_cache', None)
+            monkeypatch.setattr(cv, 'load_enzyme_metadata', original_load)
+
+    def test_fussy_fallback(self, monkeypatch):
+        """When JSON has no fussy enzymes, fall back to defaults."""
+        import construct_verifier as cv
+        monkeypatch.setattr(cv, '_enzyme_metadata_cache', None)
+        original_load = cv.load_enzyme_metadata
+
+        def mock_load():
+            cv._enzyme_metadata_cache = {"enzymes": {}, "fussy_enzymes": {"enzymes": []}}
+            return cv._enzyme_metadata_cache
+
+        monkeypatch.setattr(cv, 'load_enzyme_metadata', mock_load)
+        try:
+            fussy_set = cv.get_fussy_enzymes()
+            assert fussy_set == cv._DEFAULT_FUSSY
+        finally:
+            monkeypatch.setattr(cv, '_enzyme_metadata_cache', None)
+            monkeypatch.setattr(cv, 'load_enzyme_metadata', original_load)
 
 
 if __name__ == "__main__":

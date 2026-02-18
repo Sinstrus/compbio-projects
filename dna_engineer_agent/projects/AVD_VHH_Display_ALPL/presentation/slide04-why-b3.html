@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7;
+             font-family: Calibri, Arial, sans-serif; margin: 0;">
+  <!-- Title area -->
+  <div style="padding: 20px 30px 8px 30px;">
+    <h1 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 22pt;
+               color: #003482; margin: 0; font-weight: bold;">Why B3? The Library Problem</h1>
+  </div>
+
+  <!-- Content area -->
+  <div class="col" style="padding: 4px 30px; gap: 12px;">
+    <!-- Problem statement -->
+    <div style="background: linear-gradient(90deg, #001446, #003482); border-radius: 8px; padding: 12px 18px;">
+      <p style="color: #fff; font-size: 10pt; margin: 0; text-align: center;">
+        <strong>Challenge:</strong> Current N-terminal insertion approach (Ideas A/B) hardcodes a single VHH sequence
+      </p>
+    </div>
+
+    <!-- Three columns -->
+    <div class="row" style="gap: 14px; height: 280px;">
+      <!-- Current Approach -->
+      <div style="flex: 1; background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="font-family: 'Century Gothic', Arial, sans-serif; color: #003482; font-size: 11pt; margin: 0 0 10px 0; font-weight: bold;">Ideas A/B (Current)</h3>
+        <ul style="margin: 0; padding-left: 14px; font-size: 9pt; line-height: 1.5; color: #333;">
+          <li style="margin-bottom: 6px;">VHH inserted at N-terminus of VP1 or VP2</li>
+          <li style="margin-bottom: 6px;">Requires co-transfection with WT cap plasmid</li>
+          <li style="margin-bottom: 6px;">Fixed VHH:VP ratio determined by plasmid ratio</li>
+          <li style="margin-bottom: 6px; color: #d32f2f;"><strong>Problem:</strong> One VHH = one plasmid</li>
+        </ul>
+      </div>
+
+      <!-- Library Challenge -->
+      <div style="flex: 1; background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="font-family: 'Century Gothic', Arial, sans-serif; color: #FF7400; font-size: 11pt; margin: 0 0 10px 0; font-weight: bold;">Library Challenge</h3>
+        <ul style="margin: 0; padding-left: 14px; font-size: 9pt; line-height: 1.5; color: #333;">
+          <li style="margin-bottom: 6px;">VHH discovery requires testing many variants</li>
+          <li style="margin-bottom: 6px;">Each variant needs separate cloning</li>
+          <li style="margin-bottom: 6px;">Co-transfection limits scalability</li>
+          <li style="margin-bottom: 6px; color: #d32f2f;"><strong>Bottleneck:</strong> Cannot easily screen libraries</li>
+        </ul>
+      </div>
+
+      <!-- B3 Solution -->
+      <div style="flex: 1; background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 2px solid #4CAF50;">
+        <h3 style="font-family: 'Century Gothic', Arial, sans-serif; color: #4CAF50; font-size: 11pt; margin: 0 0 10px 0; font-weight: bold;">B3 Solution</h3>
+        <ul style="margin: 0; padding-left: 14px; font-size: 9pt; line-height: 1.5; color: #333;">
+          <li style="margin-bottom: 6px;">VHH in retained intron = single plasmid</li>
+          <li style="margin-bottom: 6px;">Splicing controls VHH:VP ratio automatically</li>
+          <li style="margin-bottom: 6px;">Easy VHH swapping via restriction sites</li>
+          <li style="margin-bottom: 6px; color: #4CAF50;"><strong>Advantage:</strong> Library-compatible design</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="height: 40px; padding: 0 30px;">
+    <p style="font-size: 7pt; color: #414953; margin: 0; text-align: right;">4 | CONFIDENTIAL</p>
+  </div>
+</body>
+</html>
