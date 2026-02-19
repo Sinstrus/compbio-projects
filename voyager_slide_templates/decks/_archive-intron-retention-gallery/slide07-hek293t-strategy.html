@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HEK293T Gene-Derived Strategy</title>
+  <link rel="stylesheet" href="../../css/vygr-base.css">
+  <link rel="stylesheet" href="../../css/vygr-content.css">
+</head>
+<body style="margin:0; padding:40px; background:#e0e0e0;">
+<div class="slide slide--content">
+  <div class="slide-header">
+    <span class="header-title" style="font-size: 15pt;">HEK293T Gene-Derived Splice Pairs: Strategy</span>
+    <img class="header-logo" src="../../assets/Body_Slide_Blue_Title_Voyager_Logo1.png" alt="Voyager">
+  </div>
+
+  <div class="slide-content" style="padding-top:6px;">
+    <!-- Rationale -->
+    <div style="background: linear-gradient(90deg, var(--vygr-navy), var(--vygr-blue)); padding: 8px 14px; border-radius: 6px; margin-bottom:6px;">
+      <p style="font-size: 8pt; color: rgba(255,255,255,0.7); margin: 0 0 2px 0;">RATIONALE</p>
+      <p style="font-size: 9pt; color: #fff; margin: 0; font-weight: bold;">
+        Use naturally retained introns from the HEK293T transcriptome as splice site donors
+      </p>
+    </div>
+
+    <!-- Pipeline flow -->
+    <div style="background: #fff; padding: 10px 14px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom:6px;">
+      <p style="font-size: 9pt; color: var(--vygr-blue); margin: 0 0 6px 0; font-weight: bold;">SELECTION PIPELINE</p>
+      <div class="row items-center" style="gap: 0;">
+        <div style="flex: 1; text-align: center;">
+          <div style="background: var(--vygr-blue); color: #fff; padding: 5px 6px; border-radius: 4px; margin: 0 3px;">
+            <p style="font-size: 10pt; margin: 0; font-weight: bold;">560</p>
+            <p style="font-size: 6pt; margin: 1px 0 0 0;">Donor-acceptor pairs</p>
+          </div>
+          <p style="font-size: 6pt; color: #666; margin: 2px 0 0 0;">Retained introns from<br>HEK293T transcriptome</p>
+        </div>
+        <div style="color: var(--vygr-bright-orange); font-size: 14pt; font-weight: bold;"><p style="margin: 0;">&rarr;</p></div>
+        <div style="flex: 1; text-align: center;">
+          <div style="background: var(--vygr-mid-blue); color: #fff; padding: 5px 6px; border-radius: 4px; margin: 0 3px;">
+            <p style="font-size: 10pt; margin: 0; font-weight: bold;">log2FC &ge; 1.0</p>
+            <p style="font-size: 6pt; margin: 1px 0 0 0;">ML-predicted retention</p>
+          </div>
+          <p style="font-size: 6pt; color: #666; margin: 2px 0 0 0;">Filter by predicted<br>intron retention rate</p>
+        </div>
+        <div style="color: var(--vygr-bright-orange); font-size: 14pt; font-weight: bold;"><p style="margin: 0;">&rarr;</p></div>
+        <div style="flex: 1; text-align: center;">
+          <div style="background: var(--vygr-bright-orange); color: #fff; padding: 5px 6px; border-radius: 4px; margin: 0 3px;">
+            <p style="font-size: 10pt; margin: 0; font-weight: bold;">No stops</p>
+            <p style="font-size: 6pt; margin: 1px 0 0 0;">Retained frame check</p>
+          </div>
+          <p style="font-size: 6pt; color: #666; margin: 2px 0 0 0;">Exclude pairs with<br>stop codons in frame</p>
+        </div>
+        <div style="color: var(--vygr-bright-orange); font-size: 14pt; font-weight: bold;"><p style="margin: 0;">&rarr;</p></div>
+        <div style="flex: 1; text-align: center;">
+          <div style="background: #4CAF50; color: #fff; padding: 5px 6px; border-radius: 4px; margin: 0 3px;">
+            <p style="font-size: 10pt; margin: 0; font-weight: bold;">41</p>
+            <p style="font-size: 6pt; margin: 1px 0 0 0;">Final constructs</p>
+          </div>
+          <p style="font-size: 6pt; color: #666; margin: 2px 0 0 0;">AVD059-099<br>ready for synthesis</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key advantages -->
+    <div class="row" style="gap: 8px;">
+      <div style="flex: 1; background: #fff; padding: 6px 10px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <p style="font-size: 8pt; color: var(--vygr-bright-orange); margin: 0 0 3px 0; font-weight: bold;">ADVANTAGES</p>
+        <ul style="margin: 0; padding-left: 12px; font-size: 7pt; color: #333; line-height: 1.3;">
+          <li>Biologically validated splice sites from human genome</li>
+          <li>41 unique donor-acceptor pairs, each with unique 6-aa scar</li>
+          <li>ML-predicted retention strength provides ranking</li>
+        </ul>
+      </div>
+      <div style="flex: 1; background: #fff; padding: 6px 10px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <p style="font-size: 8pt; color: var(--vygr-blue); margin: 0 0 3px 0; font-weight: bold;">CONSTRUCT DESIGN</p>
+        <ul style="margin: 0; padding-left: 12px; font-size: 7pt; color: #333; line-height: 1.3;">
+          <li>15 bp donor + 30 bp acceptor from gene splice sites</li>
+          <li>Shared VHH3 + GGGGS linkers (optimized codons)</li>
+          <li>All inserted into AVD002 backbone at VR4</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span class="footer-left">7&ensp;|&ensp;CONFIDENTIAL</span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plasmid Inventory</title>
+  <style>
+    :root {
+      --voyager-navy: #001446;
+      --voyager-blue: #003482;
+      --voyager-orange: #FF7400;
+      --voyager-gray: #F3F3F7;
+      --voyager-dark-gray: #414953;
+    }
+  </style>
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7; font-family: Arial, sans-serif; margin: 0; position: relative;">
+  <!-- Title area -->
+  <div style="padding: 20px 30px 8px 30px;">
+    <h1 style="font-size: 20px; color: #003482; margin: 0; font-weight: bold;">Plasmid Construct Inventory</h1>
+  </div>
+
+  <!-- Table zone -->
+  <div class="col" style="padding: 0 30px;">
+    <!-- Table header -->
+    <div class="row" style="background: linear-gradient(90deg, #001446 0%, #003482 100%); padding: 6px 10px; border-radius: 4px 4px 0 0; gap: 4px;">
+      <p style="width: 55px; font-size: 9px; font-weight: bold; color: #ffffff; margin: 0;">ID</p>
+      <p style="width: 45px; font-size: 9px; font-weight: bold; color: #ffffff; margin: 0;">Size</p>
+      <p style="width: 80px; font-size: 9px; font-weight: bold; color: #ffffff; margin: 0;">VP1</p>
+      <p style="width: 65px; font-size: 9px; font-weight: bold; color: #ffffff; margin: 0;">VP2</p>
+      <p style="width: 65px; font-size: 9px; font-weight: bold; color: #ffffff; margin: 0;">VP3</p>
+      <p style="flex: 1; font-size: 9px; font-weight: bold; color: #ffffff; margin: 0;">Description</p>
+    </div>
+
+    <!-- Helper section label -->
+    <div class="row" style="background: #e0e0e0; padding: 3px 10px; gap: 4px;">
+      <p style="font-size: 8px; font-weight: bold; color: #003482; margin: 0; letter-spacing: 1px;">HELPER PLASMIDS</p>
+    </div>
+
+    <!-- AVD002 -->
+    <div class="row" style="background: #ffffff; padding: 4px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 55px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">AVD002</p>
+      <p style="width: 45px; font-size: 9px; color: #414953; margin: 0;">7,104</p>
+      <p style="width: 80px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="width: 65px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="width: 65px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="flex: 1; font-size: 9px; color: #414953; margin: 0;">Wild-type AAV9 cap</p>
+    </div>
+
+    <!-- AVD005 -->
+    <div class="row" style="background: #fafafa; padding: 4px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 55px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">AVD005</p>
+      <p style="width: 45px; font-size: 9px; color: #414953; margin: 0;">7,104</p>
+      <p style="width: 80px; font-size: 9px; color: #d32f2f; margin: 0;">KO (AAG)</p>
+      <p style="width: 65px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="width: 65px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="flex: 1; font-size: 9px; color: #414953; margin: 0;">VP1 knockout helper</p>
+    </div>
+
+    <!-- AVD011 -->
+    <div class="row" style="background: #ffffff; padding: 4px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 55px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">AVD011</p>
+      <p style="width: 45px; font-size: 9px; color: #414953; margin: 0;">7,104</p>
+      <p style="width: 80px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="width: 65px; font-size: 9px; color: #d32f2f; margin: 0;">KO (ACC)</p>
+      <p style="width: 65px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="flex: 1; font-size: 9px; color: #414953; margin: 0;">VP2 knockout helper</p>
+    </div>
+
+    <!-- VHH section label -->
+    <div class="row" style="background: #e0e0e0; padding: 3px 10px; gap: 4px;">
+      <p style="font-size: 8px; font-weight: bold; color: #003482; margin: 0; letter-spacing: 1px;">VHH3 DISPLAY CONSTRUCTS</p>
+    </div>
+
+    <!-- AVD006 -->
+    <div class="row" style="background: #fafafa; padding: 4px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 55px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">AVD006</p>
+      <p style="width: 45px; font-size: 9px; color: #414953; margin: 0;">7,551</p>
+      <p style="width: 80px; font-size: 9px; color: #003482; font-weight: 600; margin: 0;">VHH3-VR4</p>
+      <p style="width: 65px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="width: 65px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="flex: 1; font-size: 9px; color: #414953; margin: 0;">VR4 insert, all VPs functional</p>
+    </div>
+
+    <!-- AVD007 -->
+    <div class="row" style="background: #ffffff; padding: 4px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 55px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">AVD007</p>
+      <p style="width: 45px; font-size: 9px; color: #414953; margin: 0;">7,551</p>
+      <p style="width: 80px; font-size: 9px; color: #003482; font-weight: 600; margin: 0;">VHH3-VR4</p>
+      <p style="width: 65px; font-size: 9px; color: #d32f2f; margin: 0;">KO</p>
+      <p style="width: 65px; font-size: 9px; color: #d32f2f; margin: 0;">KO</p>
+      <p style="flex: 1; font-size: 9px; color: #414953; margin: 0;">VR4 insert, VP2/3 KO</p>
+    </div>
+
+    <!-- AVD008 -->
+    <div class="row" style="background: #fafafa; padding: 4px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 55px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">AVD008</p>
+      <p style="width: 45px; font-size: 9px; color: #414953; margin: 0;">7,536</p>
+      <p style="width: 80px; font-size: 9px; color: #FF7400; font-weight: 600; margin: 0;">VHH3-Nterm</p>
+      <p style="width: 65px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="width: 65px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="flex: 1; font-size: 9px; color: #414953; margin: 0;">VP1 N-term, all VPs functional</p>
+    </div>
+
+    <!-- AVD009 -->
+    <div class="row" style="background: #ffffff; padding: 4px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 55px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">AVD009</p>
+      <p style="width: 45px; font-size: 9px; color: #414953; margin: 0;">7,536</p>
+      <p style="width: 80px; font-size: 9px; color: #FF7400; font-weight: 600; margin: 0;">VHH3-Nterm</p>
+      <p style="width: 65px; font-size: 9px; color: #d32f2f; margin: 0;">KO</p>
+      <p style="width: 65px; font-size: 9px; color: #d32f2f; margin: 0;">KO</p>
+      <p style="flex: 1; font-size: 9px; color: #414953; margin: 0;">VP1 N-term, VP2/3 KO</p>
+    </div>
+
+    <!-- AVD010 -->
+    <div class="row" style="background: #fafafa; padding: 4px 10px; border-radius: 0 0 4px 4px; gap: 4px;">
+      <p style="width: 55px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">AVD010</p>
+      <p style="width: 45px; font-size: 9px; color: #414953; margin: 0;">7,536</p>
+      <p style="width: 80px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="width: 65px; font-size: 9px; color: #F9A72C; font-weight: 600; margin: 0;">VHH3-Nterm</p>
+      <p style="width: 65px; font-size: 9px; color: #2e7d32; margin: 0;">Native</p>
+      <p style="flex: 1; font-size: 9px; color: #414953; margin: 0;">VP2 N-term, VP1/3 functional</p>
+    </div>
+  </div>
+
+  <!-- Legend - positioned absolutely -->
+  <div class="row" style="position: absolute; bottom: 56px; left: 30px; gap: 16px;">
+    <div class="row" style="gap: 4px; align-items: center;">
+      <div style="width: 8px; height: 8px; background: #2e7d32; border-radius: 2px;"></div>
+      <p style="font-size: 8px; color: #414953; margin: 0;">Native</p>
+    </div>
+    <div class="row" style="gap: 4px; align-items: center;">
+      <div style="width: 8px; height: 8px; background: #d32f2f; border-radius: 2px;"></div>
+      <p style="font-size: 8px; color: #414953; margin: 0;">KO</p>
+    </div>
+    <div class="row" style="gap: 4px; align-items: center;">
+      <div style="width: 8px; height: 8px; background: #003482; border-radius: 2px;"></div>
+      <p style="font-size: 8px; color: #414953; margin: 0;">VR-IV</p>
+    </div>
+    <div class="row" style="gap: 4px; align-items: center;">
+      <div style="width: 8px; height: 8px; background: #FF7400; border-radius: 2px;"></div>
+      <p style="font-size: 8px; color: #414953; margin: 0;">VP1 N-term</p>
+    </div>
+    <div class="row" style="gap: 4px; align-items: center;">
+      <div style="width: 8px; height: 8px; background: #F9A72C; border-radius: 2px;"></div>
+      <p style="font-size: 8px; color: #414953; margin: 0;">VP2 N-term</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <p style="position: absolute; bottom: 56px; right: 30px; font-size: 10px; color: #414953; margin: 0;">CONFIDENTIAL</p>
+</body>
+</html>

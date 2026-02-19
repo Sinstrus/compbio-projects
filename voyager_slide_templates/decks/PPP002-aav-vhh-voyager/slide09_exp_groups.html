@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Experimental Groups</title>
+  <style>
+    :root {
+      --voyager-navy: #001446;
+      --voyager-blue: #003482;
+      --voyager-orange: #FF7400;
+      --voyager-gray: #F3F3F7;
+      --voyager-dark-gray: #414953;
+    }
+  </style>
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7; font-family: Arial, sans-serif; margin: 0; position: relative;">
+  <!-- Title area -->
+  <div style="width: 900px; margin: 0 30px; padding-top: 24px;" class="fit">
+    <h1 style="font-size: 22px; color: #003482; margin: 0; font-weight: bold;">Seven Experimental Groups Test All Architectures</h1>
+  </div>
+
+  <!-- Table zone -->
+  <div class="col fill-height" style="padding: 10px 30px 50px 30px;">
+    <!-- Table header -->
+    <div class="row" style="background: linear-gradient(90deg, #001446 0%, #003482 100%); padding: 8px 10px; border-radius: 6px 6px 0 0; gap: 4px;">
+      <p style="width: 28px; font-size: 10px; font-weight: bold; color: #FF7400; margin: 0;">Grp</p>
+      <p style="width: 115px; font-size: 10px; font-weight: bold; color: #ffffff; margin: 0;">Virus Name</p>
+      <p style="width: 105px; font-size: 10px; font-weight: bold; color: #ffffff; margin: 0;">Plasmid 1</p>
+      <p style="width: 120px; font-size: 10px; font-weight: bold; color: #ffffff; margin: 0;">Plasmid 2</p>
+      <p style="width: 75px; font-size: 10px; font-weight: bold; color: #ffffff; margin: 0;">Strategy</p>
+      <p style="flex: 1; font-size: 10px; font-weight: bold; color: #ffffff; margin: 0;">What It Tests</p>
+    </div>
+
+    <!-- Row 1: WT Control -->
+    <div class="row" style="background: #ffffff; padding: 7px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 28px; font-size: 11px; font-weight: bold; color: #001446; margin: 0;">1</p>
+      <p style="width: 115px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">WT Control</p>
+      <p style="width: 105px; font-size: 10px; color: #414953; margin: 0;">AVD002 (wt)</p>
+      <p style="width: 120px; font-size: 10px; color: #888; margin: 0;">-</p>
+      <p style="width: 75px; font-size: 10px; color: #888; margin: 0;">-</p>
+      <p style="flex: 1; font-size: 10px; color: #414953; margin: 0;">Baseline transduction</p>
+    </div>
+
+    <!-- Row 2: VR4 Mosaic -->
+    <div class="row" style="background: #f0f4ff; padding: 7px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 28px; font-size: 11px; font-weight: bold; color: #001446; margin: 0;">2</p>
+      <p style="width: 115px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">VR4 Mosaic</p>
+      <p style="width: 105px; font-size: 10px; color: #414953; margin: 0;">AVD002 (wt)</p>
+      <p style="width: 120px; font-size: 10px; color: #003482; font-weight: 600; margin: 0;">AVD006 (all VPs)</p>
+      <p style="width: 75px; font-size: 10px; color: #F9A72C; font-weight: bold; margin: 0;">Mosaic</p>
+      <p style="flex: 1; font-size: 10px; color: #414953; margin: 0;">Partial VHH on all VP species</p>
+    </div>
+
+    <!-- Row 3: VR4 Trans-comp -->
+    <div class="row" style="background: #f0f4ff; padding: 7px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 28px; font-size: 11px; font-weight: bold; color: #001446; margin: 0;">3</p>
+      <p style="width: 115px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">VR4 Trans-comp</p>
+      <p style="width: 105px; font-size: 10px; color: #414953; margin: 0;">AVD005 (VP1-KO)</p>
+      <p style="width: 120px; font-size: 10px; color: #003482; font-weight: 600; margin: 0;">AVD007 (VP1-VHH)</p>
+      <p style="width: 75px; font-size: 10px; color: #003482; font-weight: bold; margin: 0;">Trans-comp</p>
+      <p style="flex: 1; font-size: 10px; color: #414953; margin: 0;">100% VP1 has VHH; clean VP2/3</p>
+    </div>
+
+    <!-- Row 4: VP1 N-term Mosaic -->
+    <div class="row" style="background: #fff8f0; padding: 7px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 28px; font-size: 11px; font-weight: bold; color: #001446; margin: 0;">4</p>
+      <p style="width: 115px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">VP1 N-term Mosaic</p>
+      <p style="width: 105px; font-size: 10px; color: #414953; margin: 0;">AVD002 (wt)</p>
+      <p style="width: 120px; font-size: 10px; color: #FF7400; font-weight: 600; margin: 0;">AVD008 (VP1-VHH)</p>
+      <p style="width: 75px; font-size: 10px; color: #F9A72C; font-weight: bold; margin: 0;">Mosaic</p>
+      <p style="flex: 1; font-size: 10px; color: #414953; margin: 0;">Partial VP1-VHH incorporation</p>
+    </div>
+
+    <!-- Row 5: VP1 N-term Trans-comp -->
+    <div class="row" style="background: #fff8f0; padding: 7px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 28px; font-size: 11px; font-weight: bold; color: #001446; margin: 0;">5</p>
+      <p style="width: 115px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">VP1 N-term Trans</p>
+      <p style="width: 105px; font-size: 10px; color: #414953; margin: 0;">AVD005 (VP1-KO)</p>
+      <p style="width: 120px; font-size: 10px; color: #FF7400; font-weight: 600; margin: 0;">AVD009 (VP1-VHH)</p>
+      <p style="width: 75px; font-size: 10px; color: #003482; font-weight: bold; margin: 0;">Trans-comp</p>
+      <p style="flex: 1; font-size: 10px; color: #414953; margin: 0;">100% VP1 has N-term VHH</p>
+    </div>
+
+    <!-- Row 6: VP2 N-term Mosaic -->
+    <div class="row" style="background: #fffbf0; padding: 7px 10px; border-bottom: 1px solid #e0e0e0; gap: 4px;">
+      <p style="width: 28px; font-size: 11px; font-weight: bold; color: #001446; margin: 0;">6</p>
+      <p style="width: 115px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">VP2 N-term Mosaic</p>
+      <p style="width: 105px; font-size: 10px; color: #414953; margin: 0;">AVD002 (wt)</p>
+      <p style="width: 120px; font-size: 10px; color: #F9A72C; font-weight: 600; margin: 0;">AVD010 (VP2-VHH)</p>
+      <p style="width: 75px; font-size: 10px; color: #F9A72C; font-weight: bold; margin: 0;">Mosaic</p>
+      <p style="flex: 1; font-size: 10px; color: #414953; margin: 0;">Partial VP2-VHH; wt VP1 from AVD002</p>
+    </div>
+
+    <!-- Row 7: VP2 N-term Trans-comp -->
+    <div class="row" style="background: #fffbf0; padding: 7px 10px; border-radius: 0 0 6px 6px; gap: 4px;">
+      <p style="width: 28px; font-size: 11px; font-weight: bold; color: #001446; margin: 0;">7</p>
+      <p style="width: 115px; font-size: 10px; font-weight: bold; color: #001446; margin: 0;">VP2 N-term Trans</p>
+      <p style="width: 105px; font-size: 10px; color: #414953; margin: 0;">AVD011 (VP2-KO)</p>
+      <p style="width: 120px; font-size: 10px; color: #F9A72C; font-weight: 600; margin: 0;">AVD010 (VP2-VHH)</p>
+      <p style="width: 75px; font-size: 10px; color: #003482; font-weight: bold; margin: 0;">Trans-comp</p>
+      <p style="flex: 1; font-size: 10px; color: #414953; margin: 0;">100% VP2 has VHH; functional VP1/3</p>
+    </div>
+
+    <!-- Legend -->
+    <div class="row" style="margin-top: 12px; gap: 24px;">
+      <div class="row" style="gap: 6px; align-items: center;">
+        <div style="width: 14px; height: 14px; background: #f0f4ff; border: 1px solid #003482; border-radius: 2px;"></div>
+        <p style="font-size: 9px; color: #414953; margin: 0;">VR-IV loop</p>
+      </div>
+      <div class="row" style="gap: 6px; align-items: center;">
+        <div style="width: 14px; height: 14px; background: #fff8f0; border: 1px solid #FF7400; border-radius: 2px;"></div>
+        <p style="font-size: 9px; color: #414953; margin: 0;">VP1 N-term</p>
+      </div>
+      <div class="row" style="gap: 6px; align-items: center;">
+        <div style="width: 14px; height: 14px; background: #fffbf0; border: 1px solid #F9A72C; border-radius: 2px;"></div>
+        <p style="font-size: 9px; color: #414953; margin: 0;">VP2 N-term</p>
+      </div>
+      <p style="font-size: 9px; color: #414953; margin: 0; margin-left: auto;"><b>All groups use 1:1 DNA mass ratio for co-transfection</b></p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <p style="position: absolute; bottom: 40px; right: 30px; font-size: 10px; color: #414953; margin: 0;">CONFIDENTIAL</p>
+</body>
+</html>

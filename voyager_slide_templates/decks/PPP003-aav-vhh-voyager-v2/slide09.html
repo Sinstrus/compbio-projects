@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7;
+             font-family: Calibri, Arial, sans-serif; margin: 0;">
+  <!-- Title area -->
+  <div style="padding: 20px 30px 6px 30px;">
+    <h1 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 20pt;
+               color: #003482; margin: 0; font-weight: bold;">Seven Experimental Groups</h1>
+  </div>
+
+  <!-- Content area -->
+  <div style="padding: 4px 30px 0 30px;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 8pt; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <thead>
+        <tr style="background: linear-gradient(90deg, #001446, #003482);">
+          <th style="padding: 6px 6px; color: #fff; text-align: left; font-weight: bold; width: 45px;">Group</th>
+          <th style="padding: 6px 6px; color: #fff; text-align: left; font-weight: bold;">Helper Plasmid</th>
+          <th style="padding: 6px 6px; color: #fff; text-align: left; font-weight: bold;">Transfer Plasmid</th>
+          <th style="padding: 6px 6px; color: #fff; text-align: left; font-weight: bold;">Strategy</th>
+          <th style="padding: 6px 6px; color: #fff; text-align: left; font-weight: bold;">Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background: #E3F2FD;">
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee; font-weight: bold; color: #003482;">G1</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">pRep2Cap9-WT</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">pAAV-CAG-GFP</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">Control</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">Baseline AAV9 tropism</td>
+        </tr>
+        <tr style="background: #fff;">
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee; font-weight: bold; color: #003482;">G2</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">pRep2Cap9-WT</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">pAAV-CAG-ALPL</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">Control</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">Baseline ALPL expression</td>
+        </tr>
+        <tr style="background: #FFF3E0;">
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee; font-weight: bold; color: #FF7400;">G3</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">pRep2Cap9-VP1-VHH3</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">pAAV-CAG-GFP</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">Cis (VP1)</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">VP1 targeting validation</td>
+        </tr>
+        <tr style="background: #fff;">
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee; font-weight: bold; color: #FF7400;">G4</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">pRep2Cap9-VP1-VHH3</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">pAAV-CAG-ALPL</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">Cis (VP1)</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">VP1 + therapeutic payload</td>
+        </tr>
+        <tr style="background: #FFF3E0;">
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee; font-weight: bold; color: #FF7400;">G5</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">pRep2Cap9-VP2-VHH3</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">pAAV-CAG-GFP</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">Cis (VP2)</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">VP2 targeting validation</td>
+        </tr>
+        <tr style="background: #fff;">
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee; font-weight: bold; color: #FF7400;">G6</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">VP1-VHH3 + WT (1:4)</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">pAAV-CAG-GFP</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">Trans (Mosaic)</td>
+          <td style="padding: 5px 6px; border-bottom: 1px solid #eee;">20% mosaic targeting</td>
+        </tr>
+        <tr style="background: #E8F5E9;">
+          <td style="padding: 5px 6px; font-weight: bold; color: #4CAF50;">G7</td>
+          <td style="padding: 5px 6px;">VP1-VHH3 + WT (1:4)</td>
+          <td style="padding: 5px 6px;">pAAV-CAG-ALPL</td>
+          <td style="padding: 5px 6px;">Trans (Mosaic)</td>
+          <td style="padding: 5px 6px;">Lead therapeutic candidate</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Legend row -->
+  <div class="row" style="margin: 10px 30px 0 30px; gap: 20px; font-size: 8pt;">
+    <div class="row" style="gap: 4px; align-items: center;">
+      <div style="width: 14px; height: 14px; background: #E3F2FD; border: 1px solid #90CAF9; border-radius: 2px;"></div>
+      <p style="color: #414953; margin: 0;">Control groups</p>
+    </div>
+    <div class="row" style="gap: 4px; align-items: center;">
+      <div style="width: 14px; height: 14px; background: #FFF3E0; border: 1px solid #FFCC80; border-radius: 2px;"></div>
+      <p style="color: #414953; margin: 0;">Test groups (cis)</p>
+    </div>
+    <div class="row" style="gap: 4px; align-items: center;">
+      <div style="width: 14px; height: 14px; background: #E8F5E9; border: 1px solid #A5D6A7; border-radius: 2px;"></div>
+      <p style="color: #414953; margin: 0;">Lead candidate</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7;
+             font-family: Calibri, Arial, sans-serif; margin: 0;">
+  <!-- Title area -->
+  <div style="padding: 20px 30px 8px 30px;">
+    <h1 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 20pt;
+               color: #003482; margin: 0; font-weight: bold;">Three-Stage Validation Pipeline</h1>
+  </div>
+
+  <!-- Content area - 3 stage cards -->
+  <div class="row" style="padding: 4px 30px; gap: 14px; height: 300px;">
+    <!-- Stage 1: Western Blot -->
+    <div style="flex: 1; background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <div class="row" style="align-items: center; gap: 10px; margin-bottom: 10px;">
+        <div style="width: 32px; height: 32px; background: #003482; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+          <p style="color: #fff; font-size: 14pt; font-weight: bold; margin: 0;">1</p>
+        </div>
+        <h3 style="font-family: 'Century Gothic', Arial, sans-serif; color: #003482; font-size: 11pt; margin: 0; font-weight: bold;">Western Blot</h3>
+      </div>
+      <p style="font-size: 9pt; color: #FF7400; font-weight: bold; margin: 0 0 8px 0;">Physical Confirmation</p>
+      <ul style="margin: 0; padding-left: 16px; font-size: 8pt; line-height: 1.5; color: #333;">
+        <li style="margin-bottom: 4px;">Does modified VP express?</li>
+        <li style="margin-bottom: 4px;">Correct MW shift? (VP + ~15 kDa for VHH)</li>
+        <li style="margin-bottom: 4px;">Stoichiometry intact?</li>
+      </ul>
+      <div style="background: #E3F2FD; padding: 8px; border-radius: 4px; margin-top: 10px;">
+        <p style="font-size: 8pt; color: #003482; margin: 0;"><strong>Go/No-Go:</strong> VHH-VP band at expected size</p>
+      </div>
+    </div>
+
+    <!-- Stage 2: Binding Assay -->
+    <div style="flex: 1; background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <div class="row" style="align-items: center; gap: 10px; margin-bottom: 10px;">
+        <div style="width: 32px; height: 32px; background: #FF7400; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+          <p style="color: #fff; font-size: 14pt; font-weight: bold; margin: 0;">2</p>
+        </div>
+        <h3 style="font-family: 'Century Gothic', Arial, sans-serif; color: #FF7400; font-size: 11pt; margin: 0; font-weight: bold;">Binding Assay</h3>
+      </div>
+      <p style="font-size: 9pt; color: #FF7400; font-weight: bold; margin: 0 0 8px 0;">Functional VHH</p>
+      <ul style="margin: 0; padding-left: 16px; font-size: 8pt; line-height: 1.5; color: #333;">
+        <li style="margin-bottom: 4px;">Does VHH bind ALPL?</li>
+        <li style="margin-bottom: 4px;">Above WT background?</li>
+        <li style="margin-bottom: 4px;">Dose-dependent?</li>
+      </ul>
+      <p style="font-size: 8pt; color: #666; margin: 8px 0 0 0;"><strong>Method:</strong> Flow cytometry on ALPL+ cells</p>
+      <div style="background: #FFF3E0; padding: 8px; border-radius: 4px; margin-top: 8px;">
+        <p style="font-size: 8pt; color: #FF7400; margin: 0;"><strong>Go/No-Go:</strong> Signal above WT control</p>
+      </div>
+    </div>
+
+    <!-- Stage 3: Transduction -->
+    <div style="flex: 1; background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <div class="row" style="align-items: center; gap: 10px; margin-bottom: 10px;">
+        <div style="width: 32px; height: 32px; background: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+          <p style="color: #fff; font-size: 14pt; font-weight: bold; margin: 0;">3</p>
+        </div>
+        <h3 style="font-family: 'Century Gothic', Arial, sans-serif; color: #4CAF50; font-size: 11pt; margin: 0; font-weight: bold;">Transduction</h3>
+      </div>
+      <p style="font-size: 9pt; color: #4CAF50; font-weight: bold; margin: 0 0 8px 0;">Tropism Shift</p>
+      <ul style="margin: 0; padding-left: 16px; font-size: 8pt; line-height: 1.5; color: #333;">
+        <li style="margin-bottom: 4px;">Enhanced transduction of ALPL+ cells?</li>
+        <li style="margin-bottom: 4px;">Compare to WT AAV9 baseline</li>
+      </ul>
+      <div style="background: #E8F5E9; padding: 8px; border-radius: 4px; margin-top: 10px;">
+        <p style="font-size: 8pt; color: #4CAF50; margin: 0;"><strong>Success:</strong> Significant increase in ALPL+ cell transduction</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Next step callout -->
+  <div style="margin: 10px 30px; padding: 10px 16px; background: linear-gradient(90deg, #001446, #003482); border-radius: 6px;">
+    <p style="color: #fff; font-size: 10pt; margin: 0; text-align: center;">
+      <strong>If Stage 3 passes:</strong> Proceed to in vivo biodistribution in mouse model
+    </p>
+  </div>
+</body>
+</html>

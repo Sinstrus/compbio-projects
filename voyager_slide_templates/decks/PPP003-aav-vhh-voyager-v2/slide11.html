@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7;
+             font-family: Calibri, Arial, sans-serif; margin: 0;">
+  <!-- Title area -->
+  <div style="padding: 20px 30px 8px 30px;">
+    <h1 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 20pt;
+               color: #003482; margin: 0; font-weight: bold;">Three-Stage Validation Pipeline</h1>
+  </div>
+
+  <!-- Content area - 3 stage cards -->
+  <div class="row" style="padding: 4px 30px; gap: 14px; height: 280px;">
+    <!-- Stage 1 -->
+    <div style="flex: 1; background: #fff; border-radius: 8px; padding: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <div class="row" style="align-items: center; gap: 8px; margin-bottom: 8px;">
+        <div style="width: 30px; height: 30px; background: #003482; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+          <p style="color: #fff; font-size: 12pt; font-weight: bold; margin: 0;">1</p>
+        </div>
+        <h3 style="font-family: 'Century Gothic', Arial, sans-serif; color: #003482; font-size: 11pt; margin: 0; font-weight: bold;">Binding Assays</h3>
+      </div>
+      <ul style="margin: 0; padding-left: 14px; font-size: 8pt; line-height: 1.4; color: #333;">
+        <li style="margin-bottom: 3px;"><strong>ELISA:</strong> VHH3-TNSALP binding</li>
+        <li style="margin-bottom: 3px;"><strong>SPR:</strong> Binding kinetics (Kd)</li>
+        <li style="margin-bottom: 3px;"><strong>Western:</strong> VHH3 display confirm</li>
+        <li style="margin-bottom: 3px;"><strong>Cryo-EM:</strong> Capsid integrity</li>
+      </ul>
+      <div style="background: #E3F2FD; padding: 6px; border-radius: 4px; margin-top: 8px;">
+        <p style="font-size: 7pt; color: #003482; margin: 0;"><strong>Go/No-Go:</strong> Kd &lt; 10 nM</p>
+      </div>
+    </div>
+
+    <!-- Stage 2 -->
+    <div style="flex: 1; background: #fff; border-radius: 8px; padding: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <div class="row" style="align-items: center; gap: 8px; margin-bottom: 8px;">
+        <div style="width: 30px; height: 30px; background: #FF7400; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+          <p style="color: #fff; font-size: 12pt; font-weight: bold; margin: 0;">2</p>
+        </div>
+        <h3 style="font-family: 'Century Gothic', Arial, sans-serif; color: #FF7400; font-size: 11pt; margin: 0; font-weight: bold;">Cell Transduction</h3>
+      </div>
+      <ul style="margin: 0; padding-left: 14px; font-size: 8pt; line-height: 1.4; color: #333;">
+        <li style="margin-bottom: 3px;"><strong>MC3T3:</strong> Osteoblast targeting</li>
+        <li style="margin-bottom: 3px;"><strong>HepG2:</strong> Liver detargeting</li>
+        <li style="margin-bottom: 3px;"><strong>HEK293:</strong> Production QC</li>
+        <li style="margin-bottom: 3px;"><strong>FACS:</strong> GFP+ quantification</li>
+      </ul>
+      <div style="background: #FFF3E0; padding: 6px; border-radius: 4px; margin-top: 8px;">
+        <p style="font-size: 7pt; color: #FF7400; margin: 0;"><strong>Go/No-Go:</strong> &gt;3x bone vs liver</p>
+      </div>
+    </div>
+
+    <!-- Stage 3 -->
+    <div style="flex: 1; background: #fff; border-radius: 8px; padding: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <div class="row" style="align-items: center; gap: 8px; margin-bottom: 8px;">
+        <div style="width: 30px; height: 30px; background: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+          <p style="color: #fff; font-size: 12pt; font-weight: bold; margin: 0;">3</p>
+        </div>
+        <h3 style="font-family: 'Century Gothic', Arial, sans-serif; color: #4CAF50; font-size: 11pt; margin: 0; font-weight: bold;">Functional Output</h3>
+      </div>
+      <ul style="margin: 0; padding-left: 14px; font-size: 8pt; line-height: 1.4; color: #333;">
+        <li style="margin-bottom: 3px;"><strong>ALP assay:</strong> Enzyme activity</li>
+        <li style="margin-bottom: 3px;"><strong>qPCR:</strong> ALPL mRNA levels</li>
+        <li style="margin-bottom: 3px;"><strong>ICC:</strong> Protein localization</li>
+        <li style="margin-bottom: 3px;"><strong>Mineralization:</strong> ARS staining</li>
+      </ul>
+      <div style="background: #E8F5E9; padding: 6px; border-radius: 4px; margin-top: 8px;">
+        <p style="font-size: 7pt; color: #4CAF50; margin: 0;"><strong>Go/No-Go:</strong> &gt;2x ALP activity</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline arrow -->
+  <div style="margin: 10px 30px; padding: 10px 16px; background: linear-gradient(90deg, #003482, #FF7400, #4CAF50); border-radius: 6px;">
+    <div class="row" style="justify-content: space-between; color: #fff; font-size: 8pt;">
+      <p style="margin: 0;"><strong>Week 1-2:</strong> Binding</p>
+      <p style="margin: 0;"><strong>Week 3-4:</strong> Transduction</p>
+      <p style="margin: 0;"><strong>Week 5-6:</strong> Functional</p>
+      <p style="margin: 0;"><strong>Week 7:</strong> Review</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -179,6 +179,18 @@ Desktop.ini
 *.sublime-workspace
 
 # ============================================
+# Node.js
+# ============================================
+node_modules/
+package-lock.json
+
+# ============================================
+# PPTX build artifacts
+# ============================================
+*.pptx
+rasterized-gradient-*.png
+
+# ============================================
 # Custom exclusions
 # ============================================
 # Add project-specific files here

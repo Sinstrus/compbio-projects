@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7;
+             font-family: Calibri, Arial, sans-serif; margin: 0;">
+  <!-- Title area -->
+  <div style="padding: 48px 30px 8px 30px;">
+    <h1 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 20pt;
+               color: #003482; margin: 0; font-weight: bold;">Cryptic Splice Site Analysis</h1>
+  </div>
+
+  <!-- Content area -->
+  <div class="col" style="padding: 4px 30px; gap: 10px;">
+    <!-- Linker analysis -->
+    <div class="row" style="gap: 12px;">
+      <div style="flex: 1; background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <p style="font-size: 9pt; color: #003482; margin: 0 0 6px 0; font-weight: bold;">LINKER (GGGGS)x5 - 75 nt</p>
+        <div class="row" style="gap: 8px; margin-bottom: 6px;">
+          <div style="flex: 1; text-align: center;">
+            <p style="font-size: 16pt; color: #4CAF50; margin: 0; font-weight: bold;">0</p>
+            <p style="font-size: 7pt; color: #666; margin: 0;">GT sites</p>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <p style="font-size: 16pt; color: #4CAF50; margin: 0; font-weight: bold;">5</p>
+            <p style="font-size: 7pt; color: #666; margin: 0;">AG sites</p>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <p style="font-size: 16pt; color: #4CAF50; margin: 0; font-weight: bold;">0</p>
+            <p style="font-size: 7pt; color: #666; margin: 0;">Functional</p>
+          </div>
+        </div>
+        <p style="font-size: 7pt; color: #4CAF50; margin: 0;">AG sites lack upstream polyY - not functional acceptors</p>
+      </div>
+
+      <div style="flex: 1; background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <p style="font-size: 9pt; color: #003482; margin: 0 0 6px 0; font-weight: bold;">VHH3 - 357 nt</p>
+        <div class="row" style="gap: 8px; margin-bottom: 6px;">
+          <div style="flex: 1; text-align: center;">
+            <p style="font-size: 16pt; color: #FF7400; margin: 0; font-weight: bold;">~17</p>
+            <p style="font-size: 7pt; color: #666; margin: 0;">GT sites</p>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <p style="font-size: 16pt; color: #4CAF50; margin: 0; font-weight: bold;">0</p>
+            <p style="font-size: 7pt; color: #666; margin: 0;">Functional AG</p>
+          </div>
+          <div style="flex: 1; text-align: center;">
+            <p style="font-size: 16pt; color: #FF7400; margin: 0; font-weight: bold;">LOW</p>
+            <p style="font-size: 7pt; color: #666; margin: 0;">Risk</p>
+          </div>
+        </div>
+        <p style="font-size: 7pt; color: #FF7400; margin: 0;">GT sites exist but lack paired acceptors</p>
+      </div>
+    </div>
+
+    <!-- Why low risk -->
+    <div style="background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <p style="font-size: 9pt; color: #003482; margin: 0 0 8px 0; font-weight: bold;">WHY CRYPTIC SITES ARE LOW RISK</p>
+      <div class="row" style="gap: 12px;">
+        <div style="flex: 1;">
+          <p style="font-size: 8pt; color: #333; margin: 0; font-weight: bold;">1. Requires donor AND acceptor</p>
+          <p style="font-size: 7pt; color: #666; margin: 2px 0 0 0;">Splicing requires both 5' donor (GT) and 3' acceptor (polyY + AG) working together</p>
+        </div>
+        <div style="flex: 1;">
+          <p style="font-size: 8pt; color: #333; margin: 0; font-weight: bold;">2. Designed sites are stronger</p>
+          <p style="font-size: 7pt; color: #666; margin: 2px 0 0 0;">Our acceptor has 17 nt polyY - much stronger than any cryptic site</p>
+        </div>
+        <div style="flex: 1;">
+          <p style="font-size: 8pt; color: #333; margin: 0; font-weight: bold;">3. Position matters</p>
+          <p style="font-size: 7pt; color: #666; margin: 2px 0 0 0;">Cryptic donor usage would skip designed donor and disrupt VHH</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="row" style="gap: 12px;">
+      <div style="flex: 2; background: #4CAF50; padding: 10px 12px; border-radius: 6px;">
+        <div class="row items-center" style="gap: 10px;">
+          <p style="font-size: 18pt; color: #fff; margin: 0; font-weight: bold;">LOW</p>
+          <div>
+            <p style="font-size: 9pt; color: #fff; margin: 0; font-weight: bold;">Overall Cryptic Site Risk</p>
+            <p style="font-size: 7pt; color: rgba(255,255,255,0.8); margin: 2px 0 0 0;">
+              No functional cryptic acceptors | Designed sites outcompete any cryptic donors
+            </p>
+          </div>
+        </div>
+      </div>
+      <div style="flex: 1; background: #fff3cd; padding: 10px 12px; border-radius: 6px; border-left: 4px solid #FF7400;">
+        <p style="font-size: 8pt; color: #856404; margin: 0; font-weight: bold;">RECOMMENDATION</p>
+        <p style="font-size: 7pt; color: #856404; margin: 4px 0 0 0;">
+          Monitor by RT-PCR for unexpected splice products. Silent mutations available if needed.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="height: 48px; padding: 0 30px;">
+    <p style="font-size: 7pt; color: #414953; margin: 0; text-align: right;">9 | CONFIDENTIAL</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<body class="col" style="width:960px;height:540px;margin:0;background:#fff;font-family:Calibri,Arial,sans-serif;">
+  <!-- Header -->
+  <div style="position:relative;height:75px;flex-shrink:0;">
+    <img src="assets/Body_Slide_Blue_Title_Background_Medium_Level_Banner1.png" style="position:absolute;top:0;left:0;width:100%;height:100%;"/>
+    <div class="row items-center" style="position:absolute;top:0;left:0;width:100%;height:100%;padding:0 20px 0 30px;">
+      <h1 style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:18pt;color:#fff;font-weight:bold;margin:0;flex:1;">Cryptic Splice Site Engineering</h1>
+    </div>
+    <img src="assets/Body_Slide_Blue_Title_Voyager_Logo1.png" style="position:absolute;right:12px;top:0;height:75px;width:128px;"/>
+  </div>
+
+  <!-- Content -->
+  <div class="col" style="padding:2px 30px 0 30px;flex:1;gap:3px;">
+
+    <!-- Problem statement -->
+    <div style="background:linear-gradient(90deg,#c62828,#d32f2f);padding:5px 14px;border-radius:6px;" data-rasterize="gradient">
+      <p style="font-size:7.5pt;color:rgba(255,255,255,0.7);margin:0 0 1px 0;">THE PROBLEM</p>
+      <p style="font-size:8.5pt;color:#fff;margin:0;font-weight:bold;">
+        VHH3 coding sequence contains GT and AG dinucleotides that could compete with intended splice sites
+      </p>
+    </div>
+
+    <!-- 3-stage pipeline summary -->
+    <div style="padding:4px 12px;border-radius:6px;">
+      <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:7.5pt;color:#003482;margin:0 0 3px 0;font-weight:bold;">DNAchisel 3-STAGE OPTIMIZATION</p>
+      <div class="row" style="gap:6px;">
+        <!-- Stage 0 -->
+        <div style="flex:1;padding:4px 8px;border-radius:4px;border-left:3px solid #4E8EC9;">
+          <p style="font-size:6.5pt;color:#4E8EC9;margin:0 0 1px 0;font-weight:bold;">Stage 0: GGGGS Linkers</p>
+          <p style="font-size:6pt;color:#333;margin:0;">Varied-codon GGGGS with <strong>0 GT/AG</strong></p>
+        </div>
+        <!-- Stage 1 -->
+        <div style="flex:1;padding:4px 8px;border-radius:4px;border-left:3px solid #FF7400;">
+          <p style="font-size:6.5pt;color:#FF7400;margin:0 0 1px 0;font-weight:bold;">Stage 1: Global VHH3</p>
+          <p style="font-size:6pt;color:#333;margin:0;">Minimize GT/AG, preserve protein + codon usage</p>
+        </div>
+        <!-- Stage 2 -->
+        <div style="flex:1;padding:4px 8px;border-radius:4px;border-left:3px solid #003482;">
+          <p style="font-size:6.5pt;color:#003482;margin:0 0 1px 0;font-weight:bold;">Stage 2: MaxEntScan</p>
+          <p style="font-size:6pt;color:#333;margin:0;">Score remaining; do-no-harm &le; 0.0</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Before / After comparison -->
+    <div class="row" style="gap:10px;flex:1;">
+      <div style="flex:1;padding:6px 10px;border-radius:6px;border-top:3px solid #c62828;">
+        <p style="font-size:7.5pt;color:#c62828;margin:0 0 4px 0;font-weight:bold;">BEFORE OPTIMIZATION</p>
+        <div class="row" style="gap:12px;">
+          <div style="text-align:center;">
+            <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:14pt;color:#c62828;margin:0;font-weight:bold;">28</p>
+            <p style="font-size:6.5pt;color:#666;margin:0;">GT sites</p>
+          </div>
+          <div style="text-align:center;">
+            <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:14pt;color:#FF7400;margin:0;font-weight:bold;">38</p>
+            <p style="font-size:6.5pt;color:#666;margin:0;">AG sites</p>
+          </div>
+          <div style="text-align:center;">
+            <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:14pt;color:#333;margin:0;font-weight:bold;">66</p>
+            <p style="font-size:6.5pt;color:#666;margin:0;">Total cryptic</p>
+          </div>
+        </div>
+        <p style="font-size:6pt;color:#666;margin:2px 0 0 0;">Max GT score: 2.7 (Very Weak)</p>
+      </div>
+
+      <div style="flex:1;padding:6px 10px;border-radius:6px;border-top:3px solid #4CAF50;">
+        <p style="font-size:7.5pt;color:#4CAF50;margin:0 0 4px 0;font-weight:bold;">AFTER OPTIMIZATION</p>
+        <div class="row" style="gap:12px;">
+          <div style="text-align:center;">
+            <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:14pt;color:#4CAF50;margin:0;font-weight:bold;">12</p>
+            <p style="font-size:6.5pt;color:#666;margin:0;">GT sites</p>
+          </div>
+          <div style="text-align:center;">
+            <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:14pt;color:#4CAF50;margin:0;font-weight:bold;">7</p>
+            <p style="font-size:6.5pt;color:#666;margin:0;">AG sites</p>
+          </div>
+          <div style="text-align:center;">
+            <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:14pt;color:#4CAF50;margin:0;font-weight:bold;">19</p>
+            <p style="font-size:6.5pt;color:#666;margin:0;">Total remaining</p>
+          </div>
+        </div>
+        <p style="font-size:6pt;color:#666;margin:2px 0 0 0;">Max GT score: -1.5 (Not Detected)</p>
+      </div>
+    </div>
+
+    <!-- Hard constraints + confirmation -->
+    <div class="row" style="gap:8px;">
+      <div style="flex:1;padding:4px 10px;border-radius:4px;">
+        <p style="font-size:6.5pt;color:#003482;margin:0 0 2px 0;font-weight:bold;">HARD CONSTRAINTS</p>
+        <ul style="margin:0;padding-left:12px;font-size:6pt;color:#333;line-height:1.3;">
+          <li>EnforceTranslation: protein identity preserved</li>
+          <li>AvoidPattern: no BsaI, BsmBI, BbsI sites</li>
+          <li>CodonOptimize: human codon usage table</li>
+        </ul>
+      </div>
+      <div style="flex:1;background:linear-gradient(90deg,#001446,#003482);padding:5px 14px;border-radius:6px;" data-rasterize="gradient">
+        <div class="row items-center" style="gap:8px;">
+          <div style="background:#4CAF50;padding:2px 8px;border-radius:4px;">
+            <p style="font-size:7pt;color:#fff;margin:0;font-weight:bold;">71% REDUCTION</p>
+          </div>
+          <p style="font-size:6.5pt;color:#fff;margin:0;">66 &rarr; 19 total cryptic sites. All 19 remaining confirmed dead (MaxEnt &le; 0.0).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="height:44px;padding:4px 30px 0 30px;">
+    <p style="font-size:7pt;color:#64707E;margin:0;">5&ensp;|&ensp;<span style="letter-spacing:3px;">CONFIDENTIAL</span></p>
+  </div>
+</body>

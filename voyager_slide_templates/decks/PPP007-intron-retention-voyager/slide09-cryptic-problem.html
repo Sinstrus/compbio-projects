@@ -1,0 +1,101 @@
+<body class="col" style="width:960px;height:540px;margin:0;background:#fff;font-family:Calibri,Arial,sans-serif;">
+  <!-- Header -->
+  <div style="position:relative;height:75px;flex-shrink:0;">
+    <img src="assets/Body_Slide_Blue_Title_Background_Medium_Level_Banner1.png" style="position:absolute;top:0;left:0;width:100%;height:100%;"/>
+    <div class="row items-center" style="position:absolute;top:0;left:0;width:100%;height:100%;padding:0 20px 0 30px;">
+      <h1 style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:14pt;color:#fff;font-weight:bold;margin:0;flex:1;">DNAchisel Optimization: The Cryptic Splice Site Problem</h1>
+    </div>
+    <img src="assets/Body_Slide_Blue_Title_Voyager_Logo1.png" style="position:absolute;right:12px;top:0;height:75px;width:128px;"/>
+  </div>
+
+  <!-- Content -->
+  <div class="col" style="padding:8px 30px 0 30px;flex:1;gap:6px;">
+    <!-- Problem statement -->
+    <div style="background:linear-gradient(90deg,#c62828,#d32f2f);padding:6px 14px;border-radius:6px;" data-rasterize="gradient">
+      <p style="font-size:8pt;color:rgba(255,255,255,0.7);margin:0 0 2px 0;">THE PROBLEM</p>
+      <p style="font-size:9pt;color:#fff;margin:0;font-weight:bold;">
+        VHH3 coding sequence contains GT and AG dinucleotides that could compete with intended splice sites
+      </p>
+    </div>
+
+    <!-- Before diagram -->
+    <div style="padding:8px 14px;border-radius:6px;">
+      <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:9pt;color:#003482;margin:0 0 8px 0;font-weight:bold;">BEFORE OPTIMIZATION: CRYPTIC SITE BURDEN</p>
+      <!-- Lollipop-style conceptual diagram -->
+      <div style="position:relative;height:50px;background:#f5f5f5;border-radius:4px;overflow:hidden;">
+        <!-- Cassette bar -->
+        <div style="position:absolute;top:22px;left:0;right:0;height:6px;display:flex;">
+          <div style="width:3%;background:#FF7400;"></div>
+          <div style="width:15%;background:#F9A72C;"></div>
+          <div style="width:64%;background:#4E8EC9;"></div>
+          <div style="width:3%;background:#F9A72C;"></div>
+          <div style="width:6%;background:#FF7400;"></div>
+        </div>
+        <!-- GT markers (red dots above) -->
+        <div style="position:absolute;top:4px;left:18%;width:4px;height:16px;background:#c62828;border-radius:2px;"></div>
+        <div style="position:absolute;top:4px;left:24%;width:4px;height:16px;background:#c62828;border-radius:2px;"></div>
+        <div style="position:absolute;top:4px;left:28%;width:4px;height:16px;background:#c62828;border-radius:2px;"></div>
+        <div style="position:absolute;top:4px;left:33%;width:4px;height:16px;background:#c62828;border-radius:2px;"></div>
+        <div style="position:absolute;top:4px;left:38%;width:4px;height:16px;background:#c62828;border-radius:2px;"></div>
+        <div style="position:absolute;top:4px;left:42%;width:4px;height:16px;background:#c62828;border-radius:2px;"></div>
+        <div style="position:absolute;top:4px;left:47%;width:4px;height:16px;background:#c62828;border-radius:2px;"></div>
+        <div style="position:absolute;top:4px;left:51%;width:4px;height:16px;background:#c62828;border-radius:2px;"></div>
+        <div style="position:absolute;top:4px;left:55%;width:4px;height:16px;background:#c62828;border-radius:2px;"></div>
+        <div style="position:absolute;top:4px;left:59%;width:4px;height:16px;background:#c62828;border-radius:2px;"></div>
+        <div style="position:absolute;top:4px;left:63%;width:4px;height:16px;background:#c62828;border-radius:2px;"></div>
+        <div style="position:absolute;top:4px;left:66%;width:4px;height:16px;background:#c62828;border-radius:2px;"></div>
+        <!-- AG markers (orange dots below) -->
+        <div style="position:absolute;top:30px;left:20%;width:4px;height:16px;background:#FF7400;border-radius:2px;"></div>
+        <div style="position:absolute;top:30px;left:26%;width:4px;height:16px;background:#FF7400;border-radius:2px;"></div>
+        <div style="position:absolute;top:30px;left:31%;width:4px;height:16px;background:#FF7400;border-radius:2px;"></div>
+        <div style="position:absolute;top:30px;left:36%;width:4px;height:16px;background:#FF7400;border-radius:2px;"></div>
+        <div style="position:absolute;top:30px;left:40%;width:4px;height:16px;background:#FF7400;border-radius:2px;"></div>
+        <div style="position:absolute;top:30px;left:44%;width:4px;height:16px;background:#FF7400;border-radius:2px;"></div>
+        <div style="position:absolute;top:30px;left:49%;width:4px;height:16px;background:#FF7400;border-radius:2px;"></div>
+        <div style="position:absolute;top:30px;left:53%;width:4px;height:16px;background:#FF7400;border-radius:2px;"></div>
+        <div style="position:absolute;top:30px;left:57%;width:4px;height:16px;background:#FF7400;border-radius:2px;"></div>
+        <div style="position:absolute;top:30px;left:61%;width:4px;height:16px;background:#FF7400;border-radius:2px;"></div>
+        <div style="position:absolute;top:30px;left:65%;width:4px;height:16px;background:#FF7400;border-radius:2px;"></div>
+        <div style="position:absolute;top:30px;left:68%;width:4px;height:16px;background:#FF7400;border-radius:2px;"></div>
+      </div>
+      <div class="row items-center" style="gap:12px;margin-top:4px;">
+        <div class="row items-center" style="gap:3px;"><div style="width:8px;height:8px;background:#c62828;border-radius:2px;"></div><p style="font-size:8pt;color:#666;margin:0;">GT sites (cryptic donors)</p></div>
+        <div class="row items-center" style="gap:3px;"><div style="width:8px;height:8px;background:#FF7400;border-radius:2px;"></div><p style="font-size:8pt;color:#666;margin:0;">AG sites (cryptic acceptors)</p></div>
+      </div>
+    </div>
+
+    <!-- Before counts -->
+    <div class="row" style="gap:8px;">
+      <div style="flex:1;padding:8px 10px;border-radius:6px;border-left:4px solid #c62828;">
+        <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:9pt;color:#c62828;margin:0 0 4px 0;font-weight:bold;">BEFORE OPTIMIZATION</p>
+        <div class="row" style="gap:12px;">
+          <div style="text-align:center;">
+            <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:16pt;color:#c62828;margin:0;font-weight:bold;">28</p>
+            <p style="font-size:8pt;color:#666;margin:1px 0 0 0;">GT sites</p>
+          </div>
+          <div style="text-align:center;">
+            <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:16pt;color:#FF7400;margin:0;font-weight:bold;">38</p>
+            <p style="font-size:8pt;color:#666;margin:1px 0 0 0;">AG sites</p>
+          </div>
+          <div style="text-align:center;">
+            <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:16pt;color:#333;margin:0;font-weight:bold;">66</p>
+            <p style="font-size:8pt;color:#666;margin:1px 0 0 0;">Total cryptic</p>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;padding:8px 10px;border-radius:6px;">
+        <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:9pt;color:#003482;margin:0 0 3px 0;font-weight:bold;">WHY IT MATTERS</p>
+        <ul style="margin:0;padding-left:12px;font-size:8pt;color:#333;line-height:1.3;">
+          <li>Cryptic donors could cause aberrant splicing within VHH3</li>
+          <li>Cryptic acceptors could pair with intended donor</li>
+          <li>Both reduce intended VHH display efficiency</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="height:44px;padding:4px 30px 0 30px;">
+    <p style="font-size:7pt;color:#64707E;margin:0;">9&ensp;|&ensp;<span style="letter-spacing:3px;">CONFIDENTIAL</span></p>
+  </div>
+</body>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7;
+             font-family: Calibri, Arial, sans-serif; margin: 0;">
+  <!-- Title area -->
+  <div style="padding: 48px 30px 8px 30px;">
+    <h1 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 20pt;
+               color: #003482; margin: 0; font-weight: bold;">5' Splice Donor Design</h1>
+  </div>
+
+  <!-- Content area -->
+  <div class="col" style="padding: 4px 30px; gap: 10px;">
+    <!-- X-region structure -->
+    <div style="background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <p style="font-size: 9pt; color: #003482; margin: 0 0 8px 0; font-weight: bold;">X-REGION STRUCTURE (21 nt)</p>
+      <div class="row" style="gap: 12px; align-items: center;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 2px;">
+            <div style="background: #4CAF50; padding: 6px 10px; border-radius: 3px;">
+              <p style="font-size: 9pt; color: #fff; margin: 0; font-family: monospace;">GCT GCC AAG</p>
+            </div>
+            <div style="background: #888; padding: 6px 4px; border-radius: 3px;">
+              <p style="font-size: 9pt; color: #fff; margin: 0; font-family: monospace;">|</p>
+            </div>
+            <div style="background: #FF7400; padding: 6px 10px; border-radius: 3px;">
+              <p style="font-size: 9pt; color: #fff; margin: 0; font-family: monospace;">GTA AGT GCT GCT</p>
+            </div>
+          </div>
+          <div style="display: flex; margin-top: 4px;">
+            <p style="font-size: 7pt; color: #4CAF50; margin: 0; width: 90px; text-align: center;">5'-exon (9 nt)</p>
+            <p style="font-size: 7pt; color: #FF7400; margin: 0; width: 120px; text-align: center;">Intron 5' (12 nt)</p>
+          </div>
+        </div>
+        <div style="margin-left: 20px;">
+          <p style="font-size: 8pt; color: #333; margin: 0;"><strong>Exon:</strong> AAK (Ala-Ala-Lys)</p>
+          <p style="font-size: 8pt; color: #333; margin: 2px 0 0 0;"><strong>Intron:</strong> VSAA (Val-Ser-Ala-Ala)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Splice donor scoring -->
+    <div class="row" style="gap: 12px;">
+      <div style="flex: 1; background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <p style="font-size: 9pt; color: #003482; margin: 0 0 6px 0; font-weight: bold;">SPLICE DONOR CONTEXT</p>
+        <div style="background: #f5f5f5; padding: 6px; border-radius: 3px;">
+          <p style="font-size: 10pt; color: #333; margin: 0; font-family: monospace;">
+            AAG | <span style="color: #FF7400; font-weight: bold;">GT</span>AAGT
+          </p>
+        </div>
+        <p style="font-size: 8pt; color: #666; margin: 6px 0 0 0;">
+          GT dinucleotide: Required (present)<br>
+          +3 to +6 (AAGT): Near-consensus match
+        </p>
+      </div>
+      <div style="flex: 1; background: linear-gradient(90deg, #001446, #003482); padding: 10px 12px; border-radius: 6px;">
+        <p style="font-size: 9pt; color: rgba(255,255,255,0.7); margin: 0 0 6px 0;">DONOR SCORE</p>
+        <p style="font-size: 24pt; color: #fff; margin: 0; font-weight: bold;">~9-10</p>
+        <p style="font-size: 8pt; color: rgba(255,255,255,0.9); margin: 4px 0 0 0;">
+          Strong donor (GTAAGT is consensus)<br>
+          Expected: 90-95% splicing
+        </p>
+      </div>
+    </div>
+
+    <!-- Tuning options -->
+    <div style="background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <p style="font-size: 9pt; color: #FF7400; margin: 0 0 8px 0; font-weight: bold;">TUNING OPTIONS (to increase retention)</p>
+      <div class="row" style="gap: 4px;">
+        <div style="flex: 1; background: #f5f5f5; padding: 4px 6px; border-radius: 3px; text-align: center;">
+          <p style="font-size: 7pt; color: #666; margin: 0;">Variant</p>
+        </div>
+        <div style="flex: 1; background: #f5f5f5; padding: 4px 6px; border-radius: 3px; text-align: center;">
+          <p style="font-size: 7pt; color: #666; margin: 0;">Sequence</p>
+        </div>
+        <div style="flex: 1; background: #f5f5f5; padding: 4px 6px; border-radius: 3px; text-align: center;">
+          <p style="font-size: 7pt; color: #666; margin: 0;">Score</p>
+        </div>
+        <div style="flex: 1; background: #f5f5f5; padding: 4px 6px; border-radius: 3px; text-align: center;">
+          <p style="font-size: 7pt; color: #666; margin: 0;">Retention</p>
+        </div>
+      </div>
+      <div class="row" style="gap: 4px; margin-top: 3px;">
+        <div style="flex: 1; padding: 4px 6px; text-align: center; background: #e8f5e9; border-radius: 3px;">
+          <p style="font-size: 8pt; color: #333; margin: 0;">Strong</p>
+        </div>
+        <div style="flex: 1; padding: 4px 6px; text-align: center;">
+          <p style="font-size: 8pt; color: #333; margin: 0; font-family: monospace;">GTAAGT</p>
+        </div>
+        <div style="flex: 1; padding: 4px 6px; text-align: center;">
+          <p style="font-size: 8pt; color: #333; margin: 0;">~10</p>
+        </div>
+        <div style="flex: 1; padding: 4px 6px; text-align: center;">
+          <p style="font-size: 8pt; color: #4CAF50; margin: 0;">5-10%</p>
+        </div>
+      </div>
+      <div class="row" style="gap: 4px; margin-top: 3px;">
+        <div style="flex: 1; padding: 4px 6px; text-align: center;">
+          <p style="font-size: 8pt; color: #333; margin: 0;">Moderate</p>
+        </div>
+        <div style="flex: 1; padding: 4px 6px; text-align: center;">
+          <p style="font-size: 8pt; color: #333; margin: 0; font-family: monospace;">GTACGT</p>
+        </div>
+        <div style="flex: 1; padding: 4px 6px; text-align: center;">
+          <p style="font-size: 8pt; color: #333; margin: 0;">~7</p>
+        </div>
+        <div style="flex: 1; padding: 4px 6px; text-align: center;">
+          <p style="font-size: 8pt; color: #FF7400; margin: 0;">10-20%</p>
+        </div>
+      </div>
+      <div class="row" style="gap: 4px; margin-top: 3px;">
+        <div style="flex: 1; padding: 4px 6px; text-align: center;">
+          <p style="font-size: 8pt; color: #333; margin: 0;">Weak</p>
+        </div>
+        <div style="flex: 1; padding: 4px 6px; text-align: center;">
+          <p style="font-size: 8pt; color: #333; margin: 0; font-family: monospace;">GTATGT</p>
+        </div>
+        <div style="flex: 1; padding: 4px 6px; text-align: center;">
+          <p style="font-size: 8pt; color: #333; margin: 0;">~5</p>
+        </div>
+        <div style="flex: 1; padding: 4px 6px; text-align: center;">
+          <p style="font-size: 8pt; color: #f44336; margin: 0;">20-35%</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="height: 48px; padding: 0 30px;">
+    <p style="font-size: 7pt; color: #414953; margin: 0; text-align: right;">5 | CONFIDENTIAL</p>
+  </div>
+</body>
+</html>

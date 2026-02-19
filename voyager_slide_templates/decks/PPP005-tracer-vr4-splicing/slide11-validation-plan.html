@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7;
+             font-family: Calibri, Arial, sans-serif; margin: 0;">
+  <!-- Title area -->
+  <div style="padding: 48px 30px 8px 30px;">
+    <h1 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 20pt;
+               color: #003482; margin: 0; font-weight: bold;">Validation Roadmap</h1>
+  </div>
+
+  <!-- Content area -->
+  <div class="col" style="padding: 4px 30px; gap: 10px;">
+    <!-- Timeline -->
+    <div class="row" style="gap: 12px;">
+      <!-- Phase 1 -->
+      <div style="flex: 1; background: #003482; padding: 10px 12px; border-radius: 6px;">
+        <div class="row items-center" style="gap: 6px; margin-bottom: 6px;">
+          <div style="background: #FF7400; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+            <p style="font-size: 9pt; color: #fff; margin: 0; font-weight: bold;">1</p>
+          </div>
+          <p style="font-size: 10pt; color: #fff; margin: 0; font-weight: bold;">Minigene Reporter</p>
+        </div>
+        <ul style="margin: 0; padding-left: 14px; color: rgba(255,255,255,0.9); font-size: 8pt; line-height: 1.4;">
+          <li>GFP split reporter construct</li>
+          <li>RT-PCR splice quantification</li>
+          <li>Target: 85-90% / 10-15%</li>
+        </ul>
+      </div>
+
+      <!-- Phase 2 -->
+      <div style="flex: 1; background: #2a5a8c; padding: 10px 12px; border-radius: 6px;">
+        <div class="row items-center" style="gap: 6px; margin-bottom: 6px;">
+          <div style="background: #FF7400; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+            <p style="font-size: 9pt; color: #fff; margin: 0; font-weight: bold;">2</p>
+          </div>
+          <p style="font-size: 10pt; color: #fff; margin: 0; font-weight: bold;">AAV Context</p>
+        </div>
+        <ul style="margin: 0; padding-left: 14px; color: rgba(255,255,255,0.9); font-size: 8pt; line-height: 1.4;">
+          <li>Full Rep-Cap with VR4-B3</li>
+          <li>Western blot VP proteins</li>
+          <li>Titer comparison to WT</li>
+        </ul>
+      </div>
+
+      <!-- Phase 3 -->
+      <div style="flex: 1; background: #3a7ab0; padding: 10px 12px; border-radius: 6px;">
+        <div class="row items-center" style="gap: 6px; margin-bottom: 6px;">
+          <div style="background: #FF7400; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+            <p style="font-size: 9pt; color: #fff; margin: 0; font-weight: bold;">3</p>
+          </div>
+          <p style="font-size: 10pt; color: #fff; margin: 0; font-weight: bold;">Functional</p>
+        </div>
+        <ul style="margin: 0; padding-left: 14px; color: rgba(255,255,255,0.9); font-size: 8pt; line-height: 1.4;">
+          <li>ALPL ELISA binding</li>
+          <li>Cell transduction assay</li>
+          <li>Compare ALPL+ vs ALPL-</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Decision point -->
+    <div style="background: #FF7400; padding: 8px 14px; border-radius: 6px;">
+      <p style="font-size: 10pt; color: #fff; margin: 0; font-weight: bold; text-align: center;">
+        GO/NO-GO Decision Point: After Phase 1
+      </p>
+    </div>
+
+    <!-- Expected results -->
+    <div style="background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <p style="font-size: 9pt; color: #003482; margin: 0 0 8px 0; font-weight: bold;">EXPECTED WESTERN BLOT RESULTS (Phase 2)</p>
+      <div class="row" style="gap: 12px;">
+        <div style="flex: 1;">
+          <p style="font-size: 8pt; color: #666; margin: 0 0 4px 0;">Normal bands (spliced ~85%):</p>
+          <div class="row" style="gap: 6px;">
+            <div style="background: #e3f2fd; padding: 4px 8px; border-radius: 3px;">
+              <p style="font-size: 8pt; color: #333; margin: 0;">VP1: 87 kDa</p>
+            </div>
+            <div style="background: #e3f2fd; padding: 4px 8px; border-radius: 3px;">
+              <p style="font-size: 8pt; color: #333; margin: 0;">VP2: 73 kDa</p>
+            </div>
+            <div style="background: #e3f2fd; padding: 4px 8px; border-radius: 3px;">
+              <p style="font-size: 8pt; color: #333; margin: 0;">VP3: 62 kDa</p>
+            </div>
+          </div>
+        </div>
+        <div style="flex: 1;">
+          <p style="font-size: 8pt; color: #666; margin: 0 0 4px 0;">Shifted bands (retained ~15%):</p>
+          <div class="row" style="gap: 6px;">
+            <div style="background: #fff3e0; padding: 4px 8px; border-radius: 3px;">
+              <p style="font-size: 8pt; color: #FF7400; margin: 0; font-weight: bold;">+VHH: 107 kDa</p>
+            </div>
+            <div style="background: #fff3e0; padding: 4px 8px; border-radius: 3px;">
+              <p style="font-size: 8pt; color: #FF7400; margin: 0; font-weight: bold;">+VHH: 93 kDa</p>
+            </div>
+            <div style="background: #fff3e0; padding: 4px 8px; border-radius: 3px;">
+              <p style="font-size: 8pt; color: #FF7400; margin: 0; font-weight: bold;">+VHH: 82 kDa</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size: 7pt; color: #666; margin: 8px 0 0 0;">Insert: 187 aa x 110 Da = ~20.5 kDa shift</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="height: 48px; padding: 0 30px;">
+    <p style="font-size: 7pt; color: #414953; margin: 0; text-align: right;">11 | CONFIDENTIAL</p>
+  </div>
+</body>
+</html>

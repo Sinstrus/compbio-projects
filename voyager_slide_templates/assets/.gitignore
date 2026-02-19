@@ -1,0 +1,7 @@
+# Build artifacts — rasterized gradients and slide snapshots
+rasterized-gradient-*.png
+slide*-*.png
+slide*-*.html
+.config/
+.pki/
+pulse-*

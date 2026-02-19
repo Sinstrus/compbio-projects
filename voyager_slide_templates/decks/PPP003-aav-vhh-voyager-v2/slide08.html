@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7;
+             font-family: Calibri, Arial, sans-serif; margin: 0;">
+  <!-- Title area -->
+  <div style="padding: 24px 30px 8px 30px;">
+    <h1 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 20pt;
+               color: #003482; margin: 0; font-weight: bold;">Two Production Strategies</h1>
+  </div>
+
+  <!-- Content area - 2 columns -->
+  <div class="row" style="padding: 4px 30px; gap: 20px; height: 360px;">
+    <!-- Cis Strategy -->
+    <div style="flex: 1; background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <div style="background: #003482; color: #fff; padding: 6px 10px; margin: -14px -14px 10px -14px; border-radius: 8px 8px 0 0;">
+        <h3 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 11pt; margin: 0; font-weight: bold;">Cis Complementation</h3>
+      </div>
+      <p style="margin: 0 0 6px 0; font-size: 9pt;"><strong style="color: #003482;">Method:</strong> Single helper encodes all modified VPs</p>
+      <div style="background: #F3F3F7; padding: 6px; border-radius: 4px; margin-bottom: 6px;">
+        <p style="font-size: 8pt; color: #003482; margin: 0 0 4px 0; font-weight: bold;">Components:</p>
+        <ul style="margin: 0; padding-left: 14px; font-size: 8pt; color: #333; line-height: 1.3;">
+          <li>pRep2Cap9-VP1-VHH3 (modified VP1)</li>
+          <li>Native VP2 and VP3 from single ORF</li>
+        </ul>
+      </div>
+      <div style="background: #E8F5E9; padding: 6px; border-radius: 4px; margin-bottom: 6px;">
+        <p style="font-size: 8pt; color: #333; margin: 0 0 4px 0; font-weight: bold;">Advantages:</p>
+        <ul style="margin: 0; padding-left: 14px; font-size: 8pt; color: #333; line-height: 1.3;">
+          <li>Simpler workflow (2 plasmids)</li>
+          <li>Consistent VP ratios</li>
+        </ul>
+      </div>
+      <div style="background: #FFF3E0; padding: 6px; border-radius: 4px;">
+        <p style="font-size: 8pt; color: #333; margin: 0 0 4px 0; font-weight: bold;">Limitations:</p>
+        <ul style="margin: 0; padding-left: 14px; font-size: 8pt; color: #333; line-height: 1.3;">
+          <li>100% VP1 modified (may affect titer)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Trans Strategy -->
+    <div style="flex: 1; background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <div style="background: #FF7400; color: #fff; padding: 6px 10px; margin: -14px -14px 10px -14px; border-radius: 8px 8px 0 0;">
+        <h3 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 11pt; margin: 0; font-weight: bold;">Trans Complementation (Mosaic)</h3>
+      </div>
+      <p style="margin: 0 0 6px 0; font-size: 9pt;"><strong style="color: #FF7400;">Method:</strong> Separate plasmids for modified/WT capsid</p>
+      <div style="background: #F3F3F7; padding: 6px; border-radius: 4px; margin-bottom: 6px;">
+        <p style="font-size: 8pt; color: #FF7400; margin: 0 0 4px 0; font-weight: bold;">Components:</p>
+        <ul style="margin: 0; padding-left: 14px; font-size: 8pt; color: #333; line-height: 1.3;">
+          <li>pRep2Cap9-VP1-VHH3 (targeting)</li>
+          <li>pRep2Cap9-WT co-transfected</li>
+        </ul>
+      </div>
+      <div style="background: #E8F5E9; padding: 6px; border-radius: 4px; margin-bottom: 6px;">
+        <p style="font-size: 8pt; color: #333; margin: 0 0 4px 0; font-weight: bold;">Advantages:</p>
+        <ul style="margin: 0; padding-left: 14px; font-size: 8pt; color: #333; line-height: 1.3;">
+          <li>Tunable targeting (10-50% modified)</li>
+          <li>Preserves native tropism</li>
+        </ul>
+      </div>
+      <div style="background: #FFF3E0; padding: 6px; border-radius: 4px;">
+        <p style="font-size: 8pt; color: #333; margin: 0 0 4px 0; font-weight: bold;">Limitations:</p>
+        <ul style="margin: 0; padding-left: 14px; font-size: 8pt; color: #333; line-height: 1.3;">
+          <li>More complex (3 plasmids)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom note -->
+  <div style="margin: 8px 30px; padding: 8px 14px; background: #fff; border-radius: 6px; border-left: 4px solid #4E8EC9;">
+    <p style="color: #333; font-size: 9pt; margin: 0;">
+      <strong style="color: #003482;">Recommendation:</strong> Start with cis for proof-of-concept, optimize with trans mosaic for production.
+    </p>
+  </div>
+</body>
+</html>

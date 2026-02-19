@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7;
+             font-family: Calibri, Arial, sans-serif; margin: 0;">
+  <!-- Title area -->
+  <div style="padding: 48px 30px 8px 30px;">
+    <h1 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 20pt;
+               color: #003482; margin: 0; font-weight: bold;">The VR4 Splicing Concept</h1>
+  </div>
+
+  <!-- Content area -->
+  <div class="col" style="padding: 4px 30px; gap: 10px;">
+    <!-- Construct diagram -->
+    <div style="background: #fff; border-radius: 6px; padding: 10px 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <p style="font-size: 9pt; color: #003482; margin: 0 0 8px 0; font-weight: bold;">CONFIG A: Splice Sites OUTSIDE Linkers</p>
+
+      <!-- Diagram -->
+      <div style="display: flex; align-items: center; gap: 2px; flex-wrap: wrap;">
+        <div style="background: #003482; padding: 5px 8px; border-radius: 3px;">
+          <p style="font-size: 8pt; color: #fff; margin: 0;">VR4</p>
+        </div>
+        <div style="background: #4CAF50; padding: 5px 6px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #fff; margin: 0;">X-exon</p>
+        </div>
+        <div style="background: #888; padding: 5px 4px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #fff; margin: 0;">GT</p>
+        </div>
+        <div style="background: #FF7400; padding: 5px 6px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #fff; margin: 0;">linker</p>
+        </div>
+        <div style="background: #FF7400; padding: 5px 8px; border-radius: 3px;">
+          <p style="font-size: 8pt; color: #fff; margin: 0; font-weight: bold;">VHH</p>
+        </div>
+        <div style="background: #FF7400; padding: 5px 6px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #fff; margin: 0;">linker</p>
+        </div>
+        <div style="background: #888; padding: 5px 4px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #fff; margin: 0;">AG</p>
+        </div>
+        <div style="background: #4CAF50; padding: 5px 6px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #fff; margin: 0;">Y-exon</p>
+        </div>
+        <div style="background: #003482; padding: 5px 8px; border-radius: 3px;">
+          <p style="font-size: 8pt; color: #fff; margin: 0;">VR4</p>
+        </div>
+        <p style="font-size: 7pt; color: #666; margin: 0 0 0 8px;">
+          <span style="color: #4CAF50;">Green</span> = exons | <span style="color: #FF7400;">Orange</span> = intron
+        </p>
+      </div>
+    </div>
+
+    <!-- Two outcomes -->
+    <div class="row" style="gap: 12px;">
+      <div style="flex: 1; background: #003482; padding: 10px 12px; border-radius: 6px;">
+        <p style="font-size: 9pt; color: rgba(255,255,255,0.7); margin: 0 0 3px 0;">SPLICED (85-90%)</p>
+        <p style="font-size: 10pt; color: #fff; margin: 0 0 6px 0; font-weight: bold;">Minimal 6 aa scar in VR4</p>
+        <p style="font-size: 8pt; color: rgba(255,255,255,0.9); margin: 0;">
+          VR4 - AAK-AAK - VR4<br>
+          Normal capsid assembly
+        </p>
+      </div>
+      <div style="flex: 1; background: #FF7400; padding: 10px 12px; border-radius: 6px;">
+        <p style="font-size: 9pt; color: rgba(255,255,255,0.7); margin: 0 0 3px 0;">RETAINED (10-15%)</p>
+        <p style="font-size: 10pt; color: #fff; margin: 0 0 6px 0; font-weight: bold;">187 aa VHH-containing insert</p>
+        <p style="font-size: 8pt; color: rgba(255,255,255,0.9); margin: 0;">
+          VR4 - X - linker - VHH - linker - Y - VR4<br>
+          Surface-displayed nanobody
+        </p>
+      </div>
+    </div>
+
+    <!-- Why VR4 -->
+    <div class="row" style="gap: 12px;">
+      <div style="flex: 1; background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <p style="font-size: 9pt; color: #003482; margin: 0 0 6px 0; font-weight: bold;">WHY VR4 LOOP?</p>
+        <ul style="margin: 0; padding-left: 12px; font-size: 8pt; color: #333; line-height: 1.4;">
+          <li>Surface-exposed variable region</li>
+          <li>Common to VP1, VP2, VP3</li>
+          <li>Tolerates small insertions (5-15 aa)</li>
+          <li>Higher VHH copy number than VP2</li>
+        </ul>
+      </div>
+      <div style="flex: 1; background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <p style="font-size: 9pt; color: #FF7400; margin: 0 0 6px 0; font-weight: bold;">DESIGN REQUIREMENTS</p>
+        <ul style="margin: 0; padding-left: 12px; font-size: 8pt; color: #333; line-height: 1.4;">
+          <li>Spliced scar must be small (&lt;10 aa)</li>
+          <li>Reading frame preserved in both states</li>
+          <li>No stop codons when retained</li>
+          <li>10-20% retention target</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="height: 48px; padding: 0 30px;">
+    <p style="font-size: 7pt; color: #414953; margin: 0; text-align: right;">3 | CONFIDENTIAL</p>
+  </div>
+</body>
+</html>

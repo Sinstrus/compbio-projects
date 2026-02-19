@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DNAchisel 3-Stage Optimization Pipeline</title>
+  <link rel="stylesheet" href="../../css/vygr-base.css">
+  <link rel="stylesheet" href="../../css/vygr-content.css">
+</head>
+<body style="margin:0; padding:40px; background:#e0e0e0;">
+<div class="slide slide--content">
+  <div class="slide-header">
+    <span class="header-title" style="font-size: 15pt;">DNAchisel 3-Stage Optimization Pipeline</span>
+    <img class="header-logo" src="../../assets/Body_Slide_Blue_Title_Voyager_Logo1.png" alt="Voyager">
+  </div>
+
+  <div class="slide-content" style="padding-top:8px;">
+    <!-- Stage 0 -->
+    <div style="background: #fff; padding: 10px 14px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid var(--vygr-mid-blue); margin-bottom:8px;">
+      <div class="row items-center" style="gap: 10px;">
+        <div style="background: var(--vygr-mid-blue); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 9pt; white-space: nowrap;"><p style="margin: 0;">Stage 0</p></div>
+        <div style="flex: 1;">
+          <p style="font-size: 9pt; color: var(--vygr-blue); margin: 0; font-weight: bold;">Design GT/AG-Free GGGGS Linkers</p>
+          <p style="font-size: 8pt; color: #333; margin: 2px 0 0 0;">
+            Hand-design varied-codon GGGGS linkers with <b>0 GT</b> and <b>0 AG</b> dinucleotides.
+            Uses synonymous codons: GGT&rarr;GGA/GGC, TCT&rarr;TCA/TCC/TCG.
+          </p>
+        </div>
+        <div style="text-align: center; min-width: 60px;">
+          <p style="font-size: 12pt; color: #4CAF50; margin: 0; font-weight: bold;">0</p>
+          <p style="font-size: 6pt; color: #666; margin: 0;">GT + AG</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 1 -->
+    <div style="background: #fff; padding: 10px 14px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid var(--vygr-bright-orange); margin-bottom:8px;">
+      <div class="row items-center" style="gap: 10px;">
+        <div style="background: var(--vygr-bright-orange); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 9pt; white-space: nowrap;"><p style="margin: 0;">Stage 1</p></div>
+        <div style="flex: 1;">
+          <p style="font-size: 9pt; color: var(--vygr-blue); margin: 0; font-weight: bold;">DNAchisel Global Optimization of VHH3</p>
+          <p style="font-size: 8pt; color: #333; margin: 2px 0 0 0;">
+            Minimize GT/AG (boost=5.0) while preserving: <b>EnforceTranslation</b> (protein identity),
+            <b>AvoidPattern</b> (BsaI, BsmBI, BbsI), <b>CodonOptimize</b> (human usage).
+          </p>
+        </div>
+        <div style="text-align: center; min-width: 60px;">
+          <p style="font-size: 12pt; color: var(--vygr-bright-orange); margin: 0; font-weight: bold;">~60%</p>
+          <p style="font-size: 6pt; color: #666; margin: 0;">Sites killed</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 2 -->
+    <div style="background: #fff; padding: 10px 14px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid var(--vygr-blue); margin-bottom:8px;">
+      <div class="row items-center" style="gap: 10px;">
+        <div style="background: var(--vygr-blue); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 9pt; white-space: nowrap;"><p style="margin: 0;">Stage 2</p></div>
+        <div style="flex: 1;">
+          <p style="font-size: 9pt; color: var(--vygr-blue); margin: 0; font-weight: bold;">MaxEntScan Context Refinement</p>
+          <p style="font-size: 8pt; color: #333; margin: 2px 0 0 0;">
+            Score remaining GT/AG sites with MaxEntScan. Apply <b>do-no-harm</b> check: only accept
+            codon changes that keep splice score &le; 0.0 (safe ceiling). Two sub-stages: 2a (GT donors), 2b (AG acceptors).
+          </p>
+        </div>
+        <div style="text-align: center; min-width: 60px;">
+          <p style="font-size: 12pt; color: var(--vygr-blue); margin: 0; font-weight: bold;">&le; 0.0</p>
+          <p style="font-size: 6pt; color: #666; margin: 0;">Max score</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Constraints box -->
+    <div style="background: #fff; padding: 10px 14px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom:8px;">
+      <p style="font-size: 9pt; color: var(--vygr-bright-orange); margin: 0 0 6px 0; font-weight: bold;">HARD CONSTRAINTS (NEVER VIOLATED)</p>
+      <div class="row" style="gap: 8px;">
+        <div style="flex: 1; background: #f5f5f5; padding: 6px 8px; border-radius: 4px;">
+          <p style="font-size: 8pt; color: #333; margin: 0; font-weight: bold;">EnforceTranslation</p>
+          <p style="font-size: 7pt; color: #666; margin: 2px 0 0 0;">Protein sequence must be identical to original VHH3</p>
+        </div>
+        <div style="flex: 1; background: #f5f5f5; padding: 6px 8px; border-radius: 4px;">
+          <p style="font-size: 8pt; color: #333; margin: 0; font-weight: bold;">AvoidPattern</p>
+          <p style="font-size: 7pt; color: #666; margin: 2px 0 0 0;">No BsaI, BsmBI, or BbsI sites (Golden Gate enzymes)</p>
+        </div>
+        <div style="flex: 1; background: #f5f5f5; padding: 6px 8px; border-radius: 4px;">
+          <p style="font-size: 8pt; color: #333; margin: 0; font-weight: bold;">CodonOptimize</p>
+          <p style="font-size: 7pt; color: #666; margin: 2px 0 0 0;">Maintain human codon usage table (match_codon_usage)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Do-no-harm principle -->
+    <div style="background: linear-gradient(90deg, var(--vygr-navy), var(--vygr-blue)); padding: 8px 14px; border-radius: 6px;">
+      <div class="row items-center" style="gap: 10px;">
+        <div style="background: #4CAF50; padding: 3px 10px; border-radius: 4px;">
+          <p style="font-size: 8pt; color: #fff; margin: 0; font-weight: bold;">DO-NO-HARM</p>
+        </div>
+        <p style="font-size: 8pt; color: #fff; margin: 0;">
+          Binary constraints (protein identity, restriction sites) are absolute. Continuous scores use safe_ceiling = 0.0.
+          If a codon change would raise MaxEntScan above 0.0, it is rejected.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span class="footer-left">10&ensp;|&ensp;CONFIDENTIAL</span>
+  </div>
+</div>
+</body>
+</html>

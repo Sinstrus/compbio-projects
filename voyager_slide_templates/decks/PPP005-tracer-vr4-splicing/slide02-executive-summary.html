@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7;
+             font-family: Calibri, Arial, sans-serif; margin: 0;">
+  <!-- Title area -->
+  <div style="padding: 48px 30px 8px 30px;">
+    <h1 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 20pt;
+               color: #003482; margin: 0; font-weight: bold;">Executive Summary</h1>
+  </div>
+
+  <!-- Content area -->
+  <div class="col" style="padding: 4px 30px; gap: 10px;">
+    <!-- Key question -->
+    <div style="background: linear-gradient(90deg, #001446, #003482); padding: 10px 14px; border-radius: 6px;">
+      <p style="font-size: 9pt; color: rgba(255,255,255,0.7); margin: 0 0 3px 0;">KEY QUESTION</p>
+      <p style="font-size: 10pt; color: #fff; margin: 0; font-weight: bold;">
+        Can we use inefficient splicing in VR4 to display VHH on all VP proteins?
+      </p>
+    </div>
+
+    <!-- Two columns -->
+    <div class="row" style="gap: 12px;">
+      <!-- Approach -->
+      <div style="flex: 1; background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <p style="font-size: 9pt; color: #003482; margin: 0 0 6px 0; font-weight: bold;">APPROACH</p>
+        <ul style="margin: 0; padding-left: 12px; font-size: 8pt; color: #333; line-height: 1.4;">
+          <li>Insert intron in VR4 loop region</li>
+          <li>Splice sites OUTSIDE linkers (Config A)</li>
+          <li>~85% spliced = 6 aa scar (minimal)</li>
+          <li>~15% retained = 187 aa VHH insert</li>
+        </ul>
+      </div>
+
+      <!-- Key advantage -->
+      <div style="flex: 1; background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <p style="font-size: 9pt; color: #FF7400; margin: 0 0 6px 0; font-weight: bold;">VS VP2 N-TERMINAL</p>
+        <ul style="margin: 0; padding-left: 12px; font-size: 8pt; color: #333; line-height: 1.4;">
+          <li>All VPs modified (not just VP2)</li>
+          <li>~9 VHH/capsid vs ~0.75</li>
+          <li>Surface-exposed (better access)</li>
+          <li>Higher avidity for targeting</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Verdict -->
+    <div style="background: linear-gradient(90deg, #001446, #003482); padding: 10px 14px; border-radius: 6px;">
+      <div class="row items-center" style="gap: 12px;">
+        <div style="background: #4CAF50; padding: 5px 12px; border-radius: 4px;">
+          <p style="font-size: 10pt; color: #fff; margin: 0; font-weight: bold;">GO</p>
+        </div>
+        <div>
+          <p style="font-size: 10pt; color: #fff; margin: 0; font-weight: bold;">VR4 Splicing Design is FEASIBLE</p>
+          <p style="font-size: 8pt; color: rgba(255,255,255,0.8); margin: 2px 0 0 0;">
+            6 aa scar | 187 aa retained | 10-20% retention | No frame shift
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Criteria row -->
+    <div class="row" style="gap: 8px;">
+      <div style="flex: 1; background: #fff; padding: 8px; border-radius: 4px; text-align: center;">
+        <p style="font-size: 16pt; color: #4CAF50; margin: 0; font-weight: bold;">6 aa</p>
+        <p style="font-size: 7pt; color: #666; margin: 2px 0 0 0;">Spliced scar</p>
+      </div>
+      <div style="flex: 1; background: #fff; padding: 8px; border-radius: 4px; text-align: center;">
+        <p style="font-size: 16pt; color: #003482; margin: 0; font-weight: bold;">187 aa</p>
+        <p style="font-size: 7pt; color: #666; margin: 2px 0 0 0;">Retained insert</p>
+      </div>
+      <div style="flex: 1; background: #fff; padding: 8px; border-radius: 4px; text-align: center;">
+        <p style="font-size: 16pt; color: #FF7400; margin: 0; font-weight: bold;">~9</p>
+        <p style="font-size: 7pt; color: #666; margin: 2px 0 0 0;">VHH per capsid</p>
+      </div>
+      <div style="flex: 1; background: #fff; padding: 8px; border-radius: 4px; text-align: center;">
+        <p style="font-size: 16pt; color: #4CAF50; margin: 0; font-weight: bold;">561 nt</p>
+        <p style="font-size: 7pt; color: #666; margin: 2px 0 0 0;">Frame preserved</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="height: 48px; padding: 0 30px;">
+    <p style="font-size: 7pt; color: #414953; margin: 0; text-align: right;">2 | CONFIDENTIAL</p>
+  </div>
+</body>
+</html>

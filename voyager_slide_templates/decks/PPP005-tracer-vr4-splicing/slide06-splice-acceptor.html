@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7;
+             font-family: Calibri, Arial, sans-serif; margin: 0;">
+  <!-- Title area -->
+  <div style="padding: 48px 30px 8px 30px;">
+    <h1 style="font-family: 'Century Gothic', Arial, sans-serif; font-size: 20pt;
+               color: #003482; margin: 0; font-weight: bold;">3' Splice Acceptor Design</h1>
+  </div>
+
+  <!-- Content area -->
+  <div class="col" style="padding: 4px 30px; gap: 10px;">
+    <!-- Y-region structure -->
+    <div style="background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <p style="font-size: 9pt; color: #003482; margin: 0 0 8px 0; font-weight: bold;">Y-REGION STRUCTURE (33 nt)</p>
+      <div style="display: flex; align-items: center; gap: 2px; flex-wrap: wrap;">
+        <div style="background: #FF7400; padding: 6px 6px; border-radius: 3px;">
+          <p style="font-size: 8pt; color: #fff; margin: 0; font-family: monospace;">CTAAC</p>
+        </div>
+        <div style="background: #FF7400; padding: 6px 8px; border-radius: 3px;">
+          <p style="font-size: 8pt; color: #fff; margin: 0; font-family: monospace;">TCTTCTTCTTTCTTTCC</p>
+        </div>
+        <div style="background: #888; padding: 6px 4px; border-radius: 3px;">
+          <p style="font-size: 8pt; color: #fff; margin: 0; font-family: monospace;">AG</p>
+        </div>
+        <div style="background: #888; padding: 6px 4px; border-radius: 3px;">
+          <p style="font-size: 8pt; color: #fff; margin: 0;">|</p>
+        </div>
+        <div style="background: #4CAF50; padding: 6px 8px; border-radius: 3px;">
+          <p style="font-size: 8pt; color: #fff; margin: 0; font-family: monospace;">GCT GCC AAG</p>
+        </div>
+      </div>
+      <div style="display: flex; margin-top: 4px; gap: 4px;">
+        <p style="font-size: 7pt; color: #FF7400; margin: 0;">branch</p>
+        <p style="font-size: 7pt; color: #FF7400; margin: 0; margin-left: 20px;">polyY tract (17 nt)</p>
+        <p style="font-size: 7pt; color: #888; margin: 0; margin-left: 60px;">AG</p>
+        <p style="font-size: 7pt; color: #4CAF50; margin: 0; margin-left: 20px;">3'-exon (9 nt)</p>
+      </div>
+    </div>
+
+    <!-- Two columns: Components and Score -->
+    <div class="row" style="gap: 12px;">
+      <div style="flex: 1; background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <p style="font-size: 9pt; color: #003482; margin: 0 0 6px 0; font-weight: bold;">COMPONENT ANALYSIS</p>
+        <div style="margin-bottom: 6px;">
+          <p style="font-size: 8pt; color: #FF7400; margin: 0; font-weight: bold;">Branch Point: CTAAC</p>
+          <p style="font-size: 7pt; color: #666; margin: 1px 0 0 0;">Valid YUNAY pattern (A at +4 is lariat point)</p>
+        </div>
+        <div style="margin-bottom: 6px;">
+          <p style="font-size: 8pt; color: #FF7400; margin: 0; font-weight: bold;">PolyY Tract: 17 nt</p>
+          <p style="font-size: 7pt; color: #666; margin: 1px 0 0 0;">100% pyrimidine (C/T only)</p>
+        </div>
+        <div>
+          <p style="font-size: 8pt; color: #888; margin: 0; font-weight: bold;">Junction: CAG | GCT</p>
+          <p style="font-size: 7pt; color: #666; margin: 1px 0 0 0;">Essential AG present, Gln-Ala junction</p>
+        </div>
+      </div>
+      <div style="flex: 1; background: linear-gradient(90deg, #001446, #003482); padding: 10px 12px; border-radius: 6px;">
+        <p style="font-size: 9pt; color: rgba(255,255,255,0.7); margin: 0 0 6px 0;">ACCEPTOR SCORE</p>
+        <p style="font-size: 24pt; color: #fff; margin: 0; font-weight: bold;">~6-8</p>
+        <p style="font-size: 8pt; color: rgba(255,255,255,0.9); margin: 4px 0 0 0;">
+          Moderate acceptor strength<br>
+          Expected: 10-20% retention
+        </p>
+        <div style="background: rgba(255,255,255,0.1); padding: 6px; border-radius: 3px; margin-top: 8px;">
+          <p style="font-size: 7pt; color: #fff; margin: 0;">Target achieved!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Translation when retained -->
+    <div style="background: #fff; padding: 10px 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <p style="font-size: 9pt; color: #FF7400; margin: 0 0 6px 0; font-weight: bold;">TRANSLATION WHEN RETAINED (Intron 3' = 24 nt = 8 codons)</p>
+      <div class="row" style="gap: 3px;">
+        <div style="flex: 1; text-align: center; background: #f5f5f5; padding: 4px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #666; margin: 0;">CTA</p>
+          <p style="font-size: 9pt; color: #333; margin: 0; font-weight: bold;">Leu</p>
+        </div>
+        <div style="flex: 1; text-align: center; background: #f5f5f5; padding: 4px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #666; margin: 0;">ACT</p>
+          <p style="font-size: 9pt; color: #333; margin: 0; font-weight: bold;">Thr</p>
+        </div>
+        <div style="flex: 1; text-align: center; background: #f5f5f5; padding: 4px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #666; margin: 0;">CTT</p>
+          <p style="font-size: 9pt; color: #333; margin: 0; font-weight: bold;">Leu</p>
+        </div>
+        <div style="flex: 1; text-align: center; background: #f5f5f5; padding: 4px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #666; margin: 0;">CTT</p>
+          <p style="font-size: 9pt; color: #333; margin: 0; font-weight: bold;">Leu</p>
+        </div>
+        <div style="flex: 1; text-align: center; background: #f5f5f5; padding: 4px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #666; margin: 0;">CTT</p>
+          <p style="font-size: 9pt; color: #333; margin: 0; font-weight: bold;">Leu</p>
+        </div>
+        <div style="flex: 1; text-align: center; background: #f5f5f5; padding: 4px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #666; margin: 0;">TCT</p>
+          <p style="font-size: 9pt; color: #333; margin: 0; font-weight: bold;">Ser</p>
+        </div>
+        <div style="flex: 1; text-align: center; background: #f5f5f5; padding: 4px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #666; margin: 0;">TTC</p>
+          <p style="font-size: 9pt; color: #333; margin: 0; font-weight: bold;">Phe</p>
+        </div>
+        <div style="flex: 1; text-align: center; background: #f5f5f5; padding: 4px; border-radius: 3px;">
+          <p style="font-size: 7pt; color: #666; margin: 0;">CAG</p>
+          <p style="font-size: 9pt; color: #333; margin: 0; font-weight: bold;">Gln</p>
+        </div>
+        <div style="flex: 0.8; text-align: center; padding: 4px;">
+          <p style="font-size: 8pt; color: #4CAF50; margin: 0; font-weight: bold;">No stops!</p>
+          <p style="font-size: 7pt; color: #4CAF50; margin: 0;">No Pro!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="height: 48px; padding: 0 30px;">
+    <p style="font-size: 7pt; color: #414953; margin: 0; text-align: right;">6 | CONFIDENTIAL</p>
+  </div>
+</body>
+</html>

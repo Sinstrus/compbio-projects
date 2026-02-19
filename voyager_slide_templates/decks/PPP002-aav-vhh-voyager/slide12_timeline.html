@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Timeline</title>
+  <style>
+    :root {
+      --voyager-navy: #001446;
+      --voyager-blue: #003482;
+      --voyager-orange: #FF7400;
+      --voyager-gray: #F3F3F7;
+      --voyager-dark-gray: #414953;
+    }
+  </style>
+</head>
+<body class="col" style="width: 960px; height: 540px; background: #F3F3F7; font-family: Arial, sans-serif; margin: 0; position: relative;">
+  <!-- Title area -->
+  <div style="width: 900px; margin: 0 30px; padding-top: 28px;" class="fit">
+    <h1 style="font-size: 24px; color: #003482; margin: 0; font-weight: bold;">Project Timeline: January - May 2026</h1>
+  </div>
+
+  <!-- Content area -->
+  <div class="col fill-height" style="padding: 20px 30px 50px 30px; gap: 16px;">
+
+    <!-- Timeline track -->
+    <div class="col" style="position: relative; padding-top: 20px;">
+
+      <!-- Horizontal line -->
+      <div style="position: absolute; top: 44px; left: 40px; right: 40px; height: 4px; background: linear-gradient(90deg, #003482 0%, #4E8EC9 50%, #2e7d32 100%); border-radius: 2px;"></div>
+
+      <!-- Month markers row -->
+      <div class="row" style="justify-content: space-between; padding: 0 20px; position: relative;">
+        <!-- Jan -->
+        <div class="col items-center" style="width: 100px;">
+          <div style="width: 20px; height: 20px; background: #003482; border-radius: 50%; border: 3px solid #F3F3F7; z-index: 1;"></div>
+          <p style="font-size: 13px; color: #001446; margin: 8px 0 0 0; font-weight: bold;">JAN</p>
+        </div>
+        <!-- Feb -->
+        <div class="col items-center" style="width: 100px;">
+          <div style="width: 20px; height: 20px; background: #003482; border-radius: 50%; border: 3px solid #F3F3F7; z-index: 1;"></div>
+          <p style="font-size: 13px; color: #001446; margin: 8px 0 0 0; font-weight: bold;">FEB</p>
+        </div>
+        <!-- Mar -->
+        <div class="col items-center" style="width: 100px;">
+          <div style="width: 20px; height: 20px; background: #4E8EC9; border-radius: 50%; border: 3px solid #F3F3F7; z-index: 1;"></div>
+          <p style="font-size: 13px; color: #001446; margin: 8px 0 0 0; font-weight: bold;">MAR</p>
+        </div>
+        <!-- Apr -->
+        <div class="col items-center" style="width: 100px;">
+          <div style="width: 20px; height: 20px; background: #4E8EC9; border-radius: 50%; border: 3px solid #F3F3F7; z-index: 1;"></div>
+          <p style="font-size: 13px; color: #001446; margin: 8px 0 0 0; font-weight: bold;">APR</p>
+        </div>
+        <!-- May -->
+        <div class="col items-center" style="width: 100px;">
+          <div style="width: 20px; height: 20px; background: #2e7d32; border-radius: 50%; border: 3px solid #F3F3F7; z-index: 1;"></div>
+          <p style="font-size: 13px; color: #001446; margin: 8px 0 0 0; font-weight: bold;">MAY</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activities row -->
+    <div class="row fill-height" style="gap: 12px; margin-top: 8px;">
+      <!-- Jan-Feb block -->
+      <div class="col" style="flex: 2; background: #ffffff; border-radius: 8px; padding: 14px; border-top: 4px solid #003482; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+        <p style="font-size: 11px; color: #003482; margin: 0 0 8px 0; font-weight: bold;">PLASMID PREP</p>
+        <ul style="font-size: 10px; color: #001446; margin: 0; padding-left: 14px; line-height: 1.6;">
+          <li>Sequence verification</li>
+          <li>Maxi-prep production</li>
+          <li>QC and aliquoting</li>
+        </ul>
+      </div>
+
+      <!-- Feb-Mar block -->
+      <div class="col" style="flex: 2; background: #ffffff; border-radius: 8px; padding: 14px; border-top: 4px solid #003482; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+        <p style="font-size: 11px; color: #003482; margin: 0 0 8px 0; font-weight: bold;">VIRUS PRODUCTION</p>
+        <ul style="font-size: 10px; color: #001446; margin: 0; padding-left: 14px; line-height: 1.6;">
+          <li>Triple transfection</li>
+          <li>Harvest and purify</li>
+          <li>Titer by qPCR</li>
+        </ul>
+      </div>
+
+      <!-- Mar-Apr block -->
+      <div class="col" style="flex: 2; background: #ffffff; border-radius: 8px; padding: 14px; border-top: 4px solid #4E8EC9; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+        <p style="font-size: 11px; color: #4E8EC9; margin: 0 0 8px 0; font-weight: bold;">WESTERN + BINDING</p>
+        <ul style="font-size: 10px; color: #001446; margin: 0; padding-left: 14px; line-height: 1.6;">
+          <li>VP protein analysis</li>
+          <li>VHH3 incorporation</li>
+          <li>ALPL ELISA assays</li>
+        </ul>
+      </div>
+
+      <!-- Apr-May block -->
+      <div class="col" style="flex: 2; background: #ffffff; border-radius: 8px; padding: 14px; border-top: 4px solid #2e7d32; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+        <p style="font-size: 11px; color: #2e7d32; margin: 0 0 8px 0; font-weight: bold;">TRANSDUCTION</p>
+        <ul style="font-size: 10px; color: #001446; margin: 0; padding-left: 14px; line-height: 1.6;">
+          <li>Cell culture setup</li>
+          <li>GFP reporter assays</li>
+          <li>Data analysis</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Decision points -->
+    <div class="row" style="gap: 16px;">
+      <div class="row" style="background: #ffffff; border-radius: 6px; padding: 12px 16px; gap: 8px; align-items: center; flex: 1; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+        <div style="width: 10px; height: 10px; background: #FF7400; border-radius: 50%;"></div>
+        <p style="font-size: 10px; color: #001446; margin: 0;"><b>Decision Point 1:</b> Gate 1 (VP ratios) - End Feb</p>
+      </div>
+      <div class="row" style="background: #ffffff; border-radius: 6px; padding: 12px 16px; gap: 8px; align-items: center; flex: 1; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+        <div style="width: 10px; height: 10px; background: #FF7400; border-radius: 50%;"></div>
+        <p style="font-size: 10px; color: #001446; margin: 0;"><b>Decision Point 2:</b> Gates 2-3 (Binding/Transd) - End Apr</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <p style="position: absolute; bottom: 40px; right: 30px; font-size: 10px; color: #414953; margin: 0;">CONFIDENTIAL</p>
+</body>
+</html>

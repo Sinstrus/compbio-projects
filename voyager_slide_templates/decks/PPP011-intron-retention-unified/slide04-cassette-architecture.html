@@ -1,0 +1,102 @@
+<body class="col" style="width:960px;height:540px;margin:0;background:#fff;font-family:Calibri,Arial,sans-serif;">
+  <!-- Header -->
+  <div style="position:relative;height:75px;flex-shrink:0;">
+    <img src="assets/Body_Slide_Blue_Title_Background_Medium_Level_Banner1.png" style="position:absolute;top:0;left:0;width:100%;height:100%;"/>
+    <div class="row items-center" style="position:absolute;top:0;left:0;width:100%;height:100%;padding:0 20px 0 30px;">
+      <h1 style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:18pt;color:#fff;font-weight:bold;margin:0;flex:1;">492 bp Cassette Architecture</h1>
+    </div>
+    <img src="assets/Body_Slide_Blue_Title_Voyager_Logo1.png" style="position:absolute;right:12px;top:0;height:75px;width:128px;"/>
+  </div>
+
+  <!-- Content -->
+  <div class="col" style="padding:6px 30px 0 30px;flex:1;gap:8px;">
+
+    <!-- Cassette block diagram -->
+    <div style="padding:10px 14px;border-radius:6px;">
+      <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:8pt;color:#003482;margin:0 0 6px 0;font-weight:bold;">CASSETTE ANATOMY (492 bp total)</p>
+      <div class="row items-center" style="gap:2px;height:44px;">
+        <div style="width:70px;height:44px;background:#FF7400;border-radius:4px 0 0 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <p style="font-size:7pt;color:#fff;margin:0;font-weight:bold;">Donor</p>
+          <p style="font-size:6pt;color:rgba(255,255,255,0.8);margin:1px 0 0 0;">15 bp</p>
+        </div>
+        <div style="width:100px;height:44px;background:#4E8EC9;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <p style="font-size:7pt;color:#fff;margin:0;font-weight:bold;">GGGGS&times;5</p>
+          <p style="font-size:6pt;color:rgba(255,255,255,0.8);margin:1px 0 0 0;">75 bp</p>
+        </div>
+        <div style="flex:1;height:44px;background:#003482;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <p style="font-size:7pt;color:#fff;margin:0;font-weight:bold;">VHH3 (GT/AG-depleted)</p>
+          <p style="font-size:6pt;color:rgba(255,255,255,0.8);margin:1px 0 0 0;">357 bp (119 aa)</p>
+        </div>
+        <div style="width:70px;height:44px;background:#4E8EC9;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <p style="font-size:7pt;color:#fff;margin:0;font-weight:bold;">GGGGS&times;1</p>
+          <p style="font-size:6pt;color:rgba(255,255,255,0.8);margin:1px 0 0 0;">15 bp</p>
+        </div>
+        <div style="width:80px;height:44px;background:#4CAF50;border-radius:0 4px 4px 0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <p style="font-size:7pt;color:#fff;margin:0;font-weight:bold;">Acceptor</p>
+          <p style="font-size:6pt;color:rgba(255,255,255,0.8);margin:1px 0 0 0;">30 bp</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:4px;">
+        <p style="font-size:7pt;color:#64707E;margin:0;">Splice pair: <strong>NABP2</strong> (human, GT/AG canonical) &ensp;|&ensp; Junctions: <strong>CA / CA</strong> (no GT/AG at boundaries)</p>
+      </div>
+    </div>
+
+    <!-- Spliced vs Retained outcomes -->
+    <div class="row" style="gap:10px;flex:1;">
+      <!-- Retained (VHH displayed) -->
+      <div style="flex:1;padding:10px 12px;border-radius:6px;border-left:4px solid #003482;">
+        <div class="row items-center" style="gap:6px;margin-bottom:6px;">
+          <div style="background:#003482;padding:2px 8px;border-radius:3px;">
+            <p style="font-size:7pt;color:#fff;margin:0;font-weight:bold;">RETAINED</p>
+          </div>
+          <p style="font-size:8pt;color:#003482;margin:0;font-weight:bold;">VHH Displayed on Capsid</p>
+        </div>
+        <p style="font-size:7.5pt;color:#333;margin:0 0 4px 0;">Intron NOT spliced &rarr; full 164 aa insert expressed:</p>
+        <div style="background:#f5f5f5;padding:5px 8px;border-radius:4px;font-family:monospace;font-size:7pt;color:#333;line-height:1.5;">
+          <p style="margin:0;">...<span style="color:#FF7400;">Donor</span>-<span style="color:#4E8EC9;">GGGGS5</span>-<span style="color:#003482;font-weight:bold;">VHH3</span>-<span style="color:#4E8EC9;">GGGGS1</span>-<span style="color:#4CAF50;">Acceptor</span>-...</p>
+          <p style="margin:2px 0 0 0;color:#666;">= upstream + <strong>164 aa</strong> VHH domain + downstream</p>
+        </div>
+      </div>
+
+      <!-- Spliced (scar only) -->
+      <div style="flex:1;padding:10px 12px;border-radius:6px;border-left:4px solid #4CAF50;">
+        <div class="row items-center" style="gap:6px;margin-bottom:6px;">
+          <div style="background:#4CAF50;padding:2px 8px;border-radius:3px;">
+            <p style="font-size:7pt;color:#fff;margin:0;font-weight:bold;">SPLICED</p>
+          </div>
+          <p style="font-size:8pt;color:#4CAF50;margin:0;font-weight:bold;">Near-WT Capsid Protein</p>
+        </div>
+        <p style="font-size:7.5pt;color:#333;margin:0 0 4px 0;">Intron spliced out &rarr; 6 aa scar remains:</p>
+        <div style="background:#f5f5f5;padding:5px 8px;border-radius:4px;font-family:monospace;font-size:7pt;color:#333;line-height:1.5;">
+          <p style="margin:0;">...<span style="color:#c62828;font-weight:bold;">NKAVQN</span>-...</p>
+          <p style="margin:2px 0 0 0;color:#666;">= upstream + <strong>6 aa scar</strong> + downstream</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key properties -->
+    <div class="row" style="gap:8px;">
+      <div style="flex:1;padding:5px 8px;text-align:center;">
+        <p style="font-size:7pt;color:#003482;margin:0;font-weight:bold;">Varied-codon GGGGS</p>
+        <p style="font-size:6.5pt;color:#666;margin:1px 0 0 0;">Avoids repetitive sequences</p>
+      </div>
+      <div style="flex:1;padding:5px 8px;text-align:center;">
+        <p style="font-size:7pt;color:#003482;margin:0;font-weight:bold;">GT/AG Depleted</p>
+        <p style="font-size:6.5pt;color:#666;margin:1px 0 0 0;">No cryptic splice sites in VHH</p>
+      </div>
+      <div style="flex:1;padding:5px 8px;text-align:center;">
+        <p style="font-size:7pt;color:#003482;margin:0;font-weight:bold;">NABP2 Splice Pair</p>
+        <p style="font-size:6.5pt;color:#666;margin:1px 0 0 0;">Human intron, canonical GT/AG</p>
+      </div>
+      <div style="flex:1;padding:5px 8px;text-align:center;">
+        <p style="font-size:7pt;color:#003482;margin:0;font-weight:bold;">CA / CA Junctions</p>
+        <p style="font-size:6.5pt;color:#666;margin:1px 0 0 0;">No GT/AG at insertion boundaries</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="height:44px;padding:4px 30px 0 30px;">
+    <p style="font-size:7pt;color:#64707E;margin:0;">4&ensp;|&ensp;<span style="letter-spacing:3px;">CONFIDENTIAL</span></p>
+  </div>
+</body>

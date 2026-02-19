@@ -1,0 +1,80 @@
+<body class="col" style="width:960px;height:540px;margin:0;background:#fff;font-family:Calibri,Arial,sans-serif;">
+  <!-- Header -->
+  <div style="position:relative;height:75px;flex-shrink:0;">
+    <img src="assets/Body_Slide_Blue_Title_Background_Medium_Level_Banner1.png" style="position:absolute;top:0;left:0;width:100%;height:100%;"/>
+    <div class="row items-center" style="position:absolute;top:0;left:0;width:100%;height:100%;padding:0 20px 0 30px;">
+      <h1 style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:18pt;color:#fff;font-weight:bold;margin:0;flex:1;">AVD132: VP2 N-Terminal Insertion</h1>
+    </div>
+    <img src="assets/Body_Slide_Blue_Title_Voyager_Logo1.png" style="position:absolute;right:12px;top:0;height:75px;width:128px;"/>
+  </div>
+
+  <!-- Content -->
+  <div class="col" style="padding:4px 30px 0 30px;flex:1;gap:4px;">
+
+    <!-- Top row: Design details + Topology -->
+    <div class="row" style="gap:10px;flex:1;">
+
+      <!-- Left: Design details -->
+      <div style="flex:1;padding:6px 10px;border-radius:6px;">
+        <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:8pt;color:#003482;margin:0 0 4px 0;font-weight:bold;">Design Details</p>
+        <p style="font-size:7pt;color:#64707E;margin:0 0 2px 0;">Insert site: <span style="color:#333;font-weight:bold;">bp 2795 (after MA dipeptide)</span></p>
+        <p style="font-size:7pt;color:#64707E;margin:0 0 2px 0;">VP1 start: <span style="color:#333;">KO &rarr; <span style="font-family:monospace;color:#c62828;">ATG&rarr;AAG</span></span></p>
+        <p style="font-size:7pt;color:#64707E;margin:0 0 2px 0;">VP3 start: <span style="color:#333;">KO &rarr; <span style="font-family:monospace;color:#c62828;">ATG&rarr;CTG</span></span></p>
+        <p style="font-size:7pt;color:#64707E;margin:0 0 2px 0;">VP expression: <span style="color:#333;font-weight:bold;">VP2-only</span></p>
+        <p style="font-size:7pt;color:#64707E;margin:0 0 2px 0;">Total size: <span style="color:#333;">7596 bp</span></p>
+        <p style="font-size:7pt;color:#64707E;margin:0;">Frame check: <span style="color:#333;">(2795 &minus; 2789) % 3 = <span style="color:#4CAF50;font-weight:bold;">0</span></span></p>
+      </div>
+
+      <!-- Right: Splicing topology -->
+      <div style="flex:1;padding:6px 10px;border-radius:6px;">
+        <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:8pt;color:#003482;margin:0 0 4px 0;font-weight:bold;">Splicing Topology</p>
+        <div style="background:#f5f5f5;padding:4px 8px;border-radius:4px;margin-bottom:4px;">
+          <p style="font-size:6.5pt;color:#64707E;margin:0 0 2px 0;font-weight:bold;">VP1 path (D1&rarr;A1) &mdash; VP1 KO</p>
+          <p style="font-family:monospace;font-size:6pt;color:#333;margin:0;">D1(2083) &rarr; A1(2376) &rarr; ... &rarr; <span style="background:#e8f0fe;padding:1px 3px;border-radius:2px;">Insert(2795)</span></p>
+          <p style="font-family:monospace;font-size:6pt;color:#4CAF50;margin:1px 0 0 0;font-weight:bold;">419 bp downstream of A1 &rarr; NON-NESTED</p>
+        </div>
+        <div style="background:#f5f5f5;padding:4px 8px;border-radius:4px;">
+          <p style="font-size:6.5pt;color:#64707E;margin:0 0 2px 0;font-weight:bold;">VP2/VP3 path (D1&rarr;A2) &mdash; VP3 KO</p>
+          <p style="font-family:monospace;font-size:6pt;color:#333;margin:0;">D1(2083) &rarr; A2(2403) &rarr; ... &rarr; Insert(2795)</p>
+          <p style="font-family:monospace;font-size:6pt;color:#64707E;margin:1px 0 0 0;font-weight:bold;">392 bp downstream of A2 &mdash; VP3 start KO &rarr; N/A</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Protein sequence display -->
+    <div style="padding:4px 10px;border-radius:6px;">
+      <p style="font-family:'Century Gothic',CenturyGothic,AppleGothic,sans-serif;font-size:7pt;color:#003482;margin:0 0 3px 0;font-weight:bold;">PROTEIN PRODUCTS</p>
+      <div class="row" style="gap:12px;">
+        <div style="flex:1;">
+          <p style="font-size:6.5pt;color:#64707E;margin:0 0 1px 0;">Retained (VHH displayed):</p>
+          <p style="font-family:monospace;font-size:7pt;color:#333;margin:0;">
+            <span style="color:#003482;font-weight:bold;">M-A</span>-<span style="background:#e8f0fe;padding:1px 3px;border-radius:2px;color:#003482;">[164 aa VHH+linkers]</span>-<span style="color:#333;">PGKKR...</span>
+          </p>
+        </div>
+        <div style="flex:1;">
+          <p style="font-size:6.5pt;color:#64707E;margin:0 0 1px 0;">Spliced (scar only):</p>
+          <p style="font-family:monospace;font-size:7pt;color:#333;margin:0;">
+            <span style="color:#003482;font-weight:bold;">M-A</span>-<span style="background:#fce4ec;padding:1px 3px;border-radius:2px;color:#c62828;font-weight:bold;">NKAVQN</span>-<span style="color:#333;">PGKKR...</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Risk assessment -->
+    <div style="background:linear-gradient(90deg,#001446,#003482);padding:5px 14px;border-radius:6px;" data-rasterize="gradient">
+      <div class="row items-center" style="gap:10px;">
+        <div style="background:#4CAF50;padding:2px 10px;border-radius:4px;">
+          <p style="font-size:7pt;color:#fff;margin:0;font-weight:bold;">LOW-MEDIUM</p>
+        </div>
+        <p style="font-size:7pt;color:#fff;margin:0;">Non-nested topology &mdash; cassette donor/acceptor cannot compete with native splice sites</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div style="height:44px;padding:4px 30px 0 30px;">
+    <p style="font-size:7pt;color:#64707E;margin:0;">5&ensp;|&ensp;<span style="letter-spacing:3px;">CONFIDENTIAL</span></p>
+  </div>
+</body>
