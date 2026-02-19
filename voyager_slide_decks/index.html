@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Voyager Therapeutics — Slide Template Gallery</title>
+  <link rel="stylesheet" href="css/vygr-base.css">
+  <link rel="stylesheet" href="css/vygr-content.css">
+  <link rel="stylesheet" href="css/vygr-title.css">
+  <link rel="stylesheet" href="css/vygr-section.css">
+  <link rel="stylesheet" href="css/vygr-table.css">
+  <link rel="stylesheet" href="css/vygr-timeline.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #1a1a2e;
+      font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+      color: #e0e0e0;
+    }
+
+    .gallery-header {
+      text-align: center;
+      padding: 48px 20px 32px;
+    }
+
+    .gallery-header h1 {
+      font-size: 28pt;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+
+    .gallery-header p {
+      font-size: 12pt;
+      color: #9a9ab0;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    .gallery-nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 20px 40px;
+      flex-wrap: wrap;
+    }
+
+    .gallery-nav a {
+      padding: 8px 20px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #c0c0d0;
+      text-decoration: none;
+      font-size: 10pt;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .gallery-nav a:hover {
+      background: #003482;
+      color: #FFFFFF;
+    }
+
+    .gallery-section {
+      max-width: 1080px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+
+    .gallery-section h2 {
+      font-size: 16pt;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+
+    .gallery-section .section-desc {
+      font-family: Calibri, "Gill Sans", sans-serif;
+      font-size: 10pt;
+      color: #9a9ab0;
+      margin-bottom: 20px;
+    }
+
+    .gallery-section .section-desc code {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 9pt;
+    }
+
+    .slide-wrapper {
+      margin-bottom: 40px;
+    }
+
+    .slide-wrapper .slide-label {
+      font-family: Calibri, "Gill Sans", sans-serif;
+      font-size: 9pt;
+      color: #64707E;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Override slide shadow for dark gallery bg */
+    .gallery-section .slide {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .usage-notes {
+      max-width: 1080px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+
+    .usage-notes h2 {
+      font-size: 16pt;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+    }
+
+    .usage-notes pre {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 20px;
+      font-size: 9pt;
+      color: #c0d0e0;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+
+    .usage-notes pre code {
+      font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .color-swatch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .color-swatch .swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .color-swatch .swatch-info {
+      font-size: 8pt;
+      line-height: 1.4;
+    }
+
+    .color-swatch .swatch-name {
+      color: #FFFFFF;
+      font-weight: bold;
+    }
+
+    .color-swatch .swatch-hex {
+      color: #9a9ab0;
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====== Gallery Header ====== -->
+<div class="gallery-header">
+  <h1>Voyager Therapeutics</h1>
+  <p>HTML Slide Template Gallery — faithful reproductions of the corporate deck template using actual branding assets.</p>
+</div>
+
+<nav class="gallery-nav">
+  <a href="#title">Title / Cover</a>
+  <a href="#content">Content</a>
+  <a href="#subtitle">With Subtitle</a>
+  <a href="#section">Section Divider</a>
+  <a href="#table">Table</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#colors">Colors</a>
+  <a href="#usage">Usage</a>
+</nav>
+
+<!-- ====== 1. Title / Cover ====== -->
+<div class="gallery-section" id="title">
+  <h2>Title / Cover Slide</h2>
+  <p class="section-desc">Template: <code>templates/title-cover.html</code> &nbsp;|&nbsp; CSS: <code>css/vygr-title.css</code></p>
+
+  <div class="slide-wrapper">
+    <div class="slide slide--title">
+      <div class="title-bg"></div>
+      <div class="title-body">
+        <div class="title-logo">
+          <img src="assets/Title_Slide_Voyager_Logo1.png" alt="Voyager Therapeutics">
+        </div>
+        <div class="title-text">
+          <h1>AAV Capsid Engineering<br>for CNS Delivery</h1>
+          <div class="title-subtitle">VHH Display Platform Update</div>
+          <div class="title-date">February 2026</div>
+        </div>
+        <div class="title-footer">
+          <div class="footer-banner"></div>
+          <div class="footer-neuron"></div>
+          <div class="footer-content">
+            <span>CONFIDENTIAL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 2. Content Slide ====== -->
+<div class="gallery-section" id="content">
+  <h2>Content Slide</h2>
+  <p class="section-desc">Template: <code>templates/content.html</code> &nbsp;|&nbsp; CSS: <code>css/vygr-content.css</code></p>
+
+  <div class="slide-wrapper">
+    <div class="slide slide--content">
+      <div class="slide-header">
+        <span class="header-title">VP1 N-Terminal VHH Display Strategy</span>
+        <img class="header-logo" src="assets/Body_Slide_Blue_Title_Voyager_Logo1.png" alt="Voyager">
+      </div>
+      <div class="slide-content">
+        <p>The VP1 unique region provides an accessible N-terminal site for nanobody insertion
+           without disrupting capsid assembly or genome packaging.</p>
+        <ul style="margin-top: 10px;">
+          <li>VHH3 anti-TfR1 nanobody fused via (G&#x2084;S)&#x2082; flexible linker</li>
+          <li>Maintains AAV9 tropism with enhanced CNS transduction</li>
+          <li>Compatible with standard triple-transfection production</li>
+        </ul>
+        <div class="content-columns" style="margin-top: 16px;">
+          <div class="col">
+            <div class="content-box">
+              <h3>Construct Design</h3>
+              <p class="text-small" style="margin-top: 6px;">
+                MA insertion at VP1 position 1, followed by VHH3 coding sequence
+                and flexible glycine-serine linker before the native VP1 start.
+              </p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="content-box">
+              <h3>Expected Outcome</h3>
+              <p class="text-small" style="margin-top: 6px;">
+                60 copies of VHH displayed per capsid (VP1 stoichiometry ~5:1:10).
+                Enhanced BBB transcytosis via TfR1 engagement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-left">2&ensp;|&ensp;CONFIDENTIAL</span>
+        <span class="footer-right"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 3. Content with Subtitle ====== -->
+<div class="gallery-section" id="subtitle">
+  <h2>Content with Subtitle Bar</h2>
+  <p class="section-desc">Template: <code>templates/content-with-subtitle.html</code> &nbsp;|&nbsp; Blue and orange variants</p>
+
+  <div class="slide-wrapper">
+    <div class="slide-label">Blue subtitle variant</div>
+    <div class="slide slide--content">
+      <div class="slide-header">
+        <span class="header-title">Linker Optimization Results</span>
+        <img class="header-logo" src="assets/Body_Slide_Blue_Title_Voyager_Logo1.png" alt="Voyager">
+      </div>
+      <div class="slide-subtitle slide-subtitle--blue">
+        <span class="subtitle-text">Phase 1: Flexible linker screen (G4S)1-5</span>
+      </div>
+      <div class="slide-content">
+        <ul>
+          <li>(G&#x2084;S)&#x2082; linker optimal — balances flexibility and VHH accessibility</li>
+          <li>Shorter linkers reduce binding affinity by ~40%</li>
+          <li>Longer linkers do not improve transduction efficiency</li>
+        </ul>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-left">3&ensp;|&ensp;CONFIDENTIAL</span>
+        <span class="footer-right"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-wrapper" style="margin-top: 40px;">
+    <div class="slide-label">Orange subtitle variant</div>
+    <div class="slide slide--content">
+      <div class="slide-header">
+        <span class="header-title">Key Decision Required</span>
+        <img class="header-logo" src="assets/Body_Slide_Blue_Title_Voyager_Logo1.png" alt="Voyager">
+      </div>
+      <div class="slide-subtitle slide-subtitle--orange">
+        <span class="subtitle-text">Action item: Select lead candidate for IND-enabling studies</span>
+      </div>
+      <div class="slide-content">
+        <ul>
+          <li>AVD005 and AVD006 both show &gt;3x improvement over unmodified AAV9</li>
+          <li>AVD006 with ALPL peptide adds bone-targeting but increases construct size</li>
+          <li>Recommendation: advance AVD005 as primary, AVD006 as backup</li>
+        </ul>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-left">4&ensp;|&ensp;CONFIDENTIAL</span>
+        <span class="footer-right"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 4. Section Divider ====== -->
+<div class="gallery-section" id="section">
+  <h2>Section Divider Slide</h2>
+  <p class="section-desc">Template: <code>templates/section-divider.html</code> &nbsp;|&nbsp; CSS: <code>css/vygr-section.css</code></p>
+
+  <div class="slide-wrapper">
+    <div class="slide-label">Photo variant 1 — "pouring"</div>
+    <div class="slide slide--section">
+      <div class="section-bg section-bg--photo1"></div>
+      <div class="section-title">
+        <h1>Capsid Engineering<br>Results</h1>
+        <p>In vitro characterization of VHH-display constructs</p>
+      </div>
+      <div class="section-footer">
+        <div class="footer-banner"></div>
+        <div class="footer-content">
+          <span class="footer-left">5&ensp;|&ensp;CONFIDENTIAL</span>
+          <img class="footer-logo" src="assets/Section_Slide_Footer_Voyager_Logo1.png" alt="Voyager">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-wrapper" style="margin-top: 40px;">
+    <div class="slide-label">Photo variant 2 — "pipette"</div>
+    <div class="slide slide--section">
+      <div class="section-bg section-bg--photo2"></div>
+      <div class="section-title">
+        <h1>Manufacturing<br>&amp; Quality</h1>
+      </div>
+      <div class="section-footer">
+        <div class="footer-banner"></div>
+        <div class="footer-content">
+          <span class="footer-left">10&ensp;|&ensp;CONFIDENTIAL</span>
+          <img class="footer-logo" src="assets/Section_Slide_Footer_Voyager_Logo1.png" alt="Voyager">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 5. Table Slide ====== -->
+<div class="gallery-section" id="table">
+  <h2>Table Slide</h2>
+  <p class="section-desc">Template: <code>templates/table.html</code> &nbsp;|&nbsp; CSS: <code>css/vygr-table.css</code></p>
+
+  <div class="slide-wrapper">
+    <div class="slide-label">Standard table with status badges</div>
+    <div class="slide slide--content slide--table">
+      <div class="slide-header">
+        <span class="header-title">Plasmid Construct Inventory</span>
+        <img class="header-logo" src="assets/Body_Slide_Blue_Title_Voyager_Logo1.png" alt="Voyager">
+      </div>
+      <div class="slide-content">
+        <table class="vygr-table">
+          <thead>
+            <tr>
+              <th class="col-narrow">ID</th>
+              <th class="col-wide">Construct</th>
+              <th>Type</th>
+              <th>Description</th>
+              <th class="col-center" style="width:70px;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--vygr-blue); font-weight:bold;">AVD001</td>
+              <td>pAAV-CAG-ALPL</td>
+              <td>Transfer</td>
+              <td>ITR-CAG-ALPL-WPRE-ITR payload vector</td>
+              <td class="col-center"><span class="badge badge--done">Done</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--vygr-blue); font-weight:bold;">AVD002</td>
+              <td>pAAV-EF1a-ALPL</td>
+              <td>Transfer</td>
+              <td>ITR-EF1a-ALPL-WPRE-ITR payload vector</td>
+              <td class="col-center"><span class="badge badge--done">Done</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--vygr-bright-orange); font-weight:bold;">AVD005</td>
+              <td>pRep2Cap9-VP1-VHH3</td>
+              <td>Helper</td>
+              <td>VP1 N-term VHH3 display construct</td>
+              <td class="col-center"><span class="badge badge--done">Done</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--vygr-bright-orange); font-weight:bold;">AVD006</td>
+              <td>pRep2Cap9-VP1-VHH3-ALPL</td>
+              <td>Helper</td>
+              <td>VP1-VHH3 + bone-targeting ALPL</td>
+              <td class="col-center"><span class="badge badge--done">Done</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--vygr-bright-orange); font-weight:bold;">AVD007</td>
+              <td>pRep2Cap9-VP2-VHH3</td>
+              <td>Helper</td>
+              <td>VP2 N-term VHH3 insertion</td>
+              <td class="col-center"><span class="badge badge--active">Design</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--vygr-blue); font-weight:bold;">AVD008</td>
+              <td>pRep2Cap9-WT</td>
+              <td>Helper</td>
+              <td>Wild-type AAV9 capsid control</td>
+              <td class="col-center"><span class="badge badge--done">Done</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="slide-footer">
+        <span class="footer-left">6&ensp;|&ensp;CONFIDENTIAL</span>
+        <span class="footer-right"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 6. Timeline / Gantt ====== -->
+<div class="gallery-section" id="timeline">
+  <h2>Timeline / Gantt Slide</h2>
+  <p class="section-desc">Template: <code>templates/timeline.html</code> &nbsp;|&nbsp; CSS: <code>css/vygr-timeline.css</code></p>
+
+  <div class="slide-wrapper">
+    <div class="slide slide--timeline" style="--tl-cols: 12;">
+      <div class="timeline-top">
+        <h1>Program Timeline</h1>
+        <img class="timeline-logo" src="assets/Title_Slide_Voyager_Logo1.png" alt="Voyager">
+      </div>
+      <div class="timeline-grid">
+        <div></div>
+        <div class="tl-year" style="grid-column: span 4;">2025</div>
+        <div class="tl-year" style="grid-column: span 4;">2026</div>
+        <div class="tl-year" style="grid-column: span 4;">2027</div>
+
+        <div></div>
+        <div class="tl-quarter">Q1</div><div class="tl-quarter">Q2</div>
+        <div class="tl-quarter">Q3</div><div class="tl-quarter">Q4</div>
+        <div class="tl-quarter">Q1</div><div class="tl-quarter">Q2</div>
+        <div class="tl-quarter">Q3</div><div class="tl-quarter">Q4</div>
+        <div class="tl-quarter">Q1</div><div class="tl-quarter">Q2</div>
+        <div class="tl-quarter">Q3</div><div class="tl-quarter">Q4</div>
+
+        <div class="tl-label">Construct Design</div>
+        <div class="tl-bar tl-bar--blue" style="grid-column: span 3;">Design</div>
+        <div class="tl-empty"></div>
+        <div class="tl-empty" style="grid-column: span 8;"></div>
+
+        <div class="tl-label">Plasmid Build</div>
+        <div class="tl-empty" style="grid-column: span 2;"></div>
+        <div class="tl-bar tl-bar--mid-blue" style="grid-column: span 4;">Cloning &amp; QC</div>
+        <div class="tl-empty" style="grid-column: span 6;"></div>
+
+        <div class="tl-label">Vector Production</div>
+        <div class="tl-empty" style="grid-column: span 5;"></div>
+        <div class="tl-bar tl-bar--orange" style="grid-column: span 4;">Packaging</div>
+        <div class="tl-empty" style="grid-column: span 3;"></div>
+
+        <div class="tl-label">In Vitro Studies</div>
+        <div class="tl-empty" style="grid-column: span 7;"></div>
+        <div class="tl-bar tl-bar--gold" style="grid-column: span 5;">Cell Assays</div>
+
+        <div class="tl-label">In Vivo Studies</div>
+        <div class="tl-empty" style="grid-column: span 9;"></div>
+        <div class="tl-bar tl-bar--navy" style="grid-column: span 3;">Pilot</div>
+
+        <div class="tl-label">Regulatory Filing</div>
+        <div class="tl-empty" style="grid-column: span 10;"></div>
+        <div class="tl-milestone"></div>
+        <div class="tl-empty"></div>
+      </div>
+      <div class="timeline-footer">
+        <span>8&ensp;|&ensp;CONFIDENTIAL</span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== Color Palette ====== -->
+<div class="gallery-section" id="colors">
+  <h2>Brand Color Palette</h2>
+  <div class="color-grid">
+    <div class="color-swatch">
+      <div class="swatch" style="background:#001446;"></div>
+      <div class="swatch-info"><div class="swatch-name">Navy</div><div class="swatch-hex">#001446</div></div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch" style="background:#003482;"></div>
+      <div class="swatch-info"><div class="swatch-name">Blue</div><div class="swatch-hex">#003482</div></div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch" style="background:#F9A72C;"></div>
+      <div class="swatch-info"><div class="swatch-name">Orange Gold</div><div class="swatch-hex">#F9A72C</div></div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch" style="background:#4E8EC9;"></div>
+      <div class="swatch-info"><div class="swatch-name">Mid Blue</div><div class="swatch-hex">#4E8EC9</div></div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch" style="background:#D9DDE9;"></div>
+      <div class="swatch-info"><div class="swatch-name">Light Gray</div><div class="swatch-hex">#D9DDE9</div></div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch" style="background:#FF7400;"></div>
+      <div class="swatch-info"><div class="swatch-name">Bright Orange</div><div class="swatch-hex">#FF7400</div></div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch" style="background:#64707E;"></div>
+      <div class="swatch-info"><div class="swatch-name">Slate</div><div class="swatch-hex">#64707E</div></div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch" style="background:#414953;"></div>
+      <div class="swatch-info"><div class="swatch-name">Dark Gray</div><div class="swatch-hex">#414953</div></div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch" style="background:#F3F3F7; border: 1px solid #555;"></div>
+      <div class="swatch-info"><div class="swatch-name">Off White</div><div class="swatch-hex">#F3F3F7</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== Usage Notes ====== -->
+<div class="usage-notes" id="usage">
+  <h2>Usage Notes</h2>
+  <pre><code>File Structure
+─────────────
+  css/
+    vygr-base.css          Design tokens, reset, .slide container, common elements
+    vygr-content.css       Content slide (standard body layout)
+    vygr-title.css         Title/cover slide
+    vygr-section.css       Section divider slide
+    vygr-table.css         Table-specific styling
+    vygr-timeline.css      Timeline/Gantt styling
+  templates/
+    content.html           Standard content slide
+    content-with-subtitle.html   Content with blue or orange subtitle bar
+    title-cover.html       Title/cover slide
+    section-divider.html   Section divider
+    table.html             Table slide
+    timeline.html          Timeline/Gantt slide
+  assets/
+    (13 branding PNGs from vygr_branding_pptx.zip)
+
+Quick Start
+───────────
+1. Copy a template from templates/ as your starting point.
+2. Always include vygr-base.css first, then the template-specific CSS.
+3. Replace placeholder text with your content.
+4. Open in browser at 100% zoom for pixel-accurate 960×540 preview.
+
+Fonts
+─────
+Headings: Century Gothic (system font — installed on Voyager machines)
+Body:     Calibri (system font)
+Fallback chain covers macOS + Linux if needed.
+
+CSS Custom Properties
+─────────────────────
+All brand colors available as --vygr-* variables.
+Override in your HTML via inline style on the .slide element if needed.
+
+Slide Classes
+─────────────
+.slide                    Base container (960×540, relative positioning)
+.slide--content           Standard body slide
+.slide--title             Title/cover slide
+.slide--section           Section divider
+.slide--table             Table variant (add to .slide--content)
+.slide--timeline          Timeline/Gantt (standalone)
+
+Header Variants
+───────────────
+.slide-header             Standard height (75px), medium banner
+.slide-header--short      Short header (60px), lowest-level banner
+
+Subtitle Bars
+─────────────
+.slide-subtitle--blue     Blue gradient strip
+.slide-subtitle--orange   Orange gradient strip</code></pre>
+</div>
+
+</body>
+</html>

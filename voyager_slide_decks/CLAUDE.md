@@ -1,4 +1,4 @@
-# Voyager Slide Templates — PPTX-Compatible Authoring Guide
+# Voyager Slide Decks — PPTX-Compatible Authoring Guide
 
 This directory contains Voyager-branded HTML slide decks that export to PowerPoint via the html2pptx pipeline.
 
@@ -161,13 +161,13 @@ The html2pptx engine supports these utility classes:
 ## Build Tooling
 
 ### Shared Infrastructure
-- **html2pptx/**: Shared build library at `voyager_slide_templates/html2pptx/`. All `build.js` files import from `../../html2pptx/index.cjs`.
-- **assets/**: Shared Voyager branding PNGs at `voyager_slide_templates/assets/`. Decks access these via an `assets` symlink pointing to `../../assets`.
+- **html2pptx/**: Shared build library at `voyager_slide_decks/html2pptx/`. All `build.js` files import from `../../html2pptx/index.cjs`.
+- **assets/**: Shared Voyager branding PNGs at `voyager_slide_decks/assets/`. Decks access these via an `assets` symlink pointing to `../../assets`.
 - **deck-assets/**: Per-deck folder for deck-specific images (diagrams, custom backgrounds). Not all decks have one.
 
 ### Deck Structure
 ```
-voyager_slide_templates/
+voyager_slide_decks/
 ├── CLAUDE.md                      ← this file (authoritative rules)
 ├── PRESENTATION_REGISTRY.md       ← PPPxxx manifest
 ├── html2pptx/                     ← shared build library

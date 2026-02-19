@@ -1,6 +1,6 @@
 # Presentation Registry
 
-All slide decks are stored in `voyager_slide_templates/decks/` and indexed by PPP number.
+All slide decks are stored in `voyager_slide_decks/decks/` and indexed by PPP number.
 Each PPPxxx folder is self-contained with HTML slides, a `build.js`, and a `package.json`.
 
 ## Registry
@@ -28,6 +28,6 @@ Each PPPxxx folder is self-contained with HTML slides, a `build.js`, and a `pack
 
 ## Shared Infrastructure
 
-- **html2pptx/**: Shared build library at `voyager_slide_templates/html2pptx/`. All `build.js` files import from `../../html2pptx/index.cjs`.
-- **assets/**: Shared Voyager branding PNGs at `voyager_slide_templates/assets/`. Decks access these via an `assets` symlink pointing to `../../assets`.
+- **html2pptx/**: Shared build library at `voyager_slide_decks/html2pptx/`. All `build.js` files import from `../../html2pptx/index.cjs`.
+- **assets/**: Shared Voyager branding PNGs at `voyager_slide_decks/assets/`. Decks access these via an `assets` symlink pointing to `../../assets`.
 - **deck-assets/**: Per-deck folder for deck-specific images (diagrams, custom backgrounds). Not all decks have one.

@@ -1,0 +1,114 @@
+/* ==========================================================================
+   Voyager Therapeutics — Table Slide
+   Uses the standard content slide header; adds styled <table>.
+   ========================================================================== */
+
+.slide--table .slide-content {
+  padding: 12px 30px 28px 30px;
+}
+
+/* --- Standard Voyager table --- */
+.slide--table table.vygr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--vygr-font-body);
+  font-size: 9pt;
+}
+
+.slide--table table.vygr-table thead th {
+  background: var(--vygr-blue);
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 9pt;
+  text-align: left;
+  padding: 7px 10px;
+  border: none;
+  white-space: nowrap;
+}
+
+/* Rounded corners on header row */
+.slide--table table.vygr-table thead th:first-child {
+  border-radius: 4px 0 0 0;
+}
+
+.slide--table table.vygr-table thead th:last-child {
+  border-radius: 0 4px 0 0;
+}
+
+.slide--table table.vygr-table tbody td {
+  padding: 5px 10px;
+  border-bottom: 1px solid #E8E8EE;
+  color: var(--vygr-text-primary);
+  vertical-align: top;
+}
+
+/* Alternating row stripes */
+.slide--table table.vygr-table tbody tr:nth-child(even) {
+  background: var(--vygr-off-white);
+}
+
+.slide--table table.vygr-table tbody tr:nth-child(odd) {
+  background: #FFFFFF;
+}
+
+/* Last row no bottom border */
+.slide--table table.vygr-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- Compact variant (more rows) --- */
+.slide--table table.vygr-table--compact th,
+.slide--table table.vygr-table--compact td {
+  padding: 3px 8px;
+  font-size: 8pt;
+}
+
+/* --- Column alignment helpers --- */
+.slide--table .col-center { text-align: center; }
+.slide--table .col-right  { text-align: right; }
+.slide--table .col-narrow { width: 60px; }
+.slide--table .col-wide   { width: 200px; }
+
+/* --- Status badges (inline colored labels) --- */
+.slide--table .badge {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 7pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.slide--table .badge--done    { background: #E8F5E9; color: #2E7D32; }
+.slide--table .badge--active  { background: #E3F2FD; color: #1565C0; }
+.slide--table .badge--pending { background: #FFF3E0; color: #E65100; }
+
+/* --- Right-margin annotation zone --- */
+.slide--table .table-with-annotations {
+  display: flex;
+  gap: 16px;
+}
+
+.slide--table .table-with-annotations .table-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.slide--table .table-with-annotations .table-annotations {
+  width: 120px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 30px; /* align with table body start */
+}
+
+.slide--table .annotation-label {
+  font-family: var(--vygr-font-body);
+  font-size: 8pt;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 3px;
+  text-align: center;
+}

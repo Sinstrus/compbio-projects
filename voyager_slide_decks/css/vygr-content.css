@@ -1,0 +1,64 @@
+/* ==========================================================================
+   Voyager Therapeutics — Content Slide
+   The standard "workhorse" body slide (~80% of real decks).
+   ========================================================================== */
+
+.slide--content {
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+}
+
+/* Content area fills space between header and footer */
+.slide--content .slide-content {
+  flex: 1;
+  padding: 16px 30px 28px 30px;
+  overflow: hidden;
+}
+
+/* Two-column variant */
+.slide--content .content-columns {
+  display: flex;
+  gap: 20px;
+  height: 100%;
+}
+
+.slide--content .content-columns .col {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Card / box within content area */
+.slide--content .content-box {
+  background: #FFFFFF;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 14px 16px;
+}
+
+/* Bullet lists */
+.slide--content .slide-content ul {
+  margin-top: 8px;
+}
+
+.slide--content .slide-content li {
+  margin-bottom: 4px;
+}
+
+.slide--content .slide-content li::marker {
+  color: var(--vygr-blue);
+}
+
+/* Key-value pairs (e.g. "Construct: AVD006") */
+.slide--content .kv-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 10pt;
+}
+
+.slide--content .kv-row .kv-label {
+  font-weight: bold;
+  color: var(--vygr-blue);
+  white-space: nowrap;
+}

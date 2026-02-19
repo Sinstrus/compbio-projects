@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Voyager — Timeline / Gantt Slide</title>
+  <link rel="stylesheet" href="../css/vygr-base.css">
+  <link rel="stylesheet" href="../css/vygr-timeline.css">
+</head>
+<body style="margin:0; padding:40px; background:#e0e0e0;">
+
+<div class="slide slide--timeline" style="--tl-cols: 12;">
+
+  <!-- Top bar: title + logo -->
+  <div class="timeline-top">
+    <h1>Program Timeline</h1>
+    <img class="timeline-logo" src="../assets/Title_Slide_Voyager_Logo1.png" alt="Voyager">
+  </div>
+
+  <!-- Grid -->
+  <div class="timeline-grid">
+    <!-- Row 0: Year headers (span 4 quarter cols each) -->
+    <div></div><!-- empty label cell -->
+    <div class="tl-year" style="grid-column: span 4;">2025</div>
+    <div class="tl-year" style="grid-column: span 4;">2026</div>
+    <div class="tl-year" style="grid-column: span 4;">2027</div>
+
+    <!-- Row 1: Quarter sub-headers -->
+    <div></div>
+    <div class="tl-quarter">Q1</div>
+    <div class="tl-quarter">Q2</div>
+    <div class="tl-quarter">Q3</div>
+    <div class="tl-quarter">Q4</div>
+    <div class="tl-quarter">Q1</div>
+    <div class="tl-quarter">Q2</div>
+    <div class="tl-quarter">Q3</div>
+    <div class="tl-quarter">Q4</div>
+    <div class="tl-quarter">Q1</div>
+    <div class="tl-quarter">Q2</div>
+    <div class="tl-quarter">Q3</div>
+    <div class="tl-quarter">Q4</div>
+
+    <!-- Data Row 1: Construct Design -->
+    <div class="tl-label">Construct Design</div>
+    <div class="tl-bar tl-bar--blue" style="grid-column: span 3;">Design</div>
+    <div class="tl-empty"></div>
+    <div class="tl-empty" style="grid-column: span 8;"></div>
+
+    <!-- Data Row 2: Plasmid Build -->
+    <div class="tl-label">Plasmid Build</div>
+    <div class="tl-empty" style="grid-column: span 2;"></div>
+    <div class="tl-bar tl-bar--mid-blue" style="grid-column: span 4;">Cloning &amp; QC</div>
+    <div class="tl-empty" style="grid-column: span 6;"></div>
+
+    <!-- Data Row 3: Vector Production -->
+    <div class="tl-label">Vector Production</div>
+    <div class="tl-empty" style="grid-column: span 5;"></div>
+    <div class="tl-bar tl-bar--orange" style="grid-column: span 4;">Packaging</div>
+    <div class="tl-empty" style="grid-column: span 3;"></div>
+
+    <!-- Data Row 4: In Vitro Studies -->
+    <div class="tl-label">In Vitro Studies</div>
+    <div class="tl-empty" style="grid-column: span 7;"></div>
+    <div class="tl-bar tl-bar--gold" style="grid-column: span 5;">Cell Assays</div>
+
+    <!-- Data Row 5: In Vivo Studies -->
+    <div class="tl-label">In Vivo Studies</div>
+    <div class="tl-empty" style="grid-column: span 9;"></div>
+    <div class="tl-bar tl-bar--navy" style="grid-column: span 3;">Pilot</div>
+
+    <!-- Data Row 6: Regulatory -->
+    <div class="tl-label">Regulatory Filing</div>
+    <div class="tl-empty" style="grid-column: span 10;"></div>
+    <div class="tl-milestone"></div>
+    <div class="tl-empty"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="timeline-footer">
+    <span>8&ensp;|&ensp;CONFIDENTIAL</span>
+    <span></span>
+  </div>
+
+</div>
+
+</body>
+</html>

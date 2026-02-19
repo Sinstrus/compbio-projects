@@ -1,0 +1,93 @@
+/* ==========================================================================
+   Voyager Therapeutics — Section Divider Slide
+   Faded lab-photo background, large title, navy footer bar with logo.
+   ========================================================================== */
+
+.slide--section {
+  position: relative;
+  background: #FFFFFF;
+}
+
+/* --- Faded lab-photo background --- */
+.slide--section .section-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.slide--section .section-bg--photo1 {
+  background-image: url('../assets/Section_Slide_Background_Personnel_Photo1.png');
+}
+
+.slide--section .section-bg--photo2 {
+  background-image: url('../assets/Section_Slide_Background_Personnel_Photo2.png');
+}
+
+/* --- Title text (upper-left) --- */
+.slide--section .section-title {
+  position: relative;
+  z-index: 2;
+  padding: 60px 40px 0 40px;
+}
+
+.slide--section .section-title h1 {
+  font-family: var(--vygr-font-heading);
+  font-weight: bold;
+  font-size: 30pt;
+  color: var(--vygr-blue);
+  line-height: 1.15;
+  max-width: 60%;
+}
+
+.slide--section .section-title p {
+  font-family: var(--vygr-font-body);
+  font-size: 13pt;
+  color: var(--vygr-slate);
+  margin-top: 10px;
+  max-width: 55%;
+}
+
+/* --- Footer bar (~30% height) --- */
+.slide--section .section-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 163px; /* 30% of 540 */
+  z-index: 1;
+}
+
+.slide--section .section-footer .footer-banner {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/Section_Slide_Footer_Blue_Banner1.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.slide--section .section-footer .footer-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 30px 18px 30px;
+}
+
+.slide--section .section-footer .footer-left {
+  font-family: var(--vygr-font-body);
+  font-size: 8pt;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.slide--section .section-footer .footer-logo {
+  height: 60px;
+  width: auto;
+}

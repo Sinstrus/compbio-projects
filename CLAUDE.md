@@ -33,25 +33,25 @@ Individual projects live directly under ~/projects/:
 - aav_vhh_v1/ — AAV VHH v1 (early prototype)
 - nocap_restriction_sites/ — NoCap restriction site analysis
 - executive_assistant/ — Meeting/task assistant
-- ppt_maker/ — Voyager slide builder (DEPRECATED — decks migrated to voyager_slide_templates)
-- voyager_slide_templates/ — Voyager PPTX-compatible slide authoring
+- ppt_maker/ — Voyager slide builder (DEPRECATED — decks migrated to voyager_slide_decks)
+- voyager_slide_decks/ — Voyager PPTX-compatible slide authoring
 
 ### Slide Decks (PPPxxx Barcoding)
-All slide decks are tracked by PPP number and stored in `voyager_slide_templates/decks/PPPxxx-name/`.
-Registry: `voyager_slide_templates/PRESENTATION_REGISTRY.md`
-Authoritative guide: `voyager_slide_templates/CLAUDE.md`
+All slide decks are tracked by PPP number and stored in `voyager_slide_decks/decks/PPPxxx-name/`.
+Registry: `voyager_slide_decks/PRESENTATION_REGISTRY.md`
+Authoritative guide: `voyager_slide_decks/CLAUDE.md`
 
 Rules for new decks:
 1. Use the next available PPP number (check PRESENTATION_REGISTRY.md)
 2. **PPP numbers are unique and permanent.** Never reassign a PPP number to a different deck.
 3. Name folders as: `PPPxxx-descriptive-name/`
 4. Update PRESENTATION_REGISTRY.md with PPP number, name, slide count, date, and status
-5. Build: `cd voyager_slide_templates/decks/PPPxxx-name/ && npm install && node build.js`
+5. Build: `cd voyager_slide_decks/decks/PPPxxx-name/ && npm install && node build.js`
 
 Key conventions:
 - Slides are bare `<body>` HTML with inline styles, exported via html2pptx pipeline
 - All text must be in `<p>`, `<h1>`-`<h6>`, `<ul>`, or `<ol>` tags — bare `<span>` elements are silently dropped
 - Every CSS gradient needs `data-rasterize="gradient"`; branding via `<img>` tags only
-- Shared html2pptx library at `voyager_slide_templates/html2pptx/`
-- Shared Voyager branding PNGs at `voyager_slide_templates/assets/`
-- Legacy decks in `ppt_maker/` are deprecated — all decks now live in voyager_slide_templates
+- Shared html2pptx library at `voyager_slide_decks/html2pptx/`
+- Shared Voyager branding PNGs at `voyager_slide_decks/assets/`
+- Legacy decks in `ppt_maker/` are deprecated — all decks now live in voyager_slide_decks

@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Voyager Therapeutics — Timeline / Gantt Slide
+   Open layout (no header bar), CSS-grid year/quarter columns.
+   ========================================================================== */
+
+.slide--timeline {
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  padding: 20px 30px;
+}
+
+/* --- Top bar: title left, logo right --- */
+.slide--timeline .timeline-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.slide--timeline .timeline-top h1 {
+  font-family: var(--vygr-font-heading);
+  font-weight: bold;
+  font-size: 20pt;
+  color: var(--vygr-blue);
+}
+
+.slide--timeline .timeline-top .timeline-logo {
+  height: 48px;
+  width: auto;
+}
+
+/* --- Grid container --- */
+.slide--timeline .timeline-grid {
+  flex: 1;
+  display: grid;
+  /* Default: 4 years × 4 quarters = 16 quarter cols + 1 label col */
+  /* Override --tl-cols in template for different spans */
+  grid-template-columns: 140px repeat(var(--tl-cols, 16), 1fr);
+  row-gap: 0;
+  column-gap: 0;
+}
+
+/* --- Year headers (span 4 quarter cols each) --- */
+.slide--timeline .tl-year {
+  font-family: var(--vygr-font-heading);
+  font-weight: bold;
+  font-size: 11pt;
+  color: var(--vygr-blue);
+  text-align: center;
+  padding: 4px 0;
+  border-bottom: 2px solid var(--vygr-blue);
+}
+
+/* --- Quarter sub-headers --- */
+.slide--timeline .tl-quarter {
+  font-family: var(--vygr-font-body);
+  font-size: 8pt;
+  color: var(--vygr-slate);
+  text-align: center;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--vygr-light-gray);
+}
+
+/* --- Row labels (left column) --- */
+.slide--timeline .tl-label {
+  font-family: var(--vygr-font-heading);
+  font-weight: bold;
+  font-size: 9pt;
+  color: var(--vygr-dark-gray);
+  display: flex;
+  align-items: center;
+  padding: 4px 8px 4px 0;
+  border-bottom: 1px solid #ECECEC;
+}
+
+/* --- Gantt bars --- */
+.slide--timeline .tl-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px 2px;
+  border-radius: 4px;
+  font-family: var(--vygr-font-body);
+  font-size: 7pt;
+  font-weight: bold;
+  color: #FFFFFF;
+  min-height: 22px;
+}
+
+/* Empty cell placeholder (maintains grid rows) */
+.slide--timeline .tl-empty {
+  border-bottom: 1px solid #ECECEC;
+}
+
+/* Color variants for bars */
+.slide--timeline .tl-bar--blue       { background: var(--vygr-blue); }
+.slide--timeline .tl-bar--navy       { background: var(--vygr-navy); }
+.slide--timeline .tl-bar--orange     { background: var(--vygr-bright-orange); }
+.slide--timeline .tl-bar--gold       { background: var(--vygr-orange-gold); }
+.slide--timeline .tl-bar--mid-blue   { background: var(--vygr-mid-blue); }
+.slide--timeline .tl-bar--slate      { background: var(--vygr-slate); }
+.slide--timeline .tl-bar--light      { background: var(--vygr-light-gray); color: var(--vygr-dark-gray); }
+
+/* Milestone diamond */
+.slide--timeline .tl-milestone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #ECECEC;
+}
+
+.slide--timeline .tl-milestone::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: var(--vygr-bright-orange);
+  transform: rotate(45deg);
+}
+
+/* --- Footer --- */
+.slide--timeline .timeline-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+  font-size: 7pt;
+  color: var(--vygr-slate);
+}

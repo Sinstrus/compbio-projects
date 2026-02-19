@@ -1,0 +1,123 @@
+/* ==========================================================================
+   Voyager Therapeutics — Title / Cover Slide
+   Full-bleed neuron artwork, large logo, gradient footer bar.
+   ========================================================================== */
+
+.slide--title {
+  position: relative;
+  background: #FFFFFF;
+}
+
+/* --- Neuron artwork background (right side) --- */
+.slide--title .title-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/Title_Slide_Background_Neuron_Art1.png');
+  background-position: right center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* --- Content layer (above background) --- */
+.slide--title .title-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* --- Logo --- */
+.slide--title .title-logo {
+  padding: 28px 0 0 36px;
+}
+
+.slide--title .title-logo img {
+  width: 200px;
+  height: auto;
+}
+
+/* --- Title text block (centered vertically in left half) --- */
+.slide--title .title-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 36px;
+  max-width: 55%;
+}
+
+.slide--title .title-text h1 {
+  font-family: var(--vygr-font-heading);
+  font-weight: bold;
+  font-size: 24pt;
+  color: var(--vygr-blue);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.slide--title .title-text .title-subtitle {
+  font-family: var(--vygr-font-heading);
+  font-size: 14pt;
+  color: var(--vygr-bright-orange);
+  line-height: 1.3;
+}
+
+.slide--title .title-text .title-date {
+  font-family: var(--vygr-font-body);
+  font-size: 11pt;
+  color: var(--vygr-slate);
+  margin-top: 12px;
+}
+
+/* --- Footer bar (gradient banner + neuron overlay) --- */
+.slide--title .title-footer {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.slide--title .title-footer .footer-banner {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/Title_Slide_Footer_Blue_Banner1.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.slide--title .title-footer .footer-neuron {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
+  background-image: url('../assets/Title_Slide_Footer_Neuron_Art1.png');
+  background-position: right center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  opacity: 0.35;
+  z-index: 1;
+}
+
+.slide--title .title-footer .footer-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  padding: 0 30px;
+}
+
+.slide--title .title-footer .footer-content span {
+  font-family: var(--vygr-font-body);
+  font-size: 8pt;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.5px;
+}

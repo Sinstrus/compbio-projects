@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Voyager — Table Slide</title>
+  <link rel="stylesheet" href="../css/vygr-base.css">
+  <link rel="stylesheet" href="../css/vygr-content.css">
+  <link rel="stylesheet" href="../css/vygr-table.css">
+</head>
+<body style="margin:0; padding:40px; background:#e0e0e0;">
+
+<!-- === Standard table === -->
+<div class="slide slide--content slide--table" style="margin-bottom: 60px;">
+
+  <div class="slide-header">
+    <span class="header-title">Data Summary Table</span>
+    <img class="header-logo" src="../assets/Body_Slide_Blue_Title_Voyager_Logo1.png" alt="Voyager">
+  </div>
+
+  <div class="slide-content">
+    <table class="vygr-table">
+      <thead>
+        <tr>
+          <th class="col-narrow">ID</th>
+          <th class="col-wide">Construct</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th class="col-center" style="width:70px;">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--vygr-blue); font-weight:bold;">AVD001</td>
+          <td>pAAV-CAG-ALPL</td>
+          <td>Transfer</td>
+          <td>ITR-CAG-ALPL-WPRE-ITR payload vector</td>
+          <td class="col-center"><span class="badge badge--done">Done</span></td>
+        </tr>
+        <tr>
+          <td style="color:var(--vygr-blue); font-weight:bold;">AVD002</td>
+          <td>pAAV-EF1a-ALPL</td>
+          <td>Transfer</td>
+          <td>ITR-EF1a-ALPL-WPRE-ITR payload vector</td>
+          <td class="col-center"><span class="badge badge--done">Done</span></td>
+        </tr>
+        <tr>
+          <td style="color:var(--vygr-bright-orange); font-weight:bold;">AVD005</td>
+          <td>pRep2Cap9-VP1-VHH3</td>
+          <td>Helper</td>
+          <td>VP1 N-term VHH3 + (G4S)&#x2082; linker display</td>
+          <td class="col-center"><span class="badge badge--done">Done</span></td>
+        </tr>
+        <tr>
+          <td style="color:var(--vygr-bright-orange); font-weight:bold;">AVD006</td>
+          <td>pRep2Cap9-VP1-VHH3-ALPL</td>
+          <td>Helper</td>
+          <td>VP1-VHH3 with bone-targeting ALPL peptide</td>
+          <td class="col-center"><span class="badge badge--done">Done</span></td>
+        </tr>
+        <tr>
+          <td style="color:var(--vygr-bright-orange); font-weight:bold;">AVD007</td>
+          <td>pRep2Cap9-VP2-VHH3</td>
+          <td>Helper</td>
+          <td>VP2 N-term VHH3 insertion variant</td>
+          <td class="col-center"><span class="badge badge--active">Design</span></td>
+        </tr>
+        <tr>
+          <td style="color:var(--vygr-blue); font-weight:bold;">AVD008</td>
+          <td>pRep2Cap9-WT</td>
+          <td>Helper</td>
+          <td>Wild-type AAV9 capsid control</td>
+          <td class="col-center"><span class="badge badge--done">Done</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="slide-footer">
+    <span class="footer-left">6&ensp;|&ensp;CONFIDENTIAL</span>
+    <span class="footer-right"></span>
+  </div>
+
+</div>
+
+<!-- === Table with annotations === -->
+<div class="slide slide--content slide--table">
+
+  <div class="slide-header">
+    <span class="header-title">Table with Side Annotations</span>
+    <img class="header-logo" src="../assets/Body_Slide_Blue_Title_Voyager_Logo1.png" alt="Voyager">
+  </div>
+
+  <div class="slide-content">
+    <div class="table-with-annotations">
+      <div class="table-main">
+        <table class="vygr-table vygr-table--compact">
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Value</th>
+              <th>Unit</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-bold">Titer</td>
+              <td>2.4 × 10¹³</td>
+              <td>vg/mL</td>
+              <td>Post-CsCl purification</td>
+            </tr>
+            <tr>
+              <td class="text-bold">Purity</td>
+              <td>≥ 95%</td>
+              <td>%</td>
+              <td>SDS-PAGE silver stain</td>
+            </tr>
+            <tr>
+              <td class="text-bold">Full:Empty</td>
+              <td>78:22</td>
+              <td>ratio</td>
+              <td>cryo-EM analysis</td>
+            </tr>
+            <tr>
+              <td class="text-bold">Endotoxin</td>
+              <td>&lt; 0.5</td>
+              <td>EU/mL</td>
+              <td>LAL assay</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-annotations">
+        <div class="annotation-label" style="background:#E8F5E9; color:#2E7D32;">Pass</div>
+        <div class="annotation-label" style="background:#E8F5E9; color:#2E7D32;">Pass</div>
+        <div class="annotation-label" style="background:#FFF3E0; color:#E65100;">Review</div>
+        <div class="annotation-label" style="background:#E8F5E9; color:#2E7D32;">Pass</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span class="footer-left">7&ensp;|&ensp;CONFIDENTIAL</span>
+    <span class="footer-right"></span>
+  </div>
+
+</div>
+
+</body>
+</html>
