@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="900" height="420">
+<defs>
+<style>text{font-family:Arial,Helvetica,sans-serif}</style>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+</marker>
+</defs>
+<rect width="900" height="420" fill="white"/>
+
+<!-- Title (24pt bold) -->
+<text x="450" y="34" text-anchor="middle" font-size="24" font-weight="bold" fill="#333">VR4 Loop Mosaic</text>
+
+<!-- ========== BOX 1: AVD002 &#8212; WT ========== -->
+<rect x="10" y="52" width="280" height="250" rx="6" fill="#F8F9FA" stroke="#DDD"/>
+<text x="150" y="78" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">AVD002 &#8212; WT</text>
+
+<!-- VP1 bar (full-length, dark navy) -->
+<text x="22" y="117" font-size="16" font-weight="bold" fill="#333">VP1</text>
+<rect x="60" y="98" width="215" height="28" rx="4" fill="#0A2540"/>
+<text x="62" y="142" font-size="14" fill="#999">ATG &#8212; 80.1 kDa</text>
+
+<!-- VP2 bar (shorter N-term, blue) -->
+<text x="22" y="187" font-size="16" font-weight="bold" fill="#333">VP2</text>
+<rect x="100" y="168" width="175" height="28" rx="4" fill="#3B7DD8"/>
+<text x="102" y="212" font-size="14" fill="#999">ACG &#8212; 65.5 kDa</text>
+
+<!-- VP3 bar (shortest, light blue) -->
+<text x="22" y="257" font-size="16" font-weight="bold" fill="#333">VP3</text>
+<rect x="120" y="238" width="155" height="28" rx="4" fill="#A8C8E8"/>
+<text x="122" y="282" font-size="14" fill="#999">ATG &#8212; 59.0 kDa</text>
+
+<!-- ========== + SYMBOL ========== -->
+<text x="320" y="192" text-anchor="middle" font-size="36" font-weight="bold" fill="#333">+</text>
+
+<!-- ========== BOX 2: AVD006 &#8212; VR4-VHH ========== -->
+<rect x="350" y="52" width="280" height="250" rx="6" fill="#FFF3E0" stroke="#F5A623"/>
+<text x="490" y="78" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">AVD006 &#8212; VR4-VHH</text>
+
+<!-- VP1 + VHH insert at VR4 -->
+<text x="362" y="117" font-size="16" font-weight="bold" fill="#333">VP1</text>
+<rect x="400" y="98" width="215" height="28" rx="4" fill="#0A2540"/>
+<rect x="540" y="95" width="30" height="34" rx="3" fill="#F5A623"/>
+<text x="402" y="142" font-size="14" fill="#999">ATG &#8212; ~95.6 kDa</text>
+
+<!-- VP2 + VHH insert at VR4 -->
+<text x="362" y="187" font-size="16" font-weight="bold" fill="#333">VP2</text>
+<rect x="440" y="168" width="175" height="28" rx="4" fill="#3B7DD8"/>
+<rect x="540" y="165" width="30" height="34" rx="3" fill="#F5A623"/>
+<text x="442" y="212" font-size="14" fill="#999">ACG &#8212; ~80.7 kDa</text>
+
+<!-- VP3 + VHH insert at VR4 -->
+<text x="362" y="257" font-size="16" font-weight="bold" fill="#333">VP3</text>
+<rect x="460" y="238" width="155" height="28" rx="4" fill="#A8C8E8"/>
+<rect x="540" y="235" width="30" height="34" rx="3" fill="#F5A623"/>
+<text x="462" y="282" font-size="14" fill="#999">ATG &#8212; ~74.3 kDa</text>
+
+<!-- ========== ARROW ========== -->
+<line x1="650" y1="182" x2="682" y2="182" stroke="#333" stroke-width="3" marker-end="url(#arr)"/>
+
+<!-- ========== RESULT STRIP ========== -->
+<rect x="700" y="52" width="190" height="250" rx="6" fill="#FAFAFA" stroke="#DDD"/>
+<text x="795" y="78" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">Resulting Capsid</text>
+
+<!-- Icosahedral capsid (oblique 3D projection, 10 visible faces) -->
+<polygon points="829,138 855,179 855,126" fill="#A8C8E8" stroke="#555" stroke-width="0.7"/><!-- P1 VP3 -->
+<polygon points="786,95 738,122 764,133" fill="#A8C8E8" stroke="#555" stroke-width="0.7"/><!-- P2 VP3 -->
+<polygon points="765,142 737,186 790,188" fill="#A8C8E8" stroke="#555" stroke-width="0.7"/><!-- P3 VP3 -->
+<polygon points="820,134 795,90 770,134" fill="#A8C8E8" stroke="#555" stroke-width="0.7"/><!-- P4 VP3 top -->
+<polygon points="851,122 804,95 826,133" fill="#A8C8E8" stroke="#555" stroke-width="0.7"/><!-- P5 VP3 -->
+<polygon points="735,127 735,179 761,138" fill="#0A2540" stroke="#555" stroke-width="0.7"/><!-- P6 VP1 -->
+<polygon points="792,220 792,194 743,192" fill="#3B7DD8" stroke="#555" stroke-width="0.7"/><!-- P7 VP2 -->
+<polygon points="800,188 853,186 825,142" fill="#A8C8E8" stroke="#555" stroke-width="0.7"/><!-- P8 VP3 -->
+<polygon points="798,220 848,192 798,194" fill="#A8C8E8" stroke="#555" stroke-width="0.7"/><!-- P9 VP3 -->
+<polygon points="770,139 795,185 820,139" fill="#A8C8E8" stroke="#555" stroke-width="0.7"/><!-- P10 VP3 center -->
+<!-- VHH markers (orange circles on 5 of 10 faces) -->
+<circle cx="846" cy="148" r="5" fill="#F5A623" stroke="white" stroke-width="1"/><!-- P1 -->
+<circle cx="764" cy="172" r="5" fill="#F5A623" stroke="white" stroke-width="1"/><!-- P3 -->
+<circle cx="827" cy="117" r="5" fill="#F5A623" stroke="white" stroke-width="1"/><!-- P5 -->
+<circle cx="815" cy="202" r="5" fill="#F5A623" stroke="white" stroke-width="1"/><!-- P9 -->
+<circle cx="795" cy="154" r="5" fill="#F5A623" stroke="white" stroke-width="1"/><!-- P10 -->
+
+<!-- Stoichiometry -->
+<text x="795" y="250" text-anchor="middle" font-size="16" fill="#555">~5 : 5 : 50</text>
+
+<!-- ========== KEY LABEL PILL (20pt bold, orange) ========== -->
+<rect x="200" y="318" width="500" height="36" rx="18" fill="#FFF3E0" stroke="#F5A623" stroke-width="1.5"/>
+<text x="450" y="342" text-anchor="middle" font-size="20" font-weight="bold" fill="#D4850A">MOSAIC &#8212; VHH on all VP species</text>
+
+<!-- ========== LEGEND (4 items, 16pt) ========== -->
+<rect x="250" y="375" width="16" height="16" rx="3" fill="#0A2540"/>
+<text x="272" y="389" font-size="16" fill="#555">VP1</text>
+<rect x="340" y="375" width="16" height="16" rx="3" fill="#3B7DD8"/>
+<text x="362" y="389" font-size="16" fill="#555">VP2</text>
+<rect x="430" y="375" width="16" height="16" rx="3" fill="#A8C8E8"/>
+<text x="452" y="389" font-size="16" fill="#555">VP3</text>
+<rect x="520" y="375" width="16" height="16" rx="3" fill="#F5A623"/>
+<text x="542" y="389" font-size="16" fill="#555">VHH</text>
+</svg>

@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" width="800" height="380">
+<defs><style>
+text{font-family:Arial,Helvetica,sans-serif}
+</style></defs>
+<rect width="800" height="380" fill="white"/>
+
+<!-- Title -->
+<text x="400" y="24" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">Figure 5: VP2 N-term Mosaic (AVD002 + AVD010)</text>
+<text x="400" y="40" text-anchor="middle" font-size="11" fill="#888">DNA Ratio 1:1</text>
+
+<!-- ========== BOX 1: AVD002 WT ========== -->
+<rect x="10" y="50" width="240" height="200" rx="6" fill="#F8F9FA" stroke="#DDD"/>
+<text x="130" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">AVD002 — WT RepCap</text>
+
+<text x="55" y="80" font-size="8" fill="#BBB">N</text>
+<text x="237" y="80" text-anchor="end" font-size="8" fill="#BBB">C</text>
+
+<!-- VP1 -->
+<text x="22" y="99" font-size="10" font-weight="bold" fill="#333">VP1</text>
+<rect x="55" y="84" width="185" height="22" rx="3" fill="#0A2540"/>
+<text x="56" y="118" font-size="9" fill="#999">ATG — 80.1 kDa</text>
+
+<!-- VP2 -->
+<text x="22" y="143" font-size="10" font-weight="bold" fill="#333">VP2</text>
+<rect x="90" y="128" width="150" height="22" rx="3" fill="#3B7DD8"/>
+<text x="91" y="162" font-size="9" fill="#999">ACG — 65.5 kDa</text>
+
+<!-- VP3 -->
+<text x="22" y="187" font-size="10" font-weight="bold" fill="#333">VP3</text>
+<rect x="105" y="172" width="135" height="22" rx="3" fill="#A8C8E8"/>
+<text x="106" y="206" font-size="9" fill="#999">ATG — 59.0 kDa</text>
+
+<!-- ========== + SYMBOL ========== -->
+<text x="262" y="158" text-anchor="middle" font-size="28" font-weight="bold" fill="#333">+</text>
+
+<!-- ========== BOX 2: AVD010 VP2 N-term VHH ========== -->
+<rect x="285" y="50" width="240" height="200" rx="6" fill="#FFF3E0" stroke="#F5A623"/>
+<text x="405" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">AVD010 — VP2 N-term VHH</text>
+
+<text x="298" y="80" font-size="8" fill="#BBB">N</text>
+<text x="512" y="80" text-anchor="end" font-size="8" fill="#BBB">C</text>
+
+<!-- VP1 DISRUPTED (not clean KO — insertion in VP2 region breaks VP1 frame) -->
+<text x="297" y="99" font-size="10" font-weight="bold" fill="#CCC">VP1</text>
+<rect x="330" y="84" width="185" height="22" rx="3" fill="none" stroke="#CCC" stroke-width="1" stroke-dasharray="2,3"/>
+<!-- Disruption symbol: lightning bolt / zigzag at the break point -->
+<text x="422" y="99" text-anchor="middle" font-size="10" fill="#CCC" font-style="italic">disrupted</text>
+<text x="331" y="118" font-size="8" fill="#CCC">VP2 insertion breaks VP1 frame</text>
+
+<!-- VP2 with N-terminal VHH -->
+<text x="297" y="143" font-size="10" font-weight="bold" fill="#333">VP2</text>
+<rect x="365" y="128" width="150" height="22" rx="3" fill="#3B7DD8"/>
+<!-- VHH block at N-terminus of VP2 -->
+<rect x="363" y="126" width="32" height="26" rx="2" fill="#F5A623"/>
+<text x="379" y="122" text-anchor="middle" font-size="8" font-weight="bold" fill="#E8941D">VHH</text>
+<text x="366" y="162" font-size="9" fill="#999">ACG — ~80.7 kDa</text>
+
+<!-- VP3 normal -->
+<text x="297" y="187" font-size="10" font-weight="bold" fill="#333">VP3</text>
+<rect x="380" y="172" width="135" height="22" rx="3" fill="#A8C8E8"/>
+<text x="381" y="206" font-size="9" fill="#999">ATG — 59.0 kDa</text>
+
+<!-- Annotation -->
+<text x="405" y="228" text-anchor="middle" font-size="8" fill="#999" font-style="italic">VP1 disrupted by VP2 N-term insertion (inherent)</text>
+
+<!-- ========== ARROW ========== -->
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/></marker></defs>
+<line x1="530" y1="152" x2="548" y2="152" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+<!-- ========== RESULT BOX ========== -->
+<rect x="560" y="50" width="230" height="200" rx="6" fill="#FAFAFA" stroke="#DDD"/>
+<text x="675" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">Resulting Capsid</text>
+
+<rect x="572" y="82" width="8" height="8" rx="1" fill="#0A2540"/>
+<text x="585" y="90" font-size="9" fill="#555">VP1: all WT (AVD002 only)</text>
+<rect x="572" y="100" width="8" height="8" rx="1" fill="#3B7DD8"/>
+<text x="585" y="108" font-size="9" fill="#555">VP2: WT + VHH mix</text>
+<rect x="572" y="118" width="8" height="8" rx="1" fill="#A8C8E8"/>
+<text x="585" y="126" font-size="9" fill="#555">VP3: all WT (both plasmids)</text>
+
+<line x1="572" y1="138" x2="778" y2="138" stroke="#EEE"/>
+<text x="675" y="154" text-anchor="middle" font-size="9" fill="#555">Stoichiometry: ~5:5:50</text>
+<text x="675" y="168" text-anchor="middle" font-size="9" fill="#555">(only VP2 mixed WT/VHH)</text>
+
+<line x1="572" y1="180" x2="778" y2="180" stroke="#EEE"/>
+<text x="675" y="196" text-anchor="middle" font-size="10" font-weight="bold" fill="#555">Western Blot</text>
+<text x="675" y="212" text-anchor="middle" font-size="9" fill="#888">VP1: single band 80.1 kDa (WT)</text>
+<text x="675" y="226" text-anchor="middle" font-size="9" fill="#888">VP2: doublet (65.5 + 80.7 kDa)</text>
+<text x="675" y="240" text-anchor="middle" font-size="9" fill="#888">VP3: single band 59.0 kDa</text>
+
+<!-- ========== KEY LABEL ========== -->
+<rect x="60" y="262" width="680" height="28" rx="14" fill="#FFF3E0" stroke="#F5A623" stroke-width="1.5"/>
+<text x="400" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#D4850A">MOSAIC — partial VP2-VHH (N-term), VP1 from WT only, VP3 wild-type</text>
+
+<!-- ========== LEGEND ========== -->
+<rect x="118" y="305" width="12" height="12" rx="2" fill="#0A2540"/>
+<text x="135" y="315" font-size="9" fill="#555">VP1</text>
+<rect x="178" y="305" width="12" height="12" rx="2" fill="#3B7DD8"/>
+<text x="195" y="315" font-size="9" fill="#555">VP2</text>
+<rect x="238" y="305" width="12" height="12" rx="2" fill="#A8C8E8"/>
+<text x="255" y="315" font-size="9" fill="#555">VP3</text>
+<rect x="298" y="305" width="12" height="12" rx="2" fill="#F5A623"/>
+<text x="315" y="315" font-size="9" fill="#555">VHH (N-term)</text>
+<rect x="398" y="305" width="12" height="12" rx="2" fill="none" stroke="#CCC" stroke-width="1.5" stroke-dasharray="3,2"/>
+<text x="415" y="315" font-size="9" fill="#555">Knocked out</text>
+<rect x="498" y="305" width="12" height="12" rx="2" fill="none" stroke="#CCC" stroke-width="1" stroke-dasharray="1,3"/>
+<text x="515" y="315" font-size="9" fill="#555">Disrupted</text>
+</svg>
