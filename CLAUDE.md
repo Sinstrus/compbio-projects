@@ -25,6 +25,20 @@ When building new DNA constructs:
 6. Use construct_verifier.py to verify before finalizing (see dna_engineer_agent/CLAUDE.md)
 7. NEVER store construct files inside project directories
 
+### Figure Bank (FIG### Barcoding)
+All scientific figures are tracked by FIG number and stored in `figure_bank/`.
+Registry: `figure_bank/FIGURE_REGISTRY.md`
+
+Rules for new figures:
+1. Use the next available FIG number (check FIGURE_REGISTRY.md)
+2. **FIG numbers are unique and permanent.** One FIG per file. Never reassign a FIG number.
+3. Name files as: `FIG###-short-description.svg` (or .png, .pdf)
+4. Update FIGURE_REGISTRY.md with FIG number, filename, format, project, related constructs/decks, and description
+5. NEVER store figure files inside project directories or the toolset
+6. Before creating figures, use `get_next_number()` from `asset_registry.py` to get the correct FIG number
+7. After creating figures, run `validate_bank()` to confirm registry/bank consistency
+8. Follow the design checklist in `figure_bank/CLAUDE.md` (alignment, entities, font sizes, SVG validation)
+
 ### Projects
 Individual projects live directly under ~/projects/:
 - AVD_VHH_Display_ALPL/ — Anti-ALPL/TfR1 VHH capsid display
