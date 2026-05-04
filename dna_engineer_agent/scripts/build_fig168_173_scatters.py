@@ -194,6 +194,7 @@ def _plot_scatter(ax: plt.Axes, df: pd.DataFrame, spec: _FigSpec) -> None:
     ax.set_ylabel("")
 
     # Y tick labels via PanelRenderer
+    ax.set_yticks([0, 25, 50, 75, 100])
     renderer.size_y_labels(ax, labels=["0%", "25%", "50%", "75%", "100%"])
 
     # Legend: GTAAG color handles + context marker handles, combined

@@ -98,6 +98,7 @@ def _make_panel_a(ax: plt.Axes) -> None:
     if sizing.warnings:
         for w in sizing.warnings:
             print(f"  ! panelA x-sizing: {w}")
+    ax.set_yticks([0, 25, 50])
     renderer.size_y_labels(ax, labels=["0%", "25%", "50%"])
     ax.set_ylim(0, 70)
 
@@ -127,6 +128,7 @@ def _make_panel_b(ax: plt.Axes) -> None:
     if sizing.warnings:
         for w in sizing.warnings:
             print(f"  ! panelB x-sizing: {w}")
+    ax.set_yticks([0, 25, 50])
     renderer.size_y_labels(ax, labels=["0%", "25%", "50%"])
     ax.set_ylim(0, 70)
 

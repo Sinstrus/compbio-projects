@@ -954,7 +954,7 @@ class PanelRenderer:
             rotation=sizing.rotation_deg,
             ha=sizing.horizontal_alignment,
         )
-        if sizing.rotation_deg != 0:
+        if 0 < sizing.rotation_deg < 90:
             kwargs["rotation_mode"] = "anchor"
         ax.set_xticklabels(labels, **kwargs)
         return sizing
