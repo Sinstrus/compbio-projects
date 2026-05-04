@@ -357,7 +357,7 @@ def size_axis_labels(
     fits, pad, _ = _try_fit(labels, target_pt, 90, **fit_kwargs)
     if fits:
         return PanelSizing(
-            fontsize_pt=target_pt, rotation_deg=90, horizontal_alignment="right",
+            fontsize_pt=target_pt, rotation_deg=90, horizontal_alignment="center",
             recommend_horizontal_bars=False, achieved_padding_ratio=pad,
             strategy="rotated", warnings=tuple(warnings_list),
         )
@@ -365,7 +365,7 @@ def size_axis_labels(
     if result:
         pt, pad = result
         return PanelSizing(
-            fontsize_pt=pt, rotation_deg=90, horizontal_alignment="right",
+            fontsize_pt=pt, rotation_deg=90, horizontal_alignment="center",
             recommend_horizontal_bars=False, achieved_padding_ratio=pad,
             strategy="rotated", warnings=tuple(warnings_list),
         )
@@ -401,7 +401,7 @@ def size_axis_labels(
         f"using min_pt={min_pt} rotation=90"
     )
     return PanelSizing(
-        fontsize_pt=min_pt, rotation_deg=90, horizontal_alignment="right",
+        fontsize_pt=min_pt, rotation_deg=90, horizontal_alignment="center",
         recommend_horizontal_bars=False, achieved_padding_ratio=pad,
         strategy="failed", warnings=tuple(warnings_list),
     )
@@ -949,12 +949,14 @@ class PanelRenderer:
             font_family=self.font_family,
             **sizing_kwargs,
         )
-        ax.set_xticklabels(
-            labels,
+        kwargs: dict = dict(
             fontsize=sizing.fontsize_pt,
             rotation=sizing.rotation_deg,
             ha=sizing.horizontal_alignment,
         )
+        if sizing.rotation_deg != 0:
+            kwargs["rotation_mode"] = "anchor"
+        ax.set_xticklabels(labels, **kwargs)
         return sizing
 
     def size_y_labels(

@@ -314,11 +314,6 @@ def _render_target_zone(
         # Semi-transparent fill band
         f'<rect x="{x1}" y="{zone_top}" width="{zone_w}" height="{zone_h}" '
         f'fill="#C8E6C9" opacity="0.30"/>',
-        # Dashed boundary lines
-        f'<line x1="{x1}" y1="{zone_top}" x2="{x1}" y2="{rows_bottom}" '
-        f'stroke="#43A047" stroke-width="1" stroke-dasharray="4,3" opacity="0.55"/>',
-        f'<line x1="{x2}" y1="{zone_top}" x2="{x2}" y2="{rows_bottom}" '
-        f'stroke="#43A047" stroke-width="1" stroke-dasharray="4,3" opacity="0.55"/>',
         # Badge in footer
         f'<rect x="{badge_cx - badge_w//2}" y="{badge_y}" width="{badge_w}" height="14" '
         f'rx="3" fill="#C8E6C9"/>',
