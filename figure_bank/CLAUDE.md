@@ -310,6 +310,34 @@ Then visually inspect `scaffolds/previews/SCF###-preview.svg` (outlined,
 shows every slot bound) and `SCF###-preview-clean.svg` (what real figures
 look like).
 
+### Content validation — pixel-width, not character count
+
+**Character-count checks (`len(text) > max_chars`) are forbidden in scaffold
+slot validators.** A 45-char limit in a 183px column at 8.5pt allows ~225px
+of text — wider than the column — and raises no error. Character width varies
+by glyph; counting chars is a meaningless proxy for what actually renders.
+
+Use `_check_px()` with real Liberation Sans font metrics instead:
+
+```python
+from ._runtime import measure_text_width, SlotOverflowError
+
+def _check_px(slot: str, text: str, font_size: float, font_weight: str, max_px: float) -> None:
+    w = measure_text_width(text, font_size, font_weight)  # type: ignore[arg-type]
+    if w > max_px:
+        raise SlotOverflowError(slot, w, max_px, unit=" px")
+```
+
+- `font_size` must match the SVG `font-size` attribute exactly (float OK — PIL accepts it)
+- `font_weight` must be `"bold"` or `"normal"` to select the right font file
+- `max_px` = actual column pixel width (from locked geometry constants) minus a small safety margin (4–12 px)
+
+**SCF025 is the canonical example:** col 1 enforced at 179 px (10pt bold / 8.5pt normal / 8pt normal), col 4 at 113 px (8pt bold / 7.5pt normal). The error message reports the exact measured width and limit in px.
+
+**When `SlotOverflowError` fires: shorten the build script content. Never raise
+the pixel limit to accommodate content.** The limit is the authority. If you need
+more room, use a different scaffold or redesign the figure layout.
+
 ## Bookkeeping
 
 - `get_next_number(registry, prefix)` — next available barcode (works for FIG and SCF)
@@ -322,11 +350,17 @@ look like).
 1. No inline SVG. Use a scaffold.
 2. No widening slots for "just this figure."
 3. Symmetry is mandatory — multi-panel scaffolds enforce identical slot geometry.
-4. `SlotOverflowError` means shorten content, not adjust the scaffold.
+4. `SlotOverflowError` means shorten content in the build script. **Never raise
+   the pixel limit or character limit to accommodate content.** The limit is the
+   authority. If the content won't compress, use a different scaffold.
 5. FIG numbers are unique and permanent. SCF numbers are unique and permanent.
    SCF004 was retired during wave 2 and is not reusable.
 6. Existing pre-scaffold FIGs (FIG001–FIG190) are legacy and untouched. Only
    new FIGs go through scaffolds.
+7. **Scaffold slot validators must use pixel-width measurement, not character
+   counting.** Use `_check_px()` with `measure_text_width()` from `_runtime.py`.
+   Character limits like `len(text) > 45` are meaningless — glyph widths vary.
+   See "Content validation" section above for the canonical pattern.
 
 ## SVG entity reminders
 
