@@ -26,7 +26,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 
-from ._runtime import SlotOverflowError, SlotTypeError, _escape, svg_close, svg_open
+from ._runtime import (
+    SlotOverflowError, SlotTypeError, _escape, measure_text_width, svg_close, svg_open,
+)
 
 
 BARCODE = "SCF025"
@@ -132,13 +134,13 @@ class Row:
         row_color:       Row background hex (alternating or category-coded)
         panel_sublabel:  Small text under the letter (max 14 chars)
         panel_type:      Tiny label below sublabel, h≥60 only (max 12 chars)
-        name:            Bold panel name, max 32 chars
-        description:     2–3 body lines at 8.5 pt gray, max 45 chars each
-        annotation:      1 accent-colored note at 8 pt ("" → omitted), max 45 chars
+        name:            Bold panel name — pixel-enforced to col 1 width (179 px at 10pt bold)
+        description:     2–3 body lines at 8.5 pt gray — pixel-enforced to 179 px
+        annotation:      1 accent-colored note at 8 pt ("" → omitted) — pixel-enforced to 179 px
         annotation_color: Hex for annotation text (default dark gray)
         n:               Integer count shown in column 2
         category_badges: Column 3 badges, 1–4 entries (2 per visual row)
-        variant_lines:   Column 4 text lines, 1–3, max 40 chars each
+        variant_lines:   Column 4 text lines, 1–3 — pixel-enforced to 113 px (col 4 width)
         modifier:        Column 5 badge or None → "—"
         level:           Column 6 main text, max 10 chars
         level_sublabel:  Column 6 small gray sublabel ("" → omitted), max 14 chars
@@ -173,6 +175,17 @@ class Row:
 def _check(name: str, text: str, max_chars: int) -> None:
     if len(text) > max_chars:
         raise SlotOverflowError(name, len(text), max_chars, unit=" chars")
+
+
+def _check_px(slot: str, text: str, font_size: float, font_weight: str, max_px: float) -> None:
+    """Hard pixel-width check using actual Liberation Sans font metrics.
+
+    Raises SlotOverflowError if the rendered text would exceed max_px.
+    Font sizes match the SVG font-size attribute values used in _render_row().
+    """
+    w = measure_text_width(text, font_size, font_weight)  # type: ignore[arg-type]
+    if w > max_px:
+        raise SlotOverflowError(slot, w, max_px, unit=" px")
 
 
 def _row_height(row: Row) -> int:
@@ -320,11 +333,12 @@ def _render_target_zone(
 # ---------------------------------------------------------------------------
 
 def _render_row(row: Row, row_y: int, row_h: int) -> str:
-    _check(f"row[{row.letter}].name", row.name, 32)
+    # Col 1 pixel bounds: x=92 → x=271 (12 px margin before n-col center at x=283)
+    _check_px(f"row[{row.letter}].name", row.name, 10, "bold", 179)
     for di, d in enumerate(row.description):
-        _check(f"row[{row.letter}].description[{di}]", d, 45)
+        _check_px(f"row[{row.letter}].description[{di}]", d, 8.5, "normal", 179)
     if row.annotation:
-        _check(f"row[{row.letter}].annotation", row.annotation, 45)
+        _check_px(f"row[{row.letter}].annotation", row.annotation, 8, "normal", 179)
     _check(f"row[{row.letter}].panel_sublabel", row.panel_sublabel, 14)
     _check(f"row[{row.letter}].panel_type", row.panel_type, 12)
     _check(f"row[{row.letter}].level", row.level, 10)
@@ -480,10 +494,13 @@ def _render_row(row: Row, row_y: int, row_h: int) -> str:
 
     # Variant text lines (col 4, x=394)
     for vi, (var_text, var_y) in enumerate(zip(row.variant_lines[:3], p["var"])):
-        _check(f"row[{row.letter}].variant_lines[{vi}]", var_text, 30)
-        weight = "bold" if vi == 0 else "normal"
+        _vweight = "bold" if vi == 0 else "normal"
+        _vfs = 8.0 if vi == 0 else 7.5
+        # Col 4 pixel bounds: x=394 → x=507 (4 px margin before modifier at x=511)
+        _check_px(f"row[{row.letter}].variant_lines[{vi}]", var_text, _vfs, _vweight, 113)
+        weight = _vweight
         fill = row.letter_color if vi == 0 else ("#37474F" if vi == 1 else "#78909C")
-        fs = 8 if vi == 0 else 7.5
+        fs = _vfs
         parts.append(
             f'<text x="394" y="{var_y}" font-size="{fs}" font-weight="{weight}" '
             f'fill="{fill}">{_escape(var_text)}</text>'

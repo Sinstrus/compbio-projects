@@ -153,7 +153,7 @@ ROWS = (
             Badge("AAG", color="#43A047"),
         ),
         variant_lines=(
-            "GT|AAGXXX  (canonical GTAAG)",
+            "GT|AAGXXX (GTAAG)",
             "+3=A, +4=A, +5=G",
         ),
         modifier=Badge("T", color="#1B5E20"),
@@ -169,7 +169,7 @@ ROWS = (
         panel_type="GTAAG-like",
         name="GTAAG-like (AGGT Pattern) Sweep",
         description=(
-            "Synthetic PABPC4/H3-3B motif: GT|AGGTXXX.",
+            "Synthetic GT|AGGTXXX (PABPC4/H3-3B).",
             "2 contexts × T2–T5 × +6=T = 8 constructs.",
         ),
         annotation="Does AGGT generalize across tiers?",
@@ -196,7 +196,7 @@ ROWS = (
         panel_type="AVD146",
         name="AVD146 Ports + CAG/AAG Upgrade",
         description=(
-            "D1:port(ACG+GTAAG+ESE→v4+VHH27) D2:CAG D3:AAG",
+            "D1: port → v4+VHH27; D2: CAG; D3: AAG",
             "D4/D5: ESE ablation (GAGG→GACC/GAAT).",
         ),
         annotation="D2: top flagship — permissive + GTAAG + ESE.",
@@ -208,7 +208,7 @@ ROWS = (
             Badge("ACG ×1", color="#EF9A9A", text_color="#B71C1C"),
         ),
         variant_lines=(
-            "GT|AAGAGG  (AVD146 donor)",
+            "GT|AAGAGG (AVD146)",
             "GTAAG + GAGG ESE",
             "D4/D5: ESE ablation",
         ),
@@ -227,7 +227,7 @@ ROWS = (
         name="+6 = G Dial-Down",
         description=(
             "Panel B donors, +6 flipped T→G (~10–15 pp).",
-            "CAG/AAG × T2–T5 (+6=G) = 8; +T1/T2 ESE = 10",
+            "CAG/AAG × T2–T5 (+6=G) = 8; ESE = 10",
         ),
         annotation="Primary dial-down to 80–90% zone.",
         annotation_color="#BF360C",
@@ -264,7 +264,7 @@ ROWS = (
             Badge("AAG", color="#43A047"),
         ),
         variant_lines=(
-            "GTAAG + GTAAG-like (×2 each)",
+            "GTAAG + GTAAG-like",
         ),
         modifier=Badge("T, G", color=None),
         level="T1",
@@ -288,7 +288,7 @@ ROWS = (
             Badge("CAG", color="#43A047"),
         ),
         variant_lines=(
-            "GT→GC / AG→AA (splice KO)",
+            "GT→GC / AG→AA (SS-KO)",
         ),
         modifier=Badge("—", color=None),
         level="T3–T5",
