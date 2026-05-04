@@ -132,9 +132,9 @@ class Row:
         row_color:       Row background hex (alternating or category-coded)
         panel_sublabel:  Small text under the letter (max 14 chars)
         panel_type:      Tiny label below sublabel, h≥60 only (max 12 chars)
-        name:            Bold panel name, max 50 chars
-        description:     2–3 body lines at 8.5 pt gray, max 90 chars each
-        annotation:      1 accent-colored note at 8 pt ("" → omitted), max 90 chars
+        name:            Bold panel name, max 32 chars
+        description:     2–3 body lines at 8.5 pt gray, max 45 chars each
+        annotation:      1 accent-colored note at 8 pt ("" → omitted), max 45 chars
         annotation_color: Hex for annotation text (default dark gray)
         n:               Integer count shown in column 2
         category_badges: Column 3 badges, 1–4 entries (2 per visual row)
@@ -320,11 +320,11 @@ def _render_target_zone(
 # ---------------------------------------------------------------------------
 
 def _render_row(row: Row, row_y: int, row_h: int) -> str:
-    _check(f"row[{row.letter}].name", row.name, 50)
+    _check(f"row[{row.letter}].name", row.name, 32)
     for di, d in enumerate(row.description):
-        _check(f"row[{row.letter}].description[{di}]", d, 90)
+        _check(f"row[{row.letter}].description[{di}]", d, 45)
     if row.annotation:
-        _check(f"row[{row.letter}].annotation", row.annotation, 90)
+        _check(f"row[{row.letter}].annotation", row.annotation, 45)
     _check(f"row[{row.letter}].panel_sublabel", row.panel_sublabel, 14)
     _check(f"row[{row.letter}].panel_type", row.panel_type, 12)
     _check(f"row[{row.letter}].level", row.level, 10)
@@ -480,7 +480,7 @@ def _render_row(row: Row, row_y: int, row_h: int) -> str:
 
     # Variant text lines (col 4, x=394)
     for vi, (var_text, var_y) in enumerate(zip(row.variant_lines[:3], p["var"])):
-        _check(f"row[{row.letter}].variant_lines[{vi}]", var_text, 40)
+        _check(f"row[{row.letter}].variant_lines[{vi}]", var_text, 30)
         weight = "bold" if vi == 0 else "normal"
         fill = row.letter_color if vi == 0 else ("#37474F" if vi == 1 else "#78909C")
         fs = 8 if vi == 0 else 7.5
@@ -587,7 +587,7 @@ def _render_footer(
     total_callout: str,
     footer_y: int,
 ) -> str:
-    _check("strategy_annotation", strategy_annotation, 200)
+    _check("strategy_annotation", strategy_annotation, 160)
     _check("total_callout", total_callout, 130)
 
     tick_y = footer_y + 6          # axis tick label y

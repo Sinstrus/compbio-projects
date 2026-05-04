@@ -112,10 +112,10 @@ ROWS = (
         panel_type="HEK Ports",
         name="HEK Port Validations",
         description=(
-            "Wave 1 top 6 HEK donors → v4 acceptor + VHH27.",
+            "HEK ports (n=6): v4 acceptor + VHH27.",
             "Empirical bridge: do natural donors hold up?",
         ),
-        annotation="PABPC4 · H3-3B · ATP6V0B · ELOA · MT2A · PRRC2A",
+        annotation="PABPC4 · H3-3B · ATP6V0B · ELOA · MT2A",
         annotation_color="#78909C",
         n=6,
         category_badges=(
@@ -140,12 +140,12 @@ ROWS = (
         row_color="#F9FBE7",
         panel_sublabel="8 constructs",
         panel_type="Ceiling",
-        name="Ceiling Donors: CAG/AAG + Canonical GTAAG",
+        name="Ceiling Donors: CAG/AAG + GTAAG",
         description=(
-            "First test: permissive exon + canonical GTAAG together.",
+            "Permissive exon + canonical GTAAG together.",
             "2 contexts × T2–T5 × +6=T = 8 constructs.",
         ),
-        annotation="Predicted flagship zone. Basis for Panels E & F dial-down.",
+        annotation="Flagship zone; basis for E & F dial-down.",
         annotation_color="#558B2F",
         n=8,
         category_badges=(
@@ -172,7 +172,7 @@ ROWS = (
             "Synthetic PABPC4/H3-3B motif: GT|AGGTXXX.",
             "2 contexts × T2–T5 × +6=T = 8 constructs.",
         ),
-        annotation="Does AGGT generalize synthetically across tiers?",
+        annotation="Does AGGT generalize across tiers?",
         annotation_color="#558B2F",
         n=8,
         category_badges=(
@@ -196,10 +196,10 @@ ROWS = (
         panel_type="AVD146",
         name="AVD146 Ports + CAG/AAG Upgrade",
         description=(
-            "D1: port (ACG+GTAAG+ESE→v4+VHH27)  D2: CAG  D3: AAG",
+            "D1:port(ACG+GTAAG+ESE→v4+VHH27) D2:CAG D3:AAG",
             "D4/D5: ESE ablation (GAGG→GACC/GAAT).",
         ),
-        annotation="D2 = top flagship candidate: permissive + GTAAG + ESE.",
+        annotation="D2: top flagship — permissive + GTAAG + ESE.",
         annotation_color="#00897B",
         n=5,
         category_badges=(
@@ -226,10 +226,10 @@ ROWS = (
         panel_type="Dial-Down",
         name="+6 = G Dial-Down",
         description=(
-            "Panel B donors with +6 flipped T→G (costs ~10–15 pp).",
-            "CAG/AAG × T2–T5 (+6=G) = 8 + T1/T2 ESE = 10.",
+            "Panel B donors, +6 flipped T→G (~10–15 pp).",
+            "CAG/AAG × T2–T5 (+6=G) = 8; +T1/T2 ESE = 10",
         ),
-        annotation="Primary dial-down from ceiling to 80–90% zone.",
+        annotation="Primary dial-down to 80–90% zone.",
         annotation_color="#BF360C",
         n=10,
         category_badges=(
@@ -252,11 +252,11 @@ ROWS = (
         row_color="#FFF8E1",
         panel_sublabel="4 constructs",
         panel_type="",
-        name="Tier 1 Dial-Down: Permissive Context",
+        name="T1 Dial-Down: Permissive Context",
         description=(
             "CAG/AAG + GTAAG variants × Tier 1 only.",
         ),
-        annotation="Wave 1 T1 always non-permissive — fills unexplored gap.",
+        annotation="W1 T1 always non-permissive; unexplored gap.",
         annotation_color="#EF6C00",
         n=4,
         category_badges=(
@@ -280,7 +280,7 @@ ROWS = (
         panel_type="",
         name="GT/AG-Null Controls",
         description=(
-            "GT→GC + AG→AA on top B/D candidates. Required for publication.",
+            "GT→GC + AG→AA on top B/D candidates.",
         ),
         annotation="",
         n=3,
@@ -288,7 +288,7 @@ ROWS = (
             Badge("CAG", color="#43A047"),
         ),
         variant_lines=(
-            "GT→GC / AG→AA  (splice site KO)",
+            "GT→GC / AG→AA (splice KO)",
         ),
         modifier=Badge("—", color=None),
         level="T3–T5",
