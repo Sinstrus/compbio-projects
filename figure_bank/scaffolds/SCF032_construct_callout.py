@@ -193,10 +193,10 @@ _BULB_FILL = "#607D8B"
 # Region block labels — staggered upward inside the construct zone (no tick lines)
 # Row 0 sits at the natural bottom-of-zone position; additional rows float upward.
 # Greedy L-to-R assignment ensures same-row labels never overlap horizontally.
-_REGION_LABEL_FONT = 8
-_REGION_LABEL_MAX_PX = 62.0
-_RLABEL_BASE_Y = _CONSTRUCT_BOT - 5     # row 0 baseline: 369 (inside zone, near bottom)
-_RLABEL_ROW_STEP = 12                   # px upward per additional stagger row
+_REGION_LABEL_FONT = 11
+_REGION_LABEL_MAX_PX = 110.0
+_RLABEL_BASE_Y = _CONSTRUCT_BOT - 6     # row 0 baseline: inside zone near bottom
+_RLABEL_ROW_STEP = 15                   # px upward per additional stagger row
 _RLABEL_ROW_Y = tuple(
     _RLABEL_BASE_Y - i * _RLABEL_ROW_STEP for i in range(3)
 )  # (369, 357, 345) — 3 rows maximum
