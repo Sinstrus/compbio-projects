@@ -20,10 +20,10 @@ where they dominate — GGGGS5 = 75 bp, VHH27 = 363 bp; small elements widened t
 Intron region band: 125–696 (SD start → AG end), light amber.
 
 Callouts (4 total, row=1):
-    column=1  "aa 456"       → bp 112  CAG pad center (last VP1 aa before SD)
+    column=1  "aa 456"       → bp 125  left exon/intron seam (SD start = where intron begins)
     column=2  "GT donor"     → bp 142  SD block center
     column=5  "AG acceptor"  → bp 686  AG block center
-    column=6  "aa 457"       → bp 746  right VP1 center (first VP1 aa after SA)
+    column=6  "aa 457"       → bp 696  right intron/exon seam (VP1 resumes after splicing)
 
 AVD313 coordinate reference (0-based positions in 7614-bp construct):
     VP1 ATG:          2378
@@ -78,10 +78,10 @@ REGION_BLOCKS = (
 # Ideal-first packing: each box starts at bp_px(bp_pos) and spreads only when
 # necessary. Column order (1 < 2 < 5 < 6) enforces L-to-R sort.
 CALLOUTS = (
-    Callout("aa 456",      column=1, bp_pos=112, row=1),   # CAG pad center
+    Callout("aa 456",      column=1, bp_pos=125, row=1),   # left exon/intron seam (SD start)
     Callout("GT donor",    column=2, bp_pos=142, row=1),   # SD center
-    Callout("AG acceptor", column=5, bp_pos=686, row=1),   # AG block center
-    Callout("aa 457",      column=6, bp_pos=746, row=1),   # right VP1 center
+    Callout("AG acceptor", column=5, bp_pos=686, row=1),   # AG center
+    Callout("aa 457",      column=6, bp_pos=696, row=1),   # right intron/exon seam (VP1 resumes)
 )
 
 
