@@ -179,6 +179,7 @@ _CALLOUT_RX = 5
 _CALLOUT_FONT = 10
 _CALLOUT_MAX_TEXT_PX = 135.0   # max text pixel width (box_w ≤ 175 px at 1.3×)
 _CALLOUT_WIDTH_PAD = 1.3       # box_w = max(40, text_px × this)
+_CALLOUT_MIN_GAP = 10.0        # minimum px clearance between adjacent boxes in same row
 _CALLOUT_STROKE = "#607D8B"
 _CALLOUT_FILL = "white"
 _CALLOUT_TEXT_COLOR = "#37474F"
@@ -580,36 +581,66 @@ def _render_blocks(blocks: tuple, bp_view_end: int, bp_view_start: int = 0) -> s
 
 
 def _pack_callout_row(row_callouts: list, bp_view_end: int, bp_view_start: int = 0) -> list:
-    """Compute packed center_x for each callout in one row.
+    """Compute center_x for each callout box in one row.
 
-    Boxes are placed as tightly as possible with a minimum gap of 25% of the
-    widest box in the row. The packed group is centered at the mean bp_px of
-    the row's pointer targets, then clamped inside [BODY_X, BODY_RIGHT].
+    Each box starts at its ideal position — centered directly above its
+    bp_pos pointer target. Boxes are displaced from ideal only as much as
+    necessary to eliminate overlaps, using iterative forward/backward passes.
+    This keeps each pointer line as short and vertical as possible while
+    guaranteeing _CALLOUT_MIN_GAP clearance between all adjacent boxes.
+
+    Algorithm:
+      1. ideal[i] = bp_px(bp_pos[i]), clamped within body bounds
+      2. Forward pass: push right if box overlaps the preceding box
+      3. Backward pass: push left if the last box exceeds BODY_RIGHT (shifts
+         the whole group) then ensures each box doesn't overlap the next
+      4. Re-clamp left if the group underflows BODY_X
+      Repeat 4 times (convergence is guaranteed for 1-D non-overlapping sets).
 
     Returns list of (Callout, center_x) sorted by column (left to right).
     """
     ordered = sorted(row_callouts, key=lambda c: c.column)
+    n = len(ordered)
     widths = [
         max(40.0, measure_text_width(c.text, _CALLOUT_FONT, "normal") * _CALLOUT_WIDTH_PAD)
         for c in ordered
     ]
-    gap = 0.25 * max(widths)
-    total_w = sum(widths) + gap * (len(widths) - 1)
+    half = [w / 2 for w in widths]
 
-    mean_x = sum(_bp_px(c.bp_pos, bp_view_end, bp_view_start) for c in ordered) / len(ordered)
-    left = mean_x - total_w / 2
+    # Ideal: box centered above its pointer target, clamped within body
+    centers = [
+        max(_BODY_X + half[i],
+            min(_BODY_RIGHT - half[i],
+                _bp_px(c.bp_pos, bp_view_end, bp_view_start)))
+        for i, c in enumerate(ordered)
+    ]
 
-    if left + total_w > _BODY_RIGHT:
-        left = _BODY_RIGHT - total_w
-    if left < _BODY_X:
-        left = float(_BODY_X)
+    for _ in range(4):
+        # Forward pass — push each box right of its left neighbor
+        for i in range(1, n):
+            need = centers[i - 1] + half[i - 1] + _CALLOUT_MIN_GAP + half[i]
+            if centers[i] < need:
+                centers[i] = need
 
-    result = []
-    x = left
-    for c, w in zip(ordered, widths):
-        result.append((c, x + w / 2))
-        x += w + gap
-    return result
+        # If the rightmost box overflows, shift the whole group left
+        overflow = centers[-1] + half[-1] - _BODY_RIGHT
+        if overflow > 0:
+            for i in range(n):
+                centers[i] -= overflow
+
+        # Backward pass — push each box left of its right neighbor
+        for i in range(n - 2, -1, -1):
+            need = centers[i + 1] - half[i + 1] - _CALLOUT_MIN_GAP - half[i]
+            if centers[i] > need:
+                centers[i] = need
+
+        # If the leftmost box underflows, shift the whole group right
+        underflow = _BODY_X - (centers[0] - half[0])
+        if underflow > 0:
+            for i in range(n):
+                centers[i] += underflow
+
+    return [(c, cx) for c, cx in zip(ordered, centers)]
 
 
 def _render_callouts(callouts: tuple, bp_view_end: int, bp_view_start: int = 0) -> tuple:
