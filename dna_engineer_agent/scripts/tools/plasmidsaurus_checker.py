@@ -66,12 +66,16 @@ try:
 except ImportError:
     _HAS_BIOPYTHON = False
 
+import datetime
+import html as html_module
+
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
 SCRIPT_DIR = Path(__file__).resolve().parent
 AGENT_DIR = SCRIPT_DIR.parent.parent
 CONSTRUCTS_DIR = AGENT_DIR / "constructs"
+SEQUENCING_DIR = AGENT_DIR / "sequencing"
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -638,114 +642,425 @@ def _upgrade_verdict(current: str, candidate: str) -> str:
 def determine_verdict(region_summaries: list, identity_pct: float) -> tuple:
     verdict = "PASS"
     reason = f"Identity {identity_pct:.2f}%, all regions intact"
+    first_warn_reason = None
 
     for rs in region_summaries:
         verdict = _upgrade_verdict(verdict, rs.verdict)
         if rs.verdict == "CRITICAL_FAIL":
             reason = f"Structural deletion in '{rs.feature_name}': {rs.notes}"
-            break  # report first CRITICAL_FAIL
+            return verdict, reason
+        if rs.verdict in ("FAIL", "WARN") and first_warn_reason is None:
+            first_warn_reason = f"{rs.verdict} in '{rs.feature_name}': {rs.notes}"
 
     if verdict == "PASS" and identity_pct < 97.0:
         verdict = "FAIL"
         reason = f"Identity {identity_pct:.2f}% < 97% threshold"
-    elif verdict in ("PASS", "WARN") and identity_pct < 99.0:
+    elif identity_pct < 99.0:
         verdict = _upgrade_verdict(verdict, "WARN")
         reason = f"Identity {identity_pct:.2f}% < 99%"
+    elif first_warn_reason:
+        reason = first_warn_reason
 
     return verdict, reason
 
 
 # ---------------------------------------------------------------------------
-# Reporting
+# Stdout summary (brief)
 # ---------------------------------------------------------------------------
-_VERDICT_BANNER = {
-    "PASS":          "  ✓  PASS",
-    "WARN":          "  ~  WARN",
-    "FAIL":          "  ✗  FAIL",
-    "CRITICAL_FAIL": " !! CRITICAL_FAIL",
+_VERDICT_ICON = {
+    "PASS":          "✓",
+    "WARN":          "~",
+    "FAIL":          "✗",
+    "CRITICAL_FAIL": "!!",
 }
 
 
-def report_sample(result: SampleResult) -> None:
-    W = 70
-    sep = "=" * W
-    thin = "-" * W
-
-    print(sep)
-    print(f"SAMPLE: {result.sample_name}")
-    print(sep)
-    ref_name = Path(result.reference_file).name
-    print(f"  Reference : {ref_name}")
-    print(f"  Query len : {result.query_length:,} bp  |  Ref len: {result.ref_length:,} bp")
-    if result.circular_offset:
-        print(f"  Circ. offset applied: {result.circular_offset} bp")
-    print(f"  Identity  : {result.identity_pct:.2f}%")
-
-    q = result.quality
-    mono = f"{q.get('monomer_pct_moles', '?')}%" if q.get("monomer_pct_moles") is not None else "?"
-    ecoli = f"{q.get('ecoli_pct', '?')}%" if q.get("ecoli_pct") is not None else "?"
-    print(f"  Quality   : monomer {mono} | E. coli contam {ecoli}")
-
-    # Large deletions
-    if result.large_deletions:
-        print()
-        print(f"  {thin[:60]}")
-        print(f"  STRUCTURAL DELETIONS  (>={MIN_LARGE_DELETION} bp)")
-        print(f"  {thin[:60]}")
-        for span in result.large_deletions:
-            feat_str = f"  [{span.feature_name}]" if span.feature_name else ""
-            print(f"    DEL  ref {span.ref_start}–{span.ref_end}  {span.size} bp{feat_str}")
-            if span.feature_name and _is_itr(span.feature_name):
-                print(f"         ** ITR STRUCTURAL DELETION — not a sequencing artifact **")
-    else:
-        print(f"  No structural deletions (>={MIN_LARGE_DELETION} bp)")
-
-    # Variants table
-    non_artifact = [v for v in result.variants if v.reliability != "LIKELY_ARTIFACT"]
-    all_variants = result.variants
-    if all_variants:
-        print()
-        print(f"  {thin[:60]}")
-        print(f"  VARIANTS  ({len(all_variants)} total, {len(non_artifact)} non-artifact)")
-        print(f"  {thin[:60]}")
-        header = f"  {'ref_pos':>8} {'type':4} {'ref':4} {'qry':4} {'cov':>5} {'hpol':>5}  {'meth':5}  {'feature':20}  reliability"
-        print(header)
-        for v in sorted(all_variants, key=lambda x: x.ref_pos):
-            meth = v.predicted_methylation or ("-" if v.at_dam_dcm else "")
-            meth_str = (v.predicted_methylation or "Dam/Dcm") if (v.predicted_methylation or v.at_dam_dcm) else ""
-            hp_str = str(v.homopolymer_len) if v.in_homopolymer else "-"
-            feat = v.feature_name[:20] if v.feature_name else ""
-            print(f"  {v.ref_pos:>8} {v.change_type:4} {v.ref_base:4} {v.query_base:4} "
-                  f"{v.coverage:>5} {hp_str:>5}  {meth_str:5}  {feat:20}  {v.reliability}")
-    else:
-        print(f"  No single-base variants")
-
-    # Region summaries
+def print_verdict_summary(results: list) -> None:
+    """Print a brief per-sample verdict table to stdout."""
     print()
-    print(f"  {thin[:60]}")
-    print(f"  REGION SUMMARIES")
-    print(f"  {thin[:60]}")
-    if result.region_summaries:
-        hdr = f"  {'feature':30}  {'verdict':13}  cov_min  cov_mean  notes"
-        print(hdr)
-        for rs in result.region_summaries:
-            feat = rs.feature_name[:30]
-            print(f"  {feat:30}  {rs.verdict:13}  {rs.coverage_min:>7}  "
-                  f"{rs.coverage_mean:>8.1f}  {rs.notes}")
-    else:
-        print("  (no annotated features in reference)")
-
-    # Final verdict
-    print()
-    banner = _VERDICT_BANNER.get(result.verdict, result.verdict)
-    print(f"  VERDICT: {banner}  —  {result.verdict_reason}")
-    print(sep)
+    print(f"  {'Sample':<25} {'Identity':>9}  {'Verdict'}")
+    print(f"  {'-'*25} {'-'*9}  {'-'*30}")
+    for r in results:
+        icon = _VERDICT_ICON.get(r.verdict, "?")
+        print(f"  {r.sample_name:<25} {r.identity_pct:>8.2f}%  {icon} {r.verdict}  —  {r.verdict_reason}")
     print()
 
 
 def _is_itr(feature_name: str) -> bool:
     n = feature_name.upper()
     return "ITR" in n or "INVERTED TERMINAL" in n
+
+
+# ---------------------------------------------------------------------------
+# Output path helpers
+# ---------------------------------------------------------------------------
+def _run_id_from_zip(zip_path: Path) -> str:
+    """Extract Plasmidsaurus run ID from zip filename: '22VPNM_results.zip' → '22VPNM'."""
+    stem = zip_path.stem  # e.g. "22VPNM_results"
+    return stem.split("_")[0]
+
+
+def _run_slug(run_id: str, results: list, single_ref: Path = None) -> str:
+    """
+    Build a short descriptive slug for this run's folder and filename.
+    check mode:  22VPNM-8x-AVD548
+    batch mode:  FQL4T3-TP688-TP737-TP738  (up to 3 unique prefixes, then +N)
+    """
+    n = len(results)
+    if single_ref is not None:
+        ref_stem = single_ref.stem.split("-")[0]  # "AVD548" from "AVD548-CBA-..."
+        return f"{run_id}-{n}x-{ref_stem}"
+    else:
+        prefixes = []
+        seen = set()
+        for r in results:
+            p = r.sample_name.split("-")[0]
+            if p not in seen:
+                prefixes.append(p)
+                seen.add(p)
+        if len(prefixes) <= 3:
+            slug = "-".join(prefixes)
+        else:
+            slug = "-".join(prefixes[:3]) + f"+{len(prefixes)-3}"
+        return f"{run_id}-{slug}"
+
+
+def _report_filename(run_id: str, results: list, single_ref: Path = None) -> str:
+    """Build the HTML report filename (slug + .html)."""
+    return _run_slug(run_id, results, single_ref) + ".html"
+
+
+def _outdir(zip_path: Path, results: list = None, single_ref: Path = None,
+            out_override: str = None) -> Path:
+    """Return (and create) the output directory for this run."""
+    if out_override:
+        d = Path(out_override)
+    else:
+        run_id = _run_id_from_zip(zip_path)
+        if results:
+            slug = _run_slug(run_id, results, single_ref)
+            d = SEQUENCING_DIR / slug
+        else:
+            d = SEQUENCING_DIR / run_id
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+# ---------------------------------------------------------------------------
+# HTML report
+# ---------------------------------------------------------------------------
+_VERDICT_COLOR = {
+    "PASS":          ("#166534", "#dcfce7"),   # dark green text, light green bg
+    "WARN":          ("#92400e", "#fef3c7"),   # amber
+    "FAIL":          ("#991b1b", "#fee2e2"),   # red
+    "CRITICAL_FAIL": ("#ffffff", "#7f1d1d"),   # white text, dark red bg
+}
+
+_REGION_COLOR = {
+    "INTACT":        ("#166534", "#f0fdf4"),
+    "WARN":          ("#92400e", "#fffbeb"),
+    "FAIL":          ("#991b1b", "#fff1f2"),
+    "CRITICAL_FAIL": ("#ffffff", "#7f1d1d"),
+}
+
+_RELIABILITY_COLOR = {
+    "RELIABLE":                ("#166534", "#f0fdf4"),
+    "INTERPRET_WITH_CAUTION":  ("#92400e", "#fffbeb"),
+    "LIKELY_ARTIFACT":         ("#6b7280", "#f9fafb"),
+}
+
+_CSS = """
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: 14px; color: #111827; background: #f9fafb;
+  padding: 24px;
+}
+h1 { font-size: 22px; font-weight: 700; color: #1e3a5f; margin-bottom: 4px; }
+h2 { font-size: 15px; font-weight: 600; color: #374151; margin: 20px 0 8px; }
+.meta { color: #6b7280; font-size: 12px; margin-bottom: 24px; }
+.meta span { margin-right: 16px; }
+
+/* Summary table */
+.summary-table { width: 100%; border-collapse: collapse; margin-bottom: 28px;
+  background: white; border-radius: 8px; overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.summary-table th { background: #1e3a5f; color: white; text-align: left;
+  padding: 8px 12px; font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .05em; }
+.summary-table td { padding: 8px 12px; border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle; }
+.summary-table tr:last-child td { border-bottom: none; }
+.summary-table tr:hover td { background: #f0f9ff; }
+
+/* Verdict badge */
+.badge { display: inline-block; padding: 2px 8px; border-radius: 9999px;
+  font-size: 11px; font-weight: 700; letter-spacing: .03em; white-space: nowrap; }
+
+/* Sample cards */
+details { background: white; border-radius: 8px; margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08); overflow: hidden; }
+details[open] { box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+summary { display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+  cursor: pointer; user-select: none; font-weight: 600; font-size: 14px;
+  list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "▶"; font-size: 10px; color: #9ca3af;
+  transition: transform .15s; min-width: 10px; }
+details[open] summary::before { transform: rotate(90deg); }
+summary:hover { background: #f8fafc; }
+.sample-body { padding: 16px; border-top: 1px solid #e5e7eb; }
+
+/* Alert box for structural deletions */
+.deletion-alert { background: #fef2f2; border: 1px solid #fecaca;
+  border-left: 4px solid #dc2626; border-radius: 6px;
+  padding: 12px 14px; margin-bottom: 14px; }
+.deletion-alert h3 { font-size: 13px; color: #991b1b; margin-bottom: 6px; font-weight: 700; }
+.deletion-alert .del-row { font-family: ui-monospace, monospace; font-size: 12px;
+  color: #7f1d1d; margin: 3px 0; }
+.deletion-alert .itr-note { font-size: 11px; color: #b91c1c; font-style: italic;
+  margin-top: 6px; }
+
+/* No-issues box */
+.no-issues { background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-left: 4px solid #16a34a; border-radius: 6px;
+  padding: 10px 14px; margin-bottom: 14px; font-size: 12px; color: #166534; }
+
+/* Meta grid */
+.meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
+  gap: 10px; margin-bottom: 14px; }
+.meta-card { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px;
+  padding: 8px 12px; }
+.meta-card label { font-size: 10px; font-weight: 600; color: #6b7280;
+  text-transform: uppercase; letter-spacing: .05em; display: block; }
+.meta-card .val { font-size: 13px; font-weight: 600; color: #111827; margin-top: 2px; }
+
+/* Data tables */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px;
+  margin-bottom: 14px; }
+.data-table th { background: #f3f4f6; color: #374151; font-weight: 600;
+  padding: 6px 10px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+.data-table td { padding: 5px 10px; border-bottom: 1px solid #f3f4f6;
+  font-family: ui-monospace, monospace; }
+.data-table tr:hover td { background: #fafafa; }
+.data-table tr:last-child td { border-bottom: none; }
+.section-label { font-size: 11px; font-weight: 700; color: #6b7280;
+  text-transform: uppercase; letter-spacing: .06em; margin: 14px 0 6px; }
+"""
+
+
+def _badge(verdict: str) -> str:
+    tc, bg = _VERDICT_COLOR.get(verdict, ("#111827", "#f3f4f6"))
+    label = verdict.replace("_", " ")
+    return (f'<span class="badge" style="color:{tc};background:{bg}">'
+            f'{label}</span>')
+
+
+def _region_cell(verdict: str) -> str:
+    tc, bg = _REGION_COLOR.get(verdict, ("#111827", "#f3f4f6"))
+    return (f'<span style="color:{tc};background:{bg};padding:1px 6px;'
+            f'border-radius:4px;font-size:11px;font-weight:600">{verdict}</span>')
+
+
+def _reliability_cell(r: str) -> str:
+    tc, bg = _RELIABILITY_COLOR.get(r, ("#111827", "#f3f4f6"))
+    return (f'<span style="color:{tc};background:{bg};padding:1px 6px;'
+            f'border-radius:4px;font-size:11px">{r}</span>')
+
+
+def _h(s) -> str:
+    """HTML-escape a value."""
+    return html_module.escape(str(s))
+
+
+def _sample_html(r: SampleResult, open_default: bool = False) -> str:
+    q = r.quality
+    mono = f"{q.get('monomer_pct_moles', '?')}%" if q.get("monomer_pct_moles") is not None else "—"
+    ecoli = f"{q.get('ecoli_pct', '?')}%" if q.get("ecoli_pct") is not None else "—"
+    ref_name = Path(r.reference_file).name
+    open_attr = " open" if open_default else ""
+
+    # Verdict color for summary bar
+    tc, bg = _VERDICT_COLOR.get(r.verdict, ("#111827", "#f3f4f6"))
+    border_color = bg if r.verdict == "CRITICAL_FAIL" else tc
+
+    parts = [
+        f'<details{open_attr} style="border-left:4px solid {border_color}">',
+        f'<summary>{_badge(r.verdict)}'
+        f'<span style="flex:1">{_h(r.sample_name)}</span>'
+        f'<span style="font-size:12px;color:#6b7280;font-weight:400">{_h(r.verdict_reason)}</span>'
+        f'</summary>',
+        '<div class="sample-body">',
+    ]
+
+    # Meta grid
+    parts.append('<div class="meta-grid">')
+    for label, val in [
+        ("Reference", ref_name),
+        ("Query length", f"{r.query_length:,} bp"),
+        ("Ref length", f"{r.ref_length:,} bp"),
+        ("Identity", f"{r.identity_pct:.2f}%"),
+        ("Circ. offset", f"{r.circular_offset:,} bp"),
+        ("Monomer purity", mono),
+        ("E. coli contam", ecoli),
+    ]:
+        parts.append(
+            f'<div class="meta-card"><label>{_h(label)}</label>'
+            f'<div class="val">{_h(val)}</div></div>'
+        )
+    parts.append('</div>')
+
+    # Structural deletions
+    if r.large_deletions:
+        parts.append('<div class="deletion-alert">')
+        parts.append(f'<h3>⚠ Structural Deletion{"s" if len(r.large_deletions)>1 else ""}'
+                     f' (&ge;{MIN_LARGE_DELETION} bp)</h3>')
+        for span in r.large_deletions:
+            feat_str = f" [{span.feature_name}]" if span.feature_name else ""
+            parts.append(
+                f'<div class="del-row">DEL  ref {span.ref_start}–{span.ref_end}'
+                f'  {span.size} bp{_h(feat_str)}</div>'
+            )
+            if span.feature_name and _is_itr(span.feature_name):
+                parts.append(
+                    '<div class="itr-note">ITR structural deletion — '
+                    'not a sequencing artifact; confirmed real</div>'
+                )
+        parts.append('</div>')
+    else:
+        parts.append(
+            f'<div class="no-issues">No structural deletions (&ge;{MIN_LARGE_DELETION} bp)</div>'
+        )
+
+    # Variants
+    non_art = [v for v in r.variants if v.reliability != "LIKELY_ARTIFACT"]
+    art = [v for v in r.variants if v.reliability == "LIKELY_ARTIFACT"]
+    if r.variants:
+        parts.append(
+            f'<div class="section-label">Variants '
+            f'({len(r.variants)} total · {len(non_art)} non-artifact · '
+            f'{len(art)} LIKELY_ARTIFACT)</div>'
+        )
+        parts.append(
+            '<table class="data-table"><thead><tr>'
+            '<th>ref pos</th><th>type</th><th>ref</th><th>query</th>'
+            '<th>cov</th><th>homopol</th><th>methyl</th><th>feature</th><th>reliability</th>'
+            '</tr></thead><tbody>'
+        )
+        for v in sorted(r.variants, key=lambda x: x.ref_pos):
+            hp = str(v.homopolymer_len) if v.in_homopolymer else "—"
+            meth = v.predicted_methylation or ("Dam/Dcm" if v.at_dam_dcm else "—")
+            parts.append(
+                f'<tr><td>{v.ref_pos if v.ref_pos > 0 else "—"}</td>'
+                f'<td><b>{_h(v.change_type)}</b></td>'
+                f'<td>{_h(v.ref_base)}</td><td>{_h(v.query_base)}</td>'
+                f'<td>{v.coverage}</td><td>{hp}</td><td>{_h(meth)}</td>'
+                f'<td>{_h(v.feature_name)}</td>'
+                f'<td>{_reliability_cell(v.reliability)}</td></tr>'
+            )
+        parts.append('</tbody></table>')
+    else:
+        parts.append('<div class="no-issues">No single-base variants</div>')
+
+    # Region summaries
+    non_intact = [rs for rs in r.region_summaries if rs.verdict != "INTACT"]
+    intact = [rs for rs in r.region_summaries if rs.verdict == "INTACT"]
+
+    parts.append(
+        f'<div class="section-label">Region Summaries '
+        f'({len(r.region_summaries)} features)</div>'
+    )
+    parts.append(
+        '<table class="data-table"><thead><tr>'
+        '<th>Feature</th><th>Verdict</th><th>cov min</th><th>cov mean</th>'
+        '<th>Variants</th><th>Notes</th>'
+        '</tr></thead><tbody>'
+    )
+    # Non-intact first, then intact (collapsed visually by ordering)
+    for rs in non_intact + intact:
+        parts.append(
+            f'<tr><td>{_h(rs.feature_name)}</td>'
+            f'<td>{_region_cell(rs.verdict)}</td>'
+            f'<td>{rs.coverage_min}</td><td>{rs.coverage_mean:.1f}</td>'
+            f'<td>{rs.n_variants}</td><td>{_h(rs.notes)}</td></tr>'
+        )
+    parts.append('</tbody></table>')
+
+    parts.append('</div></details>')
+    return "\n".join(parts)
+
+
+def generate_html_report(results: list, run_id: str, zip_path: Path) -> str:
+    """Generate a self-contained HTML report for a Plasmidsaurus run."""
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    n_cf = sum(1 for r in results if r.verdict == "CRITICAL_FAIL")
+    n_fail = sum(1 for r in results if r.verdict == "FAIL")
+    n_warn = sum(1 for r in results if r.verdict == "WARN")
+    n_pass = sum(1 for r in results if r.verdict == "PASS")
+
+    # Summary counts banner
+    counts = []
+    if n_cf:
+        counts.append(f'<span style="color:#7f1d1d;font-weight:700">'
+                      f'{n_cf} CRITICAL_FAIL</span>')
+    if n_fail:
+        counts.append(f'<span style="color:#991b1b;font-weight:700">{n_fail} FAIL</span>')
+    if n_warn:
+        counts.append(f'<span style="color:#92400e;font-weight:700">{n_warn} WARN</span>')
+    if n_pass:
+        counts.append(f'<span style="color:#166534;font-weight:700">{n_pass} PASS</span>')
+    counts_html = " &nbsp;·&nbsp; ".join(counts) if counts else "—"
+
+    summary_rows = []
+    for r in results:
+        ref_name = Path(r.reference_file).name
+        summary_rows.append(
+            f'<tr><td>{_h(r.sample_name)}</td>'
+            f'<td style="font-size:11px;color:#6b7280">{_h(ref_name)}</td>'
+            f'<td style="text-align:right">{r.identity_pct:.2f}%</td>'
+            f'<td>{_badge(r.verdict)}</td>'
+            f'<td style="color:#6b7280;font-size:11px">{_h(r.verdict_reason)}</td></tr>'
+        )
+
+    # Auto-open CRITICAL_FAIL / FAIL samples; collapse WARN / PASS
+    sample_htmls = []
+    for r in results:
+        auto_open = r.verdict in ("CRITICAL_FAIL", "FAIL")
+        sample_htmls.append(_sample_html(r, open_default=auto_open))
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plasmidsaurus Report — {_h(run_id)}</title>
+<style>{_CSS}</style>
+</head>
+<body>
+
+<h1>Plasmidsaurus Sequencing Report</h1>
+<div class="meta">
+  <span><b>Run ID:</b> {_h(run_id)}</span>
+  <span><b>Zip:</b> {_h(zip_path.name)}</span>
+  <span><b>Samples:</b> {len(results)}</span>
+  <span><b>Generated:</b> {now}</span>
+  <span>{counts_html}</span>
+</div>
+
+<h2>Summary</h2>
+<table class="summary-table">
+  <thead><tr>
+    <th>Sample</th><th>Reference</th><th style="text-align:right">Identity</th>
+    <th>Verdict</th><th>Reason</th>
+  </tr></thead>
+  <tbody>{"".join(summary_rows)}</tbody>
+</table>
+
+<h2>Sample Details</h2>
+{"".join(sample_htmls)}
+
+</body>
+</html>"""
 
 
 # ---------------------------------------------------------------------------
@@ -897,8 +1212,13 @@ def cmd_check(args) -> int:
     if args.json:
         print(json.dumps([_result_to_dict(r) for r in results], indent=2))
     else:
-        for r in results:
-            report_sample(r)
+        print_verdict_summary(results)
+        run_id = _run_id_from_zip(zip_path)
+        outdir = _outdir(zip_path, results, single_ref=ref_path, out_override=getattr(args, "out", None))
+        fname = _report_filename(run_id, results, single_ref=ref_path)
+        html_path = outdir / fname
+        html_path.write_text(generate_html_report(results, run_id, zip_path), encoding="utf-8")
+        print(f"Report saved → {html_path}")
 
     return exit_code
 
@@ -956,8 +1276,13 @@ def cmd_batch(args) -> int:
     if args.json:
         print(json.dumps([_result_to_dict(r) for r in results], indent=2))
     else:
-        for r in results:
-            report_sample(r)
+        print_verdict_summary(results)
+        run_id = _run_id_from_zip(zip_path)
+        outdir = _outdir(zip_path, results, out_override=getattr(args, "out", None))
+        fname = _report_filename(run_id, results)
+        html_path = outdir / fname
+        html_path.write_text(generate_html_report(results, run_id, zip_path), encoding="utf-8")
+        print(f"Report saved → {html_path}")
 
     return exit_code
 
@@ -990,6 +1315,7 @@ def main():
     p_check.add_argument("zip", help="Plasmidsaurus results zip")
     p_check.add_argument("--ref", required=True, help="Reference construct (.gb or .dna)")
     p_check.add_argument("--json", action="store_true", help="Output JSON instead of text")
+    p_check.add_argument("--out", metavar="DIR", help="Output directory for HTML report (default: sequencing/{RUN_ID}/)")
 
     # batch subcommand
     p_batch = sub.add_parser("batch",
@@ -999,6 +1325,7 @@ def main():
                          help="Override auto-match for specific sample (repeatable)")
     p_batch.add_argument("--constructs", help=f"Constructs directory (default: {CONSTRUCTS_DIR})")
     p_batch.add_argument("--json", action="store_true", help="Output JSON instead of text")
+    p_batch.add_argument("--out", metavar="DIR", help="Output directory for HTML report (default: sequencing/{RUN_ID}/)")
 
     args = parser.parse_args()
 

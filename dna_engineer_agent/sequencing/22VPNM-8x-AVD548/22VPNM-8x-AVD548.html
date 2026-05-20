@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plasmidsaurus Report — 22VPNM</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: 14px; color: #111827; background: #f9fafb;
+  padding: 24px;
+}
+h1 { font-size: 22px; font-weight: 700; color: #1e3a5f; margin-bottom: 4px; }
+h2 { font-size: 15px; font-weight: 600; color: #374151; margin: 20px 0 8px; }
+.meta { color: #6b7280; font-size: 12px; margin-bottom: 24px; }
+.meta span { margin-right: 16px; }
+
+/* Summary table */
+.summary-table { width: 100%; border-collapse: collapse; margin-bottom: 28px;
+  background: white; border-radius: 8px; overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.summary-table th { background: #1e3a5f; color: white; text-align: left;
+  padding: 8px 12px; font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .05em; }
+.summary-table td { padding: 8px 12px; border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle; }
+.summary-table tr:last-child td { border-bottom: none; }
+.summary-table tr:hover td { background: #f0f9ff; }
+
+/* Verdict badge */
+.badge { display: inline-block; padding: 2px 8px; border-radius: 9999px;
+  font-size: 11px; font-weight: 700; letter-spacing: .03em; white-space: nowrap; }
+
+/* Sample cards */
+details { background: white; border-radius: 8px; margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08); overflow: hidden; }
+details[open] { box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+summary { display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+  cursor: pointer; user-select: none; font-weight: 600; font-size: 14px;
+  list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "▶"; font-size: 10px; color: #9ca3af;
+  transition: transform .15s; min-width: 10px; }
+details[open] summary::before { transform: rotate(90deg); }
+summary:hover { background: #f8fafc; }
+.sample-body { padding: 16px; border-top: 1px solid #e5e7eb; }
+
+/* Alert box for structural deletions */
+.deletion-alert { background: #fef2f2; border: 1px solid #fecaca;
+  border-left: 4px solid #dc2626; border-radius: 6px;
+  padding: 12px 14px; margin-bottom: 14px; }
+.deletion-alert h3 { font-size: 13px; color: #991b1b; margin-bottom: 6px; font-weight: 700; }
+.deletion-alert .del-row { font-family: ui-monospace, monospace; font-size: 12px;
+  color: #7f1d1d; margin: 3px 0; }
+.deletion-alert .itr-note { font-size: 11px; color: #b91c1c; font-style: italic;
+  margin-top: 6px; }
+
+/* No-issues box */
+.no-issues { background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-left: 4px solid #16a34a; border-radius: 6px;
+  padding: 10px 14px; margin-bottom: 14px; font-size: 12px; color: #166534; }
+
+/* Meta grid */
+.meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
+  gap: 10px; margin-bottom: 14px; }
+.meta-card { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px;
+  padding: 8px 12px; }
+.meta-card label { font-size: 10px; font-weight: 600; color: #6b7280;
+  text-transform: uppercase; letter-spacing: .05em; display: block; }
+.meta-card .val { font-size: 13px; font-weight: 600; color: #111827; margin-top: 2px; }
+
+/* Data tables */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px;
+  margin-bottom: 14px; }
+.data-table th { background: #f3f4f6; color: #374151; font-weight: 600;
+  padding: 6px 10px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+.data-table td { padding: 5px 10px; border-bottom: 1px solid #f3f4f6;
+  font-family: ui-monospace, monospace; }
+.data-table tr:hover td { background: #fafafa; }
+.data-table tr:last-child td { border-bottom: none; }
+.section-label { font-size: 11px; font-weight: 700; color: #6b7280;
+  text-transform: uppercase; letter-spacing: .06em; margin: 14px 0 6px; }
+</style>
+</head>
+<body>
+
+<h1>Plasmidsaurus Sequencing Report</h1>
+<div class="meta">
+  <span><b>Run ID:</b> 22VPNM</span>
+  <span><b>Zip:</b> 22VPNM_results.zip</span>
+  <span><b>Samples:</b> 8</span>
+  <span><b>Generated:</b> 2026-05-20 11:46</span>
+  <span><span style="color:#7f1d1d;font-weight:700">8 CRITICAL_FAIL</span></span>
+</div>
+
+<h2>Summary</h2>
+<table class="summary-table">
+  <thead><tr>
+    <th>Sample</th><th>Reference</th><th style="text-align:right">Identity</th>
+    <th>Verdict</th><th>Reason</th>
+  </tr></thead>
+  <tbody><tr><td>AVD548-1</td><td style="font-size:11px;color:#6b7280">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</td><td style="text-align:right">99.43%</td><td><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span></td><td style="color:#6b7280;font-size:11px">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</td></tr><tr><td>AVD548-2</td><td style="font-size:11px;color:#6b7280">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</td><td style="text-align:right">98.78%</td><td><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span></td><td style="color:#6b7280;font-size:11px">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</td></tr><tr><td>AVD548-3</td><td style="font-size:11px;color:#6b7280">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</td><td style="text-align:right">99.43%</td><td><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span></td><td style="color:#6b7280;font-size:11px">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</td></tr><tr><td>AVD548-4</td><td style="font-size:11px;color:#6b7280">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</td><td style="text-align:right">98.81%</td><td><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span></td><td style="color:#6b7280;font-size:11px">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</td></tr><tr><td>AVD548-5</td><td style="font-size:11px;color:#6b7280">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</td><td style="text-align:right">99.43%</td><td><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span></td><td style="color:#6b7280;font-size:11px">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</td></tr><tr><td>AVD548-6</td><td style="font-size:11px;color:#6b7280">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</td><td style="text-align:right">98.81%</td><td><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span></td><td style="color:#6b7280;font-size:11px">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</td></tr><tr><td>AVD548-7</td><td style="font-size:11px;color:#6b7280">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</td><td style="text-align:right">98.81%</td><td><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span></td><td style="color:#6b7280;font-size:11px">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</td></tr><tr><td>AVD548-8</td><td style="font-size:11px;color:#6b7280">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</td><td style="text-align:right">98.83%</td><td><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span></td><td style="color:#6b7280;font-size:11px">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</td></tr></tbody>
+</table>
+
+<h2>Sample Details</h2>
+<details open style="border-left:4px solid #7f1d1d">
+<summary><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span><span style="flex:1">AVD548-1</span><span style="font-size:12px;color:#6b7280;font-weight:400">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</span></summary>
+<div class="sample-body">
+<div class="meta-grid">
+<div class="meta-card"><label>Reference</label><div class="val">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</div></div>
+<div class="meta-card"><label>Query length</label><div class="val">3,982 bp</div></div>
+<div class="meta-card"><label>Ref length</label><div class="val">4,004 bp</div></div>
+<div class="meta-card"><label>Identity</label><div class="val">99.43%</div></div>
+<div class="meta-card"><label>Circ. offset</label><div class="val">2,925 bp</div></div>
+<div class="meta-card"><label>Monomer purity</label><div class="val">96.6%</div></div>
+<div class="meta-card"><label>E. coli contam</label><div class="val">41.0%</div></div>
+</div>
+<div class="deletion-alert">
+<h3>⚠ Structural Deletion (&ge;20 bp)</h3>
+<div class="del-row">DEL  ref 77–98  22 bp [AAV2 ITR]</div>
+<div class="itr-note">ITR structural deletion — not a sequencing artifact; confirmed real</div>
+</div>
+<div class="section-label">Variants (1 total · 1 non-artifact · 0 LIKELY_ARTIFACT)</div>
+<table class="data-table"><thead><tr><th>ref pos</th><th>type</th><th>ref</th><th>query</th><th>cov</th><th>homopol</th><th>methyl</th><th>feature</th><th>reliability</th></tr></thead><tbody>
+<tr><td>1094</td><td><b>SUB</b></td><td>A</td><td>C</td><td>125</td><td>—</td><td>—</td><td></td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+</tbody></table>
+<div class="section-label">Region Summaries (29 features)</div>
+<table class="data-table"><thead><tr><th>Feature</th><th>Verdict</th><th>cov min</th><th>cov mean</th><th>Variants</th><th>Notes</th></tr></thead><tbody>
+<tr><td>AAV2 ITR</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>123</td><td>124.1</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>5&#x27;ITR(105)</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>123</td><td>124.1</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>D region</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>124</td><td>124.0</td><td>0</td><td></td></tr>
+<tr><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>123</td><td>125.2</td><td>0</td><td></td></tr>
+<tr><td>CMV(IE)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>123</td><td>124.7</td><td>0</td><td></td></tr>
+<tr><td>CBA</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>123</td><td>125.8</td><td>0</td><td></td></tr>
+<tr><td>CBA pro</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>123</td><td>125.9</td><td>0</td><td></td></tr>
+<tr><td>TATA box</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>127</td><td>127.0</td><td>0</td><td></td></tr>
+<tr><td>3&#x27;ITR(145)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>123</td><td>125.0</td><td>0</td><td></td></tr>
+<tr><td>M13-fwd</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>125</td><td>125.3</td><td>0</td><td></td></tr>
+<tr><td>LacZ alpha</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>126</td><td>126.0</td><td>0</td><td></td></tr>
+<tr><td>TelNX</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>124</td><td>125.3</td><td>0</td><td></td></tr>
+<tr><td>TelN</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>124</td><td>125.3</td><td>0</td><td></td></tr>
+<tr><td>f1\ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>123</td><td>126.3</td><td>0</td><td></td></tr>
+<tr><td>F1 ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>123</td><td>126.4</td><td>0</td><td></td></tr>
+<tr><td>AmpR-1 promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>124</td><td>125.5</td><td>0</td><td></td></tr>
+<tr><td>Amp-1 Promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>124</td><td>125.5</td><td>0</td><td></td></tr>
+<tr><td>AmpR-3</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>120</td><td>124.7</td><td>0</td><td></td></tr>
+<tr><td>AmpR</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>120</td><td>124.8</td><td>0</td><td></td></tr>
+<tr><td>ColE1 origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>104</td><td>124.1</td><td>0</td><td></td></tr>
+<tr><td>ColE1 Origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>104</td><td>124.1</td><td>0</td><td></td></tr>
+<tr><td>pBR322_origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>104</td><td>124.1</td><td>0</td><td></td></tr>
+<tr><td>LacO</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>124</td><td>124.0</td><td>0</td><td></td></tr>
+<tr><td>M13-rev</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>125</td><td>125.0</td><td>0</td><td></td></tr>
+<tr><td>BstBI-NcoI-ClaI polylinker</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>125</td><td>126.0</td><td>0</td><td></td></tr>
+<tr><td>HindIII</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>127</td><td>127.0</td><td>0</td><td></td></tr>
+<tr><td>BstBI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>126</td><td>126.5</td><td>0</td><td></td></tr>
+<tr><td>NcoI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>126</td><td>126.0</td><td>0</td><td></td></tr>
+<tr><td>ClaI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>125</td><td>125.2</td><td>0</td><td></td></tr>
+</tbody></table>
+</div></details><details open style="border-left:4px solid #7f1d1d">
+<summary><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span><span style="flex:1">AVD548-2</span><span style="font-size:12px;color:#6b7280;font-weight:400">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</span></summary>
+<div class="sample-body">
+<div class="meta-grid">
+<div class="meta-card"><label>Reference</label><div class="val">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</div></div>
+<div class="meta-card"><label>Query length</label><div class="val">4,008 bp</div></div>
+<div class="meta-card"><label>Ref length</label><div class="val">4,004 bp</div></div>
+<div class="meta-card"><label>Identity</label><div class="val">98.78%</div></div>
+<div class="meta-card"><label>Circ. offset</label><div class="val">2,925 bp</div></div>
+<div class="meta-card"><label>Monomer purity</label><div class="val">97.1%</div></div>
+<div class="meta-card"><label>E. coli contam</label><div class="val">39.0%</div></div>
+</div>
+<div class="deletion-alert">
+<h3>⚠ Structural Deletion (&ge;20 bp)</h3>
+<div class="del-row">DEL  ref 77–98  22 bp [AAV2 ITR]</div>
+<div class="itr-note">ITR structural deletion — not a sequencing artifact; confirmed real</div>
+</div>
+<div class="section-label">Variants (27 total · 13 non-artifact · 14 LIKELY_ARTIFACT)</div>
+<table class="data-table"><thead><tr><th>ref pos</th><th>type</th><th>ref</th><th>query</th><th>cov</th><th>homopol</th><th>methyl</th><th>feature</th><th>reliability</th></tr></thead><tbody>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>669</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>669</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>669</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>669</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>669</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>669</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>668</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>668</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>668</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>670</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>670</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>671</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>671</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>670</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>670</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>670</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>670</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>670</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>670</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>670</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>670</td><td>—</td><td>5mC</td><td>CBA promoter</td><td><span style="color:#92400e;background:#fffbeb;padding:1px 6px;border-radius:4px;font-size:11px">INTERPRET_WITH_CAUTION</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>A</td><td>670</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>670</td><td>—</td><td>5mC</td><td>CBA promoter</td><td><span style="color:#92400e;background:#fffbeb;padding:1px 6px;border-radius:4px;font-size:11px">INTERPRET_WITH_CAUTION</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>670</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>670</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>670</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>1094</td><td><b>SUB</b></td><td>A</td><td>C</td><td>676</td><td>—</td><td>—</td><td></td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+</tbody></table>
+<div class="section-label">Region Summaries (29 features)</div>
+<table class="data-table"><thead><tr><th>Feature</th><th>Verdict</th><th>cov min</th><th>cov mean</th><th>Variants</th><th>Notes</th></tr></thead><tbody>
+<tr><td>AAV2 ITR</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>666</td><td>667.8</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>5&#x27;ITR(105)</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>666</td><td>668.2</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>CBA promoter</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>664</td><td>670.3</td><td>26</td><td>10 reliable variants</td></tr>
+<tr><td>CBA</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>667</td><td>671.3</td><td>26</td><td>10 reliable variants</td></tr>
+<tr><td>CBA pro</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>667</td><td>671.3</td><td>26</td><td>10 reliable variants</td></tr>
+<tr><td>D region</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>666</td><td>667.3</td><td>0</td><td></td></tr>
+<tr><td>CMV(IE)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>664</td><td>669.6</td><td>0</td><td></td></tr>
+<tr><td>TATA box</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>670</td><td>670.4</td><td>0</td><td></td></tr>
+<tr><td>3&#x27;ITR(145)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>674</td><td>676.7</td><td>0</td><td></td></tr>
+<tr><td>M13-fwd</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>678</td><td>678.1</td><td>0</td><td></td></tr>
+<tr><td>LacZ alpha</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>677</td><td>677.0</td><td>0</td><td></td></tr>
+<tr><td>TelNX</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>674</td><td>676.6</td><td>0</td><td></td></tr>
+<tr><td>TelN</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>674</td><td>676.6</td><td>0</td><td></td></tr>
+<tr><td>f1\ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>669</td><td>678.8</td><td>0</td><td></td></tr>
+<tr><td>F1 ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>669</td><td>677.6</td><td>0</td><td></td></tr>
+<tr><td>AmpR-1 promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>671</td><td>676.5</td><td>0</td><td></td></tr>
+<tr><td>Amp-1 Promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>671</td><td>676.5</td><td>0</td><td></td></tr>
+<tr><td>AmpR-3</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>665</td><td>671.8</td><td>0</td><td></td></tr>
+<tr><td>AmpR</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>665</td><td>671.1</td><td>0</td><td></td></tr>
+<tr><td>ColE1 origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>560</td><td>672.8</td><td>0</td><td></td></tr>
+<tr><td>ColE1 Origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>560</td><td>672.8</td><td>0</td><td></td></tr>
+<tr><td>pBR322_origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>560</td><td>672.8</td><td>0</td><td></td></tr>
+<tr><td>LacO</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>670</td><td>671.1</td><td>0</td><td></td></tr>
+<tr><td>M13-rev</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>668</td><td>669.1</td><td>0</td><td></td></tr>
+<tr><td>BstBI-NcoI-ClaI polylinker</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>668</td><td>669.2</td><td>0</td><td></td></tr>
+<tr><td>HindIII</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>669</td><td>669.3</td><td>0</td><td></td></tr>
+<tr><td>BstBI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>669</td><td>669.7</td><td>0</td><td></td></tr>
+<tr><td>NcoI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>668</td><td>669.2</td><td>0</td><td></td></tr>
+<tr><td>ClaI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>668</td><td>668.8</td><td>0</td><td></td></tr>
+</tbody></table>
+</div></details><details open style="border-left:4px solid #7f1d1d">
+<summary><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span><span style="flex:1">AVD548-3</span><span style="font-size:12px;color:#6b7280;font-weight:400">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</span></summary>
+<div class="sample-body">
+<div class="meta-grid">
+<div class="meta-card"><label>Reference</label><div class="val">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</div></div>
+<div class="meta-card"><label>Query length</label><div class="val">3,982 bp</div></div>
+<div class="meta-card"><label>Ref length</label><div class="val">4,004 bp</div></div>
+<div class="meta-card"><label>Identity</label><div class="val">99.43%</div></div>
+<div class="meta-card"><label>Circ. offset</label><div class="val">2,925 bp</div></div>
+<div class="meta-card"><label>Monomer purity</label><div class="val">97.5%</div></div>
+<div class="meta-card"><label>E. coli contam</label><div class="val">43.0%</div></div>
+</div>
+<div class="deletion-alert">
+<h3>⚠ Structural Deletion (&ge;20 bp)</h3>
+<div class="del-row">DEL  ref 77–98  22 bp [AAV2 ITR]</div>
+<div class="itr-note">ITR structural deletion — not a sequencing artifact; confirmed real</div>
+</div>
+<div class="section-label">Variants (1 total · 1 non-artifact · 0 LIKELY_ARTIFACT)</div>
+<table class="data-table"><thead><tr><th>ref pos</th><th>type</th><th>ref</th><th>query</th><th>cov</th><th>homopol</th><th>methyl</th><th>feature</th><th>reliability</th></tr></thead><tbody>
+<tr><td>1094</td><td><b>SUB</b></td><td>A</td><td>C</td><td>633</td><td>—</td><td>—</td><td></td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+</tbody></table>
+<div class="section-label">Region Summaries (29 features)</div>
+<table class="data-table"><thead><tr><th>Feature</th><th>Verdict</th><th>cov min</th><th>cov mean</th><th>Variants</th><th>Notes</th></tr></thead><tbody>
+<tr><td>AAV2 ITR</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>621</td><td>627.0</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>5&#x27;ITR(105)</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>621</td><td>626.6</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>D region</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>627</td><td>628.2</td><td>0</td><td></td></tr>
+<tr><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>623</td><td>628.2</td><td>0</td><td></td></tr>
+<tr><td>CMV(IE)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>624</td><td>626.9</td><td>0</td><td></td></tr>
+<tr><td>CBA</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>623</td><td>629.9</td><td>0</td><td></td></tr>
+<tr><td>CBA pro</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>623</td><td>629.9</td><td>0</td><td></td></tr>
+<tr><td>TATA box</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>633</td><td>633.0</td><td>0</td><td></td></tr>
+<tr><td>3&#x27;ITR(145)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>628</td><td>631.1</td><td>0</td><td></td></tr>
+<tr><td>M13-fwd</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>632</td><td>634.3</td><td>0</td><td></td></tr>
+<tr><td>LacZ alpha</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>631</td><td>631.0</td><td>0</td><td></td></tr>
+<tr><td>TelNX</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>628</td><td>630.7</td><td>0</td><td></td></tr>
+<tr><td>TelN</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>628</td><td>630.7</td><td>0</td><td></td></tr>
+<tr><td>f1\ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>627</td><td>631.2</td><td>0</td><td></td></tr>
+<tr><td>F1 ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>628</td><td>631.3</td><td>0</td><td></td></tr>
+<tr><td>AmpR-1 promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>626</td><td>631.8</td><td>0</td><td></td></tr>
+<tr><td>Amp-1 Promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>626</td><td>631.8</td><td>0</td><td></td></tr>
+<tr><td>AmpR-3</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>613</td><td>623.5</td><td>0</td><td></td></tr>
+<tr><td>AmpR</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>613</td><td>621.4</td><td>0</td><td></td></tr>
+<tr><td>ColE1 origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>492</td><td>617.4</td><td>0</td><td></td></tr>
+<tr><td>ColE1 Origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>492</td><td>617.4</td><td>0</td><td></td></tr>
+<tr><td>pBR322_origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>492</td><td>617.2</td><td>0</td><td></td></tr>
+<tr><td>LacO</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>630</td><td>630.4</td><td>0</td><td></td></tr>
+<tr><td>M13-rev</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>626</td><td>627.5</td><td>0</td><td></td></tr>
+<tr><td>BstBI-NcoI-ClaI polylinker</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>625</td><td>628.0</td><td>0</td><td></td></tr>
+<tr><td>HindIII</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>628</td><td>629.0</td><td>0</td><td></td></tr>
+<tr><td>BstBI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>628</td><td>628.0</td><td>0</td><td></td></tr>
+<tr><td>NcoI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>627</td><td>629.3</td><td>0</td><td></td></tr>
+<tr><td>ClaI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>625</td><td>626.8</td><td>0</td><td></td></tr>
+</tbody></table>
+</div></details><details open style="border-left:4px solid #7f1d1d">
+<summary><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span><span style="flex:1">AVD548-4</span><span style="font-size:12px;color:#6b7280;font-weight:400">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</span></summary>
+<div class="sample-body">
+<div class="meta-grid">
+<div class="meta-card"><label>Reference</label><div class="val">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</div></div>
+<div class="meta-card"><label>Query length</label><div class="val">4,007 bp</div></div>
+<div class="meta-card"><label>Ref length</label><div class="val">4,004 bp</div></div>
+<div class="meta-card"><label>Identity</label><div class="val">98.81%</div></div>
+<div class="meta-card"><label>Circ. offset</label><div class="val">2,925 bp</div></div>
+<div class="meta-card"><label>Monomer purity</label><div class="val">98.7%</div></div>
+<div class="meta-card"><label>E. coli contam</label><div class="val">32.0%</div></div>
+</div>
+<div class="deletion-alert">
+<h3>⚠ Structural Deletion (&ge;20 bp)</h3>
+<div class="del-row">DEL  ref 77–98  22 bp [AAV2 ITR]</div>
+<div class="itr-note">ITR structural deletion — not a sequencing artifact; confirmed real</div>
+</div>
+<div class="section-label">Variants (26 total · 13 non-artifact · 13 LIKELY_ARTIFACT)</div>
+<table class="data-table"><thead><tr><th>ref pos</th><th>type</th><th>ref</th><th>query</th><th>cov</th><th>homopol</th><th>methyl</th><th>feature</th><th>reliability</th></tr></thead><tbody>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>168</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>168</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>C</td><td>168</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>168</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>168</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>C</td><td>167</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>C</td><td>168</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>168</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>C</td><td>168</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>168</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>C</td><td>168</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>C</td><td>168</td><td>—</td><td>5mC</td><td>CBA promoter</td><td><span style="color:#92400e;background:#fffbeb;padding:1px 6px;border-radius:4px;font-size:11px">INTERPRET_WITH_CAUTION</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>A</td><td>168</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>1094</td><td><b>SUB</b></td><td>A</td><td>C</td><td>168</td><td>—</td><td>—</td><td></td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+</tbody></table>
+<div class="section-label">Region Summaries (29 features)</div>
+<table class="data-table"><thead><tr><th>Feature</th><th>Verdict</th><th>cov min</th><th>cov mean</th><th>Variants</th><th>Notes</th></tr></thead><tbody>
+<tr><td>AAV2 ITR</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>167</td><td>167.8</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>5&#x27;ITR(105)</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>167</td><td>167.8</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>CBA promoter</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>164</td><td>167.0</td><td>25</td><td>11 reliable variants</td></tr>
+<tr><td>CBA</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>164</td><td>167.0</td><td>25</td><td>11 reliable variants</td></tr>
+<tr><td>CBA pro</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>164</td><td>167.0</td><td>25</td><td>11 reliable variants</td></tr>
+<tr><td>D region</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>167.7</td><td>0</td><td></td></tr>
+<tr><td>CMV(IE)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>165</td><td>167.0</td><td>0</td><td></td></tr>
+<tr><td>TATA box</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>167.6</td><td>0</td><td></td></tr>
+<tr><td>3&#x27;ITR(145)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>168.6</td><td>0</td><td></td></tr>
+<tr><td>M13-fwd</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>167.9</td><td>0</td><td></td></tr>
+<tr><td>LacZ alpha</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>168</td><td>168.0</td><td>0</td><td></td></tr>
+<tr><td>TelNX</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>168.4</td><td>0</td><td></td></tr>
+<tr><td>TelN</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>168.4</td><td>0</td><td></td></tr>
+<tr><td>f1\ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>164</td><td>166.5</td><td>0</td><td></td></tr>
+<tr><td>F1 ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>164</td><td>166.9</td><td>0</td><td></td></tr>
+<tr><td>AmpR-1 promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>164</td><td>164.7</td><td>0</td><td></td></tr>
+<tr><td>Amp-1 Promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>164</td><td>164.7</td><td>0</td><td></td></tr>
+<tr><td>AmpR-3</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>163</td><td>165.8</td><td>0</td><td></td></tr>
+<tr><td>AmpR</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>163</td><td>166.0</td><td>0</td><td></td></tr>
+<tr><td>ColE1 origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>122</td><td>164.3</td><td>0</td><td></td></tr>
+<tr><td>ColE1 Origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>122</td><td>164.3</td><td>0</td><td></td></tr>
+<tr><td>pBR322_origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>122</td><td>164.4</td><td>0</td><td></td></tr>
+<tr><td>LacO</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>166</td><td>166.3</td><td>0</td><td></td></tr>
+<tr><td>M13-rev</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>168</td><td>168.0</td><td>0</td><td></td></tr>
+<tr><td>BstBI-NcoI-ClaI polylinker</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>167.6</td><td>0</td><td></td></tr>
+<tr><td>HindIII</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>167.7</td><td>0</td><td></td></tr>
+<tr><td>BstBI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>167.0</td><td>0</td><td></td></tr>
+<tr><td>NcoI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>167.5</td><td>0</td><td></td></tr>
+<tr><td>ClaI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>168</td><td>168.0</td><td>0</td><td></td></tr>
+</tbody></table>
+</div></details><details open style="border-left:4px solid #7f1d1d">
+<summary><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span><span style="flex:1">AVD548-5</span><span style="font-size:12px;color:#6b7280;font-weight:400">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</span></summary>
+<div class="sample-body">
+<div class="meta-grid">
+<div class="meta-card"><label>Reference</label><div class="val">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</div></div>
+<div class="meta-card"><label>Query length</label><div class="val">3,982 bp</div></div>
+<div class="meta-card"><label>Ref length</label><div class="val">4,004 bp</div></div>
+<div class="meta-card"><label>Identity</label><div class="val">99.43%</div></div>
+<div class="meta-card"><label>Circ. offset</label><div class="val">2,925 bp</div></div>
+<div class="meta-card"><label>Monomer purity</label><div class="val">97.4%</div></div>
+<div class="meta-card"><label>E. coli contam</label><div class="val">37.0%</div></div>
+</div>
+<div class="deletion-alert">
+<h3>⚠ Structural Deletion (&ge;20 bp)</h3>
+<div class="del-row">DEL  ref 77–98  22 bp [AAV2 ITR]</div>
+<div class="itr-note">ITR structural deletion — not a sequencing artifact; confirmed real</div>
+</div>
+<div class="section-label">Variants (1 total · 1 non-artifact · 0 LIKELY_ARTIFACT)</div>
+<table class="data-table"><thead><tr><th>ref pos</th><th>type</th><th>ref</th><th>query</th><th>cov</th><th>homopol</th><th>methyl</th><th>feature</th><th>reliability</th></tr></thead><tbody>
+<tr><td>1094</td><td><b>SUB</b></td><td>A</td><td>C</td><td>175</td><td>—</td><td>—</td><td></td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+</tbody></table>
+<div class="section-label">Region Summaries (29 features)</div>
+<table class="data-table"><thead><tr><th>Feature</th><th>Verdict</th><th>cov min</th><th>cov mean</th><th>Variants</th><th>Notes</th></tr></thead><tbody>
+<tr><td>AAV2 ITR</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>170</td><td>170.8</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>5&#x27;ITR(105)</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>170</td><td>170.9</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>D region</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>170</td><td>170.3</td><td>0</td><td></td></tr>
+<tr><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>168</td><td>170.3</td><td>0</td><td></td></tr>
+<tr><td>CMV(IE)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>168</td><td>170.3</td><td>0</td><td></td></tr>
+<tr><td>CBA</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>168</td><td>170.2</td><td>0</td><td></td></tr>
+<tr><td>CBA pro</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>168</td><td>170.3</td><td>0</td><td></td></tr>
+<tr><td>TATA box</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>170</td><td>170.4</td><td>0</td><td></td></tr>
+<tr><td>3&#x27;ITR(145)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>171</td><td>173.8</td><td>0</td><td></td></tr>
+<tr><td>M13-fwd</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>175</td><td>175.0</td><td>0</td><td></td></tr>
+<tr><td>LacZ alpha</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>175</td><td>175.0</td><td>0</td><td></td></tr>
+<tr><td>TelNX</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>174</td><td>174.8</td><td>0</td><td></td></tr>
+<tr><td>TelN</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>174</td><td>174.8</td><td>0</td><td></td></tr>
+<tr><td>f1\ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>174</td><td>176.5</td><td>0</td><td></td></tr>
+<tr><td>F1 ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>174</td><td>176.4</td><td>0</td><td></td></tr>
+<tr><td>AmpR-1 promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>171</td><td>173.8</td><td>0</td><td></td></tr>
+<tr><td>Amp-1 Promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>171</td><td>173.8</td><td>0</td><td></td></tr>
+<tr><td>AmpR-3</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>169</td><td>172.2</td><td>0</td><td></td></tr>
+<tr><td>AmpR</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>170</td><td>172.1</td><td>0</td><td></td></tr>
+<tr><td>ColE1 origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>135</td><td>171.6</td><td>0</td><td></td></tr>
+<tr><td>ColE1 Origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>135</td><td>171.6</td><td>0</td><td></td></tr>
+<tr><td>pBR322_origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>135</td><td>171.5</td><td>0</td><td></td></tr>
+<tr><td>LacO</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>170</td><td>171.0</td><td>0</td><td></td></tr>
+<tr><td>M13-rev</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>170</td><td>170.3</td><td>0</td><td></td></tr>
+<tr><td>BstBI-NcoI-ClaI polylinker</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>169</td><td>170.7</td><td>0</td><td></td></tr>
+<tr><td>HindIII</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>171</td><td>171.7</td><td>0</td><td></td></tr>
+<tr><td>BstBI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>171</td><td>171.0</td><td>0</td><td></td></tr>
+<tr><td>NcoI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>171</td><td>171.7</td><td>0</td><td></td></tr>
+<tr><td>ClaI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>169</td><td>169.0</td><td>0</td><td></td></tr>
+</tbody></table>
+</div></details><details open style="border-left:4px solid #7f1d1d">
+<summary><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span><span style="flex:1">AVD548-6</span><span style="font-size:12px;color:#6b7280;font-weight:400">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</span></summary>
+<div class="sample-body">
+<div class="meta-grid">
+<div class="meta-card"><label>Reference</label><div class="val">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</div></div>
+<div class="meta-card"><label>Query length</label><div class="val">4,007 bp</div></div>
+<div class="meta-card"><label>Ref length</label><div class="val">4,004 bp</div></div>
+<div class="meta-card"><label>Identity</label><div class="val">98.81%</div></div>
+<div class="meta-card"><label>Circ. offset</label><div class="val">2,925 bp</div></div>
+<div class="meta-card"><label>Monomer purity</label><div class="val">98.0%</div></div>
+<div class="meta-card"><label>E. coli contam</label><div class="val">34.0%</div></div>
+</div>
+<div class="deletion-alert">
+<h3>⚠ Structural Deletion (&ge;20 bp)</h3>
+<div class="del-row">DEL  ref 77–98  22 bp [AAV2 ITR]</div>
+<div class="itr-note">ITR structural deletion — not a sequencing artifact; confirmed real</div>
+</div>
+<div class="section-label">Variants (26 total · 13 non-artifact · 13 LIKELY_ARTIFACT)</div>
+<table class="data-table"><thead><tr><th>ref pos</th><th>type</th><th>ref</th><th>query</th><th>cov</th><th>homopol</th><th>methyl</th><th>feature</th><th>reliability</th></tr></thead><tbody>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>288</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>288</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>288</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>288</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>288</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>287</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>287</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>287</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>287</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>288</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>288</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>288</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>288</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>288</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>288</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>288</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>288</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>289</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>289</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>289</td><td>—</td><td>5mC</td><td>CBA promoter</td><td><span style="color:#92400e;background:#fffbeb;padding:1px 6px;border-radius:4px;font-size:11px">INTERPRET_WITH_CAUTION</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>A</td><td>289</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>289</td><td>—</td><td>5mC</td><td>CBA promoter</td><td><span style="color:#92400e;background:#fffbeb;padding:1px 6px;border-radius:4px;font-size:11px">INTERPRET_WITH_CAUTION</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>289</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>289</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>289</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>1094</td><td><b>SUB</b></td><td>A</td><td>C</td><td>285</td><td>—</td><td>—</td><td></td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+</tbody></table>
+<div class="section-label">Region Summaries (29 features)</div>
+<table class="data-table"><thead><tr><th>Feature</th><th>Verdict</th><th>cov min</th><th>cov mean</th><th>Variants</th><th>Notes</th></tr></thead><tbody>
+<tr><td>AAV2 ITR</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>284</td><td>284.8</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>5&#x27;ITR(105)</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>284</td><td>285.0</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>CBA promoter</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>280</td><td>284.6</td><td>25</td><td>10 reliable variants</td></tr>
+<tr><td>CBA</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>281</td><td>287.4</td><td>25</td><td>10 reliable variants</td></tr>
+<tr><td>CBA pro</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>281</td><td>287.4</td><td>25</td><td>10 reliable variants</td></tr>
+<tr><td>D region</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>284</td><td>284.4</td><td>0</td><td></td></tr>
+<tr><td>CMV(IE)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>280</td><td>282.6</td><td>0</td><td></td></tr>
+<tr><td>TATA box</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>289</td><td>289.0</td><td>0</td><td></td></tr>
+<tr><td>3&#x27;ITR(145)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>279</td><td>283.9</td><td>0</td><td></td></tr>
+<tr><td>M13-fwd</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>285</td><td>285.7</td><td>0</td><td></td></tr>
+<tr><td>LacZ alpha</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>285</td><td>285.0</td><td>0</td><td></td></tr>
+<tr><td>TelNX</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>285</td><td>286.6</td><td>0</td><td></td></tr>
+<tr><td>TelN</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>285</td><td>286.6</td><td>0</td><td></td></tr>
+<tr><td>f1\ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>282</td><td>286.1</td><td>0</td><td></td></tr>
+<tr><td>F1 ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>282</td><td>286.0</td><td>0</td><td></td></tr>
+<tr><td>AmpR-1 promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>285</td><td>287.2</td><td>0</td><td></td></tr>
+<tr><td>Amp-1 Promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>285</td><td>287.2</td><td>0</td><td></td></tr>
+<tr><td>AmpR-3</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>280</td><td>287.2</td><td>0</td><td></td></tr>
+<tr><td>AmpR</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>280</td><td>286.6</td><td>0</td><td></td></tr>
+<tr><td>ColE1 origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>218</td><td>281.4</td><td>0</td><td></td></tr>
+<tr><td>ColE1 Origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>218</td><td>281.4</td><td>0</td><td></td></tr>
+<tr><td>pBR322_origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>218</td><td>281.3</td><td>0</td><td></td></tr>
+<tr><td>LacO</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>285</td><td>285.5</td><td>0</td><td></td></tr>
+<tr><td>M13-rev</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>284</td><td>285.2</td><td>0</td><td></td></tr>
+<tr><td>BstBI-NcoI-ClaI polylinker</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>285</td><td>286.0</td><td>0</td><td></td></tr>
+<tr><td>HindIII</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>285</td><td>285.3</td><td>0</td><td></td></tr>
+<tr><td>BstBI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>286</td><td>286.0</td><td>0</td><td></td></tr>
+<tr><td>NcoI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>286</td><td>286.7</td><td>0</td><td></td></tr>
+<tr><td>ClaI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>286</td><td>286.0</td><td>0</td><td></td></tr>
+</tbody></table>
+</div></details><details open style="border-left:4px solid #7f1d1d">
+<summary><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span><span style="flex:1">AVD548-7</span><span style="font-size:12px;color:#6b7280;font-weight:400">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</span></summary>
+<div class="sample-body">
+<div class="meta-grid">
+<div class="meta-card"><label>Reference</label><div class="val">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</div></div>
+<div class="meta-card"><label>Query length</label><div class="val">4,007 bp</div></div>
+<div class="meta-card"><label>Ref length</label><div class="val">4,004 bp</div></div>
+<div class="meta-card"><label>Identity</label><div class="val">98.81%</div></div>
+<div class="meta-card"><label>Circ. offset</label><div class="val">2,925 bp</div></div>
+<div class="meta-card"><label>Monomer purity</label><div class="val">98.0%</div></div>
+<div class="meta-card"><label>E. coli contam</label><div class="val">40.0%</div></div>
+</div>
+<div class="deletion-alert">
+<h3>⚠ Structural Deletion (&ge;20 bp)</h3>
+<div class="del-row">DEL  ref 77–98  22 bp [AAV2 ITR]</div>
+<div class="itr-note">ITR structural deletion — not a sequencing artifact; confirmed real</div>
+</div>
+<div class="section-label">Variants (26 total · 13 non-artifact · 13 LIKELY_ARTIFACT)</div>
+<table class="data-table"><thead><tr><th>ref pos</th><th>type</th><th>ref</th><th>query</th><th>cov</th><th>homopol</th><th>methyl</th><th>feature</th><th>reliability</th></tr></thead><tbody>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>167</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>167</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>167</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>167</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>166</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>166</td><td>—</td><td>5mC</td><td>CBA promoter</td><td><span style="color:#92400e;background:#fffbeb;padding:1px 6px;border-radius:4px;font-size:11px">INTERPRET_WITH_CAUTION</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>A</td><td>166</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>166</td><td>—</td><td>5mC</td><td>CBA promoter</td><td><span style="color:#92400e;background:#fffbeb;padding:1px 6px;border-radius:4px;font-size:11px">INTERPRET_WITH_CAUTION</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>166</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>C</td><td>166</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>687</td><td><b>INS</b></td><td>-</td><td>G</td><td>166</td><td>13</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>1094</td><td><b>SUB</b></td><td>A</td><td>C</td><td>167</td><td>—</td><td>—</td><td></td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+</tbody></table>
+<div class="section-label">Region Summaries (29 features)</div>
+<table class="data-table"><thead><tr><th>Feature</th><th>Verdict</th><th>cov min</th><th>cov mean</th><th>Variants</th><th>Notes</th></tr></thead><tbody>
+<tr><td>AAV2 ITR</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>166</td><td>167.5</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>5&#x27;ITR(105)</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>166</td><td>168.0</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>CBA promoter</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>165</td><td>167.3</td><td>25</td><td>10 reliable variants</td></tr>
+<tr><td>CBA</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>166</td><td>167.7</td><td>25</td><td>10 reliable variants</td></tr>
+<tr><td>CBA pro</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>166</td><td>167.7</td><td>25</td><td>10 reliable variants</td></tr>
+<tr><td>D region</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>166</td><td>166.2</td><td>0</td><td></td></tr>
+<tr><td>CMV(IE)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>165</td><td>167.0</td><td>0</td><td></td></tr>
+<tr><td>TATA box</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>167.2</td><td>0</td><td></td></tr>
+<tr><td>3&#x27;ITR(145)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>163</td><td>166.7</td><td>0</td><td></td></tr>
+<tr><td>M13-fwd</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>166</td><td>166.3</td><td>0</td><td></td></tr>
+<tr><td>LacZ alpha</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>166</td><td>166.0</td><td>0</td><td></td></tr>
+<tr><td>TelNX</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>164</td><td>165.2</td><td>0</td><td></td></tr>
+<tr><td>TelN</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>164</td><td>165.2</td><td>0</td><td></td></tr>
+<tr><td>f1\ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>166</td><td>167.2</td><td>0</td><td></td></tr>
+<tr><td>F1 ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>166</td><td>167.0</td><td>0</td><td></td></tr>
+<tr><td>AmpR-1 promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>164</td><td>165.6</td><td>0</td><td></td></tr>
+<tr><td>Amp-1 Promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>164</td><td>165.6</td><td>0</td><td></td></tr>
+<tr><td>AmpR-3</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>162</td><td>166.8</td><td>0</td><td></td></tr>
+<tr><td>AmpR</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>163</td><td>167.5</td><td>0</td><td></td></tr>
+<tr><td>ColE1 origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>127</td><td>165.6</td><td>0</td><td></td></tr>
+<tr><td>ColE1 Origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>127</td><td>165.6</td><td>0</td><td></td></tr>
+<tr><td>pBR322_origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>127</td><td>165.6</td><td>0</td><td></td></tr>
+<tr><td>LacO</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>168.1</td><td>0</td><td></td></tr>
+<tr><td>M13-rev</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>168.6</td><td>0</td><td></td></tr>
+<tr><td>BstBI-NcoI-ClaI polylinker</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>167.6</td><td>0</td><td></td></tr>
+<tr><td>HindIII</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>167.8</td><td>0</td><td></td></tr>
+<tr><td>BstBI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>168</td><td>168.0</td><td>0</td><td></td></tr>
+<tr><td>NcoI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>168</td><td>168.0</td><td>0</td><td></td></tr>
+<tr><td>ClaI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>167</td><td>167.0</td><td>0</td><td></td></tr>
+</tbody></table>
+</div></details><details open style="border-left:4px solid #7f1d1d">
+<summary><span class="badge" style="color:#ffffff;background:#7f1d1d">CRITICAL FAIL</span><span style="flex:1">AVD548-8</span><span style="font-size:12px;color:#6b7280;font-weight:400">Structural deletion in &#x27;AAV2 ITR&#x27;: Structural deletion (22 bp, ref 77–98)</span></summary>
+<div class="sample-body">
+<div class="meta-grid">
+<div class="meta-card"><label>Reference</label><div class="val">AVD548-CBA-ITRbackbone-BstBI-NcoI-ClaI-polylinker-CLN.gb</div></div>
+<div class="meta-card"><label>Query length</label><div class="val">4,006 bp</div></div>
+<div class="meta-card"><label>Ref length</label><div class="val">4,004 bp</div></div>
+<div class="meta-card"><label>Identity</label><div class="val">98.83%</div></div>
+<div class="meta-card"><label>Circ. offset</label><div class="val">2,925 bp</div></div>
+<div class="meta-card"><label>Monomer purity</label><div class="val">97.3%</div></div>
+<div class="meta-card"><label>E. coli contam</label><div class="val">39.0%</div></div>
+</div>
+<div class="deletion-alert">
+<h3>⚠ Structural Deletion (&ge;20 bp)</h3>
+<div class="del-row">DEL  ref 77–98  22 bp [AAV2 ITR]</div>
+<div class="itr-note">ITR structural deletion — not a sequencing artifact; confirmed real</div>
+</div>
+<div class="section-label">Variants (25 total · 13 non-artifact · 12 LIKELY_ARTIFACT)</div>
+<table class="data-table"><thead><tr><th>ref pos</th><th>type</th><th>ref</th><th>query</th><th>cov</th><th>homopol</th><th>methyl</th><th>feature</th><th>reliability</th></tr></thead><tbody>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>207</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>207</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>C</td><td>206</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>12</td><td>—</td><td>CBA promoter</td><td><span style="color:#6b7280;background:#f9fafb;padding:1px 6px;border-radius:4px;font-size:11px">LIKELY_ARTIFACT</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>C</td><td>206</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>C</td><td>206</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>C</td><td>206</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>G</td><td>206</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>C</td><td>206</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>C</td><td>206</td><td>—</td><td>5mC</td><td>CBA promoter</td><td><span style="color:#92400e;background:#fffbeb;padding:1px 6px;border-radius:4px;font-size:11px">INTERPRET_WITH_CAUTION</span></td></tr>
+<tr><td>684</td><td><b>INS</b></td><td>-</td><td>A</td><td>206</td><td>—</td><td>—</td><td>CBA promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+<tr><td>1094</td><td><b>SUB</b></td><td>A</td><td>C</td><td>207</td><td>—</td><td>—</td><td></td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px">RELIABLE</span></td></tr>
+</tbody></table>
+<div class="section-label">Region Summaries (29 features)</div>
+<table class="data-table"><thead><tr><th>Feature</th><th>Verdict</th><th>cov min</th><th>cov mean</th><th>Variants</th><th>Notes</th></tr></thead><tbody>
+<tr><td>AAV2 ITR</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>201</td><td>202.2</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>5&#x27;ITR(105)</td><td><span style="color:#ffffff;background:#7f1d1d;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">CRITICAL_FAIL</span></td><td>201</td><td>202.0</td><td>0</td><td>Structural deletion (22 bp, ref 77–98)</td></tr>
+<tr><td>CBA promoter</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>201</td><td>206.1</td><td>24</td><td>11 reliable variants</td></tr>
+<tr><td>CBA</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>204</td><td>207.0</td><td>24</td><td>11 reliable variants</td></tr>
+<tr><td>CBA pro</td><td><span style="color:#991b1b;background:#fff1f2;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">FAIL</span></td><td>204</td><td>207.1</td><td>24</td><td>11 reliable variants</td></tr>
+<tr><td>D region</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>202</td><td>202.6</td><td>0</td><td></td></tr>
+<tr><td>CMV(IE)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>201</td><td>205.4</td><td>0</td><td></td></tr>
+<tr><td>TATA box</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>208</td><td>208.0</td><td>0</td><td></td></tr>
+<tr><td>3&#x27;ITR(145)</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>205</td><td>207.0</td><td>0</td><td></td></tr>
+<tr><td>M13-fwd</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>206</td><td>206.4</td><td>0</td><td></td></tr>
+<tr><td>LacZ alpha</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>205</td><td>205.0</td><td>0</td><td></td></tr>
+<tr><td>TelNX</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>204</td><td>205.8</td><td>0</td><td></td></tr>
+<tr><td>TelN</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>204</td><td>205.8</td><td>0</td><td></td></tr>
+<tr><td>f1\ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>204</td><td>206.8</td><td>0</td><td></td></tr>
+<tr><td>F1 ori</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>204</td><td>206.8</td><td>0</td><td></td></tr>
+<tr><td>AmpR-1 promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>206</td><td>207.6</td><td>0</td><td></td></tr>
+<tr><td>Amp-1 Promoter</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>206</td><td>207.6</td><td>0</td><td></td></tr>
+<tr><td>AmpR-3</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>198</td><td>202.1</td><td>0</td><td></td></tr>
+<tr><td>AmpR</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>198</td><td>201.3</td><td>0</td><td></td></tr>
+<tr><td>ColE1 origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>170</td><td>202.4</td><td>0</td><td></td></tr>
+<tr><td>ColE1 Origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>170</td><td>202.4</td><td>0</td><td></td></tr>
+<tr><td>pBR322_origin</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>170</td><td>202.3</td><td>0</td><td></td></tr>
+<tr><td>LacO</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>204</td><td>205.1</td><td>0</td><td></td></tr>
+<tr><td>M13-rev</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>204</td><td>204.9</td><td>0</td><td></td></tr>
+<tr><td>BstBI-NcoI-ClaI polylinker</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>206</td><td>207.5</td><td>0</td><td></td></tr>
+<tr><td>HindIII</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>206</td><td>206.7</td><td>0</td><td></td></tr>
+<tr><td>BstBI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>206</td><td>206.0</td><td>0</td><td></td></tr>
+<tr><td>NcoI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>206</td><td>207.3</td><td>0</td><td></td></tr>
+<tr><td>ClaI</td><td><span style="color:#166534;background:#f0fdf4;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600">INTACT</span></td><td>209</td><td>209.0</td><td>0</td><td></td></tr>
+</tbody></table>
+</div></details>
+
+</body>
+</html>
