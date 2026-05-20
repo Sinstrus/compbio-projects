@@ -121,6 +121,15 @@ class DeletionSpan:
 
 
 @dataclass
+class InsertionSpan:
+    query_start: int    # 1-based in FASTA consensus
+    query_end: int
+    ref_pos_after: int  # 1-based ref position the insertion follows (-1 if unknown)
+    size: int
+    feature_name: str
+
+
+@dataclass
 class RegionSummary:
     feature_name: str
     ref_start: int
@@ -130,6 +139,7 @@ class RegionSummary:
     coverage_min: int
     coverage_mean: float
     deletions: list = field(default_factory=list)
+    insertions: list = field(default_factory=list)
     verdict: str = "INTACT"
     notes: str = ""
 
@@ -145,6 +155,7 @@ class SampleResult:
     quality: dict
     variants: list = field(default_factory=list)
     large_deletions: list = field(default_factory=list)
+    large_insertions: list = field(default_factory=list)
     region_summaries: list = field(default_factory=list)
     verdict: str = "PASS"
     verdict_reason: str = ""
@@ -463,6 +474,60 @@ def find_large_deletions(aligned_q: str, aligned_r: str, offset: int, ref_len: i
     return result
 
 
+def find_large_insertions(aligned_q: str, aligned_r: str, offset: int, ref_len: int,
+                           ref_features: list) -> list:
+    """
+    Find runs of >=MIN_LARGE_DELETION consecutive gaps in aligned_r (insertions in query).
+    These are structural insertions — extra sequence in the construct not present in reference.
+    Returns list of InsertionSpan with query coordinates and approximate anchor ref position.
+    """
+    q_pos = 0
+    rotated_r_pos = 0
+    col_q = []     # query pos for each column (-1 if gap in query)
+    col_ref = []   # actual ref pos for each column (-1 if gap in ref)
+
+    for q_char, r_char in zip(aligned_q, aligned_r):
+        if q_char != "-":
+            q_pos += 1
+        if r_char != "-":
+            rotated_r_pos += 1
+            col_ref.append((rotated_r_pos - 1 + offset) % ref_len + 1)
+        else:
+            col_ref.append(-1)
+        col_q.append(q_pos if q_char != "-" else -1)
+
+    result = []
+    i = 0
+    n = len(aligned_q)
+    while i < n:
+        if aligned_r[i] == "-" and col_q[i] != -1:   # gap in ref, base in query
+            j = i
+            while j < n and aligned_r[j] == "-" and col_q[j] != -1:
+                j += 1
+            ins_q_positions = [col_q[k] for k in range(i, j)]
+            size = len(ins_q_positions)
+            if size >= MIN_LARGE_DELETION:
+                # Anchor: ref position immediately before the insertion
+                ref_before = -1
+                for k in range(i - 1, -1, -1):
+                    if col_ref[k] != -1:
+                        ref_before = col_ref[k]
+                        break
+                feat = _feature_at(ref_before, ref_features) if ref_before > 0 else ""
+                result.append(InsertionSpan(
+                    query_start=ins_q_positions[0],
+                    query_end=ins_q_positions[-1],
+                    ref_pos_after=ref_before,
+                    size=size,
+                    feature_name=feat,
+                ))
+            i = j
+        else:
+            i += 1
+
+    return result
+
+
 def _feature_at(ref_pos: int, features: list) -> str:
     """Return name of first feature whose range contains ref_pos (1-based)."""
     for label, start, end, _ in features:
@@ -483,15 +548,26 @@ def _large_del_set(large_deletions: list) -> set:
     return covered
 
 
+def _large_ins_qset(large_insertions: list) -> set:
+    """Build set of query positions covered by large insertions (for exclusion)."""
+    covered = set()
+    for span in large_insertions:
+        for p in range(span.query_start, span.query_end + 1):
+            covered.add(p)
+    return covered
+
+
 def call_variants(aligned_q: str, aligned_r: str, per_base_df,
                   offset: int, ref_len: int, ref_features: list,
-                  methylation_sites: set, large_deletions: list) -> list:
+                  methylation_sites: set, large_deletions: list,
+                  large_insertions: list = None) -> list:
     """
     Walk aligned strings and call SUB / small DEL / INS variants.
-    Positions covered by large_deletions are excluded (reported separately).
+    Positions covered by large_deletions or large_insertions are excluded (reported separately).
     Returns list of Variant.
     """
     large_del_ref_pos = _large_del_set(large_deletions)
+    large_ins_q_pos = _large_ins_qset(large_insertions or [])
     variants = []
     q_pos = rotated_r_pos = 0
 
@@ -516,8 +592,10 @@ def call_variants(aligned_q: str, aligned_r: str, per_base_df,
             change = "SUB"
             use_qpos = q_pos
 
-        # Skip positions covered by a large deletion
+        # Skip positions covered by large structural events
         if actual_r in large_del_ref_pos:
+            continue
+        if use_qpos > 0 and use_qpos in large_ins_q_pos:
             continue
 
         # Per-base TSV lookup
@@ -564,7 +642,8 @@ def call_variants(aligned_q: str, aligned_r: str, per_base_df,
 # Region summaries
 # ---------------------------------------------------------------------------
 def summarize_regions(ref_features: list, variants: list, large_deletions: list,
-                      per_base_df, r_to_q: dict, ref_len: int) -> list:
+                      large_insertions: list, per_base_df, r_to_q: dict,
+                      ref_len: int) -> list:
     """
     Summarize alignment quality per annotated feature region.
     Returns list of RegionSummary.
@@ -582,6 +661,9 @@ def summarize_regions(ref_features: list, variants: list, large_deletions: list,
 
         feat_dels = [d for d in large_deletions
                      if d.ref_start <= feat_end and d.ref_end >= feat_start]
+        # Insertions anchor to a ref position; check if that anchor is in the feature
+        feat_ins = [ins for ins in large_insertions
+                    if feat_start <= ins.ref_pos_after <= feat_end]
 
         # Coverage stats from TSV via r_to_q mapping
         coverages = []
@@ -593,11 +675,15 @@ def summarize_regions(ref_features: list, variants: list, large_deletions: list,
         cov_min = min(coverages) if coverages else 0
         cov_mean = round(sum(coverages) / len(coverages), 1) if coverages else 0.0
 
-        # Verdict
+        # Verdict — structural events (del or ins ≥20 bp) always CRITICAL_FAIL
         if feat_dels:
             verdict = "CRITICAL_FAIL"
             notes = (f"Structural deletion ({feat_dels[0].size} bp, "
                      f"ref {feat_dels[0].ref_start}–{feat_dels[0].ref_end})")
+        elif feat_ins:
+            verdict = "CRITICAL_FAIL"
+            notes = (f"Structural insertion ({feat_ins[0].size} bp "
+                     f"after ref pos {feat_ins[0].ref_pos_after})")
         elif n_reliable > 3:
             verdict = "FAIL"
             notes = f"{n_reliable} reliable variants"
@@ -623,6 +709,7 @@ def summarize_regions(ref_features: list, variants: list, large_deletions: list,
             coverage_min=cov_min,
             coverage_mean=cov_mean,
             deletions=feat_dels,
+            insertions=feat_ins,
             verdict=verdict,
             notes=notes,
         ))
@@ -910,10 +997,12 @@ def _sample_html(r: SampleResult, open_default: bool = False) -> str:
         )
     parts.append('</div>')
 
-    # Structural deletions
-    if r.large_deletions:
+    # Structural events (large deletions + insertions)
+    has_struct = r.large_deletions or r.large_insertions
+    if has_struct:
+        n_events = len(r.large_deletions) + len(r.large_insertions)
         parts.append('<div class="deletion-alert">')
-        parts.append(f'<h3>⚠ Structural Deletion{"s" if len(r.large_deletions)>1 else ""}'
+        parts.append(f'<h3>⚠ Structural Event{"s" if n_events>1 else ""}'
                      f' (&ge;{MIN_LARGE_DELETION} bp)</h3>')
         for span in r.large_deletions:
             feat_str = f" [{span.feature_name}]" if span.feature_name else ""
@@ -926,10 +1015,17 @@ def _sample_html(r: SampleResult, open_default: bool = False) -> str:
                     '<div class="itr-note">ITR structural deletion — '
                     'not a sequencing artifact; confirmed real</div>'
                 )
+        for ins in r.large_insertions:
+            feat_str = f" [{ins.feature_name}]" if ins.feature_name else ""
+            anchor = f"after ref {ins.ref_pos_after}" if ins.ref_pos_after > 0 else "position unknown"
+            parts.append(
+                f'<div class="del-row">INS  {ins.size} bp {_h(anchor)}{_h(feat_str)}'
+                f'  (query {ins.query_start}–{ins.query_end})</div>'
+            )
         parts.append('</div>')
     else:
         parts.append(
-            f'<div class="no-issues">No structural deletions (&ge;{MIN_LARGE_DELETION} bp)</div>'
+            f'<div class="no-issues">No structural events (&ge;{MIN_LARGE_DELETION} bp)</div>'
         )
 
     # Variants
@@ -1139,16 +1235,17 @@ def process_sample(sample_name: str, files: dict, ref_path: Path) -> SampleResul
     # Position maps
     q_to_r, r_to_q = build_position_map(aligned_q, aligned_r, offset, len(ref_seq))
 
-    # Large deletions
+    # Large deletions and insertions
     large_dels = find_large_deletions(aligned_q, aligned_r, offset, len(ref_seq), ref_features)
+    large_ins = find_large_insertions(aligned_q, aligned_r, offset, len(ref_seq), ref_features)
 
-    # Single-base variants (excluding large deletion positions)
+    # Single-base variants (excluding large structural event positions)
     variants = call_variants(aligned_q, aligned_r, per_base_df,
                              offset, len(ref_seq), ref_features,
-                             methylation_sites, large_dels)
+                             methylation_sites, large_dels, large_ins)
 
     # Region summaries
-    region_summaries = summarize_regions(ref_features, variants, large_dels,
+    region_summaries = summarize_regions(ref_features, variants, large_dels, large_ins,
                                          per_base_df, r_to_q, len(ref_seq))
 
     # Overall verdict
@@ -1164,6 +1261,7 @@ def process_sample(sample_name: str, files: dict, ref_path: Path) -> SampleResul
         quality=quality,
         variants=variants,
         large_deletions=large_dels,
+        large_insertions=large_ins,
         region_summaries=region_summaries,
         verdict=verdict,
         verdict_reason=reason,
